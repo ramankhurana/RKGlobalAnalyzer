@@ -1,0 +1,8 @@
+farmoutAnalysisJobs DMHistos/ZH_HToBB_ZToNuNu_M-125_13TeV_powheg-herwigpp  --input-dir=root://cmsxrootd.hep.wisc.edu//store/user/khurana/ZH_HToBB_ZToNuNu_M-125_13TeV_powheg-herwigpp/crab_ZH_HToBB_ZToNuNu_M-125_13TeV_powheg-herwigpp_1 /afs/hep.wisc.edu/home/khurana/WorkingDir/CMSSW_7_0_6_patch1/ /afs/hep.wisc.edu/home/khurana/WorkingDir/CMSSW_7_0_6_patch1/src/RKAnalyzer/main.exe --fwklite --input-files-per-job=10
+
+farmoutAnalysisJobs DMHistos/TT_Tune4C_13TeV-pythia8-tauola  --input-dir=root://cmsxrootd.hep.wisc.edu//store/user/khurana/TT_Tune4C_13TeV-pythia8-tauola/crab_TT_Tune4C_13TeV-pythia8-tauola_1/ /afs/hep.wisc.edu/home/khurana/WorkingDir/CMSSW_7_0_6_patch1/ /afs/hep.wisc.edu/home/khurana/WorkingDir/CMSSW_7_0_6_patch1/src/RKAnalyzer/main.exe --fwklite --input-files-per-job=10
+
+
+farmoutAnalysisJobs DMHistos/DYJetsToLL_M-50_13TeV-madgraph-pythia8  --input-dir=root://cmsxrootd.hep.wisc.edu//store/user/khurana/DYJetsToLL_M-50_13TeV-madgraph-pythia8/crab_DYJetsToLL_M-50_13TeV-madgraph-pythia8_1/ /afs/hep.wisc.edu/home/khurana/WorkingDir/CMSSW_7_0_6_patch1/ /afs/hep.wisc.edu/home/khurana/WorkingDir/CMSSW_7_0_6_patch1/src/RKAnalyzer/main.exe --fwklite --input-files-per-job=10
+
+farmoutAnalysisJobs DMHistos/MonoHSignalSample1000EventsFromEiko  --input-dir=root://cmsxrootd.hep.wisc.edu//store/user/khurana/MonoHSignalSample1000EventsFromEiko /afs/hep.wisc.edu/home/khurana/WorkingDir/CMSSW_7_0_6_patch1/ /afs/hep.wisc.edu/home/khurana/WorkingDir/CMSSW_7_0_6_patch1/src/RKAnalyzer/main.exe --fwklite --input-files-per-job=10

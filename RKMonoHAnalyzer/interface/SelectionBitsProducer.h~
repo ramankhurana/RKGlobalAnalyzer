@@ -1,0 +1,34 @@
+// Original class : SelectionBitsProducer.h
+// Created By     : ramankhurana 
+// Created On     : Sun May  3 00:03:45 CEST 2015
+
+#ifndef SelectionBitsProducer_h_
+#define SelectionBitsProducer_h_
+
+
+#include "../../NCUDataFormats/interface/Jet.h"
+#include "../../NCUDataFormats/interface/MET.h"
+#include "../../NCUDataFormats/interface/Resonance.h"
+#include "../../NCUObjectValidator/interface/JetValidator.h"
+#include "../../NCUObjectValidator/interface/METValidator.h"
+#include "../../NCUProducers/interface/TwoObjectCombination.h"
+#include "../../NCUProducers/interface/ObjectMETCombination.h"
+#include "../../NCUProducers/interface/TwoObjectMETCombination.h"
+#include "../../NCUObjectValidator/interface/TwoObjectValidator.h"
+#include "../../NCUObjectValidator/interface/ObjectMETValidator.h"
+
+class SelectionBitsProducer {
+ public:
+  SelectionBitsProducer(){};
+  ~SelectionBitsProducer(){};
+  void SelectionBitsSaver(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > objectCollection);
+  
+
+
+  protected:
+
+  private:
+
+};
+#endif
+
