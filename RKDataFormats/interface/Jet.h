@@ -47,7 +47,9 @@ class Jet{
   Int_t   jetNMultiplicity;
   Float_t jetHOEnergy;
   Float_t jetHOEF;
-  
+
+  Float_t mt;
+  Float_t dphi;
   bool operator== (Jet& other_){
     return((this->p4.Pt()==other_.p4.Pt()) && (this->charge == other_.charge));
   }
