@@ -3,6 +3,7 @@
 #include "../../RKUtilities/interface/RKDebugger.h"
 
 std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > SelectionBitsProducer::SelectionBitsSaver(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > objectCollection){
+
   std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > outputvec;
   outputvec.clear();
   if(objectCollection.size()>0){
@@ -24,24 +25,24 @@ std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > SelectionBitsProducer::Selec
       // dphi (met,b2)                     : 10
       // 
       
-      if(objectCollection[i].jet1.jet1.p4.Pt() > 80 && TMath::Abs(objectCollection[i].jet1.jet1.p4.Eta()) <2.5 )          StatusOfCuts[0] = 1;
-      if(objectCollection[i].jet1.jet2.p4.Pt() > 30 && TMath::Abs(objectCollection[i].jet1.jet2.p4.Eta()) <2.5 )          StatusOfCuts[1] = 1;
-      if(objectCollection[i].jet1.jet1.B_CISVV2 > 0.432 )                                                                 StatusOfCuts[2] = 1;
-      if(objectCollection[i].jet1.jet2.B_CISVV2 > 0.432 )                                                                 StatusOfCuts[3] = 1;
+      if(objectCollection[i].jet1.jet1.p4.Pt() > 80 && TMath::Abs(objectCollection[i].jet1.jet1.p4.Eta()) <2.5 )          StatusOfCuts[cuts.cutsMap["leadingpteta"]] = 1;
+      if(objectCollection[i].jet1.jet2.p4.Pt() > 30 && TMath::Abs(objectCollection[i].jet1.jet2.p4.Eta()) <2.5 )          StatusOfCuts[cuts.cutsMap["subleadingpteta"]] = 1;
+      if(objectCollection[i].jet1.jet1.B_CISVV2 > 0.432 )                                                                 StatusOfCuts[cuts.cutsMap["leadingcsv"]] = 1;
+      if(objectCollection[i].jet1.jet2.B_CISVV2 > 0.432 )                                                                 StatusOfCuts[cuts.cutsMap["subleadingcsv"]] = 1;
       //if(objectCollection[i].jet1.jet1.charge * objectCollection[i].jet1.jet2.charge == -1)                               StatusOfCuts[4] = 1;
       
-      if(objectCollection[i].jet2.RawPt > 150. )                                                                          StatusOfCuts[5] = 1;
+      if(objectCollection[i].jet2.RawPt > 150. )                                                                          StatusOfCuts[cuts.cutsMap["metpt"]] = 1;
       
-      if(TMath::Abs(objectCollection[i].ResonancemetProp.DeltaPhi) > 2.5 )                                                StatusOfCuts[6] = 1;
+      if(TMath::Abs(objectCollection[i].ResonancemetProp.DeltaPhi) > 2.5 )                                                StatusOfCuts[cuts.cutsMap["DPHIDijetMet"]] = 1;
       
-      if(objectCollection[i].ResonancemetProp.TransMass > 400. )                                                          StatusOfCuts[7] = 1;
+      if(objectCollection[i].ResonancemetProp.TransMass > 400. )                                                          StatusOfCuts[cuts.cutsMap["MTDijet"]] = 1;
 
-      if(objectCollection[i].jet1.ResonanceProp.InvMass > 100. && objectCollection[i].jet1.ResonanceProp.InvMass < 150.)  StatusOfCuts[8] = 1;
+      if(objectCollection[i].jet1.ResonanceProp.InvMass > 100. && objectCollection[i].jet1.ResonanceProp.InvMass < 150.)  StatusOfCuts[cuts.cutsMap["MDijet"]] = 1;
       
-      if(TMath::Abs(objectCollection[i].objMet1.DeltaPhi) > 2. )                                                          StatusOfCuts[9] = 1;
-      if(TMath::Abs(objectCollection[i].objMet2.DeltaPhi) > 2. )                                                          StatusOfCuts[10] = 1;
-      if(objectCollection[i].objMet1.TransMass > 300. )                                                                   StatusOfCuts[11] = 1;
-      if(objectCollection[i].objMet2.TransMass > 200. )                                                                   StatusOfCuts[12] = 1;
+      if(TMath::Abs(objectCollection[i].objMet1.DeltaPhi) > 2. )                                                          StatusOfCuts[cuts.cutsMap["DPHIJet1Met"]] = 1;
+      if(TMath::Abs(objectCollection[i].objMet2.DeltaPhi) > 2. )                                                          StatusOfCuts[cuts.cutsMap["DPHIJet2Met"]] = 1;
+      if(objectCollection[i].objMet1.TransMass > 300. )                                                                   StatusOfCuts[cuts.cutsMap["MTJet1"]] = 1;
+      if(objectCollection[i].objMet2.TransMass > 200. )                                                                   StatusOfCuts[cuts.cutsMap["MTJet2"]] = 1;
       
       
       bool amuon = false;

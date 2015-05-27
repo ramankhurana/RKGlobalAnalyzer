@@ -4,12 +4,29 @@
 
 #ifndef MonoHiggsCuts_h_
 #define MonoHiggsCuts_h_
-
+#include <map>
+using namespace std;
 
 class MonoHiggsCuts {
  public:
-  MonoHiggsCuts(){};
+  MonoHiggsCuts(){
+    cutsMap.clear();
+    cutsMap["leadingpteta"]=0;
+    cutsMap["subleadingpteta"]=1;
+    cutsMap["leadingcsv"]=2;
+    cutsMap["subleadingcsv"]=3;
+    cutsMap["metpt"]=4;
+    cutsMap["DPHIDijetMet"]=5;
+    cutsMap["MTDijet"]=6;
+    cutsMap["MDijet"]=7;
+    cutsMap["DPHIJet1Met"]=8;
+    cutsMap["DPHIJet2Met"]=9;
+    cutsMap["MTJet1"]=10;
+    cutsMap["MTJet2"]=11;
+  };
   ~MonoHiggsCuts(){};
+  std::map<std::string, int> cutsMap;
+    
     enum cuts  {
       dijetmass    = 0b0000000000000001,
       detaJets     = 0b0000000000000011,

@@ -29,7 +29,7 @@ class SelectionBitsProducer {
   SelectionBitsProducer(){};
   ~SelectionBitsProducer(){};
   std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > >   SelectionBitsSaver(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > objectCollection);
-  
+  MonoHiggsCuts cuts;
 
 
   protected:
