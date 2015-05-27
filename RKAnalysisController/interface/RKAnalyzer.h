@@ -21,6 +21,9 @@
 #include "../../RKUtilities/interface/RKDebugger.h"
 #include "../../RKDataFormats/interface/Jet.h"
 #include "../../RKDataFormats/interface/MET.h"
+#include "../../RKDataFormats/interface/Muon.h"
+#include "../../RKDataFormats/interface/Electron.h"
+
 #include "../../RKDataFormats/interface/Resonance.h"
 #include "../../RKObjectValidator/interface/JetValidator.h"
 #include "../../RKObjectValidator/interface/METValidator.h"
@@ -32,6 +35,8 @@
 #include "../../RKMonoHAnalyzer/interface/SelectionBitsProducer.h"
 #include "../../RKMonoHAnalyzer/interface/CutFlowAndEachCut.h"
 #include "../../RKMonoHAnalyzer/interface/NMinusOne.h"
+#include "../../RKMonoHAnalyzer/interface/HistFactory.h"
+
 using namespace std;
 // Fixed size dimensions of array or collections stored in the TTree if any.
    const Int_t kMaxpfmvaMetPt = 1;
@@ -54,6 +59,10 @@ public :
    Jet jets;
    // MET
    MET met;
+   // Muons
+   Muon muons;
+   //Electrons
+   Electron electrons;
    // Dijets
    TwoObjectCombination<Jet,Jet> dijet;
    // Jet-MET
@@ -74,11 +83,16 @@ public :
    ObjectMETValidator<ResonanceWithMET<Jet,MET> > jetmetValidator;
    // DiJet-MET
    ObjectMETValidator<ResonanceMET<Resonance<Jet,Jet>,MET > >  dijetmetValidator;
-   
+   // Mono-H Histograms
+   HistFactory histfac;
    // Physics Object Container 
    // Jets
    std::vector<Jet> RKJetCollection;
    std::vector<Jet> RKJetCollection_selected;
+   //Muons
+   std::vector<Muon> RKMuonCollection;
+   //Electron
+   std::vector<Electron> RKElectronCollection;
    // DiJet
    std::vector<Resonance<Jet,Jet> > RKdiJetCollection;
    // Jet-MET
@@ -730,6 +744,10 @@ public :
    void JetProducer();
    // fill all the MET variables in the vector which will be used later for analysis. 
    void METProducer();
+   // fill all the electron variables in the vector 
+   void ElectronProducer();
+   // fill all the muon variables in the vector 
+   void MuonProducer();
 };
 
 #endif
@@ -742,11 +760,11 @@ public :
 // if parameter tree is not specified (or zero), connect the file
 // used to generate this class and read the Tree.
    if (tree == 0) {
-      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("/afs/hep.wisc.edu/home/khurana/WorkingDir/CMSSW_7_0_6_patch1/src/RKAnalyzer/RKGlobalTuples.root");
+      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("InputRootFile/NCUGlobalTuples.root");
       if (!f || !f->IsOpen()) {
-         f = new TFile("/afs/hep.wisc.edu/home/khurana/WorkingDir/CMSSW_7_0_6_patch1/src/RKAnalyzer/RKGlobalTuples.root");
+         f = new TFile("InputRootFile/NCUGlobalTuples.root");
       }
-      TDirectory * dir = (TDirectory*)f->Get("/afs/hep.wisc.edu/home/khurana/WorkingDir/CMSSW_7_0_6_patch1/src/RKAnalyzer/RKGlobalTuples.root:/tree");
+      TDirectory * dir = (TDirectory*)f->Get("InputRootFile/NCUGlobalTuples.root:/tree");
       dir->GetObject("tree",tree);
 
    }

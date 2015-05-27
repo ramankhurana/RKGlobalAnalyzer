@@ -24,14 +24,14 @@ std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > SelectionBitsProducer::Selec
       // dphi (met,b2)                     : 10
       // 
       
-      if(objectCollection[i].jet1.jet1.p4.Pt() > 50 && TMath::Abs(objectCollection[i].jet1.jet1.p4.Eta()) <2.5 )          StatusOfCuts[0] = 1;
+      if(objectCollection[i].jet1.jet1.p4.Pt() > 80 && TMath::Abs(objectCollection[i].jet1.jet1.p4.Eta()) <2.5 )          StatusOfCuts[0] = 1;
       if(objectCollection[i].jet1.jet2.p4.Pt() > 30 && TMath::Abs(objectCollection[i].jet1.jet2.p4.Eta()) <2.5 )          StatusOfCuts[1] = 1;
       if(objectCollection[i].jet1.jet1.B_CISVV2 > 0.432 )                                                                 StatusOfCuts[2] = 1;
       if(objectCollection[i].jet1.jet2.B_CISVV2 > 0.432 )                                                                 StatusOfCuts[3] = 1;
-      if(objectCollection[i].jet1.jet1.charge * objectCollection[i].jet1.jet2.charge == -1)                               StatusOfCuts[4] = 1;
+      //if(objectCollection[i].jet1.jet1.charge * objectCollection[i].jet1.jet2.charge == -1)                               StatusOfCuts[4] = 1;
       
       if(objectCollection[i].jet2.RawPt > 150. )                                                                          StatusOfCuts[5] = 1;
-
+      
       if(TMath::Abs(objectCollection[i].ResonancemetProp.DeltaPhi) > 2.5 )                                                StatusOfCuts[6] = 1;
       
       if(objectCollection[i].ResonancemetProp.TransMass > 400. )                                                          StatusOfCuts[7] = 1;
@@ -44,7 +44,14 @@ std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > SelectionBitsProducer::Selec
       if(objectCollection[i].objMet2.TransMass > 200. )                                                                   StatusOfCuts[12] = 1;
       
       
-
+      bool amuon = false;
+      for (size_t imu=0; (imu< objectCollection[0].muons.size()) && (amuon==false); imu++){
+	float dr = objectCollection[0].muons[imu].p4.DeltaR(objectCollection[i].jet1.jet1.p4);
+	if(dr < 0.4) {
+	  amuon = true;
+	  std::cout<<" ***************** working "<<dr<<std::endl;
+	}
+      }
             
       objectCollection[i].cutsStatus = StatusOfCuts;
       std::cout<<" cut status selectionbits = "<<StatusOfCuts<<std::endl;

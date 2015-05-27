@@ -6,12 +6,12 @@
 #define ObjectMETValidator_h_
 
 #define nobjectmet 2
-#include "../../NCUDataFormats/interface/Jet.h"
-#include "../../NCUDataFormats/interface/MET.h"
-#include "../../NCUDataFormats/interface/DiJet.h"
-#include "../../NCUDataFormats/interface/ObjectMET.h"
-#include "../../NCUDataFormats/interface/Resonance.h"
-#include "../../NCUDataFormats/interface/ResonanceWithMET.h"
+#include "../../RKDataFormats/interface/Jet.h"
+#include "../../RKDataFormats/interface/MET.h"
+#include "../../RKDataFormats/interface/DiJet.h"
+#include "../../RKDataFormats/interface/ObjectMET.h"
+#include "../../RKDataFormats/interface/Resonance.h"
+#include "../../RKDataFormats/interface/ResonanceWithMET.h"
 #include <vector>
 #include <iostream>
 #include "TH1F.h"
@@ -122,10 +122,10 @@ void ObjectMETValidator<T>::DefineHistograms(){
     postfix.Form("%d",i);
     std::cout<<" ObjectMETValidator = "<<postfix<<std::endl;
     // 1D Histograms 
-    h_DeltaPhi[i]                 = new TH1F("h_DeltaPhi"+postfix,"h_DeltaPhi"+postfix,70,-7,7);
-    h_TransMass[i]                = new TH1F("h_TransMass"+postfix,"h_TransMass"+postfix,500,500,3000);
+    h_DeltaPhi[i]                 = new TH1F("h_DeltaPhi"+postfix,"h_DeltaPhi"+postfix,70,-3.5,3.5);
+    h_TransMass[i]                = new TH1F("h_TransMass"+postfix,"h_TransMass"+postfix,300,0,3000);
     // 2D Histograms
-    h_DeltaPhi_vs_TransMass[i]    = new TH2F("h_DeltaPhi_vs_TransMass"+postfix,"h_DeltaPhi_vs_TransMass"+postfix,70,-7,7,500,500,3000);
+    h_DeltaPhi_vs_TransMass[i]    = new TH2F("h_DeltaPhi_vs_TransMass"+postfix,"h_DeltaPhi_vs_TransMass"+postfix,70,-3.5,3.5,300,0,3000);
   }
 }
 
