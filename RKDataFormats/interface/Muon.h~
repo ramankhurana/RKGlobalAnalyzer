@@ -1,0 +1,42 @@
+
+// Original class : MET.h 
+// Created By     : khurana
+// On             : Sat Apr 25 23:49:19 CEST 2015
+
+#ifndef MET_h_
+#define MET_h_
+#include <iostream>
+#include <TLorentzVector.h>
+class MET {
+ public:
+  // Variables for corrected MET
+  MET(){};
+  ~MET(){};
+  Float_t CorrPt;
+  Float_t CorrPhi;
+  Float_t CorrSumEt;
+  Float_t CorrSig;
+  
+  // Variables for Raw MET
+  Float_t RawPt;
+  Float_t RawPhi;
+  Float_t RawSumEt;
+  Float_t RawCov00;
+  Float_t RawCov01;
+  Float_t RawCov10;
+  Float_t RawCov11;
+  
+  //Variables for MVA MET
+  Float_t mvaPt;
+  Float_t mvaPhi;
+  Float_t mvaSumEt;
+  Float_t mvaSig;
+  
+
+  protected:
+
+  private:
+
+};
+#endif
+

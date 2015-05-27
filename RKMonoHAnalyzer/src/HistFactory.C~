@@ -1,0 +1,63 @@
+#define SelectionBitsProducer_cxx
+#include "../interface/SelectionBitsProducer.h"
+#include "../../RKUtilities/interface/RKDebugger.h"
+
+std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > SelectionBitsProducer::SelectionBitsSaver(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > objectCollection){
+  std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > outputvec;
+  outputvec.clear();
+  if(objectCollection.size()>0){
+    for(int i=0; i<(int)objectCollection.size();i++){
+      if(RKDebugger::debug_SelectionBitsProducer()) std::cout<<"   ========= DiJetMET entry number  ======= "<<i<<std::endl;
+      if(RKDebugger::debug_SelectionBitsProducer()) std::cout<<" mass = "<<objectCollection[i].jet1.ResonanceProp.InvMass<<std::endl;
+      std::bitset<16> StatusOfCuts;
+      StatusOfCuts = 0;
+      // pt, eta of leading jet              : 0
+      // pt, eta of sub-leading jet          : 1
+      // btag of both jets                   : 2
+      // MET > 70 	                     : 3
+      // dphi(met,bb) > 2.5                  : 4
+      // 100 < Mbb < 150                     : 5
+      // mT(bb,met) > 400                    : 6
+      // mT(b1,MET) > 	                     : 7
+      // mT (b2,MET) > 	                     : 8
+      // dphi (met,b1)                     : 9
+      // dphi (met,b2)                     : 10
+      // 
+      
+      if(objectCollection[i].jet1.jet1.p4.Pt() > 80 && TMath::Abs(objectCollection[i].jet1.jet1.p4.Eta()) <2.5 )          StatusOfCuts[0] = 1;
+      if(objectCollection[i].jet1.jet2.p4.Pt() > 30 && TMath::Abs(objectCollection[i].jet1.jet2.p4.Eta()) <2.5 )          StatusOfCuts[1] = 1;
+      if(objectCollection[i].jet1.jet1.B_CISVV2 > 0.432 )                                                                 StatusOfCuts[2] = 1;
+      if(objectCollection[i].jet1.jet2.B_CISVV2 > 0.432 )                                                                 StatusOfCuts[3] = 1;
+      if(objectCollection[i].jet1.jet1.charge * objectCollection[i].jet1.jet2.charge == -1)                               StatusOfCuts[4] = 1;
+      
+      if(objectCollection[i].jet2.RawPt > 150. )                                                                          StatusOfCuts[5] = 1;
+      
+      if(TMath::Abs(objectCollection[i].ResonancemetProp.DeltaPhi) > 2.5 )                                                StatusOfCuts[6] = 1;
+      
+      if(objectCollection[i].ResonancemetProp.TransMass > 400. )                                                          StatusOfCuts[7] = 1;
+
+      if(objectCollection[i].jet1.ResonanceProp.InvMass > 100. && objectCollection[i].jet1.ResonanceProp.InvMass < 150.)  StatusOfCuts[8] = 1;
+      
+      if(TMath::Abs(objectCollection[i].objMet1.DeltaPhi) > 2. )                                                          StatusOfCuts[9] = 1;
+      if(TMath::Abs(objectCollection[i].objMet2.DeltaPhi) > 2. )                                                          StatusOfCuts[10] = 1;
+      if(objectCollection[i].objMet1.TransMass > 300. )                                                                   StatusOfCuts[11] = 1;
+      if(objectCollection[i].objMet2.TransMass > 200. )                                                                   StatusOfCuts[12] = 1;
+      
+      
+      bool amuon = false;
+      for (size_t imu=0; imu< (objectCollection[0].muons.size() && amuon==false); imu++){
+	float dr = objectCollection[0].muons[imu].p4.DeltaR(objectCollection[i].jet1.jet1.p4);
+	if(dr < 0.4) {
+	  amuon = true;
+	  std::cout<<" ***************** working "<<dr<<std::endl;
+	}
+      }
+            
+      objectCollection[i].cutsStatus = StatusOfCuts;
+      std::cout<<" cut status selectionbits = "<<StatusOfCuts<<std::endl;
+      //std::cout<<" value 1 = "<<(bitset<16>)MonoHiggsCuts::dphiJets <<std::endl;
+      outputvec.push_back(objectCollection[i]);
+    }//for(int i=0; i<(int)objectCollection.size();i++){
+  }// if(objectCollection.size()>0){
+  return outputvec;
+}
