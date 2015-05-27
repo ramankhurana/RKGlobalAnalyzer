@@ -40,11 +40,9 @@ class ObjectMETValidator {
   // 1D Histograms 
   TH1F*    h_DeltaPhi[nobjectmet] ;
   TH1F*    h_TransMass[nobjectmet] ;
-  
-  
-    // 2D Histograms
+  // 2D Histograms
   TH2F* h_DeltaPhi_vs_TransMass[nobjectmet];
-
+        
  protected:
   
  private:
@@ -68,6 +66,7 @@ void ObjectMETValidator<T>::Fill(std::vector<T> objectcollection){
     if(i<2){
       h_DeltaPhi[i]     ->Fill(objectcollection[i].TransverseObjProp.DeltaPhi);
       h_TransMass[i]      ->Fill(objectcollection[i].TransverseObjProp.TransMass);
+      
       // 2D Histograms
       std::cout<<" filling 2d "<<std::endl;
       h_DeltaPhi_vs_TransMass[i]   ->Fill(objectcollection[i].TransverseObjProp.DeltaPhi,objectcollection[0].TransverseObjProp.TransMass);
