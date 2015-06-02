@@ -25,26 +25,34 @@ std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > SelectionBitsProducer::Selec
       // dphi (met,b2)                     : 10
       // 
       
-      if(objectCollection[i].jet1.jet1.p4.Pt() > 80 && TMath::Abs(objectCollection[i].jet1.jet1.p4.Eta()) <2.5 )          StatusOfCuts[cuts.cutsMap["leadingpteta"]] = 1;
-      if(objectCollection[i].jet1.jet2.p4.Pt() > 30 && TMath::Abs(objectCollection[i].jet1.jet2.p4.Eta()) <2.5 )          StatusOfCuts[cuts.cutsMap["subleadingpteta"]] = 1;
-      if(objectCollection[i].jet1.jet1.B_CISVV2 > 0.432 )                                                                 StatusOfCuts[cuts.cutsMap["leadingcsv"]] = 1;
-      if(objectCollection[i].jet1.jet2.B_CISVV2 > 0.432 )                                                                 StatusOfCuts[cuts.cutsMap["subleadingcsv"]] = 1;
+      std::map<std::string, float> tmp_cutValueMap = cuts.cutValueMap;
+      if(objectCollection[i].jet1.jet1.p4.Pt() > tmp_cutValueMap["leadingjetpt"] && 
+	 TMath::Abs(objectCollection[i].jet1.jet1.p4.Eta()) < tmp_cutValueMap["jeteta"] )                                 StatusOfCuts[cuts.cutsMap["aleadingpteta"]] = 1;
+      if(objectCollection[i].jet1.jet2.p4.Pt() > tmp_cutValueMap["subleadingjetpt"] && 
+	 TMath::Abs(objectCollection[i].jet1.jet2.p4.Eta()) < tmp_cutValueMap["jeteta"] )                                 StatusOfCuts[cuts.cutsMap["bsubleadingpteta"]] = 1;
+      if(objectCollection[i].jet1.jet1.B_CISVV2 > tmp_cutValueMap["leadingcsv"] )                                         StatusOfCuts[cuts.cutsMap["cleadingcsv"]] = 1;
+      if(objectCollection[i].jet1.jet2.B_CISVV2 > tmp_cutValueMap["subleadingcsv"] )                                      StatusOfCuts[cuts.cutsMap["dsubleadingcsv"]] = 1;
       //if(objectCollection[i].jet1.jet1.charge * objectCollection[i].jet1.jet2.charge == -1)                               StatusOfCuts[4] = 1;
       
-      if(objectCollection[i].jet2.RawPt > 150. )                                                                          StatusOfCuts[cuts.cutsMap["metpt"]] = 1;
+      if(objectCollection[i].jet2.RawPt > tmp_cutValueMap["metpt"] )                                                       StatusOfCuts[cuts.cutsMap["emetpt"]] = 1;
+      if(TMath::Abs(objectCollection[i].ResonancemetProp.DeltaPhi) > tmp_cutValueMap["dphiDiJetMet"] )                     StatusOfCuts[cuts.cutsMap["fDPHIDijetMet"]] = 1;
       
-      if(TMath::Abs(objectCollection[i].ResonancemetProp.DeltaPhi) > 2.5 )                                                StatusOfCuts[cuts.cutsMap["DPHIDijetMet"]] = 1;
-      
-      if(objectCollection[i].ResonancemetProp.TransMass > 400. )                                                          StatusOfCuts[cuts.cutsMap["MTDijet"]] = 1;
+      if(objectCollection[i].ResonancemetProp.TransMass > tmp_cutValueMap["MTDiJet"] )                                     StatusOfCuts[cuts.cutsMap["gMTDijet"]] = 1;
 
-      if(objectCollection[i].jet1.ResonanceProp.InvMass > 100. && objectCollection[i].jet1.ResonanceProp.InvMass < 150.)  StatusOfCuts[cuts.cutsMap["MDijet"]] = 1;
+      if(objectCollection[i].jet1.ResonanceProp.InvMass > tmp_cutValueMap["MDiJetLow"]  &&         
+	 objectCollection[i].jet1.ResonanceProp.InvMass < tmp_cutValueMap["MDiJetHigh"] )                                   StatusOfCuts[cuts.cutsMap["hMDijet"]] = 1;
       
-      if(TMath::Abs(objectCollection[i].objMet1.DeltaPhi) > 2. )                                                          StatusOfCuts[cuts.cutsMap["DPHIJet1Met"]] = 1;
-      if(TMath::Abs(objectCollection[i].objMet2.DeltaPhi) > 2. )                                                          StatusOfCuts[cuts.cutsMap["DPHIJet2Met"]] = 1;
-      if(objectCollection[i].objMet1.TransMass > 300. )                                                                   StatusOfCuts[cuts.cutsMap["MTJet1"]] = 1;
-      if(objectCollection[i].objMet2.TransMass > 200. )                                                                   StatusOfCuts[cuts.cutsMap["MTJet2"]] = 1;
+      if(TMath::Abs(objectCollection[i].objMet1.DeltaPhi) > tmp_cutValueMap["DPHIJet1MET"] )                               StatusOfCuts[cuts.cutsMap["iDPHIJet1Met"]] = 1;
+      if(TMath::Abs(objectCollection[i].objMet2.DeltaPhi) > tmp_cutValueMap["DPHIJet2MET"] )                               StatusOfCuts[cuts.cutsMap["jDPHIJet2Met"]] = 1;
+      if(objectCollection[i].objMet1.TransMass > tmp_cutValueMap["MTJet1"] )                                               StatusOfCuts[cuts.cutsMap["kMTJet1"]] = 1;
+      if(objectCollection[i].objMet2.TransMass > tmp_cutValueMap["MTJet2"] )                                               StatusOfCuts[cuts.cutsMap["lMTJet2"]] = 1;
       
+      //std::map<TString, bitset<16> >::iterator mapiter;
       
+      std::map<std::string, int>::iterator mapit = cuts.cutsMap.begin();
+      for(mapit=cuts.cutsMap.begin(); mapit != cuts.cutsMap.end(); ++mapit){
+	std::cout<<mapit->first<<"  :   "<<mapit->second<<std::endl;;
+      }
       bool amuon = false;
       for (size_t imu=0; (imu< objectCollection[0].muons.size()) && (amuon==false); imu++){
 	float dr = objectCollection[0].muons[imu].p4.DeltaR(objectCollection[i].jet1.jet1.p4);
@@ -53,7 +61,7 @@ std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > SelectionBitsProducer::Selec
 	  std::cout<<" ***************** working "<<dr<<std::endl;
 	}
       }
-            
+      
       objectCollection[i].cutsStatus = StatusOfCuts;
       std::cout<<" cut status selectionbits = "<<StatusOfCuts<<std::endl;
       //std::cout<<" value 1 = "<<(bitset<16>)MonoHiggsCuts::dphiJets <<std::endl;

@@ -6,10 +6,10 @@
 #define TwoObjectValidator_h_
 
 #define NJETS  4
-#include "../../NCUDataFormats/interface/Jet.h"
-#include "../../NCUDataFormats/interface/MET.h"
-#include "../../NCUDataFormats/interface/DiJet.h"
-#include "../../NCUDataFormats/interface/Resonance.h"
+#include "../../RKDataFormats/interface/Jet.h"
+#include "../../RKDataFormats/interface/MET.h"
+#include "../../RKDataFormats/interface/DiJet.h"
+#include "../../RKDataFormats/interface/Resonance.h"
 #include <vector>
 #include <iostream>
 #include "TH1F.h"
@@ -77,7 +77,7 @@ void TwoObjectValidator<T>::Fill(std::vector<T> objectcollection){
     h_DeltaPhi     ->Fill(objectcollection[0].ResonanceProp.DeltaPhi);
     h_DeltaEta     ->Fill(objectcollection[0].ResonanceProp.DeltaEta);
     h_InvMass      ->Fill(objectcollection[0].ResonanceProp.InvMass);
-    h_Pt2OverPt2   ->Fill(1.0/objectcollection[0].ResonanceProp.Pt1OverPt2);
+    h_Pt2OverPt1   ->Fill(1.0/objectcollection[0].ResonanceProp.Pt1OverPt2);
     h_PtOverPt1Pt2 ->Fill(objectcollection[0].ResonanceProp.PtOverPt1Pt2);
     
     // 2D Histograms

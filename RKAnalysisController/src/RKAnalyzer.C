@@ -21,6 +21,7 @@ void RKAnalyzer::Loop(TString output){
   cutflowobj.GetInputs(f,"CutFlowAndEachCut");
   nminusobj.GetInputs(f,"NMinusOne");
   histfac.GetInputs(f,"MonoH");
+  abcd.GetInputs(f,"MonoH");
   if(debug) std::cout<<" Sending information to JetValidator "<<std::endl;
    if (fChain == 0) return;
 
@@ -73,8 +74,11 @@ void RKAnalyzer::Loop(TString output){
      if(RKDiJetMETCollection.size()>0) RKDiJetMETCollection[0].muons = RKMuonCollection ;
      if(RKDiJetMETCollection.size()>0) std::cout<<" ----------------- muon size = "<<RKDiJetMETCollection[0].muons.size()<<std::endl;
      
+     // add jets to the RKDiJetMETCollectionWithStatus
+     if(RKDiJetMETCollection.size()>0) RKDiJetMETCollection[0].jets  = RKJetCollection ;
      // add selection bits.
      RKDiJetMETCollectionWithStatus = selectionbits.SelectionBitsSaver(RKDiJetMETCollection);
+     
      // fill histograms for di-jet + met vaiables. very basic and common variables.
      dijetmetValidator.Fill(RKDiJetMETCollectionWithStatus,1); // Fill only one dijet+Met combo
      
@@ -89,6 +93,8 @@ void RKAnalyzer::Loop(TString output){
      std::cout<<" calling nminus one"<<std::endl;
      nminusobj.Fill(RKDiJetMETCollectionWithStatus);
      
+     std::cout<<" calling ABCD method "<<std::endl;
+     abcd.Fill(RKDiJetMETCollectionWithStatus);
      if(debug) std::cout<<" pfMetCorrPt = "<<pfMetCorrPt
 			<<" pfMetCorrPhi = "<<pfMetCorrPhi
 			<<" pfMetCorrSumEt = "<<pfMetCorrSumEt
@@ -116,6 +122,7 @@ void RKAnalyzer::Loop(TString output){
    cutflowobj.Write();
    nminusobj.Write();
    histfac.Write();
+   abcd.Write();
 }
 
 

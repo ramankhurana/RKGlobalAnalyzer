@@ -9,15 +9,15 @@
 // ---------
 
 
-#ifndef TwoBodyDecay_h_
-#define TwoBodyDecay_h_
+#ifndef DiJet_h_
+#define DiJet_h_
 #include <iostream>
 #include <TLorentzVector.h>
-class TwoBodyDecay {
+class DiJet {
  public:
-  // Variables for corrected TwoBodyDecay
-  TwoBodyDecay(){};
-  ~TwoBodyDecay(){};
+  // Variables for corrected DiJet
+  DiJet(){};
+  ~DiJet(){};
   TLorentzVector p4;
   TLorentzVector p4_1;
   TLorentzVector p4_2;

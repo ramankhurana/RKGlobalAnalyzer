@@ -27,7 +27,8 @@ class DiJet {
   Float_t InvMass;
   Float_t Pt1OverPt2;
   Float_t PtOverPt1Pt2;
-  
+  Float_t PtOverMass_1;
+  Float_t PtOverMass_2;
   protected:
 
   private:

@@ -30,11 +30,12 @@ void HistFactory::DefineHistograms(){
 }
 
 void HistFactory::Fill(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > objectCollection, Int_t howManyObjs){
+  //  std::cout<<" 
   if(objectCollection.size()>0){
     for(size_t i=0; i< TMath::Min(objectCollection.size(),(size_t)nobjectmet);i++){
       h_nMuons[i]->Fill(objectCollection[i].muons.size());
       h_nElectrons[i]->Fill(objectCollection[i].electrons.size());
-      h_nJets[i]->Fill(objectCollection[i].jets.size());
+      if(objectCollection[i].jets.size() >= 2) h_nJets[i]->Fill(objectCollection[i].jets.size()-2); //  -2 is required to get the additional jets.
       h_Q1Q2[i]->Fill(objectCollection[i].jet1.jet1.charge * objectCollection[i].jet1.jet2.charge);
       
       h_M_vs_MET[i]->Fill(objectCollection[i].jet1.ResonanceProp.InvMass, objectCollection[i].jet2.RawPt);

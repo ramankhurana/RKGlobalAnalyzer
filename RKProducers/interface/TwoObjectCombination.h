@@ -39,8 +39,6 @@ template <class U1, class U2> void TwoObjectCombination<U1,U2>::Clear(){
 
 
 
-
-
 template <class U1, class U2>
   std::vector<Resonance <U1,U2> > TwoObjectCombination<U1,U2>::ReconstructDiObject(std::vector<U1> j1){
   // Clean the vector before filling with desired values. 
@@ -98,6 +96,10 @@ template<class U1, class U2>
   dijetsCandidate.InvMass       = (TwoObj.Mag());
   dijetsCandidate.Pt1OverPt2    =  (obj1.Pt()/obj2.Pt());
   dijetsCandidate.PtOverPt1Pt2  =  (TwoObj.Pt() /( obj1.Pt()+obj2.Pt() ) );
+  
+  dijetsCandidate.PtOverMass_1  = obj1.Pt() / TwoObj.Mag() ;
+  dijetsCandidate.PtOverMass_2  = obj2.Pt() / TwoObj.Mag() ;
+  
   dijetsCandidate.p4            = TwoObj;
   dijetsCandidate.p4_1          = obj1;
   dijetsCandidate.p4_2          = obj2;
