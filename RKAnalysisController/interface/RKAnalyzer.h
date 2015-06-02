@@ -36,6 +36,7 @@
 #include "../../RKMonoHAnalyzer/interface/CutFlowAndEachCut.h"
 #include "../../RKMonoHAnalyzer/interface/NMinusOne.h"
 #include "../../RKMonoHAnalyzer/interface/HistFactory.h"
+#include "../../RKMonoHAnalyzer/interface/ABCDMethod.h"
 
 using namespace std;
 // Fixed size dimensions of array or collections stored in the TTree if any.
@@ -85,6 +86,8 @@ public :
    ObjectMETValidator<ResonanceMET<Resonance<Jet,Jet>,MET > >  dijetmetValidator;
    // Mono-H Histograms
    HistFactory histfac;
+   // Mono-H ABCD method 
+   ABCDMethod abcd;
    // Physics Object Container 
    // Jets
    std::vector<Jet> RKJetCollection;

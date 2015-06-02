@@ -19,6 +19,7 @@ class Resonance{
   T2 jet2;
   Int_t index_j1;
   Int_t index_j2;
+  
  private:
  protected:
   

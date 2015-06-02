@@ -45,6 +45,8 @@ class TwoObjectValidator {
   TH1F*    h_InvMass ;
   TH1F*    h_Pt2OverPt1 ;
   TH1F*    h_PtOverPt1Pt2 ;
+  TH1F*    h_PtOverMass_1;
+  TH1F*    h_PtOverMass_2;
   
     // 2D Histograms
   TH2F* h_DeltaR_vs_InvMass;
@@ -79,7 +81,8 @@ void TwoObjectValidator<T>::Fill(std::vector<T> objectcollection){
     h_InvMass      ->Fill(objectcollection[0].ResonanceProp.InvMass);
     h_Pt2OverPt1   ->Fill(1.0/objectcollection[0].ResonanceProp.Pt1OverPt2);
     h_PtOverPt1Pt2 ->Fill(objectcollection[0].ResonanceProp.PtOverPt1Pt2);
-    
+    h_PtOverMass_1 ->Fill(objectcollection[0].ResonanceProp.PtOverMass_1);
+    h_PtOverMass_2 ->Fill(objectcollection[0].ResonanceProp.PtOverMass_2);
     // 2D Histograms
     h_DeltaR_vs_InvMass->Fill(objectcollection[0].ResonanceProp.DeltaR, objectcollection[0].ResonanceProp.InvMass);
     h_DeltaPhi_vs_InvMass->Fill(objectcollection[0].ResonanceProp.DeltaPhi,objectcollection[0].ResonanceProp.InvMass);
@@ -111,8 +114,10 @@ void TwoObjectValidator<T>::DefineHistograms(){
   h_InvMass               = new TH1F("h_InvMass","h_InvMass",300,0,3000);
   h_Pt2OverPt1            = new TH1F("h_Pt2OverPt1","h_Pt2OverPt1",50,0,1.);
   h_PtOverPt1Pt2          = new TH1F("h_PtOverPt1Pt2","h_PtOverPt1Pt2",50,0.,1.0);
+  h_PtOverMass_1          = new TH1F("h_PtOverMass_1","h_PtOverMass_1",50,0,5.);
+  h_PtOverMass_2          = new TH1F("h_PtOverMass_2","h_PtOverMass_2",50,0,5.);
   
-    // 2D Histograms
+  // 2D Histograms
   h_DeltaR_vs_InvMass     = new TH2F("h_DeltaR_vs_InvMass","h_DeltaR_vs_InvMass",50,0.,5,300,0.,3000);
   h_DeltaPhi_vs_InvMass   = new TH2F("h_DeltaPhi_vs_InvMass","h_DeltaPhi_vs_InvMass",70,-3.5,3.5,300,0,3000);
   h_DeltaEta_vs_InvMass   = new TH2F("h_DeltaEta_vs_InvMass","h_DeltaEta_vs_InvMass",50,-5,5,300,0,3000);
@@ -137,6 +142,8 @@ void TwoObjectValidator<T>::Write(){
   h_InvMass              ->Write();
   h_Pt2OverPt1           ->Write();
   h_PtOverPt1Pt2         ->Write();
+  h_PtOverMass_1         ->Write();
+  h_PtOverMass_2         ->Write();
   
     // 2D Histograms
   h_DeltaR_vs_InvMass    ->Write();

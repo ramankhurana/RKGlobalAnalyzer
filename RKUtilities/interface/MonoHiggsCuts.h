@@ -5,28 +5,52 @@
 #ifndef MonoHiggsCuts_h_
 #define MonoHiggsCuts_h_
 #include <map>
+#include <unordered_map>
 using namespace std;
 
 class MonoHiggsCuts {
  public:
   MonoHiggsCuts(){
+    // cutsMap
     cutsMap.clear();
-    cutsMap["leadingpteta"]=0;
-    cutsMap["subleadingpteta"]=1;
-    cutsMap["leadingcsv"]=2;
-    cutsMap["subleadingcsv"]=3;
-    cutsMap["metpt"]=4;
-    cutsMap["DPHIDijetMet"]=5;
-    cutsMap["MTDijet"]=6;
-    cutsMap["MDijet"]=7;
-    cutsMap["DPHIJet1Met"]=8;
-    cutsMap["DPHIJet2Met"]=9;
-    cutsMap["MTJet1"]=10;
-    cutsMap["MTJet2"]=11;
+    cutsMap["aleadingpteta"]=0;
+    cutsMap["bsubleadingpteta"]=1;
+    cutsMap["cleadingcsv"]=2;
+    cutsMap["dsubleadingcsv"]=3;
+    cutsMap["emetpt"]=4;
+    cutsMap["fDPHIDijetMet"]=5;
+    cutsMap["gMTDijet"]=6;
+    cutsMap["hMDijet"]=7;
+    cutsMap["iDPHIJet1Met"]=8;
+    cutsMap["jDPHIJet2Met"]=9;
+    cutsMap["kMTJet1"]=10;
+    cutsMap["lMTJet2"]=11;
+
+
+
+    // cutValueMap
+    cutValueMap.clear();
+    cutValueMap["leadingjetpt"]=80.;
+    cutValueMap["subleadingjetpt"]=30;
+    cutValueMap["jeteta"]=2.5;
+    cutValueMap["leadingcsv"]=0.432;
+    cutValueMap["subleadingcsv"]=0.432;
+    cutValueMap["csvVLoose"]=0.25;
+    cutValueMap["csvTight"]=0.732;
+    cutValueMap["metpt"]=200;
+    cutValueMap["dphiDiJetMet"]=2.5;
+    cutValueMap["MTDiJet"]=400;
+    cutValueMap["MDiJetLow"]=90.;
+    cutValueMap["MDiJetHigh"]=150.;
+    cutValueMap["DPHIJet1MET"]=2.;
+    cutValueMap["DPHIJet2MET"]=2.;
+    cutValueMap["MTJet1"]=300.;
+    cutValueMap["MTJet2"]=200.;
+
   };
   ~MonoHiggsCuts(){};
   std::map<std::string, int> cutsMap;
-    
+  std::map<std::string, float> cutValueMap;
     enum cuts  {
       dijetmass    = 0b0000000000000001,
       detaJets     = 0b0000000000000011,
