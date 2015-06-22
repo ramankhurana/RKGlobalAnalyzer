@@ -9,8 +9,7 @@ In file included from /Users/ramankhurana/root/include/TGenericClassInfo.h:15:
 In file included from /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/vector:265:
 In file included from /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/__bit_reference:15:
 /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/algorithm:3779:17: error: no matching function for call to object of type 'DiJetpTSorting'
-            
-if (__comp(*--__last, *__first))
+            if (__comp(*--__last, *__first))
                 ^~~~~~
 /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/algorithm:3965:5: note: in instantiation of function template specialization 'std::__1::__sort<DiJetpTSorting &, Resonance<Jet, Jet> *>' requested here
     __sort<_Comp_ref>(__first, __last, __comp);

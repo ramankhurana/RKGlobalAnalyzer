@@ -2,8 +2,9 @@
 #include "../interface/SelectionBitsProducer.h"
 #include "../../RKUtilities/interface/RKDebugger.h"
 
-std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > SelectionBitsProducer::SelectionBitsSaver(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > objectCollection){
-
+std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > SelectionBitsProducer::SelectionBitsSaver(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > objectCollection, std::map<std::string, float> tmp_cutValueMap){
+  
+  //std::map<std::string, float> tmp_cutValueMap = cuts.cutValueMap;
   std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > outputvec;
   outputvec.clear();
   if(objectCollection.size()>0){
@@ -25,7 +26,7 @@ std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > SelectionBitsProducer::Selec
       // dphi (met,b2)                     : 10
       // 
       
-      std::map<std::string, float> tmp_cutValueMap = cuts.cutValueMap;
+      
       if(objectCollection[i].jet1.jet1.p4.Pt() > tmp_cutValueMap["leadingjetpt"] && 
 	 TMath::Abs(objectCollection[i].jet1.jet1.p4.Eta()) < tmp_cutValueMap["jeteta"] )                                 StatusOfCuts[cuts.cutsMap["aleadingpteta"]] = 1;
       if(objectCollection[i].jet1.jet2.p4.Pt() > tmp_cutValueMap["subleadingjetpt"] && 

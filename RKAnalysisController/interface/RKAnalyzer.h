@@ -37,7 +37,7 @@
 #include "../../RKMonoHAnalyzer/interface/NMinusOne.h"
 #include "../../RKMonoHAnalyzer/interface/HistFactory.h"
 #include "../../RKMonoHAnalyzer/interface/ABCDMethod.h"
-
+#include "../../RKUtilities/interface/MonoHiggsCuts.h" 
 using namespace std;
 // Fixed size dimensions of array or collections stored in the TTree if any.
    const Int_t kMaxpfmvaMetPt = 1;
@@ -88,6 +88,8 @@ public :
    HistFactory histfac;
    // Mono-H ABCD method 
    ABCDMethod abcd;
+   // Mono-H cuts maps and vectos
+   MonoHiggsCuts cuts;
    // Physics Object Container 
    // Jets
    std::vector<Jet> RKJetCollection;
@@ -103,8 +105,10 @@ public :
    //DiJet-MET
    std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > RKDiJetMETCollection;
    std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > RKDiJetMETCollectionWithStatus;
+   std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > RKDiJetMETCollectionTTBar;
    
-
+   
+   
    // MonoHiggs Analysis Specific 
    // --- Set the bits 
    SelectionBitsProducer selectionbits;
@@ -113,7 +117,8 @@ public :
    //// Use the bits to fill N-1 Histograms
    //// And cut flow histograms. 
   
-
+   
+   
    // Declaration of leaf types
    Float_t         pu_nTrueInt;
    Int_t           pu_nPUVert;
@@ -1419,4 +1424,16 @@ Int_t RKAnalyzer::Cut(Long64_t entry)
 // returns -1 otherwise.
    return 1;
 }
+
+class DiJetpTSorting{
+ public:
+  bool operator() (Resonance<Jet,Jet> obj1, Resonance<Jet,Jet> obj2 ){
+    double Pt1 = obj1.ResonanceProp.p4.Pt();
+    double Pt2 = obj2.ResonanceProp.p4.Pt();
+    return Pt2 <= Pt1;
+  }
+};
+
 #endif // #ifdef RKAnalyzer_cxx
+
+
