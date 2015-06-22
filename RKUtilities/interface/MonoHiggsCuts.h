@@ -47,10 +47,32 @@ class MonoHiggsCuts {
     cutValueMap["MTJet1"]=300.;
     cutValueMap["MTJet2"]=200.;
 
+
+
+    // cutValueMapTTBar
+    cutValueMapTTBar.clear();
+    cutValueMapTTBar["leadingjetpt"]=80.;
+    cutValueMapTTBar["subleadingjetpt"]=30;
+    cutValueMapTTBar["jeteta"]=2.5;
+    cutValueMapTTBar["leadingcsv"]=0.432;
+    cutValueMapTTBar["subleadingcsv"]=0.432;
+    cutValueMapTTBar["csvVLoose"]=0.25;
+    cutValueMapTTBar["csvTight"]=0.732;
+    cutValueMapTTBar["metpt"]=200;
+    cutValueMapTTBar["dphiDiJetMet"]=2.5;
+    cutValueMapTTBar["MTDiJet"]=400;
+    cutValueMapTTBar["MDiJetLow"]=90.;
+    cutValueMapTTBar["MDiJetHigh"]=150.;
+    cutValueMapTTBar["DPHIJet1MET"]=2.;
+    cutValueMapTTBar["DPHIJet2MET"]=2.;
+    cutValueMapTTBar["MTJet1"]=300.;
+    cutValueMapTTBar["MTJet2"]=200.;
+
   };
   ~MonoHiggsCuts(){};
   std::map<std::string, int> cutsMap;
   std::map<std::string, float> cutValueMap;
+  std::map<std::string, float> cutValueMapTTBar;
     enum cuts  {
       dijetmass    = 0b0000000000000001,
       detaJets     = 0b0000000000000011,

@@ -48,16 +48,23 @@ void RKAnalyzer::Loop(TString output){
      // Fill Validation Histograms for Jets
      jetvalidator.Fill(RKJetCollection);
      jetvalidator_selected.Fill(RKJetCollection_selected);
+     
      // Fill Validation histograms for MET
      metvalidator.Fill(met);
+     
      // Dijet 
      std::cout<<" calling dijet maker "<<std::endl;
      RKdiJetCollection = dijet.ReconstructDiObject(RKJetCollection);
      std::cout<< " dijet collection size = ========== "<<RKdiJetCollection.size()<<std::endl;
+
+     // DiJet Validation
      if(debug) std::cout<<" diJet mass = "<<RKdiJetCollection[0].ResonanceProp.p4.Mag()<<std::endl;
-     std::cout<<"calling dijet validator"<<std::endl;
      diJetValidator.Fill(RKdiJetCollection);
      std::cout<<" dijet part done "<<std::endl;
+
+     // Dijet Vector Sorting wrt pT of diJet candidate 
+     std::sort(RKdiJetCollection.begin(), RKdiJetCollection.end(), DiJetpTSorting() );
+     
      // Jet-MET
      RKjetMETCollection = jet_met.ReconstructDiObject(RKJetCollection_selected,met);
      if(RKjetMETCollection.size()>0) std::cout<<" transverse mass = "<<RKjetMETCollection[0].TransverseObjProp.TransMass <<std::endl;
@@ -76,9 +83,17 @@ void RKAnalyzer::Loop(TString output){
      
      // add jets to the RKDiJetMETCollectionWithStatus
      if(RKDiJetMETCollection.size()>0) RKDiJetMETCollection[0].jets  = RKJetCollection ;
-     // add selection bits.
-     RKDiJetMETCollectionWithStatus = selectionbits.SelectionBitsSaver(RKDiJetMETCollection);
      
+     // add selection bits for baseline Analysis.
+     RKDiJetMETCollectionWithStatus = selectionbits.SelectionBitsSaver(RKDiJetMETCollection, cuts.cutValueMap);
+     
+     // add selection bits for ttbar control region 
+     RKDiJetMETCollectionTTBar = selectionbits.SelectionBitsSaver(RKDiJetMETCollection,cuts.cutValueMap);
+     
+     
+     // --------------------------------//
+     // ---------- Histograms -----------//
+     // --------------------------------//
      // fill histograms for di-jet + met vaiables. very basic and common variables.
      dijetmetValidator.Fill(RKDiJetMETCollectionWithStatus,1); // Fill only one dijet+Met combo
      
@@ -207,9 +222,8 @@ void RKAnalyzer::MuonProducer(){
 			 (*muPhi)[i], 
 			 (*muM)[i] );
     muons.p4      = fourmom ;
-    muons.nMuon   = nMu ;
     muons.charge  = (*muCharge)[i] ;
-    RKMuonCollection.push_back(muons);
+    if(fourmom.Pt() > 20 && fabs(fourmom.Eta())<2.4 ) RKMuonCollection.push_back(muons);
   }
 }
 
@@ -222,9 +236,8 @@ void RKAnalyzer::ElectronProducer(){
 			 (*elePhi)[i], 
 			 (*eleEnergy)[i] );
     electrons.p4      = fourmom ;
-    electrons.nElectron   = nEle ;
     //electrons.charge  = (*eleCharge)[i] ;
-    RKElectronCollection.push_back(electrons);
+    if(fourmom.Pt() > 20 && fabs(fourmom.Eta())<2.5 )  RKElectronCollection.push_back(electrons);
   }
 }
 
@@ -238,4 +251,6 @@ void RKAnalyzer::ClearCollections(){
   RKdiJetCollection.clear();
   RKjetMETCollection.clear();
   RKDiJetMETCollection.clear();
+  RKDiJetMETCollectionWithStatus.clear();
+  RKDiJetMETCollectionTTBar.clear();
 }
