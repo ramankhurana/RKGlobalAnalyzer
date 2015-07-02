@@ -15,3 +15,23 @@
 
 
 
+Things for Slides (7 July 2015) : 
+-1. Theory Stuff from Fang-Ying 2-3 Slides. 
+0. MET Trigger efficiency. 
+1. Jet pT, eta, CSV, for leading and sub-leading jets.
+2. MET, MET phi for raw MET. 
+3. After Jet Selection Look at : 
+   - DR (2 jets), dPhi (2 Jets), CSV Sum of 2 jets,
+4a. Combine di-jet and MET
+   - Look at MET
+4. MET Cut and Look at :
+   all the variables you want to look at. 
+5. Individual Efficiency of every cut applied. 
+6. Consecutive efficiency.
+7. Cut Flow 
+8. nEle, nMu, nJets, nTaus
+
+9. Apply TTBar Control region and see the relevant distributions. 
+10. Apply Z+Jets control region and see the relevant distribitions.
+ 
+
