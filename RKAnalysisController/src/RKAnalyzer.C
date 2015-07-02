@@ -23,11 +23,11 @@ void RKAnalyzer::Loop(TString output){
   histfac.GetInputs(f,"MonoH");
   abcd.GetInputs(f,"MonoH");
   if(debug) std::cout<<" Sending information to JetValidator "<<std::endl;
-   if (fChain == 0) return;
-
-   Long64_t nentries = fChain->GetEntriesFast();
-   
-   Long64_t nbytes = 0, nb = 0;
+  if (fChain == 0) return;
+  
+  Long64_t nentries = fChain->GetEntriesFast();
+  std::cout<<" nevents ====== "<<nentries<<std::endl;
+  Long64_t nbytes = 0, nb = 0;
    for (Long64_t jentry=0; jentry<nentries;jentry++) {
      Long64_t ientry = LoadTree(jentry);
      if (ientry < 0) break;
@@ -47,7 +47,7 @@ void RKAnalyzer::Loop(TString output){
      if(debug) std::cout<<" Jet collecttion produced "<<std::endl;
      // Fill Validation Histograms for Jets
      jetvalidator.Fill(RKJetCollection);
-     jetvalidator_selected.Fill(RKJetCollection_selected);
+     jetvalidator_selected.Fill(RKJetCollection);
      
      // Fill Validation histograms for MET
      metvalidator.Fill(met);
@@ -61,9 +61,17 @@ void RKAnalyzer::Loop(TString output){
      if(debug) std::cout<<" diJet mass = "<<RKdiJetCollection[0].ResonanceProp.p4.Mag()<<std::endl;
      diJetValidator.Fill(RKdiJetCollection);
      std::cout<<" dijet part done "<<std::endl;
-
+     
+     
+     std::cout<<" before sorting "<<std::endl;
      // Dijet Vector Sorting wrt pT of diJet candidate 
+     for(size_t idj=0; idj<RKdiJetCollection.size();idj++){
+       std::cout<<" mass = "<<RKdiJetCollection[idj].ResonanceProp.p4.Pt()
+		<<std::endl;;
+     }
      std::sort(RKdiJetCollection.begin(), RKdiJetCollection.end(), DiJetpTSorting() );
+     std::cout<<" after sorting "<<std::endl;
+      
      
      // Jet-MET
      RKjetMETCollection = jet_met.ReconstructDiObject(RKJetCollection_selected,met);
@@ -145,7 +153,7 @@ void RKAnalyzer::Loop(TString output){
 
 void RKAnalyzer::JetProducer(){
   
-  std::cout<<" inside JetProducer "<<std::endl;
+  std::cout<<" inside JetProducer "<<THINnJet<<std::endl;
   for(Int_t i=0;i<THINnJet;i++){
     jets.Clear();
     TLorentzVector fourmom;
@@ -176,6 +184,8 @@ void RKAnalyzer::JetProducer(){
     jets.jetNEmEF                       = (*THINjetNEmEF)[i];
     jets.jetNHadEF                      = (*THINjetNHadEF)[i];
     jets.jetCMulti                      = (*THINjetCMulti)[i];
+
+    
     // not in NCU Global tuple right now
     /*
       jets.jetHFHadEF                     = (*THINjetHFHadEF)[i];
@@ -191,8 +201,9 @@ void RKAnalyzer::JetProducer(){
     jets.jetHOEnergy                    = (*THINjetHOEnergy)[i];
     jets.jetHOEF                        = (*THINjetHOEF)[i];
     */
-    RKJetCollection_selected.push_back(jets);
-    if(fabs(fourmom.Eta())<2.5 && jets.B_CISVV2 > 0.423 && fourmom.Pt() > 30. ) RKJetCollection.push_back(jets);
+    //RKJetCollection.push_back(jets);
+    if(fabs(fourmom.Eta())<2.5 && jets.B_CISVV2 > 0.3 && fourmom.Pt() > 30. && RKJetCollection.size()<5 )     RKJetCollection.push_back(jets);
+    //if(fabs(fourmom.Eta())<2.5 && jets.B_CISVV2 > 0.2 && fourmom.Pt() > 30. )     RKJetCollection.push_back(jets);
 
   }
 }
@@ -237,9 +248,15 @@ void RKAnalyzer::ElectronProducer(){
   std::cout<< " inside electron producer "<<std::endl;
   for(size_t i=0; i<nEle; i++){
     electrons.Clear();
+    //    if(nEle<1) continue;
     //    TLorentzVector fourmom;
-    TLorentzVector* fourmom = (TLorentzVector*) patElecP4->At(i); 
+    //std::cout<<" size = "<<patElecP4->IsEmpty()<<std::endl;
+    //std::cout<<" before clone array "<<std::endl;
+        TLorentzVector*  fourmom = (TLorentzVector*) patElecP4->At(i);
+    //std::cout<<" after array = " <<std::endl;
+    //TLorentzVector* fourmom = (TLorentzVector*) patElecP4->At(i); 
     //electrons.p4      = *fourmom ;
+    //std::cout<<" ele pt = "<<fourmom->Pt()<<std::endl;
     //electrons.charge  = (*eleCharge)[i] ;
     //if(fourmom->Pt() > 20 && fabs(fourmom->Eta())<2.5 ) 
     RKElectronCollection.push_back(electrons);

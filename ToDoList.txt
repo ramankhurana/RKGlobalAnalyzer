@@ -6,7 +6,9 @@
 6. Make proper debug statements in each file.
 7. Rename files like dijet ? 
 8. Make variables virtual so that producers can move out of the main code. 
-9. 
+9. Fix the TLorenzVectorPart
+10. Think of possible skims and implement them.
+11. Fix sorting so that all number of jets can be accomodated.
 
 
   TotalEntries = dynamic_cast<TH1F*> (f->Get("totalentries"));
