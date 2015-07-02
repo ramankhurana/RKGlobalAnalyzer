@@ -70,7 +70,7 @@ void ABCDMethod::Write(){
   file->cd();
   // this directory is alerady made by other class.
   // instead of commenting use a proper check
-  // file->mkdir(prefix);
+  file->mkdir(prefix);
   file->cd(prefix);
   h_Region->Write();
 }

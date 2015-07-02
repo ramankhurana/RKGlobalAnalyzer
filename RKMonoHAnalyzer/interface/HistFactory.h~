@@ -1,21 +1,12 @@
-// Original class : SelectionBitsProducer.h
+// Original class : HistFactory.h
 // Created By     : ramankhurana 
 // Created On     : Sun May  3 00:03:45 CEST 2015
 
-// This class saves bits for each of the cuts used in the analysis in an integer and this integer can be used later to fill :
-// 1. Cut Flow Histograms
-// 2. Optimisation of cuts. 
-// 3. Define control region for 
-//     - Fake rate estimate 
-//     - Apply fake rate and measure background
-// 4. Systematics 
-// 5. Input(s) for Limit calculation 
-// 6. Efficiency plots 
-//    - for object selction
-//    - for each cut, as a function of other variables. e.g. see efficiency of deltaPhi cut as a funtion of H pT, H Mass, Jet1 pT, Jet2pT and many more. 
+// This class saves histograms wspecific for Mono-H analysis.
+//  -- these includes variables which are not covered in other histo classes
 
-#ifndef SelectionBitsProducer_h_
-#define SelectionBitsProducer_h_
+#ifndef HistFactory_h_
+#define HistFactory_h_
 
 
 #include "../../RKDataFormats/interface/Jet.h"
@@ -23,14 +14,32 @@
 #include "../../RKDataFormats/interface/Resonance.h"
 #include "../../RKDataFormats/interface/ResonanceMET.h"
 #include "../../RKUtilities/interface/MonoHiggsCuts.h"
+#include "TH1F.h"
+#include "TH2F.h"
+#include "TFile.h"
+#include "TMath.h"
+#define nobjectmet 2
 
-class SelectionBitsProducer {
+
+class HistFactory {
  public:
-  SelectionBitsProducer(){};
-  ~SelectionBitsProducer(){};
-  std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > >   SelectionBitsSaver(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > objectCollection);
+  HistFactory(){};
+  ~HistFactory(){};
+  void Fill(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > objectCollection, Int_t howManyObjs);
+  void DefineHistograms();
+  void GetInputs(TFile* f, TString prefix_);
+  void Write();
   
+  TString prefix;
+  TFile* file;
+  TH1F*    h_nMuons[nobjectmet];
+  TH1F*    h_nElectrons[nobjectmet];
+  TH1F*    h_nJets[nobjectmet];
+  TH1F*    h_Q1Q2[nobjectmet];
 
+  TH2F*    h_M_vs_MET[nobjectmet];
+  TH2F*    h_MET_vs_Q1Q2[nobjectmet];
+  TH2F*    h_M_vs_Q1Q2[nobjectmet];
 
   protected:
 

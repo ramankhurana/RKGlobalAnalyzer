@@ -12,19 +12,21 @@ class MonoHiggsCuts {
  public:
   MonoHiggsCuts(){
     // cutsMap
+    // they are named like this so that they remain sorted in the map.
+    // saved in alphabatical order in the cuts name map.
     cutsMap.clear();
-    cutsMap["aleadingpteta"]=0;
-    cutsMap["bsubleadingpteta"]=1;
-    cutsMap["cleadingcsv"]=2;
-    cutsMap["dsubleadingcsv"]=3;
-    cutsMap["emetpt"]=4;
-    cutsMap["fDPHIDijetMet"]=5;
-    cutsMap["gMTDijet"]=6;
-    cutsMap["hMDijet"]=7;
-    cutsMap["iDPHIJet1Met"]=8;
-    cutsMap["jDPHIJet2Met"]=9;
-    cutsMap["kMTJet1"]=10;
-    cutsMap["lMTJet2"]=11;
+    cutsMap["aleadingpteta"]       = 0  ;
+    cutsMap["bsubleadingpteta"]    = 1  ;
+    cutsMap["cleadingcsv"]         = 2  ;
+    cutsMap["dsubleadingcsv"]      = 3  ;
+    cutsMap["emetpt"]              = 4  ;
+    cutsMap["fDPHIDijetMet"]       = 5  ;
+    cutsMap["gMTDijet"]            = 6  ;
+    cutsMap["hMDijet"]             = 7  ;
+    cutsMap["iDPHIJet1Met"]        = 8  ;
+    cutsMap["jDPHIJet2Met"]        = 9  ;
+    cutsMap["kMTJet1"]             = 10 ;
+    cutsMap["lMTJet2"]             = 11 ;
 
 
     

@@ -20,8 +20,9 @@ void RKAnalyzer::Loop(TString output){
   dijetmetValidator.GetInputs(f,"DiJetMETNoCuts");
   cutflowobj.GetInputs(f,"CutFlowAndEachCut");
   nminusobj.GetInputs(f,"NMinusOne");
-  histfac.GetInputs(f,"MonoH");
-  abcd.GetInputs(f,"MonoH");
+  histfac.GetInputs(f,"PreSelection");
+  abcd.GetInputs(f,"ABCD");
+  
   if(debug) std::cout<<" Sending information to JetValidator "<<std::endl;
   if (fChain == 0) return;
   
@@ -90,13 +91,13 @@ void RKAnalyzer::Loop(TString output){
      if(RKDiJetMETCollection.size()>0) std::cout<<" ----------------- muon size = "<<RKDiJetMETCollection[0].muons.size()<<std::endl;
      
      // add jets to the RKDiJetMETCollectionWithStatus
-     if(RKDiJetMETCollection.size()>0) RKDiJetMETCollection[0].jets  = RKJetCollection ;
+     if(RKDiJetMETCollection.size()>0) RKDiJetMETCollection[0].jets  = RKJetCollection_selected ;
      
      // add selection bits for baseline Analysis.
      RKDiJetMETCollectionWithStatus = selectionbits.SelectionBitsSaver(RKDiJetMETCollection, cuts.cutValueMap);
      
      // add selection bits for ttbar control region 
-     RKDiJetMETCollectionTTBar = selectionbits.SelectionBitsSaver(RKDiJetMETCollection,cuts.cutValueMap);
+     RKDiJetMETCollectionTTBar = selectionbits.SelectionBitsSaver(RKDiJetMETCollection,cuts.cutValueMapTTBar);
      
      
      // --------------------------------//
@@ -240,7 +241,7 @@ void RKAnalyzer::MuonProducer(){
 			 (*muM)[i] );
     muons.p4      = fourmom ;
     muons.charge  = (*muCharge)[i] ;
-    if(fourmom.Pt() > 20 && fabs(fourmom.Eta())<2.4 ) RKMuonCollection.push_back(muons);
+    if(fourmom.Pt() > 20 && fabs(fourmom.Eta())<2.4 && (*isPFMuon)[i] == 1) RKMuonCollection.push_back(muons);
   }
 }
 
@@ -252,14 +253,13 @@ void RKAnalyzer::ElectronProducer(){
     //    TLorentzVector fourmom;
     //std::cout<<" size = "<<patElecP4->IsEmpty()<<std::endl;
     //std::cout<<" before clone array "<<std::endl;
-        TLorentzVector*  fourmom = (TLorentzVector*) patElecP4->At(i);
+    TLorentzVector*  fourmom = (TLorentzVector*) patElecP4->At(i);
     //std::cout<<" after array = " <<std::endl;
     //TLorentzVector* fourmom = (TLorentzVector*) patElecP4->At(i); 
     //electrons.p4      = *fourmom ;
     //std::cout<<" ele pt = "<<fourmom->Pt()<<std::endl;
     //electrons.charge  = (*eleCharge)[i] ;
-    //if(fourmom->Pt() > 20 && fabs(fourmom->Eta())<2.5 ) 
-    RKElectronCollection.push_back(electrons);
+    if(fourmom->Pt() > 20 && fabs(fourmom->Eta())<2.5 && (*isPassVeto)[i]==1)  RKElectronCollection.push_back(electrons);
   }
   std::cout<<" electron collection filled " <<std::endl;
 }
