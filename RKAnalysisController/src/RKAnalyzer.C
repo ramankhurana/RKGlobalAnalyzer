@@ -145,48 +145,52 @@ void RKAnalyzer::Loop(TString output){
 
 void RKAnalyzer::JetProducer(){
   
-  for(Int_t i=0;i<AK5nJet;i++){
+  std::cout<<" inside JetProducer "<<std::endl;
+  for(Int_t i=0;i<THINnJet;i++){
     jets.Clear();
     TLorentzVector fourmom;
-    fourmom.SetPtEtaPhiE( (*AK5jetPt)[i],
-			  (*AK5jetEta)[i],
-			  (*AK5jetPhi)[i],
-			  (*AK5jetEn)[i]);
+    fourmom.SetPtEtaPhiE( (*THINjetPt)[i],
+			  (*THINjetEta)[i],
+			  (*THINjetPhi)[i],
+			  (*THINjetEn)[i]);
     
-    jets.nJets                          = AK5nJet;
+    jets.nJets                          = THINnJet;
     jets.p4                             = fourmom;
-    jets.charge                         = (*AK5jetCharge)[i];
-    jets.partonFlavor                   = (*AK5jetPartonFlavor)[i];
-    jets.B_SSV                          = (*AK5jetSSV)[i];
-    jets.B_CSV                          = (*AK5jetCSV)[i];
-    jets.B_SSVHE                        = (*AK5jetSSVHE)[i];
-    jets.B_CISVV2                       = (*AK5jetCISVV2)[i];
-    jets.B_TCHP                         = (*AK5jetTCHP)[i];
-    jets.B_TCHE                         = (*AK5jetTCHE)[i];
-    jets.B_JP                           = (*AK5jetJP)[i];
-    jets.B_JBP                          = (*AK5jetJBP)[i];
-    jets.tau1                           = (*AK5jetTau1)[i];
-    jets.tau2                           = (*AK5jetTau2)[i];
-    jets.tau3                           = (*AK5jetTau3)[i];
-    jets.jetMuEF                        = (*AK5jetMuEF)[i];
-    jets.jetPhoEF                       = (*AK5jetPhoEF)[i];
-    jets.jetCEmEF                       = (*AK5jetCEmEF)[i];
-    jets.jetCHadEF                      = (*AK5jetCHadEF)[i];
-    jets.jetNEmEF                       = (*AK5jetNEmEF)[i];
-    jets.jetNHadEF                      = (*AK5jetNHadEF)[i];
-    jets.jetCMulti                      = (*AK5jetCMulti)[i];
-    jets.jetHFHadEF                     = (*AK5jetHFHadEF)[i];
-    jets.jetHFEMEF                      = (*AK5jetHFEMEF)[i];
-    jets.jetCHHadMultiplicity           = (*AK5jetCHHadMultiplicity)[i];
-    jets.jetNHadMulplicity              = (*AK5jetNHadMulplicity)[i];
-    jets.jetPhMultiplicity              = (*AK5jetPhMultiplicity)[i];
-    jets.jetEleMultiplicity             = (*AK5jetEleMultiplicity)[i];
-    jets.jetHFHadMultiplicity           = (*AK5jetHFHadMultiplicity)[i];
-    jets.jetHFEMMultiplicity            = (*AK5jetHFEMMultiplicity)[i];
-    jets.jetChMuEF                      = (*AK5jetChMuEF)[i];
-    jets.jetNMultiplicity               = (*AK5jetNMultiplicity)[i];
-    jets.jetHOEnergy                    = (*AK5jetHOEnergy)[i];
-    jets.jetHOEF                        = (*AK5jetHOEF)[i];
+    jets.charge                         = (*THINjetCharge)[i];
+    jets.partonFlavor                   = (*THINjetPartonFlavor)[i];
+    jets.B_SSV                          = (*THINjetSSV)[i];
+    jets.B_CSV                          = (*THINjetCSV)[i];
+    jets.B_SSVHE                        = (*THINjetSSVHE)[i];
+    jets.B_CISVV2                       = (*THINjetCISVV2)[i];
+    jets.B_TCHP                         = (*THINjetTCHP)[i];
+    jets.B_TCHE                         = (*THINjetTCHE)[i];
+    jets.B_JP                           = (*THINjetJP)[i];
+    jets.B_JBP                          = (*THINjetJBP)[i];
+    jets.tau1                           = (*THINjetTau1)[i];
+    jets.tau2                           = (*THINjetTau2)[i];
+    jets.tau3                           = (*THINjetTau3)[i];
+    jets.jetMuEF                        = (*THINjetMuEF)[i];
+    jets.jetPhoEF                       = (*THINjetPhoEF)[i];
+    jets.jetCEmEF                       = (*THINjetCEmEF)[i];
+    jets.jetCHadEF                      = (*THINjetCHadEF)[i];
+    jets.jetNEmEF                       = (*THINjetNEmEF)[i];
+    jets.jetNHadEF                      = (*THINjetNHadEF)[i];
+    jets.jetCMulti                      = (*THINjetCMulti)[i];
+    // not in NCU Global tuple right now
+    /*
+      jets.jetHFHadEF                     = (*THINjetHFHadEF)[i];
+    jets.jetHFEMEF                      = (*THINjetHFEMEF)[i];
+    jets.jetCHHadMultiplicity           = (*THINjetCHHadMultiplicity)[i];
+    jets.jetNHadMulplicity              = (*THINjetNHadMulplicity)[i];
+    jets.jetPhMultiplicity              = (*THINjetPhMultiplicity)[i];
+    jets.jetEleMultiplicity             = (*THINjetEleMultiplicity)[i];
+    jets.jetHFHadMultiplicity           = (*THINjetHFHadMultiplicity)[i];
+    jets.jetHFEMMultiplicity            = (*THINjetHFEMMultiplicity)[i];
+    jets.jetChMuEF                      = (*THINjetChMuEF)[i];
+    jets.jetNMultiplicity               = (*THINjetNMultiplicity)[i];
+    jets.jetHOEnergy                    = (*THINjetHOEnergy)[i];
+    jets.jetHOEF                        = (*THINjetHOEF)[i];
+    */
     RKJetCollection_selected.push_back(jets);
     if(fabs(fourmom.Eta())<2.5 && jets.B_CISVV2 > 0.423 && fourmom.Pt() > 30. ) RKJetCollection.push_back(jets);
 
@@ -195,6 +199,7 @@ void RKAnalyzer::JetProducer(){
 
 
 void RKAnalyzer::METProducer(){
+  std::cout<<" inside MET Prodicer "<<std::endl;
   met.CorrPt = pfMetCorrPt;
   met.CorrPhi = pfMetCorrPhi;
   met.CorrSumEt = pfMetCorrSumEt;
@@ -214,6 +219,7 @@ void RKAnalyzer::METProducer(){
 }
 
 void RKAnalyzer::MuonProducer(){
+  std::cout<< " inside muon producer "<<std::endl;
   for(size_t i=0; i<nMu; i++){
     muons.Clear();
     TLorentzVector fourmom;
@@ -228,17 +234,17 @@ void RKAnalyzer::MuonProducer(){
 }
 
 void RKAnalyzer::ElectronProducer(){
+  std::cout<< " inside electron producer "<<std::endl;
   for(size_t i=0; i<nEle; i++){
     electrons.Clear();
-    TLorentzVector fourmom;
-    fourmom.SetPtEtaPhiM((*elePt)[i], 
-			 (*eleEta)[i], 
-			 (*elePhi)[i], 
-			 (*eleEnergy)[i] );
-    electrons.p4      = fourmom ;
+    //    TLorentzVector fourmom;
+    TLorentzVector* fourmom = (TLorentzVector*) patElecP4->At(i); 
+    //electrons.p4      = *fourmom ;
     //electrons.charge  = (*eleCharge)[i] ;
-    if(fourmom.Pt() > 20 && fabs(fourmom.Eta())<2.5 )  RKElectronCollection.push_back(electrons);
+    //if(fourmom->Pt() > 20 && fabs(fourmom->Eta())<2.5 ) 
+    RKElectronCollection.push_back(electrons);
   }
+  std::cout<<" electron collection filled " <<std::endl;
 }
 
 

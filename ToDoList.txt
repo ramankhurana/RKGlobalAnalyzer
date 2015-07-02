@@ -1,0 +1,15 @@
+1. convert makecompile.sh --> Makefile
+2. add all jet variables
+3. add subjet/fatjet/ etc
+4. put them in the jet validator
+5. add total number of events
+6. Make proper debug statements in each file.
+7. Rename files like dijet ? 
+8. Make variables virtual so that producers can move out of the main code. 
+9. 
+
+
+  TotalEntries = dynamic_cast<TH1F*> (f->Get("totalentries"));
+
+
+

@@ -21,6 +21,9 @@
 #include "../../RKUtilities/interface/RKDebugger.h"
 #include "../../RKDataFormats/interface/Jet.h"
 #include "../../RKDataFormats/interface/MET.h"
+#include "../../RKDataFormats/interface/Muon.h"
+#include "../../RKDataFormats/interface/Electron.h"
+
 #include "../../RKDataFormats/interface/Resonance.h"
 #include "../../RKObjectValidator/interface/JetValidator.h"
 #include "../../RKObjectValidator/interface/METValidator.h"
@@ -32,6 +35,9 @@
 #include "../../RKMonoHAnalyzer/interface/SelectionBitsProducer.h"
 #include "../../RKMonoHAnalyzer/interface/CutFlowAndEachCut.h"
 #include "../../RKMonoHAnalyzer/interface/NMinusOne.h"
+#include "../../RKMonoHAnalyzer/interface/HistFactory.h"
+#include "../../RKMonoHAnalyzer/interface/ABCDMethod.h"
+#include "../../RKUtilities/interface/MonoHiggsCuts.h" 
 using namespace std;
 // Fixed size dimensions of array or collections stored in the TTree if any.
    const Int_t kMaxpfmvaMetPt = 1;
@@ -54,6 +60,10 @@ public :
    Jet jets;
    // MET
    MET met;
+   // Muons
+   Muon muons;
+   //Electrons
+   Electron electrons;
    // Dijets
    TwoObjectCombination<Jet,Jet> dijet;
    // Jet-MET
@@ -74,11 +84,20 @@ public :
    ObjectMETValidator<ResonanceWithMET<Jet,MET> > jetmetValidator;
    // DiJet-MET
    ObjectMETValidator<ResonanceMET<Resonance<Jet,Jet>,MET > >  dijetmetValidator;
-   
+   // Mono-H Histograms
+   HistFactory histfac;
+   // Mono-H ABCD method 
+   ABCDMethod abcd;
+   // Mono-H cuts maps and vectos
+   MonoHiggsCuts cuts;
    // Physics Object Container 
    // Jets
    std::vector<Jet> RKJetCollection;
    std::vector<Jet> RKJetCollection_selected;
+   //Muons
+   std::vector<Muon> RKMuonCollection;
+   //Electron
+   std::vector<Electron> RKElectronCollection;
    // DiJet
    std::vector<Resonance<Jet,Jet> > RKdiJetCollection;
    // Jet-MET
@@ -86,8 +105,10 @@ public :
    //DiJet-MET
    std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > RKDiJetMETCollection;
    std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > RKDiJetMETCollectionWithStatus;
+   std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > RKDiJetMETCollectionTTBar;
    
-
+   
+   
    // MonoHiggs Analysis Specific 
    // --- Set the bits 
    SelectionBitsProducer selectionbits;
@@ -96,7 +117,8 @@ public :
    //// Use the bits to fill N-1 Histograms
    //// And cut flow histograms. 
   
-
+   
+   
    // Declaration of leaf types
    Float_t         pu_nTrueInt;
    Int_t           pu_nPUVert;
@@ -730,6 +752,10 @@ public :
    void JetProducer();
    // fill all the MET variables in the vector which will be used later for analysis. 
    void METProducer();
+   // fill all the electron variables in the vector 
+   void ElectronProducer();
+   // fill all the muon variables in the vector 
+   void MuonProducer();
 };
 
 #endif
@@ -742,11 +768,11 @@ public :
 // if parameter tree is not specified (or zero), connect the file
 // used to generate this class and read the Tree.
    if (tree == 0) {
-      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("/afs/hep.wisc.edu/home/khurana/WorkingDir/CMSSW_7_0_6_patch1/src/RKAnalyzer/RKGlobalTuples.root");
+      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("InputRootFile/NCUGlobalTuples.root");
       if (!f || !f->IsOpen()) {
-         f = new TFile("/afs/hep.wisc.edu/home/khurana/WorkingDir/CMSSW_7_0_6_patch1/src/RKAnalyzer/RKGlobalTuples.root");
+         f = new TFile("InputRootFile/NCUGlobalTuples.root");
       }
-      TDirectory * dir = (TDirectory*)f->Get("/afs/hep.wisc.edu/home/khurana/WorkingDir/CMSSW_7_0_6_patch1/src/RKAnalyzer/RKGlobalTuples.root:/tree");
+      TDirectory * dir = (TDirectory*)f->Get("InputRootFile/NCUGlobalTuples.root:/tree");
       dir->GetObject("tree",tree);
 
    }
@@ -1398,4 +1424,16 @@ Int_t RKAnalyzer::Cut(Long64_t entry)
 // returns -1 otherwise.
    return 1;
 }
+
+class DiJetpTSorting{
+ public:
+  bool operator() (Resonance<Jet,Jet> obj1, Resonance<Jet,Jet> obj2 ){
+    double Pt1 = obj1.ResonanceProp.p4.Pt();
+    double Pt2 = obj2.ResonanceProp.p4.Pt();
+    return Pt2 <= Pt1;
+  }
+};
+
 #endif // #ifdef RKAnalyzer_cxx
+
+

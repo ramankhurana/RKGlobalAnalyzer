@@ -20,7 +20,8 @@ void RKAnalyzer::Loop(TString output){
   dijetmetValidator.GetInputs(f,"DiJetMETNoCuts");
   cutflowobj.GetInputs(f,"CutFlowAndEachCut");
   nminusobj.GetInputs(f,"NMinusOne");
-  
+  histfac.GetInputs(f,"MonoH");
+  abcd.GetInputs(f,"MonoH");
   if(debug) std::cout<<" Sending information to JetValidator "<<std::endl;
    if (fChain == 0) return;
 
@@ -41,21 +42,29 @@ void RKAnalyzer::Loop(TString output){
      // Produce MET collection for analysis and validation of object.
      // this contain all raw PFMET, corrected PFMET and MVA PFMET.
      METProducer();
-     
+     MuonProducer();
+     ElectronProducer();
      if(debug) std::cout<<" Jet collecttion produced "<<std::endl;
      // Fill Validation Histograms for Jets
      jetvalidator.Fill(RKJetCollection);
      jetvalidator_selected.Fill(RKJetCollection_selected);
+     
      // Fill Validation histograms for MET
      metvalidator.Fill(met);
+     
      // Dijet 
      std::cout<<" calling dijet maker "<<std::endl;
      RKdiJetCollection = dijet.ReconstructDiObject(RKJetCollection);
      std::cout<< " dijet collection size = ========== "<<RKdiJetCollection.size()<<std::endl;
+
+     // DiJet Validation
      if(debug) std::cout<<" diJet mass = "<<RKdiJetCollection[0].ResonanceProp.p4.Mag()<<std::endl;
-     std::cout<<"calling dijet validator"<<std::endl;
      diJetValidator.Fill(RKdiJetCollection);
      std::cout<<" dijet part done "<<std::endl;
+
+     // Dijet Vector Sorting wrt pT of diJet candidate 
+     std::sort(RKdiJetCollection.begin(), RKdiJetCollection.end(), DiJetpTSorting() );
+     
      // Jet-MET
      RKjetMETCollection = jet_met.ReconstructDiObject(RKJetCollection_selected,met);
      if(RKjetMETCollection.size()>0) std::cout<<" transverse mass = "<<RKjetMETCollection[0].TransverseObjProp.TransMass <<std::endl;
@@ -64,9 +73,33 @@ void RKAnalyzer::Loop(TString output){
      //DiJet-MET
      RKDiJetMETCollection = dijet_met.ReconstructDiObject(RKdiJetCollection,met);
      std::cout<<" size of DIJETMET collection is = "<<RKDiJetMETCollection.size()<<std::endl;
-     dijetmetValidator.Fill(RKDiJetMETCollection,1); // Fill only one dijet+Met combo
      
-     RKDiJetMETCollectionWithStatus = selectionbits.SelectionBitsSaver(RKDiJetMETCollection);
+     // add electron to RKDiJetMETCollectionWithStatus
+     if(RKDiJetMETCollection.size()>0) RKDiJetMETCollection[0].electrons = RKElectronCollection ;
+     
+     // add muon to RKDiJetMETCollectionWithStatus
+     if(RKDiJetMETCollection.size()>0) RKDiJetMETCollection[0].muons = RKMuonCollection ;
+     if(RKDiJetMETCollection.size()>0) std::cout<<" ----------------- muon size = "<<RKDiJetMETCollection[0].muons.size()<<std::endl;
+     
+     // add jets to the RKDiJetMETCollectionWithStatus
+     if(RKDiJetMETCollection.size()>0) RKDiJetMETCollection[0].jets  = RKJetCollection ;
+     
+     // add selection bits for baseline Analysis.
+     RKDiJetMETCollectionWithStatus = selectionbits.SelectionBitsSaver(RKDiJetMETCollection, cuts.cutValueMap);
+     
+     // add selection bits for ttbar control region 
+     RKDiJetMETCollectionTTBar = selectionbits.SelectionBitsSaver(RKDiJetMETCollection,cuts.cutValueMap);
+     
+     
+     // --------------------------------//
+     // ---------- Histograms -----------//
+     // --------------------------------//
+     // fill histograms for di-jet + met vaiables. very basic and common variables.
+     dijetmetValidator.Fill(RKDiJetMETCollectionWithStatus,1); // Fill only one dijet+Met combo
+     
+     // fill histograms for di-jet + met vaiables. Mono-H Specific histograms. 
+     histfac.Fill(RKDiJetMETCollectionWithStatus,1);
+     
      if( RKDiJetMETCollectionWithStatus.size()>0)     std::cout<<" cut status main = "<<RKDiJetMETCollectionWithStatus[0].cutsStatus<<std::endl;
      
      std::cout<<" calling cutFlow "<<std::endl;
@@ -75,6 +108,8 @@ void RKAnalyzer::Loop(TString output){
      std::cout<<" calling nminus one"<<std::endl;
      nminusobj.Fill(RKDiJetMETCollectionWithStatus);
      
+     std::cout<<" calling ABCD method "<<std::endl;
+     abcd.Fill(RKDiJetMETCollectionWithStatus);
      if(debug) std::cout<<" pfMetCorrPt = "<<pfMetCorrPt
 			<<" pfMetCorrPhi = "<<pfMetCorrPhi
 			<<" pfMetCorrSumEt = "<<pfMetCorrSumEt
@@ -101,14 +136,17 @@ void RKAnalyzer::Loop(TString output){
    dijetmetValidator.Write();
    cutflowobj.Write();
    nminusobj.Write();
+   histfac.Write();
+   abcd.Write();
 }
 
 
 
 
 void RKAnalyzer::JetProducer(){
-  jets.Clear();
+  
   for(Int_t i=0;i<AK5nJet;i++){
+    jets.Clear();
     TLorentzVector fourmom;
     fourmom.SetPtEtaPhiE( (*AK5jetPt)[i],
 			  (*AK5jetEta)[i],
@@ -149,8 +187,9 @@ void RKAnalyzer::JetProducer(){
     jets.jetNMultiplicity               = (*AK5jetNMultiplicity)[i];
     jets.jetHOEnergy                    = (*AK5jetHOEnergy)[i];
     jets.jetHOEF                        = (*AK5jetHOEF)[i];
-    RKJetCollection.push_back(jets);
-    if(fabs(fourmom.Eta())<2.4 && jets.B_CISVV2 > 0.423 && fourmom.Pt() > 30.)  RKJetCollection_selected.push_back(jets);
+    RKJetCollection_selected.push_back(jets);
+    if(fabs(fourmom.Eta())<2.5 && jets.B_CISVV2 > 0.423 && fourmom.Pt() > 30. ) RKJetCollection.push_back(jets);
+
   }
 }
 
@@ -174,11 +213,44 @@ void RKAnalyzer::METProducer(){
 
 }
 
+void RKAnalyzer::MuonProducer(){
+  for(size_t i=0; i<nMu; i++){
+    muons.Clear();
+    TLorentzVector fourmom;
+    fourmom.SetPtEtaPhiM((*muPt)[i], 
+			 (*muEta)[i], 
+			 (*muPhi)[i], 
+			 (*muM)[i] );
+    muons.p4      = fourmom ;
+    muons.charge  = (*muCharge)[i] ;
+    if(fourmom.Pt() > 20 && fabs(fourmom.Eta())<2.4 ) RKMuonCollection.push_back(muons);
+  }
+}
+
+void RKAnalyzer::ElectronProducer(){
+  for(size_t i=0; i<nEle; i++){
+    electrons.Clear();
+    TLorentzVector fourmom;
+    fourmom.SetPtEtaPhiM((*elePt)[i], 
+			 (*eleEta)[i], 
+			 (*elePhi)[i], 
+			 (*eleEnergy)[i] );
+    electrons.p4      = fourmom ;
+    //electrons.charge  = (*eleCharge)[i] ;
+    if(fourmom.Pt() > 20 && fabs(fourmom.Eta())<2.5 )  RKElectronCollection.push_back(electrons);
+  }
+}
+
+
 
 void RKAnalyzer::ClearCollections(){
   RKJetCollection.clear();
   RKJetCollection_selected.clear();
+  RKMuonCollection.clear();
+  RKElectronCollection.clear();
   RKdiJetCollection.clear();
   RKjetMETCollection.clear();
   RKDiJetMETCollection.clear();
+  RKDiJetMETCollectionWithStatus.clear();
+  RKDiJetMETCollectionTTBar.clear();
 }
