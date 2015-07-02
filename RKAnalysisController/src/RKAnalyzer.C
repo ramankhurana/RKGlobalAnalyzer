@@ -47,14 +47,14 @@ void RKAnalyzer::Loop(TString output){
      if(debug) std::cout<<" Jet collecttion produced "<<std::endl;
      // Fill Validation Histograms for Jets
      jetvalidator.Fill(RKJetCollection);
-     jetvalidator_selected.Fill(RKJetCollection);
+     jetvalidator_selected.Fill(RKJetCollection_selected);
      
      // Fill Validation histograms for MET
      metvalidator.Fill(met);
      
      // Dijet 
      std::cout<<" calling dijet maker "<<std::endl;
-     RKdiJetCollection = dijet.ReconstructDiObject(RKJetCollection);
+     RKdiJetCollection = dijet.ReconstructDiObject(RKJetCollection_selected);
      std::cout<< " dijet collection size = ========== "<<RKdiJetCollection.size()<<std::endl;
 
      // DiJet Validation
@@ -201,8 +201,8 @@ void RKAnalyzer::JetProducer(){
     jets.jetHOEnergy                    = (*THINjetHOEnergy)[i];
     jets.jetHOEF                        = (*THINjetHOEF)[i];
     */
-    //RKJetCollection.push_back(jets);
-    if(fabs(fourmom.Eta())<2.5 && jets.B_CISVV2 > 0.3 && fourmom.Pt() > 30. && RKJetCollection.size()<5 )     RKJetCollection.push_back(jets);
+    RKJetCollection.push_back(jets);
+    if(fabs(fourmom.Eta())<2.5 && jets.B_CISVV2 > 0.432 && fourmom.Pt() > 30. && RKJetCollection.size()<4 )     RKJetCollection_selected.push_back(jets);
     //if(fabs(fourmom.Eta())<2.5 && jets.B_CISVV2 > 0.2 && fourmom.Pt() > 30. )     RKJetCollection.push_back(jets);
 
   }

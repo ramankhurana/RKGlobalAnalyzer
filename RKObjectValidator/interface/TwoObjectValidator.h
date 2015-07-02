@@ -47,7 +47,7 @@ class TwoObjectValidator {
   TH1F*    h_PtOverPt1Pt2 ;
   TH1F*    h_PtOverMass_1;
   TH1F*    h_PtOverMass_2;
-  
+  TH1F*    h_CSVSum;
     // 2D Histograms
   TH2F* h_DeltaR_vs_InvMass;
   TH2F* h_DeltaPhi_vs_InvMass;
@@ -83,6 +83,7 @@ void TwoObjectValidator<T>::Fill(std::vector<T> objectcollection){
     h_PtOverPt1Pt2 ->Fill(objectcollection[0].ResonanceProp.PtOverPt1Pt2);
     h_PtOverMass_1 ->Fill(objectcollection[0].ResonanceProp.PtOverMass_1);
     h_PtOverMass_2 ->Fill(objectcollection[0].ResonanceProp.PtOverMass_2);
+    h_CSVSum       ->Fill(objectcollection[0].jet1.B_CISVV2 + objectcollection[0].jet2.B_CISVV2);
     // 2D Histograms
     h_DeltaR_vs_InvMass->Fill(objectcollection[0].ResonanceProp.DeltaR, objectcollection[0].ResonanceProp.InvMass);
     h_DeltaPhi_vs_InvMass->Fill(objectcollection[0].ResonanceProp.DeltaPhi,objectcollection[0].ResonanceProp.InvMass);
@@ -116,6 +117,7 @@ void TwoObjectValidator<T>::DefineHistograms(){
   h_PtOverPt1Pt2          = new TH1F("h_PtOverPt1Pt2","h_PtOverPt1Pt2",50,0.,1.0);
   h_PtOverMass_1          = new TH1F("h_PtOverMass_1","h_PtOverMass_1",50,0,5.);
   h_PtOverMass_2          = new TH1F("h_PtOverMass_2","h_PtOverMass_2",50,0,5.);
+  h_CSVSum                = new TH1F("h_CSVSum","h_CSVSum",1000,-2.,2.);
   
   // 2D Histograms
   h_DeltaR_vs_InvMass     = new TH2F("h_DeltaR_vs_InvMass","h_DeltaR_vs_InvMass",50,0.,5,300,0.,3000);
@@ -144,6 +146,7 @@ void TwoObjectValidator<T>::Write(){
   h_PtOverPt1Pt2         ->Write();
   h_PtOverMass_1         ->Write();
   h_PtOverMass_2         ->Write();
+  h_CSVSum               ->Write();
   
     // 2D Histograms
   h_DeltaR_vs_InvMass    ->Write();
