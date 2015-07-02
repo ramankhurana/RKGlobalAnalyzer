@@ -1,9 +1,15 @@
-#define HistFactory_cxx
-#include "../interface/HistFactory.h"
+#define ABCDMethod_cxx
+#include "../interface/ABCDMethod.h"
 #include "../../RKUtilities/interface/RKDebugger.h"
 
+//      |        |          | 
+//      |_A__|___D___|__A___|
+//  M   |        |          | 
+//  E   |_B _|___C____|__B__|
+//  T             Mass
 
-void HistFactory::GetInputs(TFile* f, TString prefix_){
+
+void ABCDMethod::GetInputs(TFile* f, TString prefix_){
   prefix = prefix_;
   file = f;
   std::cout<<" calling define histograms for Mono-H "<<std::endl;
@@ -11,39 +17,48 @@ void HistFactory::GetInputs(TFile* f, TString prefix_){
   std::cout<<" Mono-H histo defined "<<std::endl;
 }
 
-void HistFactory::DefineHistograms(){
-  TString postfix;
-  for(int i =0; i<nobjectmet; i++){
-    postfix.Form("%d",i);
-    
-    // 1D Histograms
-    h_nMuons[i]     = new TH1F("h_nMuons"+postfix,"h_nMuons",10,0,10);
-    h_nElectrons[i] = new TH1F("h_nElectrons"+postfix,"h_nElectrons",10,0,10);
-    h_nJets[i]      = new TH1F("h_nJetss"+postfix,"h_nJetss",10,0,10);
-    h_Q1Q2[i]       = new TH1F("h_Q1Q2"+postfix,"h_Q1Q2",21,-10,10);
-    // 2D Histograms
-    h_M_vs_MET[i]   = new TH2F("h_MET_vs_M"+postfix,"h_MET_vs_M",100,0.,200.,200,0.,1000.);
-    h_MET_vs_Q1Q2[i]= new TH2F("h_MET_vs_Q1Q2"+postfix,"h_MET_vs_Q1Q2",200,0,1000,21,-10,10);
-    h_M_vs_Q1Q2[i]  = new TH2F("h_M_vs_Q1Q2"+postfix,"h_M_vs_Q1Q2",100,0,200,21,-10,10);
-  }
-
+void ABCDMethod::DefineHistograms(){
+  h_Region = new TH2F("h_Region","h_Region",2,1,3, 2,1,3);
 }
 
-void HistFactory::Fill(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > objectCollection, Int_t howManyObjs){
-  //  std::cout<<" 
+void ABCDMethod::Fill(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > objectCollection){
+  
   if(objectCollection.size()>0){
-    for(size_t i=0; i< TMath::Min(objectCollection.size(),(size_t)nobjectmet);i++){
-      h_nMuons[i]->Fill(objectCollection[i].muons.size());
-      h_nElectrons[i]->Fill(objectCollection[i].electrons.size());
-      h_nJets[i]->Fill(objectCollection[i].jets.size());
-      h_Q1Q2[i]->Fill(objectCollection[i].jet1.jet1.charge * objectCollection[i].jet1.jet2.charge);
-      
-      h_M_vs_MET[i]->Fill(objectCollection[i].jet1.ResonanceProp.InvMass, objectCollection[i].jet2.RawPt);
-      h_MET_vs_Q1Q2[i]->Fill(objectCollection[i].jet2.RawPt, (objectCollection[i].jet1.jet1.charge * objectCollection[i].jet1.jet2.charge));
-      h_M_vs_Q1Q2[i]->Fill(objectCollection[i].jet1.ResonanceProp.InvMass, (objectCollection[i].jet1.jet1.charge * objectCollection[i].jet1.jet2.charge));
-      
-      std::cout<<" charge = "<<objectCollection[i].jet1.jet1.charge
-	       <<" : "<<objectCollection[i].jet1.jet2.charge<<std::endl;
+    for(size_t i=0; i< TMath::Min(objectCollection.size(),(size_t)nobjectMet);i++){
+      //for(size_t i=0; i< objectCollection.size();i++){
+      std::cout<<" cutsStatus = "<<objectCollection[i].cutsStatus<<std::endl;
+      if(!( (objectCollection[i].cutsStatus == 0b0000111101101111) || (objectCollection[i].cutsStatus == 0b0000111111111111)) ) continue;
+    
+      // Region A
+      if(objectCollection[i].jet2.RawPt > 200.0  
+	 && (objectCollection[i].jet1.ResonanceProp.InvMass < 100.
+	     || objectCollection[i].jet1.ResonanceProp.InvMass > 150.) ) {
+	std::cout<<" inside A"<<std::endl;
+	h_Region->Fill(1,2);
+      }
+
+      // Region B
+      if(objectCollection[i].jet2.RawPt < 200.0  
+	 && (objectCollection[i].jet1.ResonanceProp.InvMass < 100.
+	     || objectCollection[i].jet1.ResonanceProp.InvMass > 150.) ) {
+	h_Region->Fill(1,1);
+	
+      }
+
+      // Region C
+      if(objectCollection[i].jet2.RawPt < 200.0  
+	 && objectCollection[i].jet1.ResonanceProp.InvMass > 100.
+	 && objectCollection[i].jet1.ResonanceProp.InvMass < 150. ) {
+	h_Region->Fill(2,1);
+      }
+
+      // Region D
+      if(objectCollection[i].jet2.RawPt > 100.0  
+	 && objectCollection[i].jet1.ResonanceProp.InvMass > 100.
+	 && objectCollection[i].jet1.ResonanceProp.InvMass < 150. ) {
+	h_Region->Fill(2,2);
+      }
+	
     }//for(int i=0; i<(int)objectCollection.size();i++){
   }// if(objectCollection.size()>0){
 
@@ -51,20 +66,11 @@ void HistFactory::Fill(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > objec
 
 
 
-void HistFactory::Write(){
+void ABCDMethod::Write(){
   file->cd();
-  file->mkdir(prefix);
+  // this directory is alerady made by other class.
+  // instead of commenting use a proper check
+  // file->mkdir(prefix);
   file->cd(prefix);
-
-  for(int i =0; i<nobjectmet; i++){
-    // 1D Histograms
-    h_nMuons[i]     ->Write();
-    h_nElectrons[i] ->Write();
-    h_nJets[i]      ->Write();
-    h_Q1Q2[i]       ->Write();
-    // 2D Histograms
-    h_M_vs_MET[i]   ->Write();
-    h_MET_vs_Q1Q2[i]->Write();
-    h_M_vs_Q1Q2[i]  ->Write();
-  }
+  h_Region->Write();
 }

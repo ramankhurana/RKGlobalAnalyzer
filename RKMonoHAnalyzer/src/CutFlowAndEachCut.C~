@@ -1,8 +1,8 @@
-#define CutFlowAndNMiunsOne_cxx
-#include "../interface/CutFlowAndNMiunsOne.h"
-#include "../../NCUUtilities/interface/NCUDebugger.h"
+#define CutFlowAndEachCut_cxx
+#include "../interface/CutFlowAndEachCut.h"
+#include "../../RKUtilities/interface/RKDebugger.h"
 
-void  CutFlowAndNMiunsOne::CutFlow(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > objectCollection){
+void  CutFlowAndEachCut::CutFlow(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > objectCollection){
   if(objectCollection.size()>0){
     for(int i=0; i<(int)objectCollection.size();i++){
       if(i<2) { // i = 0, i = 1 ; save only two combinations not more than that. 
@@ -31,7 +31,7 @@ void  CutFlowAndNMiunsOne::CutFlow(std::vector<ResonanceMET<Resonance<Jet,Jet>,M
 
 }
 
-void CutFlowAndNMiunsOne::GetInputs(TFile* f, TString prefix_){
+void CutFlowAndEachCut::GetInputs(TFile* f, TString prefix_){
   prefix = prefix_;
   file = f;
   std::cout<<" calling define histograms for MET "<<std::endl;
@@ -42,7 +42,7 @@ void CutFlowAndNMiunsOne::GetInputs(TFile* f, TString prefix_){
 
 
 
-void CutFlowAndNMiunsOne::DefineHistograms(){
+void CutFlowAndEachCut::DefineHistograms(){
   TString postfix;
   for(int i=0;i<2;i++){
     postfix.Form("%d",i);
@@ -52,7 +52,7 @@ void CutFlowAndNMiunsOne::DefineHistograms(){
 }
 
 
-void CutFlowAndNMiunsOne::Write(){
+void CutFlowAndEachCut::Write(){
   file->cd();
   file->mkdir(prefix);
   file->cd(prefix);
