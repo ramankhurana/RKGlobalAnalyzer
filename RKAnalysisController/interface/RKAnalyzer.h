@@ -52,11 +52,14 @@ const Int_t kMaxpfmvaMetSig = 1;
 
 class RKAnalyzer {
  public :
+  TFile* fout;
   TFile* f;
   TTree          *fChain;   //!pointer to the analyzed TTree or TChain
   Int_t           fCurrent; //!current Tree number in a TChain
   
   
+  // Main Program Histograms
+  TH1F* nEvents;
   //   TString inputfilename;
    //TString outputfilename;
    
@@ -964,7 +967,7 @@ class RKAnalyzer {
 // if parameter tree is not specified (or zero), connect the file
 // used to generate this class and read the Tree.
    if (tree == 0) {
-      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("InputRootFile/NCUGlobalTuples_10.root");
+     f = (TFile*)gROOT->GetListOfFiles()->FindObject("InputRootFile/NCUGlobalTuples_10.root");
       if (!f || !f->IsOpen()) {
          f = new TFile("InputRootFile/NCUGlobalTuples_10.root");
       }

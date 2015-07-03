@@ -8,20 +8,24 @@ using namespace std;
 void RKAnalyzer::Loop(TString output){
   bool debug=false;
   std::cout<<" output = "<<output<<std::endl;
+  nEvents = dynamic_cast<TH1F*> (f->Get("allEventsCounter/totalEvents"));
   
   if(debug) std::cout<<" creating output file"<<std::endl;
-  f = new TFile(output,"RECREATE");
+  fout = new TFile(output,"RECREATE");
+  fout->cd();
+  nEvents->Write();
+
   
-  jetvalidator.GetInputs(f,"Jet_NoCut_");
-  jetvalidator_selected.GetInputs(f,"Jet_PtEtaBTag_");
-  metvalidator.GetInputs(f,"MET_NoCut_");
-  diJetValidator.GetInputs(f,"DiJetNotCut");
-  jetmetValidator.GetInputs(f,"JetMETNoCuts");
-  dijetmetValidator.GetInputs(f,"DiJetMETNoCuts");
-  cutflowobj.GetInputs(f,"CutFlowAndEachCut");
-  nminusobj.GetInputs(f,"NMinusOne");
-  histfac.GetInputs(f,"PreSelection");
-  abcd.GetInputs(f,"ABCD");
+  jetvalidator.GetInputs(fout,"Jet_NoCut_");
+  jetvalidator_selected.GetInputs(fout,"Jet_PtEtaBTag_");
+  metvalidator.GetInputs(fout,"MET_NoCut_");
+  diJetValidator.GetInputs(fout,"DiJetNotCut");
+  jetmetValidator.GetInputs(fout,"JetMETNoCuts");
+  dijetmetValidator.GetInputs(fout,"DiJetMETNoCuts");
+  cutflowobj.GetInputs(fout,"CutFlowAndEachCut");
+  nminusobj.GetInputs(fout,"NMinusOne");
+  histfac.GetInputs(fout,"PreSelection");
+  abcd.GetInputs(fout,"ABCD");
   
   if(debug) std::cout<<" Sending information to JetValidator "<<std::endl;
   if (fChain == 0) return;

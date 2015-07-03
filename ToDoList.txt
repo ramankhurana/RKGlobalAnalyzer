@@ -2,17 +2,17 @@
 2. add all jet variables
 3. add subjet/fatjet/ etc
 4. put them in the jet validator
-5. add total number of events
+**5. add total number of events
 6. Make proper debug statements in each file.
 7. Rename files like dijet ? 
 8. Make variables virtual so that producers can move out of the main code. 
-9. Fix the TLorenzVectorPart
+**9. Fix the TLorenzVectorPart
 10. Think of possible skims and implement them.
 11. Fix sorting so that all number of jets can be accomodated.
 12. Do a check if directory already exist, in that case don't create new dir. 
 13. Add efficiency plots. 
-  TotalEntries = dynamic_cast<TH1F*> (f->Get("totalentries"));
-
+14. Make all TLorentzVectors for other trees (muon, jets etc).
+15. 
 
 
 Things for Slides (7 July 2015) : 
