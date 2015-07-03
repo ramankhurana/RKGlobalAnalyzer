@@ -16,6 +16,7 @@
 #include <vector>
 #include <vector>
 #include <TClonesArray.h>
+#include <TLorentzVector.h>
 #include <vector>
 #include <vector>
 #include "../../RKUtilities/interface/RKDebugger.h"
@@ -40,19 +41,23 @@
 #include "../../RKUtilities/interface/MonoHiggsCuts.h" 
 using namespace std;
 // Fixed size dimensions of array or collections stored in the TTree if any.
-   const Int_t kMaxpfmvaMetPt = 1;
-   const Int_t kMaxpfmvaMetPhi = 1;
-   const Int_t kMaxpfmvaMetSumEt = 1;
-   const Int_t kMaxpfmvaMetSig = 1;
+const Int_t kMaxmuInnerdxy = 1;
+const Int_t kMaxmuInnerdz = 1;
+const Int_t kMaxmuTrkQuality = 1;
+const Int_t kMaxMuInnervalidFraction = 1;
+const Int_t kMaxpfmvaMetPt = 1;
+const Int_t kMaxpfmvaMetPhi = 1;
+const Int_t kMaxpfmvaMetSumEt = 1;
+const Int_t kMaxpfmvaMetSig = 1;
 
 class RKAnalyzer {
-public :
+ public :
   TFile* f;
-   TTree          *fChain;   //!pointer to the analyzed TTree or TChain
-   Int_t           fCurrent; //!current Tree number in a TChain
-   
-   
-   //   TString inputfilename;
+  TTree          *fChain;   //!pointer to the analyzed TTree or TChain
+  Int_t           fCurrent; //!current Tree number in a TChain
+  
+  
+  //   TString inputfilename;
    //TString outputfilename;
    
    // Physics Object Classes
@@ -120,8 +125,8 @@ public :
    
    
    // Declaration of leaf types
-   Float_t         pu_nTrueInt;
-   Int_t           pu_nPUVert;
+   //   Float_t         pu_nTrueInt;
+   //   Int_t           pu_nPUVert;
    
    Int_t           info_isData;
    Int_t           info_eventId;
@@ -525,8 +530,8 @@ public :
    vector<int>     *HPSTau_charge;
    */
    // List of branches
-   TBranch        *b_pu_nTrueInt;   //!
-   TBranch        *b_pu_nPUVert;   //!
+   //   TBranch        *b_pu_nTrueInt;   //!
+   //TBranch        *b_pu_nPUVert;   //!
    TBranch        *b_info_isData;   //!
    TBranch        *b_info_eventId;   //!
    TBranch        *b_info_runId;   //!
@@ -959,12 +964,12 @@ public :
 // if parameter tree is not specified (or zero), connect the file
 // used to generate this class and read the Tree.
    if (tree == 0) {
-      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("InputRootFile/NCUGlobalTuples.root");
+      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("InputRootFile/NCUGlobalTuples_10.root");
       if (!f || !f->IsOpen()) {
-         f = new TFile("InputRootFile/NCUGlobalTuples.root");
+         f = new TFile("InputRootFile/NCUGlobalTuples_10.root");
       }
-      TDirectory * dir = (TDirectory*)f->Get("InputRootFile/NCUGlobalTuples.root:/tree");
-      dir->GetObject("tree",tree);
+      TDirectory * dir = (TDirectory*)f->Get("InputRootFile/NCUGlobalTuples_10.root:/tree");
+      dir->GetObject("treeMaker",tree);
 
    }
    Init(tree);
@@ -1374,8 +1379,8 @@ void RKAnalyzer::Init(TTree *tree)
    fCurrent = -1;
    fChain->SetMakeClass(1);
 
-   fChain->SetBranchAddress("pu_nTrueInt", &pu_nTrueInt, &b_pu_nTrueInt);
-   fChain->SetBranchAddress("pu_nPUVert", &pu_nPUVert, &b_pu_nPUVert);
+   //   fChain->SetBranchAddress("pu_nTrueInt", &pu_nTrueInt, &b_pu_nTrueInt);
+   //   fChain->SetBranchAddress("pu_nPUVert", &pu_nPUVert, &b_pu_nPUVert);
    fChain->SetBranchAddress("info_isData", &info_isData, &b_info_isData);
    fChain->SetBranchAddress("info_eventId", &info_eventId, &b_info_eventId);
    fChain->SetBranchAddress("info_runId", &info_runId, &b_info_runId);
@@ -1405,7 +1410,7 @@ void RKAnalyzer::Init(TTree *tree)
    fChain->SetBranchAddress("genDa1", &genDa1, &b_genDa1);
    fChain->SetBranchAddress("genDa2", &genDa2, &b_genDa2);
    
-      fChain->SetBranchAddress("nMu", &nMu, &b_nMu);
+   fChain->SetBranchAddress("nMu", &nMu, &b_nMu);
    fChain->SetBranchAddress("muType", &muType, &b_muType);
    fChain->SetBranchAddress("muPt", &muPt, &b_muPt);
    fChain->SetBranchAddress("muEta", &muEta, &b_muEta);

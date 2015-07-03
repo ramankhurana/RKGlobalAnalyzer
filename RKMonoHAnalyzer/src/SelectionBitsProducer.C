@@ -39,7 +39,7 @@ std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > SelectionBitsProducer::Selec
       if(TMath::Abs(objectCollection[i].ResonancemetProp.DeltaPhi) > tmp_cutValueMap["dphiDiJetMet"] )    StatusOfCuts[cuts.cutsMap["fDPHIDijetMet"]] = 1;
       
       if(objectCollection[i].ResonancemetProp.TransMass > tmp_cutValueMap["MTDiJet"] )                    StatusOfCuts[cuts.cutsMap["gMTDijet"]] = 1;
-
+      
       if(objectCollection[i].jet1.ResonanceProp.InvMass > tmp_cutValueMap["MDiJetLow"]  &&         
 	 objectCollection[i].jet1.ResonanceProp.InvMass < tmp_cutValueMap["MDiJetHigh"] )                 StatusOfCuts[cuts.cutsMap["hMDijet"]] = 1;
       
