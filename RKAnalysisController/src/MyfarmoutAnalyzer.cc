@@ -15,7 +15,7 @@ int main(){
   TString inputListName = getenv("INPUT");
   std::cout << "Output File Name: " << outfileName << std::endl;
 
-  TChain *theChain = new TChain("tree/tree");
+  TChain *theChain = new TChain("tree/treeMaker");
 
   vector<TString> infileName_dump;
   
