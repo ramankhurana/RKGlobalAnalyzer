@@ -4,6 +4,7 @@
 #include <TStyle.h>
 #include <TCanvas.h>
 #include <iostream>
+#include <TUrl.h>
 using namespace std;
 void RKAnalyzer::Loop(TString output){
   bool debug=false;
@@ -32,6 +33,7 @@ void RKAnalyzer::Loop(TString output){
   
   Long64_t nentries = fChain->GetEntriesFast();
   std::cout<<" nevents ====== "<<nentries<<std::endl;
+  nentries = 10;
   Long64_t nbytes = 0, nb = 0;
    for (Long64_t jentry=0; jentry<nentries;jentry++) {
      Long64_t ientry = LoadTree(jentry);
@@ -291,9 +293,20 @@ void RKAnalyzer::TotalEvent(std::vector<TString> FileList) {
   TH1F* outHist;
   int ic=0;
   for (unsigned int iFile=0; iFile<FileList.size(); ++iFile)    {
+    
+    //TString name = "root://cmsxrootd.hep.wisc.edu/"+FileList[iFile];
+    // Following is the trick to get the correct file name which can be used by farmoutAnalysis
+    std::string name0 = "root:/";
+    std::string name1 = "/cmsxrootd.hep.wisc.edu///";
+    std::string name2 = (std::string) FileList[iFile];
+    std::string name = name0 + name1 + name2;
+    
+    //TString name = "root:"+"/"+"/"+"cmsxrootd.hep.wisc.edu/"+"/"+FileList[iFile];
+    std::cout<<" name = "<<name<<std::endl;
     std::cout<<" debug 1"<<iFile<<std::endl;
-    m_f[iFile] = new TFile(FileList[iFile]);
+    m_f[iFile] = TFile::Open(name.c_str());
     std::cout<<" debug 2"<<iFile<<std::endl;
+    //if(false){
     if(iFile==0){
       std::cout<<" debug 3"<<iFile<<std::endl;
       dummyHist = dynamic_cast<TH1F*> (m_f[iFile]->Get("allEventsCounter/totalEvents"));
@@ -301,6 +314,7 @@ void RKAnalyzer::TotalEvent(std::vector<TString> FileList) {
       outHist = (TH1F*)dummyHist->Clone();
     }
     std::cout<<" debug 5"<<iFile<<std::endl;
+    //if(false){
     if(iFile>0){
       dummyHist = dynamic_cast <TH1F*> (m_f[iFile]->Get("allEventsCounter/totalEvents"));
       std::cout<<" debug 6"<<iFile<<std::endl;
@@ -311,5 +325,5 @@ void RKAnalyzer::TotalEvent(std::vector<TString> FileList) {
   }
   fout->cd();
   outHist->Write();
-    
+  
 }
