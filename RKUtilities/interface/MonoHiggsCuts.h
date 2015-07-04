@@ -19,15 +19,17 @@ class MonoHiggsCuts {
     cutsMap["bsubleadingpteta"]    = 1  ;
     cutsMap["cleadingcsv"]         = 2  ;
     cutsMap["dsubleadingcsv"]      = 3  ;
+
     cutsMap["emetpt"]              = 4  ;
     cutsMap["fDPHIDijetMet"]       = 5  ;
     cutsMap["gMTDijet"]            = 6  ;
     cutsMap["hMDijet"]             = 7  ;
+
     cutsMap["iDPHIJet1Met"]        = 8  ;
     cutsMap["jDPHIJet2Met"]        = 9  ;
     cutsMap["kMTJet1"]             = 10 ;
     cutsMap["lMTJet2"]             = 11 ;
-
+    //  0000 1111 1111 1111
 
     
     // cutValueMap
