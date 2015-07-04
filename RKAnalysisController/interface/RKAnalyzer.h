@@ -944,6 +944,7 @@ class RKAnalyzer {
    virtual Bool_t   Notify();
    virtual void     Show(Long64_t entry = -1);
    void TotalEvent(std::vector<TString> filelist);
+   void TotalEvent(TH1F* h);
    
    // User Functions 
    // Clear all the collections for each event.

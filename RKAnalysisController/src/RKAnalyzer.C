@@ -327,3 +327,10 @@ void RKAnalyzer::TotalEvent(std::vector<TString> FileList) {
   outHist->Write();
   
 }
+
+
+void RKAnalyzer::TotalEvent(TH1F* h){
+  fout->cd();
+  h->Write();
+
+}
