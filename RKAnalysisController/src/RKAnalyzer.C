@@ -33,7 +33,7 @@ void RKAnalyzer::Loop(TString output){
   
   Long64_t nentries = fChain->GetEntriesFast();
   std::cout<<" nevents ====== "<<nentries<<std::endl;
-  nentries = 10;
+  //nentries = 10;
   Long64_t nbytes = 0, nb = 0;
    for (Long64_t jentry=0; jentry<nentries;jentry++) {
      Long64_t ientry = LoadTree(jentry);
