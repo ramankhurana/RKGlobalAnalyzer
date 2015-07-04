@@ -8,12 +8,12 @@ using namespace std;
 void RKAnalyzer::Loop(TString output){
   bool debug=false;
   std::cout<<" output = "<<output<<std::endl;
-  nEvents = dynamic_cast<TH1F*> (f->Get("allEventsCounter/totalEvents"));
+  //nEvents = dynamic_cast<TH1F*> (f->Get("allEventsCounter/totalEvents"));
   
   if(debug) std::cout<<" creating output file"<<std::endl;
   fout = new TFile(output,"RECREATE");
-  fout->cd();
-  nEvents->Write();
+  //fout->cd();
+  //nEvents->Write();
 
   
   jetvalidator.GetInputs(fout,"Jet_NoCut_");
@@ -280,4 +280,36 @@ void RKAnalyzer::ClearCollections(){
   RKDiJetMETCollection.clear();
   RKDiJetMETCollectionWithStatus.clear();
   RKDiJetMETCollectionTTBar.clear();
+}
+
+
+void RKAnalyzer::TotalEvent(std::vector<TString> FileList) {
+  
+  const int nfile=FileList.size();
+  TFile* m_f[nfile];
+  TH1F* dummyHist;
+  TH1F* outHist;
+  int ic=0;
+  for (unsigned int iFile=0; iFile<FileList.size(); ++iFile)    {
+    std::cout<<" debug 1"<<iFile<<std::endl;
+    m_f[iFile] = new TFile(FileList[iFile]);
+    std::cout<<" debug 2"<<iFile<<std::endl;
+    if(iFile==0){
+      std::cout<<" debug 3"<<iFile<<std::endl;
+      dummyHist = dynamic_cast<TH1F*> (m_f[iFile]->Get("allEventsCounter/totalEvents"));
+      std::cout<<" debug 4"<<iFile<<std::endl;
+      outHist = (TH1F*)dummyHist->Clone();
+    }
+    std::cout<<" debug 5"<<iFile<<std::endl;
+    if(iFile>0){
+      dummyHist = dynamic_cast <TH1F*> (m_f[iFile]->Get("allEventsCounter/totalEvents"));
+      std::cout<<" debug 6"<<iFile<<std::endl;
+      outHist->Add(dummyHist);
+      std::cout<<" debug 7"<<iFile<<std::endl;
+    }
+    
+  }
+  fout->cd();
+  outHist->Write();
+    
 }

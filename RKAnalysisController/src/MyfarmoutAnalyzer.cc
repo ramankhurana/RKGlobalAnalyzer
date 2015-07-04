@@ -47,7 +47,8 @@ int main(){
   // Initialize and run analyzer on TChain
   analyzer.Init(theChain);
   analyzer.Loop(outfileName);
-    
+  analyzer.TotalEvent(infileName_dump);
+  
   time(&end);
   std::cout<<" time used is = "<<-(start-end)<<" seconds"<<std::endl;
   
