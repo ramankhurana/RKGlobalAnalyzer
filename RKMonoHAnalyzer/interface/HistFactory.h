@@ -25,7 +25,7 @@ class HistFactory {
  public:
   HistFactory(){};
   ~HistFactory(){};
-  void Fill(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > objectCollection, Int_t howManyObjs);
+  void Fill(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > objectCollection, Int_t howManyObjs, std::vector<int> bitVec);
   void DefineHistograms();
   void GetInputs(TFile* f, TString prefix_);
   void Write();

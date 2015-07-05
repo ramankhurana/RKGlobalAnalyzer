@@ -37,12 +37,7 @@ void HistFactory::DefineHistograms(){
 
 }
 
-void HistFactory::Fill(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > objectCollection, Int_t howManyObjs){
-  std::vector<int> istatus;
-  istatus.push_back(0);
-  istatus.push_back(1);
-  istatus.push_back(2);
-  istatus.push_back(3);
+void HistFactory::Fill(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > objectCollection, Int_t howManyObjs, std::vector<int> istatus){
   if(objectCollection.size()>0){
     for(size_t i=0; i< TMath::Min(objectCollection.size(),(size_t)nobjectmet);i++){
       Int_t nbits = 0;
