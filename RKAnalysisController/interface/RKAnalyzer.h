@@ -18,7 +18,6 @@
 #include <TClonesArray.h>
 #include <TLorentzVector.h>
 #include <vector>
-#include <vector>
 #include "../../RKUtilities/interface/RKDebugger.h"
 #include "../../RKDataFormats/interface/Jet.h"
 #include "../../RKDataFormats/interface/MET.h"
@@ -94,6 +93,7 @@ class RKAnalyzer {
    ObjectMETValidator<ResonanceMET<Resonance<Jet,Jet>,MET > >  dijetmetValidator;
    // Mono-H Histograms
    HistFactory histfac;
+   HistFactory histfacJetPreSel;
    // Mono-H ABCD method 
    ABCDMethod abcd;
    // Mono-H cuts maps and vectos
@@ -108,6 +108,7 @@ class RKAnalyzer {
    std::vector<Electron> RKElectronCollection;
    // DiJet
    std::vector<Resonance<Jet,Jet> > RKdiJetCollection;
+   std::vector<Resonance<Jet,Jet> > RKdiJetCollection_selected;
    // Jet-MET
    std::vector<ResonanceWithMET<Jet,MET> > RKjetMETCollection;
    //DiJet-MET
