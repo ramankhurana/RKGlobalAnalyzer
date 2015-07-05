@@ -169,6 +169,7 @@ void RKAnalyzer::Loop(TString output){
    histfac.Write();
    histfacJetPreSel.Write();
    abcd.Write();
+   fout->cd();
    nEvents->Write();
 }
 
