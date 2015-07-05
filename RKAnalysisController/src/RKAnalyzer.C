@@ -25,7 +25,9 @@ void RKAnalyzer::Loop(TString output){
   dijetmetValidator.GetInputs(fout,"DiJetMETNoCuts");
   cutflowobj.GetInputs(fout,"CutFlowAndEachCut");
   nminusobj.GetInputs(fout,"NMinusOne");
-  histfac.GetInputs(fout,"PreSelection");
+  histfac.GetInputs(fout,"NoCut");
+  histfacJetPreSel.GetInputs(fout,"JetPreSel");
+  
   abcd.GetInputs(fout,"ABCD");
   
   if(debug) std::cout<<" Sending information to JetValidator "<<std::endl;
@@ -61,12 +63,15 @@ void RKAnalyzer::Loop(TString output){
      
      // Dijet 
      std::cout<<" calling dijet maker "<<std::endl;
-     RKdiJetCollection = dijet.ReconstructDiObject(RKJetCollection_selected);
+     // for validation 
+     RKdiJetCollection_selected = dijet.ReconstructDiObject(RKJetCollection_selected);
+     // For further processing 
+     RKdiJetCollection = dijet.ReconstructDiObject(RKJetCollection);
      std::cout<< " dijet collection size = ========== "<<RKdiJetCollection.size()<<std::endl;
 
      // DiJet Validation
      if(debug) std::cout<<" diJet mass = "<<RKdiJetCollection[0].ResonanceProp.p4.Mag()<<std::endl;
-     diJetValidator.Fill(RKdiJetCollection);
+     if(RKdiJetCollection.size() > 0) diJetValidator.Fill(RKdiJetCollection_selected);
      std::cout<<" dijet part done "<<std::endl;
      
      
@@ -114,7 +119,8 @@ void RKAnalyzer::Loop(TString output){
      
      // fill histograms for di-jet + met vaiables. Mono-H Specific histograms. 
      histfac.Fill(RKDiJetMETCollectionWithStatus,1);
-     
+     histfacJetPreSel.Fill(RKDiJetMETCollectionWithStatus,1);
+       
      if( RKDiJetMETCollectionWithStatus.size()>0)     std::cout<<" cut status main = "<<RKDiJetMETCollectionWithStatus[0].cutsStatus<<std::endl;
      
      std::cout<<" calling cutFlow "<<std::endl;
@@ -191,7 +197,24 @@ void RKAnalyzer::JetProducer(){
     jets.jetNEmEF                       = (*THINjetNEmEF)[i];
     jets.jetNHadEF                      = (*THINjetNHadEF)[i];
     jets.jetCMulti                      = (*THINjetCMulti)[i];
-
+    
+    float pt  = (*THINjetPt )[i]                         ;
+    float eta_ = (*THINjetEta)[i]                         ; 
+    float csv = (*THINjetCISVV2)[i]                      ;
+    jets.ispT30_         =   pt > 30.                         ;
+    jets.ispT50_         =   pt > 50.                         ;
+    jets.ispT80_         =   pt > 80.                         ;
+    jets.ispT100_        =   pt > 100.                        ;
+    jets.iseta25_        =   fabs(eta_) < 2.5                 ;
+    jets.isCSVVL_        =   csv > 0.25                       ;//myself
+    jets.isCSVL_         =   csv > 0.432                      ;
+    jets.isCSVMed_       =   csv > 0.532                      ;// myself
+    jets.isCSVT_         =   csv > 0.732                      ;
+    jets.isLooseJet_     =   pt > 30.  && 
+                        fabs(eta_) < 2.5 && 
+                        csv > 0.432                      ;
+    
+    
     
     // not in NCU Global tuple right now
     /*
@@ -210,8 +233,8 @@ void RKAnalyzer::JetProducer(){
     */
     RKJetCollection.push_back(jets);
     if(fabs(fourmom.Eta())<2.5 && jets.B_CISVV2 > 0.432 && fourmom.Pt() > 30. && RKJetCollection.size()<4 )     RKJetCollection_selected.push_back(jets);
-    //if(fabs(fourmom.Eta())<2.5 && jets.B_CISVV2 > 0.2 && fourmom.Pt() > 30. )     RKJetCollection.push_back(jets);
-
+    //RKJetCollection_selected.push_back(jets);
+    
   }
 }
 
@@ -278,6 +301,7 @@ void RKAnalyzer::ClearCollections(){
   RKMuonCollection.clear();
   RKElectronCollection.clear();
   RKdiJetCollection.clear();
+  RKdiJetCollection_selected.clear();
   RKjetMETCollection.clear();
   RKDiJetMETCollection.clear();
   RKDiJetMETCollectionWithStatus.clear();

@@ -50,6 +50,17 @@ class Jet{
 
   Float_t mt;
   Float_t dphi;
+  
+  Bool_t ispT30_;
+  Bool_t ispT50_;
+  Bool_t ispT80_;
+  Bool_t ispT100_;
+  Bool_t iseta25_;
+  Bool_t isCSVVL_;
+  Bool_t isCSVL_;
+  Bool_t isCSVMed_;
+  Bool_t isCSVT_;
+  Bool_t isLooseJet_;
   bool operator== (Jet& other_){
     return((this->p4.Pt()==other_.p4.Pt()) && (this->charge == other_.charge));
   }
@@ -59,6 +70,16 @@ class Jet{
     jetHOEF=0.;
     nJets = 0;
     
+    ispT30_         =   false   ;
+    ispT50_         =   false   ;
+    ispT80_         =   false   ;
+    ispT100_        =   false   ;
+    iseta25_        =   false   ;
+    isCSVVL_        =   false   ;
+    isCSVL_         =   false   ;
+    isCSVMed_       =   false   ;
+    isCSVT_         =   false   ; 
+    isLooseJet_     =   false   ;
   }
 };
 
