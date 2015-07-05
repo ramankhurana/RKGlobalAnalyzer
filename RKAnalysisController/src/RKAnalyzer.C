@@ -118,8 +118,14 @@ void RKAnalyzer::Loop(TString output){
      dijetmetValidator.Fill(RKDiJetMETCollectionWithStatus,1); // Fill only one dijet+Met combo
      
      // fill histograms for di-jet + met vaiables. Mono-H Specific histograms. 
-     histfac.Fill(RKDiJetMETCollectionWithStatus,1);
-     histfacJetPreSel.Fill(RKDiJetMETCollectionWithStatus,1);
+     std::vector<int> bitVec; bitVec.clear();
+     histfac.Fill(RKDiJetMETCollectionWithStatus,1, bitVec); // empty vector for no cuts
+     // Following is pT,  Eta and CSV Loose
+     bitVec.push_back(0); bitVec.push_back(1); bitVec.push_back(2); bitVec.push_back(3);
+     histfacJetPreSel.Fill(RKDiJetMETCollectionWithStatus,1, bitVec);
+     bitVec.clear();
+     // Call again with different bit pattern to measure efficiency. 
+     
        
      if( RKDiJetMETCollectionWithStatus.size()>0)     std::cout<<" cut status main = "<<RKDiJetMETCollectionWithStatus[0].cutsStatus<<std::endl;
      
@@ -158,6 +164,7 @@ void RKAnalyzer::Loop(TString output){
    cutflowobj.Write();
    nminusobj.Write();
    histfac.Write();
+   histfacJetPreSel.Write();
    abcd.Write();
 }
 
