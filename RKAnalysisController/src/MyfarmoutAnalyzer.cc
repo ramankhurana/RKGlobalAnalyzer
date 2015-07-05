@@ -15,7 +15,7 @@ int main(){
   TString inputListName = getenv("INPUT");
   std::cout << "Output File Name: " << outfileName << std::endl;
 
-  TChain *theChain = new TChain("tree/tree");
+  TChain *theChain = new TChain("tree/treeMaker");
 
   vector<TString> infileName_dump;
   
@@ -34,12 +34,18 @@ int main(){
   /// Loop through lines in file (paths to .root files)
       // and add to TChain
       TString infileName = ""; 
+      TFile* f;
+      TH1F* h_ntotal;
   while( !inputList.eof() ) { 
     infileName="";
     inputList >> infileName;
+    
     std::cout << " Input File Name: "  << infileName <<  std::endl;
     theChain->Add( infileName );
     infileName_dump.push_back(infileName);
+    //f = TFile::Open(infileName);
+    //f->cd();
+    //if( !f || !f->IsOpen() ) h_ntotal = dynamic_cast<TH1F*> (f->Get("allEventsCounter/totalEvents"));
   }
  
   
@@ -47,7 +53,9 @@ int main(){
   // Initialize and run analyzer on TChain
   analyzer.Init(theChain);
   analyzer.Loop(outfileName);
-    
+  //analyzer.TotalEvent(infileName_dump);
+  //analyzer.TotalEvent(h_ntotal);
+  
   time(&end);
   std::cout<<" time used is = "<<-(start-end)<<" seconds"<<std::endl;
   

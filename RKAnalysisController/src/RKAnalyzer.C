@@ -4,16 +4,17 @@
 #include <TStyle.h>
 #include <TCanvas.h>
 #include <iostream>
+#include <TUrl.h>
 using namespace std;
 void RKAnalyzer::Loop(TString output){
   bool debug=false;
   std::cout<<" output = "<<output<<std::endl;
-  nEvents = dynamic_cast<TH1F*> (f->Get("allEventsCounter/totalEvents"));
+  //nEvents = dynamic_cast<TH1F*> (f->Get("allEventsCounter/totalEvents"));
   
   if(debug) std::cout<<" creating output file"<<std::endl;
   fout = new TFile(output,"RECREATE");
-  fout->cd();
-  nEvents->Write();
+  //fout->cd();
+  //nEvents->Write();
 
   
   jetvalidator.GetInputs(fout,"Jet_NoCut_");
@@ -24,7 +25,9 @@ void RKAnalyzer::Loop(TString output){
   dijetmetValidator.GetInputs(fout,"DiJetMETNoCuts");
   cutflowobj.GetInputs(fout,"CutFlowAndEachCut");
   nminusobj.GetInputs(fout,"NMinusOne");
-  histfac.GetInputs(fout,"PreSelection");
+  histfac.GetInputs(fout,"NoCut");
+  histfacJetPreSel.GetInputs(fout,"JetPreSel");
+  
   abcd.GetInputs(fout,"ABCD");
   
   if(debug) std::cout<<" Sending information to JetValidator "<<std::endl;
@@ -32,6 +35,7 @@ void RKAnalyzer::Loop(TString output){
   
   Long64_t nentries = fChain->GetEntriesFast();
   std::cout<<" nevents ====== "<<nentries<<std::endl;
+  //nentries = 10;
   Long64_t nbytes = 0, nb = 0;
    for (Long64_t jentry=0; jentry<nentries;jentry++) {
      Long64_t ientry = LoadTree(jentry);
@@ -59,12 +63,15 @@ void RKAnalyzer::Loop(TString output){
      
      // Dijet 
      std::cout<<" calling dijet maker "<<std::endl;
-     RKdiJetCollection = dijet.ReconstructDiObject(RKJetCollection_selected);
+     // for validation 
+     RKdiJetCollection_selected = dijet.ReconstructDiObject(RKJetCollection_selected);
+     // For further processing 
+     RKdiJetCollection = dijet.ReconstructDiObject(RKJetCollection);
      std::cout<< " dijet collection size = ========== "<<RKdiJetCollection.size()<<std::endl;
 
      // DiJet Validation
      if(debug) std::cout<<" diJet mass = "<<RKdiJetCollection[0].ResonanceProp.p4.Mag()<<std::endl;
-     diJetValidator.Fill(RKdiJetCollection);
+     if(RKdiJetCollection.size() > 0) diJetValidator.Fill(RKdiJetCollection_selected);
      std::cout<<" dijet part done "<<std::endl;
      
      
@@ -112,7 +119,8 @@ void RKAnalyzer::Loop(TString output){
      
      // fill histograms for di-jet + met vaiables. Mono-H Specific histograms. 
      histfac.Fill(RKDiJetMETCollectionWithStatus,1);
-     
+     histfacJetPreSel.Fill(RKDiJetMETCollectionWithStatus,1);
+       
      if( RKDiJetMETCollectionWithStatus.size()>0)     std::cout<<" cut status main = "<<RKDiJetMETCollectionWithStatus[0].cutsStatus<<std::endl;
      
      std::cout<<" calling cutFlow "<<std::endl;
@@ -189,7 +197,24 @@ void RKAnalyzer::JetProducer(){
     jets.jetNEmEF                       = (*THINjetNEmEF)[i];
     jets.jetNHadEF                      = (*THINjetNHadEF)[i];
     jets.jetCMulti                      = (*THINjetCMulti)[i];
-
+    
+    float pt  = (*THINjetPt )[i]                         ;
+    float eta_ = (*THINjetEta)[i]                         ; 
+    float csv = (*THINjetCISVV2)[i]                      ;
+    jets.ispT30_         =   pt > 30.                         ;
+    jets.ispT50_         =   pt > 50.                         ;
+    jets.ispT80_         =   pt > 80.                         ;
+    jets.ispT100_        =   pt > 100.                        ;
+    jets.iseta25_        =   fabs(eta_) < 2.5                 ;
+    jets.isCSVVL_        =   csv > 0.25                       ;//myself
+    jets.isCSVL_         =   csv > 0.432                      ;
+    jets.isCSVMed_       =   csv > 0.532                      ;// myself
+    jets.isCSVT_         =   csv > 0.732                      ;
+    jets.isLooseJet_     =   pt > 30.  && 
+                        fabs(eta_) < 2.5 && 
+                        csv > 0.432                      ;
+    
+    
     
     // not in NCU Global tuple right now
     /*
@@ -208,8 +233,8 @@ void RKAnalyzer::JetProducer(){
     */
     RKJetCollection.push_back(jets);
     if(fabs(fourmom.Eta())<2.5 && jets.B_CISVV2 > 0.432 && fourmom.Pt() > 30. && RKJetCollection.size()<4 )     RKJetCollection_selected.push_back(jets);
-    //if(fabs(fourmom.Eta())<2.5 && jets.B_CISVV2 > 0.2 && fourmom.Pt() > 30. )     RKJetCollection.push_back(jets);
-
+    //RKJetCollection_selected.push_back(jets);
+    
   }
 }
 
@@ -276,8 +301,60 @@ void RKAnalyzer::ClearCollections(){
   RKMuonCollection.clear();
   RKElectronCollection.clear();
   RKdiJetCollection.clear();
+  RKdiJetCollection_selected.clear();
   RKjetMETCollection.clear();
   RKDiJetMETCollection.clear();
   RKDiJetMETCollectionWithStatus.clear();
   RKDiJetMETCollectionTTBar.clear();
+}
+
+
+void RKAnalyzer::TotalEvent(std::vector<TString> FileList) {
+  
+  const int nfile=FileList.size();
+  TFile* m_f[nfile];
+  TH1F* dummyHist;
+  TH1F* outHist;
+  int ic=0;
+  for (unsigned int iFile=0; iFile<FileList.size(); ++iFile)    {
+    
+    //TString name = "root://cmsxrootd.hep.wisc.edu/"+FileList[iFile];
+    // Following is the trick to get the correct file name which can be used by farmoutAnalysis
+    std::string name0 = "root:/";
+    std::string name1 = "/cmsxrootd.hep.wisc.edu///";
+    std::string name2 = (std::string) FileList[iFile];
+    std::string name = name0 + name1 + name2;
+    
+    //TString name = "root:"+"/"+"/"+"cmsxrootd.hep.wisc.edu/"+"/"+FileList[iFile];
+    std::cout<<" name = "<<name<<std::endl;
+    std::cout<<" debug 1"<<iFile<<std::endl;
+    m_f[iFile] = TFile::Open(name.c_str());
+    std::cout<<" debug 2"<<iFile<<std::endl;
+    //if(false){
+    if(iFile==0){
+      std::cout<<" debug 3"<<iFile<<std::endl;
+      dummyHist = dynamic_cast<TH1F*> (m_f[iFile]->Get("allEventsCounter/totalEvents"));
+      std::cout<<" debug 4"<<iFile<<std::endl;
+      outHist = (TH1F*)dummyHist->Clone();
+    }
+    std::cout<<" debug 5"<<iFile<<std::endl;
+    //if(false){
+    if(iFile>0){
+      dummyHist = dynamic_cast <TH1F*> (m_f[iFile]->Get("allEventsCounter/totalEvents"));
+      std::cout<<" debug 6"<<iFile<<std::endl;
+      outHist->Add(dummyHist);
+      std::cout<<" debug 7"<<iFile<<std::endl;
+    }
+    
+  }
+  fout->cd();
+  outHist->Write();
+  
+}
+
+
+void RKAnalyzer::TotalEvent(TH1F* h){
+  fout->cd();
+  h->Write();
+
 }

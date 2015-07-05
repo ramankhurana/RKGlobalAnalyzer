@@ -18,7 +18,6 @@
 #include <TClonesArray.h>
 #include <TLorentzVector.h>
 #include <vector>
-#include <vector>
 #include "../../RKUtilities/interface/RKDebugger.h"
 #include "../../RKDataFormats/interface/Jet.h"
 #include "../../RKDataFormats/interface/MET.h"
@@ -94,6 +93,7 @@ class RKAnalyzer {
    ObjectMETValidator<ResonanceMET<Resonance<Jet,Jet>,MET > >  dijetmetValidator;
    // Mono-H Histograms
    HistFactory histfac;
+   HistFactory histfacJetPreSel;
    // Mono-H ABCD method 
    ABCDMethod abcd;
    // Mono-H cuts maps and vectos
@@ -108,6 +108,7 @@ class RKAnalyzer {
    std::vector<Electron> RKElectronCollection;
    // DiJet
    std::vector<Resonance<Jet,Jet> > RKdiJetCollection;
+   std::vector<Resonance<Jet,Jet> > RKdiJetCollection_selected;
    // Jet-MET
    std::vector<ResonanceWithMET<Jet,MET> > RKjetMETCollection;
    //DiJet-MET
@@ -943,6 +944,8 @@ class RKAnalyzer {
    virtual void     Loop(TString output);
    virtual Bool_t   Notify();
    virtual void     Show(Long64_t entry = -1);
+   void TotalEvent(std::vector<TString> filelist);
+   void TotalEvent(TH1F* h);
    
    // User Functions 
    // Clear all the collections for each event.
@@ -967,11 +970,14 @@ class RKAnalyzer {
 // if parameter tree is not specified (or zero), connect the file
 // used to generate this class and read the Tree.
    if (tree == 0) {
-     f = (TFile*)gROOT->GetListOfFiles()->FindObject("InputRootFile/NCUGlobalTuples_10.root");
+     //f = (TFile*)gROOT->GetListOfFiles()->FindObject("InputRootFile/NCUGlobalTuples_10.root");
+     f = (TFile*)gROOT->GetListOfFiles()->FindObject("/hdfs/store/user/khurana/ggZH_HToBB_ZToNuNu_M120_13TeV_powheg_pythia8/crab_ggZH_HToBB_ZToNuNu_M120_13TeV_powheg_pythia8/150702_105011/0000/NCUGlobalTuples_10.root");
       if (!f || !f->IsOpen()) {
-         f = new TFile("InputRootFile/NCUGlobalTuples_10.root");
+	//f = new TFile("InputRootFile/NCUGlobalTuples_10.root");
+	f = new TFile("/hdfs/store/user/khurana/ggZH_HToBB_ZToNuNu_M120_13TeV_powheg_pythia8/crab_ggZH_HToBB_ZToNuNu_M120_13TeV_powheg_pythia8/150702_105011/0000/NCUGlobalTuples_10.root");
       }
-      TDirectory * dir = (TDirectory*)f->Get("InputRootFile/NCUGlobalTuples_10.root:/tree");
+      //TDirectory * dir = (TDirectory*)f->Get("InputRootFile/NCUGlobalTuples_10.root:/tree");
+      TDirectory * dir = (TDirectory*)f->Get("/hdfs/store/user/khurana/ggZH_HToBB_ZToNuNu_M120_13TeV_powheg_pythia8/crab_ggZH_HToBB_ZToNuNu_M120_13TeV_powheg_pythia8/150702_105011/0000/NCUGlobalTuples_10.root:/tree");
       dir->GetObject("treeMaker",tree);
 
    }
