@@ -9,6 +9,7 @@ using namespace std;
 void RKAnalyzer::Loop(TString output){
   bool debug=false;
   std::cout<<" output = "<<output<<std::endl;
+  nEvents = new TH1F("nEvents","",2,0,2);
   //nEvents = dynamic_cast<TH1F*> (f->Get("allEventsCounter/totalEvents"));
   
   if(debug) std::cout<<" creating output file"<<std::endl;
@@ -34,10 +35,12 @@ void RKAnalyzer::Loop(TString output){
   if (fChain == 0) return;
   
   Long64_t nentries = fChain->GetEntriesFast();
+  
   std::cout<<" nevents ====== "<<nentries<<std::endl;
   //nentries = 10;
   Long64_t nbytes = 0, nb = 0;
    for (Long64_t jentry=0; jentry<nentries;jentry++) {
+     nEvents->Fill(1);
      Long64_t ientry = LoadTree(jentry);
      if (ientry < 0) break;
      nb = fChain->GetEntry(jentry);   nbytes += nb;
@@ -166,6 +169,7 @@ void RKAnalyzer::Loop(TString output){
    histfac.Write();
    histfacJetPreSel.Write();
    abcd.Write();
+   nEvents->Write();
 }
 
 
