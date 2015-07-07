@@ -28,6 +28,7 @@ void RKAnalyzer::Loop(TString output){
   nminusobj.GetInputs(fout,"NMinusOne");
   histfac.GetInputs(fout,"NoCut");
   histfacJetPreSel.GetInputs(fout,"JetPreSel");
+  histfacJetHardPreSel.GetInputs(fout,"JetHardPreSel");
   
   abcd.GetInputs(fout,"ABCD");
   
@@ -128,8 +129,12 @@ void RKAnalyzer::Loop(TString output){
      histfacJetPreSel.Fill(RKDiJetMETCollectionWithStatus,1, bitVec);
      bitVec.clear();
      // Call again with different bit pattern to measure efficiency. 
+     bitVec.push_back(0); bitVec.push_back(1); bitVec.push_back(2); 
+     bitVec.push_back(3); bitVec.push_back(4); bitVec.push_back(5); 
+     bitVec.push_back(6); bitVec.push_back(7); // upto Mbb cut
+     histfacJetHardPreSel.Fill(RKDiJetMETCollectionWithStatus,1, bitVec);
+     bitVec.clear();
      
-       
      if( RKDiJetMETCollectionWithStatus.size()>0)     std::cout<<" cut status main = "<<RKDiJetMETCollectionWithStatus[0].cutsStatus<<std::endl;
      
      std::cout<<" calling cutFlow "<<std::endl;
@@ -168,6 +173,7 @@ void RKAnalyzer::Loop(TString output){
    nminusobj.Write();
    histfac.Write();
    histfacJetPreSel.Write();
+   histfacJetHardPreSel.Write();
    abcd.Write();
    fout->cd();
    nEvents->Write();
