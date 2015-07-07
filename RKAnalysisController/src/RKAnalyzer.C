@@ -306,6 +306,48 @@ void RKAnalyzer::ElectronProducer(){
     //electrons.p4      = *fourmom ;
     //std::cout<<" ele pt = "<<fourmom->Pt()<<std::endl;
     //electrons.charge  = (*eleCharge)[i] ;
+      //IDs
+
+    electrons.p4 = *fourmom;
+    electrons.IsPassVeto  =  (*isPassVeto)[i]  ; 
+    electrons.IsPassLoose  =  (*isPassLoose)[i]  ; 
+    electrons.IsPassMedium  =  (*isPassMedium)[i]  ; 
+    electrons.IsPassTight  =  (*isPassTight)[i]  ; 
+    electrons.IsPassHEEP  =  (*isPassHEEP)[i]  ;  
+    electrons.IsMVATrig  =  -999.  ;  //Add This
+    electrons.IsMVANonTrig  =  -999  ;
+    electrons.MVATrig  =  -999.;
+    electrons.MVANonTrig  =  -999.  ;
+    electrons.charge  =  (*eleCharge)[i]  ;
+    electrons.r9  =  (*eleR9)[i]  ;
+    electrons.etSC  =  -999.  ; //check this
+    electrons.etaSC  =  (*eleScEta)[i]  ;
+    electrons.energySC  =  (*eleScEn)[i]  ;
+    electrons.preenergySC  =  (*eleScPreEn)[i]  ;
+    electrons.phiSC  =  (*eleScPhi)[i]  ;
+    electrons.dEtaIn  =  (*eleScEtaWidth)[i]  ;
+    electrons.dPhiIn  =  (*eleScPhiWidth)[i]  ;
+    electrons.hOverE  =  (*eleHoverE)[i]  ;
+    electrons.full5x5_sigmaIetaIeta  =  (*eleSigmaIEtaIEtaFull5x5)[i]  ;
+    electrons.eoverP  =  (*eleEoverP)[i]  ;
+    electrons.eoverPInv  =  (*eleEoverPInv)[i]  ;
+    electrons.brem  =  (*eleBrem)[i]  ;
+    electrons.dEtaVtx  =  (*eledEtaAtVtx)[i]  ;
+    electrons.dPhiVtx  =  (*eledPhiAtVtx)[i]  ;
+    electrons.isoChargedHadrons  =  (*eleChHadIso)[i]  ;
+    electrons.isoNeutralHadrons  =  (*eleNeHadIso)[i]  ;
+    electrons.isoPhotons  =  (*eleGamIso)[i]  ;
+    electrons.isoChargedFromPU  =  -999  ; //add in main code
+    electrons.isoDeltaBeta  =  (*elePUPt)[i]  ;
+    electrons.isoRho  =  eleRho  ;
+    electrons.ooEmooP  =  -999.  ;
+    electrons.d0  =  (*eleD0)[i]  ;     //fix it 
+    electrons.dz  =  (*eleDz)[i]  ;
+    electrons.expectedMissingInnerHits  =  (*eleMissHits)[i]  ;
+    electrons.passConversionVeto  =  (*eleConvVeto)[i]  ;
+    electrons.barrel  =  (*eleInBarrel)[i]  ; 
+    electrons.endcap  =  (*eleInEndcap)[i]  ; 
+    
     if(fourmom->Pt() > 20 && fabs(fourmom->Eta())<2.5 && (*isPassVeto)[i]==1)  RKElectronCollection.push_back(electrons);
   }
   std::cout<<" electron collection filled " <<std::endl;
