@@ -94,6 +94,7 @@ class RKAnalyzer {
    // Mono-H Histograms
    HistFactory histfac;
    HistFactory histfacJetPreSel;
+   HistFactory histfacJetHardPreSel;
    // Mono-H ABCD method 
    ABCDMethod abcd;
    // Mono-H cuts maps and vectos
