@@ -61,7 +61,7 @@ class Electron {
     
   void Clear(){
 
-     IsPassVeto= 0;
+    IsPassVeto= 0;
      IsPassLoose= 0;
      IsPassMedium= 0;
      IsPassTight= 0;
