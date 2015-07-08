@@ -34,10 +34,10 @@ void ElectronValidator::Fill(std::vector<Electron> electroncollection){
       h_brem[i]->Fill(electroncollection[i].brem);
       h_dEtaVtx[i]->Fill(electroncollection[i].dEtaVtx);
       h_dPhiVtx[i]->Fill(electroncollection[i].dPhiVtx);
-      h_isoChargedHadrons[i]->Fill(electroncollection[i].isoChargedHadrons);
-      h_isoNeutralHadrons[i]->Fill(electroncollection[i].isoNeutralHadrons);
-      h_isoPhotons[i]->Fill(electroncollection[i].isoPhotons);
-      h_isoChargedFromPU[i]->Fill(electroncollection[i].isoChargedFromPU); //add in main code
+      h_isoChargedHadrons[i]->Fill((electroncollection[i].isoChargedHadrons)/(electroncollection[i].p4.Pt()));
+      h_isoNeutralHadrons[i]->Fill((electroncollection[i].isoNeutralHadrons)/(electroncollection[i].p4.Pt()));
+      h_isoPhotons[i]->Fill((electroncollection[i].isoPhotons)/(electroncollection[i].p4.Pt()));
+      h_isoChargedFromPU[i]->Fill((electroncollection[i].isoChargedFromPU)/(electroncollection[i].p4.Pt())); //add in main code
       h_isoDeltaBeta[i]->Fill(electroncollection[i].isoDeltaBeta);
       h_isoRho[i]->Fill(electroncollection[i].isoRho);
       h_ooEmooP[i]->Fill(electroncollection[i].ooEmooP);
@@ -67,48 +67,48 @@ void ElectronValidator::DefineHistograms(){
   TString postfix;
   for(int i=0; i<4;i++){
     postfix.Form("%d",i);
-    h_pt[i]                         =  new TH1F("h_pt"+postfix,"",100,0,700);
+    h_pt[i]                         =  new TH1F("h_pt"+postfix,"",100,0.,700.);
     h_eta[i]                        =  new TH1F("h_eta"+postfix,"",4.8,-2.4,2.4);
-    h_phi[i]                        =  new TH1F("h_phi"+postfix,"",100,0,100);
-    h_IsPassVeto[i]                 =  new TH1F("h_IsPassVeto"+postfix,"",100,0,100);
-    h_IsPassLoose[i]                =  new TH1F("h_IsPassLoose"+postfix,"",100,0,100);
-    h_IsPassMedium[i]               =  new TH1F("h_IsPassMedium"+postfix,"",100,0,100);
-    h_IsPassTight[i]                =  new TH1F("h_IsPassTight"+postfix,"",100,0,100);
-    h_IsPassHEEP[i]                 =  new TH1F("h_IsPassHEEP"+postfix,"",100,0,100);
-    h_IsMVATrig[i]                  =  new TH1F("h_IsMVATrig"+postfix,"",100,0,100);
-    h_IsMVANonTrig[i]               =  new TH1F("h_IsMVANonTrig"+postfix,"",100,0,100);
-    h_MVATrig[i]                    =  new TH1F("h_MVATrig"+postfix,"",100,0,100);
-    h_MVANonTrig[i]                 =  new TH1F("h_MVANonTrig"+postfix,"",100,0,100);
+    h_phi[i]                        =  new TH1F("h_phi"+postfix,"",70,-3.5,3.5);
+    h_IsPassVeto[i]                 =  new TH1F("h_IsPassVeto"+postfix,"",2,0,2);
+    h_IsPassLoose[i]                =  new TH1F("h_IsPassLoose"+postfix,"",2,0,2);
+    h_IsPassMedium[i]               =  new TH1F("h_IsPassMedium"+postfix,"",2,0,2);
+    h_IsPassTight[i]                =  new TH1F("h_IsPassTight"+postfix,"",2,0,2);
+    h_IsPassHEEP[i]                 =  new TH1F("h_IsPassHEEP"+postfix,"",2,0,2);
+    h_IsMVATrig[i]                  =  new TH1F("h_IsMVATrig"+postfix,"",2,0,2);
+    h_IsMVANonTrig[i]               =  new TH1F("h_IsMVANonTrig"+postfix,"",2,0,2);
+    h_MVATrig[i]                    =  new TH1F("h_MVATrig"+postfix,"",40,0.,1.);
+    h_MVANonTrig[i]                 =  new TH1F("h_MVANonTrig"+postfix,"",40,0.,1.);
    
-    h_charge[i]                     =  new TH1F("h_charge"+postfix,"",100,0,100);
-    h_r9[i]                         =  new TH1F("h_r9"+postfix,"",100,0,100);
-    h_etSC[i]                       =  new TH1F("h_etSC"+postfix,"",100,0,100);
-    h_etaSC[i]                      =  new TH1F("h_etaSC"+postfix,"",100,0,100);
-    h_energySC[i]                   =  new TH1F("h_energySC"+postfix,"",100,0,100);
-    h_preenergySC[i]                =  new TH1F("h_preenergySC"+postfix,"",100,0,100);
-    h_phiSC[i]                      =  new TH1F("h_phiSC"+postfix,"",100,0,100);
-    h_dEtaIn[i]                     =  new TH1F("h_dEtaIn"+postfix,"",100,0,100);
-    h_dPhiIn[i]                     =  new TH1F("h_dPhiIn"+postfix,"",100,0,100);
-    h_hOverE[i]                     =  new TH1F("h_hOverE"+postfix,"",100,0,100);
-    h_full5x5_sigmaIetaIeta[i]      =  new TH1F("h_full5x5_sigmaIetaIeta"+postfix,"",100,0,100);
-    h_eoverP[i]                     =  new TH1F("h_eoverP"+postfix,"",100,0,100);
-    h_eoverPInv[i]                  =  new TH1F("h_eoverPInv"+postfix,"",100,0,100);
+    h_charge[i]                     =  new TH1F("h_charge"+postfix,"",14,-2,2);
+    h_r9[i]                         =  new TH1F("h_r9"+postfix,"",100,0,2);
+    h_etSC[i]                       =  new TH1F("h_etSC"+postfix,"",105,0.,700.);
+    h_etaSC[i]                      =  new TH1F("h_etaSC"+postfix,"",48,-2.4,2.4);
+    h_energySC[i]                   =  new TH1F("h_energySC"+postfix,"",100,0.,1000);
+    h_preenergySC[i]                =  new TH1F("h_preenergySC"+postfix,"",100,0.,1000.);
+    h_phiSC[i]                      =  new TH1F("h_phiSC"+postfix,"",70,-3.5,3.5);
+    h_dEtaIn[i]                     =  new TH1F("h_dEtaIn"+postfix,"",260,0.0,0.01);
+    h_dPhiIn[i]                     =  new TH1F("h_dPhiIn"+postfix,"",160,0.0,0.08);
+    h_hOverE[i]                     =  new TH1F("h_hOverE"+postfix,"",100,0.,0.1);
+    h_full5x5_sigmaIetaIeta[i]      =  new TH1F("h_full5x5_sigmaIetaIeta"+postfix,"",100,0.,0.1);
+    h_eoverP[i]                     =  new TH1F("h_eoverP"+postfix,"",400,0,0.5);
+    h_eoverPInv[i]                  =  new TH1F("h_eoverPInv"+postfix,"",400,0.,0.5);
     h_brem[i]                       =  new TH1F("h_brem"+postfix,"",100,0,100);
     h_dEtaVtx[i]                    =  new TH1F("h_dEtaVtx"+postfix,"",100,0,100);
     h_dPhiVtx[i]                    =  new TH1F("h_dPhiVtx"+postfix,"",100,0,100);
-    h_isoChargedHadrons[i]          =  new TH1F("h_isoChargedHadrons"+postfix,"",100,0,100);
-    h_isoNeutralHadrons[i]          =  new TH1F("h_isoNeutralHadrons"+postfix,"",100,0,100);
-    h_isoPhotons[i]                 =  new TH1F("h_isoPhotons"+postfix,"",100,0,100);
-    h_isoChargedFromPU[i]           =  new TH1F("h_isoChargedFromPU"+postfix,"",100,0,100);
+    h_isoChargedHadrons[i]          =  new TH1F("h_isoChargedHadrons"+postfix,"",100,0,2);
+    h_isoNeutralHadrons[i]          =  new TH1F("h_isoNeutralHadrons"+postfix,"",100,0,2);
+    h_isoPhotons[i]                 =  new TH1F("h_isoPhotons"+postfix,"",100,0,2);
+    h_isoChargedFromPU[i]           =  new TH1F("h_isoChargedFromPU"+postfix,"",100,0,2);
     h_isoDeltaBeta[i]               =  new TH1F("h_isoDeltaBeta"+postfix,"",100,0,100);
     h_isoRho[i]                     =  new TH1F("h_isoRho"+postfix,"",100,0,100);
-    h_ooEmooP[i]                    =  new TH1F("h_ooEmooP"+postfix,"",100,0,100);
+    h_ooEmooP[i]                    =  new TH1F("h_ooEmooP"+postfix,"",400,0.,0.5);
     h_d0[i]                         =  new TH1F("h_d0"+postfix,"",100,0,100);
     h_dz[i]                         =  new TH1F("h_dz"+postfix,"",100,0,100);
-    h_expectedMissingInnerHits[i]   =  new TH1F("h_expectedMissingInnerHits"+postfix,"",100,0,100);
-    h_passConversionVeto[i]         =  new TH1F("h_passConversionVeto"+postfix,"",100,0,100);
-    h_barrel[i]                     =  new TH1F("h_barrel"+postfix,"",100,0,100);
-    h_endcap[i]                     =  new TH1F("h_endcap"+postfix,"",100,0,100);
+    h_expectedMissingInnerHits[i]   =  new TH1F("h_expectedMissingInnerHits"+postfix,"",8,-1,7);
+    h_passConversionVeto[i]         =  new TH1F("h_passConversionVeto"+postfix,"",5,-1,4);
+    h_barrel[i]                     =  new TH1F("h_barrel"+postfix,"",2,0,2);
+    h_endcap[i]                     =  new TH1F("h_endcap"+postfix,"",2,0,2);
 
     
   }

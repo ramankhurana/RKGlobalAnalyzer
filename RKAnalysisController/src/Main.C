@@ -19,9 +19,9 @@ int main(int argc, char *argv[]){
   RKAnalyzer* ncuAna;
   ncuAna = new RKAnalyzer(tree);
   ncuAna->Loop(output);
-  std::vector<TString> filenames;
-  filenames.push_back("/store/user/khurana/ggZH_HToBB_ZToNuNu_M120_13TeV_powheg_pythia8/crab_ggZH_HToBB_ZToNuNu_M120_13TeV_powheg_pythia8/150702_105011/0000/NCUGlobalTuples_10.root");
-  ncuAna->TotalEvent(filenames);
+  //std::vector<TString> filenames;
+  //filenames.push_back("/store/user/khurana/ggZH_HToBB_ZToNuNu_M120_13TeV_powheg_pythia8/crab_ggZH_HToBB_ZToNuNu_M120_13TeV_powheg_pythia8/150702_105011/0000/NCUGlobalTuples_10.root");
+  //ncuAna->TotalEvent(filenames);
   //  detEffects->RKAnalyzer::~RKAnalyzer();
 
 
