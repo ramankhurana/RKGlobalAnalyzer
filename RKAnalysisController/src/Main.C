@@ -17,7 +17,9 @@ int main(int argc, char *argv[]){
   TString output = argv[2];
   TTree *tree=0;
   RKAnalyzer* ncuAna;
+  std::cout<<" caling const"<<std::endl;
   ncuAna = new RKAnalyzer(tree);
+  std::cout<<" caling loop"<<std::endl;
   ncuAna->Loop(output);
   //std::vector<TString> filenames;
   //filenames.push_back("/store/user/khurana/ggZH_HToBB_ZToNuNu_M120_13TeV_powheg_pythia8/crab_ggZH_HToBB_ZToNuNu_M120_13TeV_powheg_pythia8/150702_105011/0000/NCUGlobalTuples_10.root");
