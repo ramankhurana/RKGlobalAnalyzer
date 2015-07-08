@@ -67,8 +67,54 @@ void ElectronValidator::DefineHistograms(){
   TString postfix;
   for(int i=0; i<4;i++){
     postfix.Form("%d",i);
+    h_pt[i]                         =  new TH1F("h_pt"+postfix,"",100,0,700);
+    h_eta[i]                        =  new TH1F("h_eta"+postfix,"",4.8,-2.4,2.4);
+    h_phi[i]                        =  new TH1F("h_phi"+postfix,"",100,0,100);
+    h_IsPassVeto[i]                 =  new TH1F("h_IsPassVeto"+postfix,"",100,0,100);
+    h_IsPassLoose[i]                =  new TH1F("h_IsPassLoose"+postfix,"",100,0,100);
+    h_IsPassMedium[i]               =  new TH1F("h_IsPassMedium"+postfix,"",100,0,100);
+    h_IsPassTight[i]                =  new TH1F("h_IsPassTight"+postfix,"",100,0,100);
+    h_IsPassHEEP[i]                 =  new TH1F("h_IsPassHEEP"+postfix,"",100,0,100);
+    h_IsMVATrig[i]                  =  new TH1F("h_IsMVATrig"+postfix,"",100,0,100);
+    h_IsMVANonTrig[i]               =  new TH1F("h_IsMVANonTrig"+postfix,"",100,0,100);
+    h_MVATrig[i]                    =  new TH1F("h_MVATrig"+postfix,"",100,0,100);
+    h_MVANonTrig[i]                 =  new TH1F("h_MVANonTrig"+postfix,"",100,0,100);
+   
+    h_charge[i]                     =  new TH1F("h_charge"+postfix,"",100,0,100);
+    h_r9[i]                         =  new TH1F("h_r9"+postfix,"",100,0,100);
+    h_etSC[i]                       =  new TH1F("h_etSC"+postfix,"",100,0,100);
+    h_etaSC[i]                      =  new TH1F("h_etaSC"+postfix,"",100,0,100);
+    h_energySC[i]                   =  new TH1F("h_energySC"+postfix,"",100,0,100);
+    h_preenergySC[i]                =  new TH1F("h_preenergySC"+postfix,"",100,0,100);
+    h_phiSC[i]                      =  new TH1F("h_phiSC"+postfix,"",100,0,100);
+    h_dEtaIn[i]                     =  new TH1F("h_dEtaIn"+postfix,"",100,0,100);
+    h_dPhiIn[i]                     =  new TH1F("h_dPhiIn"+postfix,"",100,0,100);
+    h_hOverE[i]                     =  new TH1F("h_hOverE"+postfix,"",100,0,100);
+    h_full5x5_sigmaIetaIeta[i]      =  new TH1F("h_full5x5_sigmaIetaIeta"+postfix,"",100,0,100);
+    h_eoverP[i]                     =  new TH1F("h_eoverP"+postfix,"",100,0,100);
+    h_eoverPInv[i]                  =  new TH1F("h_eoverPInv"+postfix,"",100,0,100);
+    h_brem[i]                       =  new TH1F("h_brem"+postfix,"",100,0,100);
+    h_dEtaVtx[i]                    =  new TH1F("h_dEtaVtx"+postfix,"",100,0,100);
+    h_dPhiVtx[i]                    =  new TH1F("h_dPhiVtx"+postfix,"",100,0,100);
+    h_isoChargedHadrons[i]          =  new TH1F("h_isoChargedHadrons"+postfix,"",100,0,100);
+    h_isoNeutralHadrons[i]          =  new TH1F("h_isoNeutralHadrons"+postfix,"",100,0,100);
+    h_isoPhotons[i]                 =  new TH1F("h_isoPhotons"+postfix,"",100,0,100);
+    h_isoChargedFromPU[i]           =  new TH1F("h_isoChargedFromPU"+postfix,"",100,0,100);
+    h_isoDeltaBeta[i]               =  new TH1F("h_isoDeltaBeta"+postfix,"",100,0,100);
+    h_isoRho[i]                     =  new TH1F("h_isoRho"+postfix,"",100,0,100);
+    h_ooEmooP[i]                    =  new TH1F("h_ooEmooP"+postfix,"",100,0,100);
+    h_d0[i]                         =  new TH1F("h_d0"+postfix,"",100,0,100);
+    h_dz[i]                         =  new TH1F("h_dz"+postfix,"",100,0,100);
+    h_expectedMissingInnerHits[i]   =  new TH1F("h_expectedMissingInnerHits"+postfix,"",100,0,100);
+    h_passConversionVeto[i]         =  new TH1F("h_passConversionVeto"+postfix,"",100,0,100);
+    h_barrel[i]                     =  new TH1F("h_barrel"+postfix,"",100,0,100);
+    h_endcap[i]                     =  new TH1F("h_endcap"+postfix,"",100,0,100);
+
     
   }
+
+    h_nelectrons                      =  new TH1F("h_nelectrons"+postfix,"",10,0,10);  
+
 }
 
 
@@ -78,6 +124,50 @@ void ElectronValidator::Write(){
   file->cd(prefix);
   
   for(int i=0; i<4;i++){
-  
+     h_pt[i]                         ->Write();   
+     h_eta[i]                        ->Write();
+     h_phi[i]                        ->Write();
+     h_IsPassVeto[i]                 ->Write();
+     h_IsPassLoose[i]                ->Write();
+     h_IsPassMedium[i]               ->Write();
+     h_IsPassTight[i]                ->Write();
+     h_IsPassHEEP[i]                 ->Write();
+     h_IsMVATrig[i]                  ->Write();
+     h_IsMVANonTrig[i]               ->Write();
+     h_MVATrig[i]                    ->Write();
+     h_MVANonTrig[i]                 ->Write();
+                                      
+     h_charge[i]                     ->Write();
+     h_r9[i]                         ->Write();
+     h_etSC[i]                       ->Write();
+     h_etaSC[i]                      ->Write();
+     h_energySC[i]                   ->Write();
+     h_preenergySC[i]                ->Write();
+     h_phiSC[i]                      ->Write();
+     h_dEtaIn[i]                     ->Write();
+     h_dPhiIn[i]                     ->Write();
+     h_hOverE[i]                     ->Write();
+     h_full5x5_sigmaIetaIeta[i]      ->Write();
+     h_eoverP[i]                     ->Write();
+     h_eoverPInv[i]                  ->Write();
+     h_brem[i]                       ->Write();
+     h_dEtaVtx[i]                    ->Write();
+     h_dPhiVtx[i]                    ->Write();
+     h_isoChargedHadrons[i]          ->Write();
+     h_isoNeutralHadrons[i]          ->Write();
+     h_isoPhotons[i]                 ->Write();
+     h_isoChargedFromPU[i]           ->Write();
+     h_isoDeltaBeta[i]               ->Write();
+     h_isoRho[i]                     ->Write();
+     h_ooEmooP[i]                    ->Write();
+     h_d0[i]                         ->Write();
+     h_dz[i]                         ->Write();
+     h_expectedMissingInnerHits[i]   ->Write();
+     h_passConversionVeto[i]         ->Write();
+     h_barrel[i]                     ->Write();
+     h_endcap[i]                     ->Write();
+     
   }
-`}
+  h_electrons                      ->Write();
+  
+}

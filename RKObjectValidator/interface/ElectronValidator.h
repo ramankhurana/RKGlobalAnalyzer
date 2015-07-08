@@ -30,7 +30,7 @@ class ElectroValidator {
   void Write();
   
   // 1D Histograms 
-  TH1F*     h_pt[nELECTRONS];
+  TH1F*     h_pt[nELECTRONS];                    
   TH1F*     h_eta[nELECTRONS];   
   
   TH1F*     h_phi[nELECTRONS];                                                                            
@@ -75,7 +75,7 @@ class ElectroValidator {
   TH1F*     h_expectedMissingInnerHits[nELECTRONS];
   TH1F*     h_passConversionVeto[nELECTRONS];
   TH1F*     h_barrel[nELECTRONS]; 
-  TH1F*     h_endcap[nELECTRONS];
+  TH1F*     h_endcap[nELECTRONS];                            
   
     // 2D Histograms
 
