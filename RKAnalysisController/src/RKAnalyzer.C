@@ -322,7 +322,7 @@ void RKAnalyzer::ElectronProducer(){
     electrons.IsPassTight  =  (*isPassTight)[i]  ; 
     electrons.IsPassHEEP  =  (*isPassHEEP)[i]  ;  
     std::cout<<" after HEEP"<<std::endl;
-    electrons.IsMVATrig  =  -999.  ;  //Add This
+    electrons.IsMVATrig  =  false  ;  //Add This
     electrons.IsMVANonTrig  =  -999  ;
     electrons.MVATrig  =  -999.;
     electrons.MVANonTrig  =  -999.  ;
