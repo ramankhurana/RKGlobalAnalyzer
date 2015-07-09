@@ -68,7 +68,7 @@ void ElectronValidator::DefineHistograms(){
   for(int i=0; i<4;i++){
     postfix.Form("%d",i);
     h_pt[i]                         =  new TH1F("h_pt"+postfix,"",100,0.,700.);
-    h_eta[i]                        =  new TH1F("h_eta"+postfix,"",4.8,-2.4,2.4);
+    h_eta[i]                        =  new TH1F("h_eta"+postfix,"",48,-2.4,2.4);
     h_phi[i]                        =  new TH1F("h_phi"+postfix,"",70,-3.5,3.5);
     h_IsPassVeto[i]                 =  new TH1F("h_IsPassVeto"+postfix,"",2,0,2);
     h_IsPassLoose[i]                =  new TH1F("h_IsPassLoose"+postfix,"",2,0,2);
