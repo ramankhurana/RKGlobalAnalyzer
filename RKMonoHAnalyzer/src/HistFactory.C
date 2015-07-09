@@ -28,7 +28,8 @@ void HistFactory::DefineHistograms(){
     h_CSVMin[i]     = new TH1F("h_CSVMin"+postfix,"",20,0,1);
     h_CSVSum[i]     = new TH1F("h_CSVSum"+postfix,"",40,0,2);
     h_dPhi_MET_J[i] = new TH1F("h_dPhi_MET_J"+postfix,"",70,-3.5,3.5);
-
+    h_MT_bb_MET[i]  = new TH1F("h_MT_bb_MET"+postfix,"",100,0,500.);
+    h_dPhi_bb_MET[i]= new TH1F("h_dPhi_bb_MET"+postfix,"",70,-3.5,3.5);
     // 2D Histograms
     h_M_vs_MET[i]   = new TH2F("h_MET_vs_M"+postfix,"h_MET_vs_M",100,0.,200.,200,0.,1000.);
     h_MET_vs_Q1Q2[i]= new TH2F("h_MET_vs_Q1Q2"+postfix,"h_MET_vs_Q1Q2",200,0,1000,21,-10,10);
@@ -66,6 +67,8 @@ void HistFactory::Fill(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > objec
 	float dphi2 = objectCollection[i].objMet2.DeltaPhi;
 	h_dPhi_MET_J[i]->Fill(TMath::Min(dphi1,dphi2));
 	
+	h_MT_bb_MET[i]->Fill(objectCollection[i].ResonancemetProp.TransMass);
+	h_dPhi_bb_MET[i]->Fill(objectCollection[i].ResonancemetProp.DeltaPhi);
 	h_M_vs_MET[i]->Fill(objectCollection[i].jet1.ResonanceProp.InvMass, objectCollection[i].jet2.RawPt);
 	h_MET_vs_Q1Q2[i]->Fill(objectCollection[i].jet2.RawPt, (objectCollection[i].jet1.jet1.charge * objectCollection[i].jet1.jet2.charge));
 	h_M_vs_Q1Q2[i]->Fill(objectCollection[i].jet1.ResonanceProp.InvMass, (objectCollection[i].jet1.jet1.charge * objectCollection[i].jet1.jet2.charge));
@@ -98,7 +101,8 @@ void HistFactory::Write(){
     h_CSVMin[i]       ->Write();
     h_CSVSum[i]       ->Write();
     h_dPhi_MET_J[i]   ->Write();
-
+    h_MT_bb_MET[i]    ->Write();
+    h_dPhi_bb_MET[i]  ->Write();
     // 2D Histograms
     h_M_vs_MET[i]   ->Write();
     h_MET_vs_Q1Q2[i]->Write();

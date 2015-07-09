@@ -43,6 +43,8 @@ class HistFactory {
   TH1F*    h_CSVMin[nobjectmet];
   TH1F*    h_CSVSum[nobjectmet];
   TH1F*    h_dPhi_MET_J[nobjectmet];
+  TH1F*    h_MT_bb_MET[nobjectmet];
+  TH1F*    h_dPhi_bb_MET[nobjectmet];
   
   TH2F*    h_M_vs_MET[nobjectmet];
   TH2F*    h_MET_vs_Q1Q2[nobjectmet];
