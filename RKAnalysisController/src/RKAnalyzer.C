@@ -20,6 +20,7 @@ void RKAnalyzer::Loop(TString output){
   
   jetvalidator.GetInputs(fout,"Jet_NoCut_");
   jetvalidator_selected.GetInputs(fout,"Jet_PtEtaBTag_");
+  electronvalidator.GetInputs(fout,"Electron_NoCut_");
   metvalidator.GetInputs(fout,"MET_NoCut_");
   diJetValidator.GetInputs(fout,"DiJetNotCut");
   jetmetValidator.GetInputs(fout,"JetMETNoCuts");
@@ -62,6 +63,8 @@ void RKAnalyzer::Loop(TString output){
      jetvalidator.Fill(RKJetCollection);
      jetvalidator_selected.Fill(RKJetCollection_selected);
      
+     // Fill the electron validation histograms 
+     electronvalidator.Fill(RKElectronCollection);
      // Fill Validation histograms for MET
      metvalidator.Fill(met);
      
@@ -165,6 +168,7 @@ void RKAnalyzer::Loop(TString output){
    // Write Histograms ;
    jetvalidator.Write();
    jetvalidator_selected.Write();
+   electronvalidator.Write();
    metvalidator.Write();
    diJetValidator.Write();
    jetmetValidator.Write();

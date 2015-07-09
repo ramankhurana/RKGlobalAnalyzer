@@ -7,7 +7,7 @@ void ElectronValidator::Fill(std::vector<Electron> electroncollection){
     if(i<4){
       h_pt[i]->Fill(electroncollection[i].p4.Pt());
       h_eta[i]->Fill(electroncollection[i].p4.Eta());   
-      h_phi[i]->Fill(electroncollection[i].Phi());  
+      h_phi[i]->Fill(electroncollection[i].p4.Phi());  
       h_IsPassVeto[i]->Fill(electroncollection[i].IsPassVeto); 
       h_IsPassLoose[i]->Fill(electroncollection[i].IsPassLoose); 
       h_IsPassMedium[i]->Fill(electroncollection[i].IsPassMedium); 
@@ -113,7 +113,7 @@ void ElectronValidator::DefineHistograms(){
     
   }
 
-    h_nelectrons                      =  new TH1F("h_nelectrons"+postfix,"",10,0,10);  
+    h_nElectron                      =  new TH1F("h_nelectrons"+postfix,"",10,0,10);  
 
 }
 
@@ -168,6 +168,6 @@ void ElectronValidator::Write(){
      h_endcap[i]                     ->Write();
      
   }
-  h_electrons                      ->Write();
+  h_nElectron                      ->Write();
   
 }
