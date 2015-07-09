@@ -28,6 +28,7 @@ void RKAnalyzer::Loop(TString output){
   nminusobj.GetInputs(fout,"NMinusOne");
   histfac.GetInputs(fout,"NoCut");
   histfacJetPreSel.GetInputs(fout,"JetPreSel");
+  //histfacJetHardPreSel.GetInputs(fout,"JetHardPreSel");
   
   abcd.GetInputs(fout,"ABCD");
   
@@ -128,8 +129,12 @@ void RKAnalyzer::Loop(TString output){
      histfacJetPreSel.Fill(RKDiJetMETCollectionWithStatus,1, bitVec);
      bitVec.clear();
      // Call again with different bit pattern to measure efficiency. 
+     bitVec.push_back(0); bitVec.push_back(1); bitVec.push_back(2); 
+     bitVec.push_back(3); bitVec.push_back(4); bitVec.push_back(5); 
+     bitVec.push_back(6); bitVec.push_back(7); // upto Mbb cut
+     //histfacJetHardPreSel.Fill(RKDiJetMETCollectionWithStatus,1, bitVec);
+     bitVec.clear();
      
-       
      if( RKDiJetMETCollectionWithStatus.size()>0)     std::cout<<" cut status main = "<<RKDiJetMETCollectionWithStatus[0].cutsStatus<<std::endl;
      
      std::cout<<" calling cutFlow "<<std::endl;
@@ -168,6 +173,7 @@ void RKAnalyzer::Loop(TString output){
    nminusobj.Write();
    histfac.Write();
    histfacJetPreSel.Write();
+   //histfacJetHardPreSel.Write();
    abcd.Write();
    fout->cd();
    nEvents->Write();
@@ -287,19 +293,75 @@ void RKAnalyzer::MuonProducer(){
 }
 
 void RKAnalyzer::ElectronProducer(){
-  std::cout<< " inside electron producer "<<std::endl;
+  std::cout<< " inside electron producer "<<nEle<<std::endl;
   for(size_t i=0; i<nEle; i++){
-    electrons.Clear();
-    //    if(nEle<1) continue;
+    std::cout<<" inside ele loop"<<std::endl;
+    //electrons.Clear();
     //    TLorentzVector fourmom;
     //std::cout<<" size = "<<patElecP4->IsEmpty()<<std::endl;
     //std::cout<<" before clone array "<<std::endl;
+    std::cout<<" before lorentzvec "<<std::endl;
     TLorentzVector*  fourmom = (TLorentzVector*) patElecP4->At(i);
+    std::cout<<" after lorentzvec "<<std::endl;
     //std::cout<<" after array = " <<std::endl;
     //TLorentzVector* fourmom = (TLorentzVector*) patElecP4->At(i); 
     //electrons.p4      = *fourmom ;
     //std::cout<<" ele pt = "<<fourmom->Pt()<<std::endl;
     //electrons.charge  = (*eleCharge)[i] ;
+      //IDs
+
+    //electrons.p4 = *fourmom;
+    std::cout<<" filled p4 "<<std::endl;
+    electrons.IsPassVeto  =  (*isPassVeto)[i]  ; 
+    electrons.IsPassLoose  =  (*isPassLoose)[i]  ; 
+    electrons.IsPassMedium  =  (*isPassMedium)[i]  ; 
+    electrons.IsPassTight  =  (*isPassTight)[i]  ; 
+    electrons.IsPassHEEP  =  (*isPassHEEP)[i]  ;  
+    std::cout<<" after HEEP"<<std::endl;
+    electrons.IsMVATrig  =  -999.  ;  //Add This
+    electrons.IsMVANonTrig  =  -999  ;
+    electrons.MVATrig  =  -999.;
+    electrons.MVANonTrig  =  -999.  ;
+    electrons.charge  =  (*eleCharge)[i]  ;
+    std::cout<<" after charge"<<std::endl;
+    electrons.r9  =  (*eleR9)[i]  ;
+    electrons.etSC  =  -999.  ; //check this
+    electrons.etaSC  =  (*eleScEta)[i]  ;
+    electrons.energySC  =  (*eleScEn)[i]  ;
+    electrons.preenergySC  =  (*eleScPreEn)[i]  ;
+    electrons.phiSC  =  (*eleScPhi)[i]  ;
+    std::cout<<" after Phi"<<std::endl;
+    electrons.dEtaIn  =  (*eleScEtaWidth)[i]  ;
+    electrons.dPhiIn  =  (*eleScPhiWidth)[i]  ;
+    electrons.hOverE  =  (*eleHoverE)[i]  ;
+    electrons.full5x5_sigmaIetaIeta  =  (*eleSigmaIEtaIEtaFull5x5)[i]  ;
+    electrons.eoverP  =  (*eleEoverP)[i]  ;
+    std::cout<<" after E/P"<<std::endl;
+    electrons.eoverPInv  =  (*eleEoverPInv)[i]  ;
+    electrons.brem  =  (*eleBrem)[i]  ;
+    electrons.dEtaVtx  =  (*eledEtaAtVtx)[i]  ;
+    electrons.dPhiVtx  =  (*eledPhiAtVtx)[i]  ;
+    electrons.isoChargedHadrons  =  (*eleChHadIso)[i]  ;
+    electrons.isoNeutralHadrons  =  (*eleNeHadIso)[i]  ;
+    electrons.isoPhotons  =  (*eleGamIso)[i]  ;
+    std::cout<<" after gamma iso"<<std::endl;
+    electrons.isoChargedFromPU  =  -999  ; //add in main code
+    std::cout<<" after electrons.isoChargedFromPU "<<std::endl;
+    electrons.isoDeltaBeta  =  (*elePUPt)[i]  ;
+    std::cout<<" electrons.isoDeltaBeta "<<std::endl;
+    electrons.isoRho  =  eleRho  ;
+    std::cout<<" electrons.isoRho "<<std::endl;
+    electrons.ooEmooP  =  -999.  ;
+    std::cout<<" electrons.ooEmooP "<<std::endl;
+    //electrons.d0  =  (*eleD0)[i]  ;     //fix it 
+    std::cout<<" after Do"<<std::endl;
+    //electrons.dz  =  (*eleDz)[i]  ;
+    electrons.expectedMissingInnerHits  =  (*eleMissHits)[i]  ;
+    electrons.passConversionVeto  =  (*eleConvVeto)[i]  ;
+    electrons.barrel  =  (*eleInBarrel)[i]  ; 
+    electrons.endcap  =  (*eleInEndcap)[i]  ; 
+    std::cout<<" after EC"<<std::endl;
+    
     if(fourmom->Pt() > 20 && fabs(fourmom->Eta())<2.5 && (*isPassVeto)[i]==1)  RKElectronCollection.push_back(electrons);
   }
   std::cout<<" electron collection filled " <<std::endl;
