@@ -1,9 +1,9 @@
-// Original class : ElectroValidator.h
+// Original class : ElectronValidator.h
 // Created By     : ramanmonika khurana 
 // Created On     : Sun Apr 26 18:26:44 CEST 2015
 
-#ifndef ElectroValidator_h_
-#define ElectroValidator_h_
+#ifndef ElectronValidator_h_
+#define ElectronValidator_h_
 
 #define nELECTRONS  4
 #include "../../RKDataFormats/interface/Electron.h"
@@ -16,13 +16,13 @@
 #include "TProfile2D.h"
 #include "TFile.h"
 
-class ElectroValidator {
+class ElectronValidator {
  public:
   TFile* file;
   TString prefix;
   
-  ElectroValidator(){};
-  ~ElectroValidator(){};
+  ElectronValidator(){};
+  ~ElectronValidator(){};
 
   void Fill(std::vector<Electron> electroncollection);
   void DefineHistograms();

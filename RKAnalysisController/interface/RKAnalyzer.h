@@ -26,6 +26,7 @@
 
 #include "../../RKDataFormats/interface/Resonance.h"
 #include "../../RKObjectValidator/interface/JetValidator.h"
+#include "../../RKObjectValidator/interface/ElectronValidator.h"
 #include "../../RKObjectValidator/interface/METValidator.h"
 #include "../../RKProducers/interface/TwoObjectCombination.h"
 #include "../../RKProducers/interface/ObjectMETCombination.h"
@@ -83,6 +84,8 @@ class RKAnalyzer {
    // jet 
    JetValidator jetvalidator;
    JetValidator jetvalidator_selected;
+   // Electron 
+   ElectronValidator electronvalidator;
    // MET
    METValidator metvalidator;
    // DiJet   
