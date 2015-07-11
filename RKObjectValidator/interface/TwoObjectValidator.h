@@ -83,7 +83,7 @@ void TwoObjectValidator<T>::Fill(std::vector<T> objectcollection){
     h_PtOverPt1Pt2 ->Fill(objectcollection[0].ResonanceProp.PtOverPt1Pt2);
     h_PtOverMass_1 ->Fill(objectcollection[0].ResonanceProp.PtOverMass_1);
     h_PtOverMass_2 ->Fill(objectcollection[0].ResonanceProp.PtOverMass_2);
-    h_CSVSum       ->Fill(objectcollection[0].jet1.B_CISVV2 + objectcollection[0].jet2.B_CISVV2);
+    //h_CSVSum       ->Fill(objectcollection[0].jet1.B_CISVV2 + objectcollection[0].jet2.B_CISVV2);
     // 2D Histograms
     h_DeltaR_vs_InvMass->Fill(objectcollection[0].ResonanceProp.DeltaR, objectcollection[0].ResonanceProp.InvMass);
     h_DeltaPhi_vs_InvMass->Fill(objectcollection[0].ResonanceProp.DeltaPhi,objectcollection[0].ResonanceProp.InvMass);

@@ -61,15 +61,14 @@ class ElectronValidator {
   TH1F*     h_eoverP[nELECTRONS];
   TH1F*     h_eoverPInv[nELECTRONS];
   TH1F*     h_brem[nELECTRONS];
-  TH1F*     h_dEtaVtx[nELECTRONS];
-  TH1F*     h_dPhiVtx[nELECTRONS];
+  TH1F*     h_dEtaWidth[nELECTRONS];
+  TH1F*     h_dPhiWidth[nELECTRONS];
   TH1F*     h_isoChargedHadrons[nELECTRONS];
   TH1F*     h_isoNeutralHadrons[nELECTRONS];
   TH1F*     h_isoPhotons[nELECTRONS];
   TH1F*     h_isoChargedFromPU[nELECTRONS]; //add in main code
   TH1F*     h_isoDeltaBeta[nELECTRONS];
   TH1F*     h_isoRho[nELECTRONS];
-  TH1F*     h_ooEmooP[nELECTRONS];
   TH1F*     h_d0[nELECTRONS];     //fix it 
   TH1F*     h_dz[nELECTRONS];
   TH1F*     h_expectedMissingInnerHits[nELECTRONS];
