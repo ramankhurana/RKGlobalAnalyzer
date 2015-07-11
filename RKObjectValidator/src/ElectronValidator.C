@@ -1,9 +1,10 @@
 #define ElectronValidator_cxx
 #include "../interface/ElectronValidator.h"
 void ElectronValidator::Fill(std::vector<Electron> electroncollection){
+  
+  h_nElectron->Fill(electroncollection.size());
   for (int i=0; i< (int) electroncollection.size(); i++){
     // Fill First Four Jets Properties 
-    h_nElectron->Fill(electroncollection.size());
     if(i<4){
       h_pt[i]->Fill(electroncollection[i].p4.Pt());
       h_eta[i]->Fill(electroncollection[i].p4.Eta());   
@@ -32,15 +33,15 @@ void ElectronValidator::Fill(std::vector<Electron> electroncollection){
       h_eoverP[i]->Fill(electroncollection[i].eoverP);
       h_eoverPInv[i]->Fill(electroncollection[i].eoverPInv);
       h_brem[i]->Fill(electroncollection[i].brem);
-      h_dEtaVtx[i]->Fill(electroncollection[i].dEtaVtx);
-      h_dPhiVtx[i]->Fill(electroncollection[i].dPhiVtx);
+      h_dEtaWidth[i]->Fill(electroncollection[i].dEtaWidth);
+      h_dPhiWidth[i]->Fill(electroncollection[i].dPhiWidth);
       h_isoChargedHadrons[i]->Fill((electroncollection[i].isoChargedHadrons)/(electroncollection[i].p4.Pt()));
       h_isoNeutralHadrons[i]->Fill((electroncollection[i].isoNeutralHadrons)/(electroncollection[i].p4.Pt()));
       h_isoPhotons[i]->Fill((electroncollection[i].isoPhotons)/(electroncollection[i].p4.Pt()));
       h_isoChargedFromPU[i]->Fill((electroncollection[i].isoChargedFromPU)/(electroncollection[i].p4.Pt())); //add in main code
-      h_isoDeltaBeta[i]->Fill(electroncollection[i].isoDeltaBeta);
-      h_isoRho[i]->Fill(electroncollection[i].isoRho);
-      h_ooEmooP[i]->Fill(electroncollection[i].ooEmooP);
+      h_isoDeltaBeta[i]->Fill((electroncollection[i].isoDeltaBeta)/(electroncollection[i].p4.Pt()));
+    h_isoRho[i]->Fill((electroncollection[i].isoRho)/(electroncollection[i].p4.Pt()));
+      // h_ooEmooP[i]->Fill(electroncollection[i].ooEmooP);
       h_d0[i]->Fill(electroncollection[i].d0);     //fix it 
       h_dz[i]->Fill(electroncollection[i].dz);
       h_expectedMissingInnerHits[i]->Fill(electroncollection[i].expectedMissingInnerHits);
@@ -94,17 +95,17 @@ void ElectronValidator::DefineHistograms(){
     h_eoverP[i]                     =  new TH1F("h_eoverP"+postfix,"",400,0,0.5);
     h_eoverPInv[i]                  =  new TH1F("h_eoverPInv"+postfix,"",400,0.,0.5);
     h_brem[i]                       =  new TH1F("h_brem"+postfix,"",100,0,100);
-    h_dEtaVtx[i]                    =  new TH1F("h_dEtaVtx"+postfix,"",100,0,100);
-    h_dPhiVtx[i]                    =  new TH1F("h_dPhiVtx"+postfix,"",100,0,100);
+    h_dEtaWidth[i]                    =  new TH1F("h_dEtaVtx"+postfix,"",100,0,100);
+    h_dPhiWidth[i]                    =  new TH1F("h_dPhiVtx"+postfix,"",100,0,100);
     h_isoChargedHadrons[i]          =  new TH1F("h_isoChargedHadrons"+postfix,"",100,0,2);
     h_isoNeutralHadrons[i]          =  new TH1F("h_isoNeutralHadrons"+postfix,"",100,0,2);
     h_isoPhotons[i]                 =  new TH1F("h_isoPhotons"+postfix,"",100,0,2);
     h_isoChargedFromPU[i]           =  new TH1F("h_isoChargedFromPU"+postfix,"",100,0,2);
-    h_isoDeltaBeta[i]               =  new TH1F("h_isoDeltaBeta"+postfix,"",100,0,100);
-    h_isoRho[i]                     =  new TH1F("h_isoRho"+postfix,"",100,0,100);
-    h_ooEmooP[i]                    =  new TH1F("h_ooEmooP"+postfix,"",400,0.,0.5);
-    h_d0[i]                         =  new TH1F("h_d0"+postfix,"",100,0,100);
-    h_dz[i]                         =  new TH1F("h_dz"+postfix,"",100,0,100);
+    h_isoDeltaBeta[i]               =  new TH1F("h_isoDeltaBeta"+postfix,"",100,0,2);
+    h_isoRho[i]                     =  new TH1F("h_isoRho"+postfix,"",100,0,2);
+    //    h_ooEmooP[i]                    =  new TH1F("h_ooEmooP"+postfix,"",400,0.,0.5);
+    h_d0[i]                         =  new TH1F("h_d0"+postfix,"",10000,0,100);
+    h_dz[i]                         =  new TH1F("h_dz"+postfix,"",10000,0,100);
     h_expectedMissingInnerHits[i]   =  new TH1F("h_expectedMissingInnerHits"+postfix,"",8,-1,7);
     h_passConversionVeto[i]         =  new TH1F("h_passConversionVeto"+postfix,"",5,-1,4);
     h_barrel[i]                     =  new TH1F("h_barrel"+postfix,"",2,0,2);
@@ -151,15 +152,15 @@ void ElectronValidator::Write(){
      h_eoverP[i]                     ->Write();
      h_eoverPInv[i]                  ->Write();
      h_brem[i]                       ->Write();
-     h_dEtaVtx[i]                    ->Write();
-     h_dPhiVtx[i]                    ->Write();
+     h_dEtaWidth[i]                    ->Write();
+     h_dPhiWidth[i]                    ->Write();
      h_isoChargedHadrons[i]          ->Write();
      h_isoNeutralHadrons[i]          ->Write();
      h_isoPhotons[i]                 ->Write();
      h_isoChargedFromPU[i]           ->Write();
      h_isoDeltaBeta[i]               ->Write();
      h_isoRho[i]                     ->Write();
-     h_ooEmooP[i]                    ->Write();
+     //h_ooEmooP[i]                    ->Write();
      h_d0[i]                         ->Write();
      h_dz[i]                         ->Write();
      h_expectedMissingInnerHits[i]   ->Write();

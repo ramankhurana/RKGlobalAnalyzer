@@ -41,8 +41,8 @@ class Electron {
   Float_t  eoverP;
   Float_t  eoverPInv;
   Float_t  brem;
-  Float_t  dEtaVtx;
-  Float_t  dPhiVtx;
+  Float_t  dEtaWidth;
+  Float_t  dPhiWidth;
 
 
   Float_t  isoChargedHadrons;
@@ -51,14 +51,16 @@ class Electron {
   Float_t  isoChargedFromPU; //add in main code
   Float_t  isoDeltaBeta;
   Float_t  isoRho;
-  Float_t  ooEmooP;
+  //Float_t  ooEmooP;  //same as eoverpinv
   Float_t  d0;     //fix it 
   Float_t  dz;
   Int_t    expectedMissingInnerHits;
   Int_t    passConversionVeto;
   Bool_t   barrel; 
   Bool_t   endcap; 
-    
+  bool operator== (Electron& other_){
+    return((this->p4.Pt()==other_.p4.Pt()) && (this->charge == other_.charge));
+  }
   void Clear(){
 
     IsPassVeto= 0;
@@ -86,17 +88,17 @@ class Electron {
      eoverP= 0;
      eoverPInv= 0;
      brem= 0;
-     dEtaVtx= 0;
-     dPhiVtx= 0;
+     dEtaWidth= 0;
+     dPhiWidth= 0;
   
      isoChargedHadrons= 0;
      isoNeutralHadrons= 0;
      isoPhotons= 0;
-     isoChargedFromPU= 0; //add in main code                                                                                                  
+     isoChargedFromPU= 0; //add in main code  //nothing just to make corrections
+     // two type of isolation                                                                                            
      isoDeltaBeta= 0;
      isoRho= 0;
-     ooEmooP= 0;
-     d0= 0;     //fix it                                                                                                                     
+     d0= 0;    
      dz= 0;
      expectedMissingInnerHits= 0;
      passConversionVeto= 0;
