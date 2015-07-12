@@ -68,7 +68,7 @@ void ElectronValidator::DefineHistograms(){
   TString postfix;
   for(int i=0; i<4;i++){
     postfix.Form("%d",i);
-    h_pt[i]                         =  new TH1F("h_pt"+postfix,"",100,0.,700.);
+    h_pt[i]                         =  new TH1F("h_pt"+postfix,"",700,0.,700.);
     h_eta[i]                        =  new TH1F("h_eta"+postfix,"",48,-2.4,2.4);
     h_phi[i]                        =  new TH1F("h_phi"+postfix,"",70,-3.5,3.5);
     h_IsPassVeto[i]                 =  new TH1F("h_IsPassVeto"+postfix,"",2,0,2);
@@ -83,7 +83,7 @@ void ElectronValidator::DefineHistograms(){
    
     h_charge[i]                     =  new TH1F("h_charge"+postfix,"",14,-2,2);
     h_r9[i]                         =  new TH1F("h_r9"+postfix,"",100,0,2);
-    h_etSC[i]                       =  new TH1F("h_etSC"+postfix,"",105,0.,700.);
+    h_etSC[i]                       =  new TH1F("h_etSC"+postfix,"",700,0.,700.);
     h_etaSC[i]                      =  new TH1F("h_etaSC"+postfix,"",48,-2.4,2.4);
     h_energySC[i]                   =  new TH1F("h_energySC"+postfix,"",100,0.,1000);
     h_preenergySC[i]                =  new TH1F("h_preenergySC"+postfix,"",100,0.,1000.);
@@ -104,7 +104,7 @@ void ElectronValidator::DefineHistograms(){
     h_isoDeltaBeta[i]               =  new TH1F("h_isoDeltaBeta"+postfix,"",100,0,2);
     h_isoRho[i]                     =  new TH1F("h_isoRho"+postfix,"",100,0,2);
     //    h_ooEmooP[i]                    =  new TH1F("h_ooEmooP"+postfix,"",400,0.,0.5);
-    h_d0[i]                         =  new TH1F("h_d0"+postfix,"",10000,0,100);
+    h_d0[i]                         =  new TH1F("h_d0"+postfix,"",1000,0,1);
     h_dz[i]                         =  new TH1F("h_dz"+postfix,"",10000,0,100);
     h_expectedMissingInnerHits[i]   =  new TH1F("h_expectedMissingInnerHits"+postfix,"",8,-1,7);
     h_passConversionVeto[i]         =  new TH1F("h_passConversionVeto"+postfix,"",5,-1,4);

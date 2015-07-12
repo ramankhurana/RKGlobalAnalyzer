@@ -386,7 +386,7 @@ void RKAnalyzer::ElectronProducer(){
     electrons.endcap  =  (*eleInEndcap)[i]  ; 
     std::cout<<" after EC"<<std::endl;
     
-    if(fourmom->Pt() > 20 && fabs(fourmom->Eta())<2.5 && (*isPassVeto)[i]==1)  RKElectronCollection.push_back(electrons);
+    if(fourmom->Pt() > 20 && fabs(fourmom->Eta())<2.5 && (*isPassLoose)[i]==1)  RKElectronCollection.push_back(electrons);
   }
   std::cout<<" electron collection filled " <<std::endl;
 }
