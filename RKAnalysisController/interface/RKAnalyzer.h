@@ -996,13 +996,13 @@ class RKAnalyzer {
 // used to generate this class and read the Tree.
    if (tree == 0) {
      //f = (TFile*)gROOT->GetListOfFiles()->FindObject("InputRootFile/NCUGlobalTuples_10.root");
-     f = (TFile*)gROOT->GetListOfFiles()->FindObject("/afs/cern.ch/work/m/mmittal/private/DY2015/DYAnalysis/CMSSW_7_4_5/src/DelPanj/TreeMaker/test/RunCongigTest/NCUGlobalTuples.root");
+     f = (TFile*)gROOT->GetListOfFiles()->FindObject("/hdfs/store/user/khurana/ExpressPhysicsLocalMiniAOD/treeMaker_Run2015B_cfg-MINIAOD_53.root");
       if (!f || !f->IsOpen()) {
 	//f = new TFile("InputRootFile/NCUGlobalTuples_10.root");
-	f = new TFile("/afs/cern.ch/work/m/mmittal/private/DY2015/DYAnalysis/CMSSW_7_4_5/src/DelPanj/TreeMaker/test/RunCongigTest/NCUGlobalTuples.root");
+	f = new TFile("/hdfs/store/user/khurana/ExpressPhysicsLocalMiniAOD/treeMaker_Run2015B_cfg-MINIAOD_53.root");
       }
       //TDirectory * dir = (TDirectory*)f->Get("InputRootFile/NCUGlobalTuples_10.root:/tree");
-      TDirectory * dir = (TDirectory*)f->Get("/afs/cern.ch/work/m/mmittal/private/DY2015/DYAnalysis/CMSSW_7_4_5/src/DelPanj/TreeMaker/test/RunCongigTest/NCUGlobalTuples.root:/tree");
+      TDirectory * dir = (TDirectory*)f->Get("/hdfs/store/user/khurana/ExpressPhysicsLocalMiniAOD/treeMaker_Run2015B_cfg-MINIAOD_53.root:/tree");
       dir->GetObject("treeMaker",tree);
 
    }
