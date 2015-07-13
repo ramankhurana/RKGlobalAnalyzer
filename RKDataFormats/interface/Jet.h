@@ -51,6 +51,8 @@ class Jet{
   Float_t mt;
   Float_t dphi;
   
+  
+  
   Bool_t ispT30_;
   Bool_t ispT50_;
   Bool_t ispT80_;
@@ -61,6 +63,9 @@ class Jet{
   Bool_t isCSVMed_;
   Bool_t isCSVT_;
   Bool_t isLooseJet_;
+
+  // Variables for FatJets
+  
   bool operator== (Jet& other_){
     return((this->p4.Pt()==other_.p4.Pt()) && (this->charge == other_.charge));
   }

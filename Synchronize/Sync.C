@@ -1,0 +1,110 @@
+#define Sync_cxx
+#include "Sync.h"
+#include <TH2.h>
+#include <TStyle.h>
+#include <TCanvas.h>
+
+void Sync::Loop()
+{
+//   In a ROOT session, you can do:
+//      root> .L Sync.C
+//      root> Sync t
+//      root> t.GetEntry(12); // Fill t data members with entry number 12
+//      root> t.Show();       // Show values of entry 12
+//      root> t.Show(16);     // Read and show values of entry 16
+//      root> t.Loop();       // Loop on all entries
+//
+
+//     This is the loop skeleton where:
+//    jentry is the global entry number in the chain
+//    ientry is the entry number in the current Tree
+//  Note that the argument to GetEntry must be:
+//    jentry for TChain::GetEntry
+//    ientry for TTree::GetEntry and TBranch::GetEntry
+//
+//       To read only selected branches, Insert statements like:
+// METHOD1:
+//    fChain->SetBranchStatus("*",0);  // disable all branches
+//    fChain->SetBranchStatus("branchname",1);  // activate branchname
+// METHOD2: replace line
+//    fChain->GetEntry(jentry);       //read all branches
+//by  b_branchname->GetEntry(ientry); //read only this branch
+  
+  n_events = new TH1F("n_events","",10,0,10);
+  if (fChain == 0) return;
+
+   Long64_t nentries = fChain->GetEntriesFast();
+   
+   Long64_t nbytes = 0, nb = 0;
+   for (Long64_t jentry=0; jentry<nentries;jentry++) {
+      Long64_t ientry = LoadTree(jentry);
+      if (ientry < 0) break;
+      nb = fChain->GetEntry(jentry);   nbytes += nb;
+      
+
+      // if (Cut(ientry) < 0) continue;
+      std::cout<<" working "<<jentry<<std::endl;
+      
+      // No Cuts
+      n_events->Fill(0);
+      
+      // Vertex Cuts
+      if((info_nVtx<1)) continue;
+      n_events->Fill(1);
+      
+      // Leading Jet 
+      if((*THINjetPt).size()<1) continue;
+      
+      TLorentzVector p41;
+      TLorentzVector p42;
+      int njet=0;
+      bool clean1;
+      bool clean2;
+      for (size_t ijet=0; ijet < (*THINjetPt).size(); ijet++){
+	if( (*THINjetPt)[ijet] < 30)  continue;
+	if(!( (*THINPUJetID)[ijet]>-0.63)) continue;
+	if(!( (*THINjetPassIDLoose)[ijet]==1)) continue;
+	njet++;
+	if(njet==1)       {   
+	  p41.SetPtEtaPhiE((*THINjetPt)[ijet],
+			   (*THINjetEta)[ijet],
+			   (*THINjetPhi)[ijet],
+			   (*THINjetEn)[ijet]
+			   );
+	  
+	  clean1= ((*THINjetCHadEF)[ijet] > 0.2) && ((*THINjetNHadEF)[ijet] < 0.7)  && ( (*THINjetNEmEF)[ijet] < 0.7) ;
+	}
+	if(njet==2)        {
+	  p42.SetPtEtaPhiE((*THINjetPt)[ijet],
+			   (*THINjetEta)[ijet],
+			   (*THINjetPhi)[ijet],
+			   (*THINjetEn)[ijet]
+			   );
+	  clean2=  ((*THINjetNHadEF)[ijet] < 0.7)  && ( (*THINjetNEmEF)[ijet] < 0.9) ;
+
+	}
+	
+	
+      }
+      std::cout<<" njet = "<<njet<<std::endl;
+      if(njet<1) continue;
+      if(p41.Pt()>110 && clean1)   n_events->Fill(2);
+      
+      // Subleading Jet
+      if(njet<2) continue;
+      if(TMath::Abs(p41.DeltaPhi(p42))>2.5) continue;
+      if(clean2) n_events->Fill(3);
+      
+      // MET > 200
+      if(pfMetCorrPt<200) continue;
+      n_events->Fill(4);
+      
+      
+
+
+      //
+   }
+   fout = new TFile("sync.root","RECREATE");
+   fout->cd();
+   n_events->Write();
+}
