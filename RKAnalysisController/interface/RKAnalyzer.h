@@ -93,7 +93,6 @@ class RKAnalyzer {
    METValidator metvalidator;
    // DiJet   
    TwoObjectValidator<Resonance<Jet,Jet> > diJetValidator;
-
    // DiJet   
    TwoObjectValidator<Resonance<Electron,Electron> > diElectronValidator;
    // Jet-MET
@@ -971,7 +970,7 @@ class RKAnalyzer {
    virtual void     Show(Long64_t entry = -1);
    void TotalEvent(std::vector<TString> filelist);
    void TotalEvent(TH1F* h);
-   
+   bool TriggerStatus(std::string TRIGNAME);
    // User Functions 
    // Clear all the collections for each event.
    void ClearCollections();
@@ -994,15 +993,17 @@ class RKAnalyzer {
   //  outputfilename=output;
 // if parameter tree is not specified (or zero), connect the file
 // used to generate this class and read the Tree.
+  TString filename="/hdfs/store/user/khurana/SingleElectron/crab_SingleElectron_Run2015B-PromptReco-v1/150713_071520/0000/NCUGlobalTuples_32.root";
    if (tree == 0) {
-     //f = (TFile*)gROOT->GetListOfFiles()->FindObject("InputRootFile/NCUGlobalTuples_10.root");
-     f = (TFile*)gROOT->GetListOfFiles()->FindObject("/hdfs/store/user/khurana/ExpressPhysicsLocalMiniAOD/treeMaker_Run2015B_cfg-MINIAOD_53.root");
+     //f = (TFile*)gROOT->GetListOfFiles()->FindObject("/hdfs/store/user/khurana/ExpressPhysicsLocalMiniAOD/treeMaker_Run2015B_cfg-MINIAOD_53.root");
+     f = (TFile*)gROOT->GetListOfFiles()->FindObject(filename);
       if (!f || !f->IsOpen()) {
-	//f = new TFile("InputRootFile/NCUGlobalTuples_10.root");
-	f = new TFile("/hdfs/store/user/khurana/ExpressPhysicsLocalMiniAOD/treeMaker_Run2015B_cfg-MINIAOD_53.root");
+	//f = new TFile("/hdfs/store/user/khurana/ExpressPhysicsLocalMiniAOD/treeMaker_Run2015B_cfg-MINIAOD_53.root");
+	f = new TFile(filename);
       }
-      //TDirectory * dir = (TDirectory*)f->Get("InputRootFile/NCUGlobalTuples_10.root:/tree");
-      TDirectory * dir = (TDirectory*)f->Get("/hdfs/store/user/khurana/ExpressPhysicsLocalMiniAOD/treeMaker_Run2015B_cfg-MINIAOD_53.root:/tree");
+      //TDirectory * dir = (TDirectory*)f->Get("/hdfs/store/user/khurana/ExpressPhysicsLocalMiniAOD/treeMaker_Run2015B_cfg-MINIAOD_53.root:/tree");
+      TString fullname = filename+":/tree";
+      TDirectory * dir = (TDirectory*)f->Get(fullname);
       dir->GetObject("treeMaker",tree);
 
    }
