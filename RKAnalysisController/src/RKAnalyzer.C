@@ -56,6 +56,9 @@ void RKAnalyzer::Loop(TString output){
      // Clear all the collections
      ClearCollections();
      
+     //Trigger Status.
+     bool eletrig1 = TriggerStatus("HLT_DoubleEle33");
+     std::cout<<" status of trigger = "<<eletrig1<<std::endl;
      // Produce jet collection for analysis and validation of object variables.
      JetProducer();
      // Produce MET collection for analysis and validation of object.
@@ -456,3 +459,20 @@ void RKAnalyzer::TotalEvent(TH1F* h){
   h->Write();
 
 }
+
+
+
+
+bool RKAnalyzer::TriggerStatus(std::string TRIGNAME){
+  std::cout<<" number of triggers = "<<(*hlt_trigResult).size()<<std::endl;
+  for(int i =0; i < (*hlt_trigResult).size() ; i++) {
+      std::string trigname = (*trigName)[i];
+      size_t foundEle00=trigname.find(TRIGNAME);//HLT_DoubleEle33
+      if ( foundEle00==std::string::npos) continue;
+    
+      std::cout<<"trigger name = "<<trigname
+	       <<" status = "<<(*hlt_trigResult)[i]<<std::endl;
+    }
+}	
+    
+	
