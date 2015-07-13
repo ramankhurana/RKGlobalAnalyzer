@@ -1,9 +1,9 @@
-// Original class : ElectroValidator.h
+// Original class : ElectronValidator.h
 // Created By     : ramanmonika khurana 
 // Created On     : Sun Apr 26 18:26:44 CEST 2015
 
-#ifndef ElectroValidator_h_
-#define ElectroValidator_h_
+#ifndef ElectronValidator_h_
+#define ElectronValidator_h_
 
 #define nELECTRONS  4
 #include "../../RKDataFormats/interface/Electron.h"
@@ -16,13 +16,13 @@
 #include "TProfile2D.h"
 #include "TFile.h"
 
-class ElectroValidator {
+class ElectronValidator {
  public:
   TFile* file;
   TString prefix;
   
-  ElectroValidator(){};
-  ~ElectroValidator(){};
+  ElectronValidator(){};
+  ~ElectronValidator(){};
 
   void Fill(std::vector<Electron> electroncollection);
   void DefineHistograms();
@@ -61,15 +61,14 @@ class ElectroValidator {
   TH1F*     h_eoverP[nELECTRONS];
   TH1F*     h_eoverPInv[nELECTRONS];
   TH1F*     h_brem[nELECTRONS];
-  TH1F*     h_dEtaVtx[nELECTRONS];
-  TH1F*     h_dPhiVtx[nELECTRONS];
+  TH1F*     h_dEtaWidth[nELECTRONS];
+  TH1F*     h_dPhiWidth[nELECTRONS];
   TH1F*     h_isoChargedHadrons[nELECTRONS];
   TH1F*     h_isoNeutralHadrons[nELECTRONS];
   TH1F*     h_isoPhotons[nELECTRONS];
   TH1F*     h_isoChargedFromPU[nELECTRONS]; //add in main code
   TH1F*     h_isoDeltaBeta[nELECTRONS];
   TH1F*     h_isoRho[nELECTRONS];
-  TH1F*     h_ooEmooP[nELECTRONS];
   TH1F*     h_d0[nELECTRONS];     //fix it 
   TH1F*     h_dz[nELECTRONS];
   TH1F*     h_expectedMissingInnerHits[nELECTRONS];

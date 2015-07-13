@@ -26,6 +26,7 @@
 
 #include "../../RKDataFormats/interface/Resonance.h"
 #include "../../RKObjectValidator/interface/JetValidator.h"
+#include "../../RKObjectValidator/interface/ElectronValidator.h"
 #include "../../RKObjectValidator/interface/METValidator.h"
 #include "../../RKProducers/interface/TwoObjectCombination.h"
 #include "../../RKProducers/interface/ObjectMETCombination.h"
@@ -73,6 +74,9 @@ class RKAnalyzer {
    Electron electrons;
    // Dijets
    TwoObjectCombination<Jet,Jet> dijet;
+   
+   // DiElectron 
+   TwoObjectCombination<Electron,Electron> dielectron;
    // Jet-MET
    ObjectMETCombination<Jet,MET> jet_met;
    //DiObject-MET
@@ -83,10 +87,15 @@ class RKAnalyzer {
    // jet 
    JetValidator jetvalidator;
    JetValidator jetvalidator_selected;
+   // Electron 
+   ElectronValidator electronvalidator;
    // MET
    METValidator metvalidator;
    // DiJet   
    TwoObjectValidator<Resonance<Jet,Jet> > diJetValidator;
+
+   // DiJet   
+   TwoObjectValidator<Resonance<Electron,Electron> > diElectronValidator;
    // Jet-MET
    ObjectMETValidator<ResonanceWithMET<Jet,MET> > jetmetValidator;
    // DiJet-MET
@@ -109,6 +118,10 @@ class RKAnalyzer {
    // DiJet
    std::vector<Resonance<Jet,Jet> > RKdiJetCollection;
    std::vector<Resonance<Jet,Jet> > RKdiJetCollection_selected;
+   
+   // DiElectron 
+   std::vector<Resonance<Electron,Electron> > RKdiElectronCollection;
+   
    // Jet-MET
    std::vector<ResonanceWithMET<Jet,MET> > RKjetMETCollection;
    //DiJet-MET
@@ -213,15 +226,20 @@ class RKAnalyzer {
    vector<bool>    *isPassMedium;
    vector<bool>    *isPassTight;
    vector<bool>    *isPassHEEP;
+   vector<bool>    *isPassMVAMedium; 
+   vector<bool>    *isPassMVATight;
+   vector<float>   *mvaValue;
+   vector<float>   *mvaCategory; 
+
    TClonesArray    *patElecP4;
    Float_t         eleRho;
-   vector<float>   *eleEffArea;
    vector<float>   *eleCharge;
    vector<float>   *eleChargeConsistent;
    vector<float>   *eleR9;
    vector<float>   *eleHoverE;
    vector<float>   *eleD0;
    vector<float>   *eleDz;
+   vector<float>   *eleScEt;
    vector<float>   *eleScEn;
    vector<float>   *eleScPreEn;
    vector<float>   *eleScEta;
@@ -259,8 +277,8 @@ class RKAnalyzer {
    vector<float>   *eleDr03HcalDepth2TowerSumEt;
    vector<float>   *eleDr03HcalTowerSumEt;
    vector<float>   *eleDr03TkSumPt;
-   vector<float>   *eleTrkdztrackref;
-   vector<float>   *eleTrkdxytrackref;
+   //   vector<float>   *eleTrkdztrackref;
+   //vector<float>   *eleTrkdxytrackref;
    vector<float>   *eleInBarrel;
    vector<float>   *eleInEndcap;
    Float_t         pfMetCorrPt;
@@ -618,15 +636,22 @@ class RKAnalyzer {
    TBranch        *b_isPassMedium;   //!
    TBranch        *b_isPassTight;   //!
    TBranch        *b_isPassHEEP;   //!
+   TBranch        *b_isPassMVAMedium;//
+   TBranch        *b_isPassMVATight;
+   TBranch        *b_mvaValue;
+   TBranch        *b_mvaCategory; 
+
+   
    TBranch        *b_patElecP4;   //!
    TBranch        *b_eleRho;   //!
-   TBranch        *b_eleEffArea;   //!
+   //   TBranch        *b_eleEffArea;   //!
    TBranch        *b_eleCharge;   //!
    TBranch        *b_eleChargeConsistent;   //!
    TBranch        *b_eleR9;   //!
    TBranch        *b_eleHoverE;   //!
    TBranch        *b_eleD0;   //!
    TBranch        *b_eleDz;   //!
+   TBranch        *b_eleScEt;  
    TBranch        *b_eleScEn;   //!
    TBranch        *b_eleScPreEn;   //!
    TBranch        *b_eleScEta;   //!
@@ -664,8 +689,8 @@ class RKAnalyzer {
    TBranch        *b_eleDr03HcalDepth2TowerSumEt;   //!
    TBranch        *b_eleDr03HcalTowerSumEt;   //!
    TBranch        *b_eleDr03TkSumPt;   //!
-   TBranch        *b_eleTrkdztrackref;   //!
-   TBranch        *b_eleTrkdxytrackref;   //!
+   //   TBranch        *b_eleTrkdztrackref;   //!
+   //TBranch        *b_eleTrkdxytrackref;   //!
    TBranch        *b_eleInBarrel;   //!
    TBranch        *b_eleInEndcap;   //!
    TBranch        *b_pfMetCorrPt;   //!
@@ -971,13 +996,13 @@ class RKAnalyzer {
 // used to generate this class and read the Tree.
    if (tree == 0) {
      //f = (TFile*)gROOT->GetListOfFiles()->FindObject("InputRootFile/NCUGlobalTuples_10.root");
-     f = (TFile*)gROOT->GetListOfFiles()->FindObject("/hdfs/store/user/khurana/ggZH_HToBB_ZToNuNu_M120_13TeV_powheg_pythia8/crab_ggZH_HToBB_ZToNuNu_M120_13TeV_powheg_pythia8/150702_105011/0000/NCUGlobalTuples_10.root");
+     f = (TFile*)gROOT->GetListOfFiles()->FindObject("/hdfs/store/user/khurana/ExpressPhysicsLocalMiniAOD/treeMaker_Run2015B_cfg-MINIAOD_53.root");
       if (!f || !f->IsOpen()) {
 	//f = new TFile("InputRootFile/NCUGlobalTuples_10.root");
-	f = new TFile("/hdfs/store/user/khurana/ggZH_HToBB_ZToNuNu_M120_13TeV_powheg_pythia8/crab_ggZH_HToBB_ZToNuNu_M120_13TeV_powheg_pythia8/150702_105011/0000/NCUGlobalTuples_10.root");
+	f = new TFile("/hdfs/store/user/khurana/ExpressPhysicsLocalMiniAOD/treeMaker_Run2015B_cfg-MINIAOD_53.root");
       }
       //TDirectory * dir = (TDirectory*)f->Get("InputRootFile/NCUGlobalTuples_10.root:/tree");
-      TDirectory * dir = (TDirectory*)f->Get("/hdfs/store/user/khurana/ggZH_HToBB_ZToNuNu_M120_13TeV_powheg_pythia8/crab_ggZH_HToBB_ZToNuNu_M120_13TeV_powheg_pythia8/150702_105011/0000/NCUGlobalTuples_10.root:/tree");
+      TDirectory * dir = (TDirectory*)f->Get("/hdfs/store/user/khurana/ExpressPhysicsLocalMiniAOD/treeMaker_Run2015B_cfg-MINIAOD_53.root:/tree");
       dir->GetObject("treeMaker",tree);
 
    }
@@ -1088,8 +1113,12 @@ void RKAnalyzer::Init(TTree *tree)
    isPassMedium = 0;
    isPassTight = 0;
    isPassHEEP = 0;
+   isPassMVAMedium= 0;
+   isPassMVATight = 0;
+   mvaValue= 0;
+   mvaCategory = 0; 
+
    patElecP4 = 0;
-   eleEffArea = 0;
    eleCharge = 0;
    eleChargeConsistent = 0;
    eleR9 = 0;
@@ -1097,6 +1126,7 @@ void RKAnalyzer::Init(TTree *tree)
    eleD0 = 0;
    eleDz = 0;
    eleScEn = 0;
+   eleScEt = 0;
    eleScPreEn = 0;
    eleScEta = 0;
    eleScPhi = 0;
@@ -1133,8 +1163,8 @@ void RKAnalyzer::Init(TTree *tree)
    eleDr03HcalDepth2TowerSumEt = 0;
    eleDr03HcalTowerSumEt = 0;
    eleDr03TkSumPt = 0;
-   eleTrkdztrackref = 0;
-   eleTrkdxytrackref = 0;
+   //   eleTrkdztrackref = 0;
+   //eleTrkdxytrackref = 0;
    eleInBarrel = 0;
    eleInEndcap = 0;
    FATjetPt = 0;
@@ -1466,13 +1496,19 @@ void RKAnalyzer::Init(TTree *tree)
    fChain->SetBranchAddress("isPassHEEP", &isPassHEEP, &b_isPassHEEP);
    fChain->SetBranchAddress("patElecP4", &patElecP4, &b_patElecP4);
    fChain->SetBranchAddress("eleRho", &eleRho, &b_eleRho);
-   fChain->SetBranchAddress("eleEffArea", &eleEffArea, &b_eleEffArea);
+   fChain->SetBranchAddress("isPassMVAMedium",&isPassMVAMedium,&b_isPassMVAMedium);
+   fChain->SetBranchAddress("isPassMVATight",&isPassMVATight,&b_isPassMVATight);
+   fChain->SetBranchAddress("mvaValue",&mvaValue,&b_mvaValue);
+   fChain->SetBranchAddress("mvaCategory",&mvaCategory,&b_mvaCategory);
+
+   //   fChain->SetBranchAddress("eleEffArea", &eleEffArea, &b_eleEffArea);
    fChain->SetBranchAddress("eleCharge", &eleCharge, &b_eleCharge);
    fChain->SetBranchAddress("eleChargeConsistent", &eleChargeConsistent, &b_eleChargeConsistent);
    fChain->SetBranchAddress("eleR9", &eleR9, &b_eleR9);
    fChain->SetBranchAddress("eleHoverE", &eleHoverE, &b_eleHoverE);
    fChain->SetBranchAddress("eleD0", &eleD0, &b_eleD0);
    fChain->SetBranchAddress("eleDz", &eleDz, &b_eleDz);
+   fChain->SetBranchAddress("eleScEt", &eleScEt, &b_eleScEt);
    fChain->SetBranchAddress("eleScEn", &eleScEn, &b_eleScEn);
    fChain->SetBranchAddress("eleScPreEn", &eleScPreEn, &b_eleScPreEn);
    fChain->SetBranchAddress("eleScEta", &eleScEta, &b_eleScEta);
@@ -1510,8 +1546,8 @@ void RKAnalyzer::Init(TTree *tree)
    fChain->SetBranchAddress("eleDr03HcalDepth2TowerSumEt", &eleDr03HcalDepth2TowerSumEt, &b_eleDr03HcalDepth2TowerSumEt);
    fChain->SetBranchAddress("eleDr03HcalTowerSumEt", &eleDr03HcalTowerSumEt, &b_eleDr03HcalTowerSumEt);
    fChain->SetBranchAddress("eleDr03TkSumPt", &eleDr03TkSumPt, &b_eleDr03TkSumPt);
-   fChain->SetBranchAddress("eleTrkdztrackref", &eleTrkdztrackref, &b_eleTrkdztrackref);
-   fChain->SetBranchAddress("eleTrkdxytrackref", &eleTrkdxytrackref, &b_eleTrkdxytrackref);
+   //   fChain->SetBranchAddress("eleTrkdztrackref", &eleTrkdztrackref, &b_eleTrkdztrackref);
+   //fChain->SetBranchAddress("eleTrkdxytrackref", &eleTrkdxytrackref, &b_eleTrkdxytrackref);
    fChain->SetBranchAddress("eleInBarrel", &eleInBarrel, &b_eleInBarrel);
    fChain->SetBranchAddress("eleInEndcap", &eleInEndcap, &b_eleInEndcap);
    fChain->SetBranchAddress("pfMetCorrPt", &pfMetCorrPt, &b_pfMetCorrPt);
