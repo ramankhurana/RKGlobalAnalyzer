@@ -5,6 +5,7 @@
 #include <TCanvas.h>
 #include <iostream>
 #include <TUrl.h>
+#include "../../RKUtilities/interface/EAElectron.h"
 using namespace std;
 void RKAnalyzer::Loop(TString output){
   bool debug=false;
@@ -17,11 +18,16 @@ void RKAnalyzer::Loop(TString output){
   //fout->cd();
   //nEvents->Write();
 
+
+  // eaConstantsFile("EgammaAnalysis/ElectronTools/data/PHYS14/effAreaElectrons_cone03_pfNeuHadronsAndPhotons.txt");
+  
   
   jetvalidator.GetInputs(fout,"Jet_NoCut_");
   jetvalidator_selected.GetInputs(fout,"Jet_PtEtaBTag_");
+  electronvalidator.GetInputs(fout,"Electron_NoCut_");
   metvalidator.GetInputs(fout,"MET_NoCut_");
   diJetValidator.GetInputs(fout,"DiJetNotCut");
+  diElectronValidator.GetInputs(fout,"DiElectronNoCut");
   jetmetValidator.GetInputs(fout,"JetMETNoCuts");
   dijetmetValidator.GetInputs(fout,"DiJetMETNoCuts");
   cutflowobj.GetInputs(fout,"CutFlowAndEachCut");
@@ -38,7 +44,7 @@ void RKAnalyzer::Loop(TString output){
   Long64_t nentries = fChain->GetEntriesFast();
   
   std::cout<<" nevents ====== "<<nentries<<std::endl;
-  //nentries = 10;
+  //nentries = 1;
   Long64_t nbytes = 0, nb = 0;
    for (Long64_t jentry=0; jentry<nentries;jentry++) {
      nEvents->Fill(1);
@@ -62,6 +68,8 @@ void RKAnalyzer::Loop(TString output){
      jetvalidator.Fill(RKJetCollection);
      jetvalidator_selected.Fill(RKJetCollection_selected);
      
+     // Fill the electron validation histograms 
+     electronvalidator.Fill(RKElectronCollection);
      // Fill Validation histograms for MET
      metvalidator.Fill(met);
      
@@ -73,11 +81,15 @@ void RKAnalyzer::Loop(TString output){
      RKdiJetCollection = dijet.ReconstructDiObject(RKJetCollection);
      std::cout<< " dijet collection size = ========== "<<RKdiJetCollection.size()<<std::endl;
 
+     // DiElectron 
+     RKdiElectronCollection = dielectron.ReconstructDiObject(RKElectronCollection);
+
      // DiJet Validation
      if(debug) std::cout<<" diJet mass = "<<RKdiJetCollection[0].ResonanceProp.p4.Mag()<<std::endl;
      if(RKdiJetCollection.size() > 0) diJetValidator.Fill(RKdiJetCollection_selected);
      std::cout<<" dijet part done "<<std::endl;
      
+     if(RKdiElectronCollection.size()>0)  diElectronValidator.Fill(RKdiElectronCollection);
      
      std::cout<<" before sorting "<<std::endl;
      // Dijet Vector Sorting wrt pT of diJet candidate 
@@ -165,8 +177,10 @@ void RKAnalyzer::Loop(TString output){
    // Write Histograms ;
    jetvalidator.Write();
    jetvalidator_selected.Write();
+   electronvalidator.Write();
    metvalidator.Write();
    diJetValidator.Write();
+   diElectronValidator.Write();
    jetmetValidator.Write();
    dijetmetValidator.Write();
    cutflowobj.Write();
@@ -293,8 +307,15 @@ void RKAnalyzer::MuonProducer(){
 }
 
 void RKAnalyzer::ElectronProducer(){
+
+  //opening file for effective area 
+  //  edm::FileInPath eaConstantsFile("EgammaAnalysis/ElectronTools/data/PHYS14/effAreaElectrons_cone03_pfNeuHadronsAndPhotons.txt");
+  //EffectiveAreas effectiveAreas(eaConstantsFile.fullPath());
+
+
   std::cout<< " inside electron producer "<<nEle<<std::endl;
   for(size_t i=0; i<nEle; i++){
+   
     std::cout<<" inside ele loop"<<std::endl;
     //electrons.Clear();
     //    TLorentzVector fourmom;
@@ -303,66 +324,69 @@ void RKAnalyzer::ElectronProducer(){
     std::cout<<" before lorentzvec "<<std::endl;
     TLorentzVector*  fourmom = (TLorentzVector*) patElecP4->At(i);
     std::cout<<" after lorentzvec "<<std::endl;
-    //std::cout<<" after array = " <<std::endl;
-    //TLorentzVector* fourmom = (TLorentzVector*) patElecP4->At(i); 
-    //electrons.p4      = *fourmom ;
-    //std::cout<<" ele pt = "<<fourmom->Pt()<<std::endl;
-    //electrons.charge  = (*eleCharge)[i] ;
-      //IDs
-
-    //electrons.p4 = *fourmom;
+    
+    float eA =EAElectron::EA(fourmom->Eta());
+    
+    //float eA = effectiveAreas.getEffectiveArea(fabs((*eleScEta)[i])); // to get eArea of supercluster
+    
+    std::cout<<" mva = "<<
+    std::cout<<" filling p4 "<<std::endl;
+    electrons.p4         = (*fourmom); 
     std::cout<<" filled p4 "<<std::endl;
     electrons.IsPassVeto  =  (*isPassVeto)[i]  ; 
     electrons.IsPassLoose  =  (*isPassLoose)[i]  ; 
     electrons.IsPassMedium  =  (*isPassMedium)[i]  ; 
     electrons.IsPassTight  =  (*isPassTight)[i]  ; 
     electrons.IsPassHEEP  =  (*isPassHEEP)[i]  ;  
+
+
+
     std::cout<<" after HEEP"<<std::endl;
-    electrons.IsMVATrig  =  -999.  ;  //Add This
+    electrons.IsMVATrig  =  false  ;  //Add This
     electrons.IsMVANonTrig  =  -999  ;
     electrons.MVATrig  =  -999.;
     electrons.MVANonTrig  =  -999.  ;
     electrons.charge  =  (*eleCharge)[i]  ;
     std::cout<<" after charge"<<std::endl;
     electrons.r9  =  (*eleR9)[i]  ;
-    electrons.etSC  =  -999.  ; //check this
+    electrons.etSC  =  (*eleScEt)[i]  ; //check this
     electrons.etaSC  =  (*eleScEta)[i]  ;
     electrons.energySC  =  (*eleScEn)[i]  ;
     electrons.preenergySC  =  (*eleScPreEn)[i]  ;
     electrons.phiSC  =  (*eleScPhi)[i]  ;
     std::cout<<" after Phi"<<std::endl;
-    electrons.dEtaIn  =  (*eleScEtaWidth)[i]  ;
-    electrons.dPhiIn  =  (*eleScPhiWidth)[i]  ;
+    electrons.dEtaIn  =  (*eledEtaAtVtx)[i]  ;
+    electrons.dPhiIn  =  (*eledPhiAtVtx)[i]  ;
     electrons.hOverE  =  (*eleHoverE)[i]  ;
     electrons.full5x5_sigmaIetaIeta  =  (*eleSigmaIEtaIEtaFull5x5)[i]  ;
     electrons.eoverP  =  (*eleEoverP)[i]  ;
     std::cout<<" after E/P"<<std::endl;
     electrons.eoverPInv  =  (*eleEoverPInv)[i]  ;
     electrons.brem  =  (*eleBrem)[i]  ;
-    electrons.dEtaVtx  =  (*eledEtaAtVtx)[i]  ;
-    electrons.dPhiVtx  =  (*eledPhiAtVtx)[i]  ;
+    electrons.dEtaWidth  =  (*eleScEtaWidth)[i]  ;
+    electrons.dPhiWidth  =  (*eleScPhiWidth)[i]  ;
     electrons.isoChargedHadrons  =  (*eleChHadIso)[i]  ;
     electrons.isoNeutralHadrons  =  (*eleNeHadIso)[i]  ;
     electrons.isoPhotons  =  (*eleGamIso)[i]  ;
     std::cout<<" after gamma iso"<<std::endl;
-    electrons.isoChargedFromPU  =  -999  ; //add in main code
+    electrons.isoChargedFromPU  = (*elePUPt)[i]  ; //add in main code
     std::cout<<" after electrons.isoChargedFromPU "<<std::endl;
-    electrons.isoDeltaBeta  =  (*elePUPt)[i]  ;
+    electrons.isoDeltaBeta  = ((*eleChHadIso)[i] + max<float>( 0.0, ((*eleNeHadIso)[i]+(*eleGamIso)[i]- 0.5 * (*elePUPt)[i])));
     std::cout<<" electrons.isoDeltaBeta "<<std::endl;
-    electrons.isoRho  =  eleRho  ;
+    electrons.isoRho  = ((*eleChHadIso)[i] + max<float>( 0.0, ((*eleNeHadIso)[i]+(*eleGamIso)[i]- (eleRho) * (eA)) ));
     std::cout<<" electrons.isoRho "<<std::endl;
-    electrons.ooEmooP  =  -999.  ;
-    std::cout<<" electrons.ooEmooP "<<std::endl;
-    //electrons.d0  =  (*eleD0)[i]  ;     //fix it 
+    //electrons.ooEmooP  =  -999.  ;
+    //std::cout<<" electrons.ooEmooP "<<std::endl;
+    electrons.d0  =  (*eleD0)[i]  ;     //fix it 
     std::cout<<" after Do"<<std::endl;
-    //electrons.dz  =  (*eleDz)[i]  ;
+    electrons.dz  =  (*eleDz)[i]  ;
     electrons.expectedMissingInnerHits  =  (*eleMissHits)[i]  ;
     electrons.passConversionVeto  =  (*eleConvVeto)[i]  ;
     electrons.barrel  =  (*eleInBarrel)[i]  ; 
     electrons.endcap  =  (*eleInEndcap)[i]  ; 
     std::cout<<" after EC"<<std::endl;
     
-    if(fourmom->Pt() > 20 && fabs(fourmom->Eta())<2.5 && (*isPassVeto)[i]==1)  RKElectronCollection.push_back(electrons);
+    if(fourmom->Pt() > 20 && fabs(fourmom->Eta())<2.5 && (*isPassLoose)[i]==1)  RKElectronCollection.push_back(electrons);
   }
   std::cout<<" electron collection filled " <<std::endl;
 }
