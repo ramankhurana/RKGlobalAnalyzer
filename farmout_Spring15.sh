@@ -17,6 +17,9 @@
 
 #farmoutAnalysisJobs DMHistosRun2015B/SingleElectron_1  --input-dir=root://cmsxrootd.hep.wisc.edu//store/user/khurana/SingleElectron/  /afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/ /afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/main.exe --fwklite --input-files-per-job=1
 
-farmoutAnalysisJobs DMHistosRun2015B/MET  --input-dir=root://cmsxrootd.hep.wisc.edu//store/user/khurana/MET/crab_MET-Run2015B-PromptReco-v1_1/ /afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/ /afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/main.exe --fwklite --input-files-per-job=5
+#farmoutAnalysisJobs DMHistosRun2015B/MET  --input-dir=root://cmsxrootd.hep.wisc.edu//store/user/khurana/MET/crab_MET-Run2015B-PromptReco-v1_1/ /afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/ /afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/main.exe --fwklite --input-files-per-job=5
 
 
+farmoutAnalysisJobs DMHistosRun2015B/SingleElectron_2015_07_13 --input-dir=root://cmsxrootd.hep.wisc.edu//store/user/khurana/SingleElectron/crab_SingleElectron_Run2015B-PromptReco-v1/ /afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/ /afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/main.exe --fwklite --input-files-per-job=1
+
+farmoutAnalysisJobs DMHistosRun2015B/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_2015_07_13 --input-dir=root://cmsxrootd.hep.wisc.edu//store/user/khurana/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/crab_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_HLT/ /afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/ /afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/main.exe --fwklite --input-files-per-job=1

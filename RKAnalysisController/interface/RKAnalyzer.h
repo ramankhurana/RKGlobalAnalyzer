@@ -58,6 +58,7 @@ class RKAnalyzer {
   Int_t           fCurrent; //!current Tree number in a TChain
   
   
+  bool triggerstatus;
   // Main Program Histograms
   TH1F* nEvents;
   //   TString inputfilename;
@@ -89,6 +90,8 @@ class RKAnalyzer {
    JetValidator jetvalidator_selected;
    // Electron 
    ElectronValidator electronvalidator;
+   ElectronValidator electronvalidator_barrel;
+   ElectronValidator electronvalidator_endcap;
    // MET
    METValidator metvalidator;
    // DiJet   
@@ -115,6 +118,10 @@ class RKAnalyzer {
    std::vector<Muon> RKMuonCollection;
    //Electron
    std::vector<Electron> RKElectronCollection;
+   std::vector<Electron> RKElectronCollection_barrel;
+   std::vector<Electron> RKElectronCollection_endcap;
+   std::vector<Electron> RKElectronCollection_allCut;
+   
    // DiJet
    std::vector<Resonance<Jet,Jet> > RKdiJetCollection;
    std::vector<Resonance<Jet,Jet> > RKdiJetCollection_selected;
@@ -971,7 +978,7 @@ class RKAnalyzer {
    virtual void     Show(Long64_t entry = -1);
    void TotalEvent(std::vector<TString> filelist);
    void TotalEvent(TH1F* h);
-   
+   bool TriggerStatus(std::string TRIGNAME);
    // User Functions 
    // Clear all the collections for each event.
    void ClearCollections();

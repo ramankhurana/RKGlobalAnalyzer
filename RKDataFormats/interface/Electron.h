@@ -58,6 +58,7 @@ class Electron {
   Int_t    passConversionVeto;
   Bool_t   barrel; 
   Bool_t   endcap; 
+  Bool_t   trigger;
   bool operator== (Electron& other_){
     return((this->p4.Pt()==other_.p4.Pt()) && (this->charge == other_.charge));
   }
@@ -104,7 +105,7 @@ class Electron {
      passConversionVeto= 0;
      barrel= 0;
      endcap= 0;
-
+     trigger=false;
 
 
 

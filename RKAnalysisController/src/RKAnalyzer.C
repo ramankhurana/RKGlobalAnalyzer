@@ -25,6 +25,8 @@ void RKAnalyzer::Loop(TString output){
   jetvalidator.GetInputs(fout,"Jet_NoCut_");
   jetvalidator_selected.GetInputs(fout,"Jet_PtEtaBTag_");
   electronvalidator.GetInputs(fout,"Electron_NoCut_");
+  electronvalidator_barrel.GetInputs(fout,"Electron_NoCut_Barrel_");
+  electronvalidator_endcap.GetInputs(fout,"Electron_NoCut_Endcap_");
   metvalidator.GetInputs(fout,"MET_NoCut_");
   diJetValidator.GetInputs(fout,"DiJetNotCut");
   diElectronValidator.GetInputs(fout,"DiElectronNoCut");
@@ -56,6 +58,7 @@ void RKAnalyzer::Loop(TString output){
      // Clear all the collections
      ClearCollections();
      
+     triggerstatus = TriggerStatus("HLT_Ele17_Ele12_CaloIdL_TrackIdL_IsoVL_DZ");
      // Produce jet collection for analysis and validation of object variables.
      JetProducer();
      // Produce MET collection for analysis and validation of object.
@@ -70,6 +73,8 @@ void RKAnalyzer::Loop(TString output){
      
      // Fill the electron validation histograms 
      electronvalidator.Fill(RKElectronCollection);
+     electronvalidator_barrel.Fill(RKElectronCollection_barrel);
+     electronvalidator_endcap.Fill(RKElectronCollection_endcap);
      // Fill Validation histograms for MET
      metvalidator.Fill(met);
      
@@ -82,7 +87,7 @@ void RKAnalyzer::Loop(TString output){
      std::cout<< " dijet collection size = ========== "<<RKdiJetCollection.size()<<std::endl;
 
      // DiElectron 
-     RKdiElectronCollection = dielectron.ReconstructDiObject(RKElectronCollection);
+     RKdiElectronCollection = dielectron.ReconstructDiObject(RKElectronCollection_allCut);
 
      // DiJet Validation
      if(debug) std::cout<<" diJet mass = "<<RKdiJetCollection[0].ResonanceProp.p4.Mag()<<std::endl;
@@ -178,6 +183,8 @@ void RKAnalyzer::Loop(TString output){
    jetvalidator.Write();
    jetvalidator_selected.Write();
    electronvalidator.Write();
+   electronvalidator_barrel.Write();
+   electronvalidator_endcap.Write();
    metvalidator.Write();
    diJetValidator.Write();
    diElectronValidator.Write();
@@ -384,9 +391,15 @@ void RKAnalyzer::ElectronProducer(){
     electrons.passConversionVeto  =  (*eleConvVeto)[i]  ;
     electrons.barrel  =  (*eleInBarrel)[i]  ; 
     electrons.endcap  =  (*eleInEndcap)[i]  ; 
+    electrons.trigger =  triggerstatus;
+  
+    
     std::cout<<" after EC"<<std::endl;
     
-    if(fourmom->Pt() > 20 && fabs(fourmom->Eta())<2.5 && (*isPassLoose)[i]==1)  RKElectronCollection.push_back(electrons);
+    if(triggerstatus && fourmom->Pt() > 20 && fabs(fourmom->Eta())<2.5)  RKElectronCollection.push_back(electrons);
+    if(triggerstatus && fourmom->Pt() > 20 && fabs(fourmom->Eta())<2.5 && (*eleInBarrel)[i] ==1 )  RKElectronCollection_barrel.push_back(electrons);
+    if(triggerstatus && fourmom->Pt() > 20 && fabs(fourmom->Eta())<2.5 && (*eleInEndcap)[i]==1)  RKElectronCollection_endcap.push_back(electrons);
+    if(triggerstatus && fourmom->Pt() > 20 && fabs(fourmom->Eta())<2.5 && (*isPassMedium)[i]==1)  RKElectronCollection_allCut.push_back(electrons);
   }
   std::cout<<" electron collection filled " <<std::endl;
 }
@@ -398,6 +411,9 @@ void RKAnalyzer::ClearCollections(){
   RKJetCollection_selected.clear();
   RKMuonCollection.clear();
   RKElectronCollection.clear();
+  RKElectronCollection_barrel.clear();
+  RKElectronCollection_endcap.clear();
+  RKElectronCollection_allCut.clear();
   RKdiJetCollection.clear();
   RKdiJetCollection_selected.clear();
   RKjetMETCollection.clear();
@@ -455,4 +471,21 @@ void RKAnalyzer::TotalEvent(TH1F* h){
   fout->cd();
   h->Write();
 
+}
+
+
+
+
+
+bool RKAnalyzer::TriggerStatus(std::string TRIGNAME){
+  std::cout<<" number of triggers = "<<(*hlt_trigResult).size()<<std::endl;
+  for(int i =0; i < (*hlt_trigResult).size() ; i++) {
+    std::string trigname = (*trigName)[i];
+    size_t foundEle00=trigname.find(TRIGNAME);//HLT_DoubleEle33
+    if ( foundEle00==std::string::npos) continue;
+    
+    std::cout<<"trigger name = "<<trigname
+             <<" status = "<<(*hlt_trigResult)[i]<<std::endl;
+    return (*hlt_trigResult)[i];
+  }
 }
