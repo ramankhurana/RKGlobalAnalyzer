@@ -30,20 +30,34 @@ void Sync::Loop()
 //    fChain->GetEntry(jentry);       //read all branches
 //by  b_branchname->GetEntry(ientry); //read only this branch
   
+  const int nbins = 19;
+  float bins[8]={0.,50.,100.,150.,200.,
+		  250.,300.,2000.};
+  
   n_events = new TH1F("n_events","",10,0,10);
+  MET_N    = new TH1F("MET_N","",7,bins);
+  MET_D    = new TH1F("MET_D","",7,bins);
+  n_jet    = new TH1F("n_jet","",5,0,5);
   if (fChain == 0) return;
 
    Long64_t nentries = fChain->GetEntriesFast();
    
    Long64_t nbytes = 0, nb = 0;
    for (Long64_t jentry=0; jentry<nentries;jentry++) {
-      Long64_t ientry = LoadTree(jentry);
-      if (ientry < 0) break;
-      nb = fChain->GetEntry(jentry);   nbytes += nb;
-      
+     Long64_t ientry = LoadTree(jentry);
+     if (ientry < 0) break;
+     nb = fChain->GetEntry(jentry);   nbytes += nb;
+     
+     if(jentry%1000==0) std::cout<<" event : "<<jentry<<std::endl;
+     
 
-      // if (Cut(ientry) < 0) continue;
-      std::cout<<" working "<<jentry<<std::endl;
+     //MET_N->Fill(pfMetCorrPt);
+     //MET_N->Fill(pfMetRawPt);
+     //bool mettrigger = TriggerStatus("HLT_PFMET170_NoiseCleaned_");
+     //if(mettrigger) MET_D->Fill(pfMetCorrPt);
+     //if(mettrigger) MET_D->Fill(pfMetRawPt);
+     // if (Cut(ientry) < 0) continue;
+     //std::cout<<" working "<<jentry<<std::endl;
       
       // No Cuts
       n_events->Fill(0);
@@ -58,42 +72,76 @@ void Sync::Loop()
       TLorentzVector p41;
       TLorentzVector p42;
       int njet=0;
+      bool clean1;
+      bool clean2;
       for (size_t ijet=0; ijet < (*THINjetPt).size(); ijet++){
 	if( (*THINjetPt)[ijet] < 30)  continue;
 	if(!( (*THINPUJetID)[ijet]>-0.63)) continue;
 	if(!( (*THINjetPassIDLoose)[ijet]==1)) continue;
+	
 	njet++;
-	if(njet==1)       p41.SetPtEtaPhiE((*THINjetPt)[ijet],
-					   (*THINjetEta)[ijet],
-					   (*THINjetPhi)[ijet],
-					   (*THINjetEn)[ijet]
-					   );
-	if(njet==2)        p42.SetPtEtaPhiE((*THINjetPt)[ijet],
-					    (*THINjetEta)[ijet],
-					    (*THINjetPhi)[ijet],
-					    (*THINjetEn)[ijet]
-					    );
+	if(njet==1)       {   
+	  p41.SetPtEtaPhiE((*THINjetPt)[ijet],
+			   (*THINjetEta)[ijet],
+			   (*THINjetPhi)[ijet],
+			   (*THINjetEn)[ijet]
+			   );
+	  
+	  clean1= ((*THINjetCHadEF)[ijet] > 0.2) && ((*THINjetNHadEF)[ijet] < 0.7)  && ( (*THINjetNEmEF)[ijet] < 0.7) ;
+	}
+	if(njet==2)        {
+	  p42.SetPtEtaPhiE((*THINjetPt)[ijet],
+			   (*THINjetEta)[ijet],
+			   (*THINjetPhi)[ijet],
+			   (*THINjetEn)[ijet]
+			   );
+	  clean2 =  ((*THINjetNHadEF)[ijet] < 0.7)  && ( (*THINjetNEmEF)[ijet] < 0.9) ;
+	  
+	}
 	
       }
       std::cout<<" njet = "<<njet<<std::endl;
       if(njet<1) continue;
-      if(p41.Pt()>110)   n_events->Fill(2);
+      if(p41.Pt()>110 && clean1)   n_events->Fill(2);
       
       // Subleading Jet
       if(njet<2) continue;
       if(TMath::Abs(p41.DeltaPhi(p42))>2.5) continue;
-      n_events->Fill(3);
+      if(clean2) n_events->Fill(3);
       
+      
+      MET_N->Fill(pfMetCorrPt);
       // MET > 200
-      if(pfMetCorrPt<200) continue;
-      n_events->Fill(4);
+      if(pfMetCorrPt>200.)       n_events->Fill(4);
       
+      // nJets
+      if(pfMetCorrPt>200. && njet<3)       n_events->Fill(5);
+      n_jet->Fill(njet);
       
-
 
       //
    }
    fout = new TFile("sync.root","RECREATE");
    fout->cd();
    n_events->Write();
+   MET_N->Write();
+   MET_D->Write();
+   n_jet->Write();
+}
+
+
+
+
+bool Sync::TriggerStatus(std::string TRIGNAME){
+  //std::cout<<" number of triggers = "<<(*hlt_trigResult).size()<<std::endl;
+  for(int i =0; i < (*hlt_trigResult).size() ; i++) {
+    std::string trigname = (*trigName)[i];
+    //std::cout<<"trigger name = "<<trigname
+    //       <<" status = "<<(*hlt_trigResult)[i]<<std::endl;
+    
+    size_t foundEle00=trigname.find(TRIGNAME);//HLT_DoubleEle33                                                                                                       
+    if ( foundEle00==std::string::npos) continue;
+
+    return (*hlt_trigResult)[i];
+  }
 }
