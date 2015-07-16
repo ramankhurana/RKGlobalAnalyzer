@@ -105,14 +105,14 @@ void TwoObjectValidator<T>::GetInputs(TFile* f, TString prefix_){
 template <class T>
 void TwoObjectValidator<T>::DefineHistograms(){
   // 1D Histograms 
-  h_pt                    = new TH1F("h_pt","h_pt",200,0,2000);
+  h_pt                    = new TH1F("h_pt","h_pt",2000,0,2000);
   h_eta                   = new TH1F("h_eta","h_eta",60,-3,3);
   h_phi                   = new TH1F("h_phi","h_phi",35,-3.5,3.5);
-  h_energy                = new TH1F("h_energy","h_energy",200,0,2000);
+  h_energy                = new TH1F("h_energy","h_energy",2000,0,2000);
   h_DeltaR                = new TH1F("h_DeltaR","h_DeltaR",50,0.,5);
   h_DeltaPhi              = new TH1F("h_DeltaPhi","h_DeltaPhi",70,-3.5,3.5);
   h_DeltaEta              = new TH1F("h_DeltaEta","h_DeltaEta",50,-5,5);
-  h_InvMass               = new TH1F("h_InvMass","h_InvMass",300,0,3000);
+  h_InvMass               = new TH1F("h_InvMass","h_InvMass",3000,0,3000);
   h_Pt2OverPt1            = new TH1F("h_Pt2OverPt1","h_Pt2OverPt1",50,0,1.);
   h_PtOverPt1Pt2          = new TH1F("h_PtOverPt1Pt2","h_PtOverPt1Pt2",50,0.,1.0);
   h_PtOverMass_1          = new TH1F("h_PtOverMass_1","h_PtOverMass_1",50,0,5.);

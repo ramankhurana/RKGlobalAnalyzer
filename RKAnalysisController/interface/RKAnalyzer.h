@@ -58,6 +58,7 @@ class RKAnalyzer {
   Int_t           fCurrent; //!current Tree number in a TChain
   
   
+  bool triggerstatus;
   // Main Program Histograms
   TH1F* nEvents;
   //   TString inputfilename;
@@ -89,6 +90,8 @@ class RKAnalyzer {
    JetValidator jetvalidator_selected;
    // Electron 
    ElectronValidator electronvalidator;
+   ElectronValidator electronvalidator_barrel;
+   ElectronValidator electronvalidator_endcap;
    // MET
    METValidator metvalidator;
    // DiJet   
@@ -115,6 +118,10 @@ class RKAnalyzer {
    std::vector<Muon> RKMuonCollection;
    //Electron
    std::vector<Electron> RKElectronCollection;
+   std::vector<Electron> RKElectronCollection_barrel;
+   std::vector<Electron> RKElectronCollection_endcap;
+   std::vector<Electron> RKElectronCollection_allCut;
+   
    // DiJet
    std::vector<Resonance<Jet,Jet> > RKdiJetCollection;
    std::vector<Resonance<Jet,Jet> > RKdiJetCollection_selected;
@@ -971,7 +978,7 @@ class RKAnalyzer {
    virtual void     Show(Long64_t entry = -1);
    void TotalEvent(std::vector<TString> filelist);
    void TotalEvent(TH1F* h);
-   
+   bool TriggerStatus(std::string TRIGNAME);
    // User Functions 
    // Clear all the collections for each event.
    void ClearCollections();
@@ -996,13 +1003,13 @@ class RKAnalyzer {
 // used to generate this class and read the Tree.
    if (tree == 0) {
      //f = (TFile*)gROOT->GetListOfFiles()->FindObject("InputRootFile/NCUGlobalTuples_10.root");
-     f = (TFile*)gROOT->GetListOfFiles()->FindObject("/afs/cern.ch/work/m/mmittal/private/DY2015/DYAnalysis/CMSSW_7_4_5/src/DelPanj/TreeMaker/test/RunCongigTest/NCUGlobalTuples.root");
+     f = (TFile*)gROOT->GetListOfFiles()->FindObject("/hdfs/store/user/khurana/ExpressPhysicsLocalMiniAOD/treeMaker_Run2015B_cfg-MINIAOD_53.root");
       if (!f || !f->IsOpen()) {
 	//f = new TFile("InputRootFile/NCUGlobalTuples_10.root");
-	f = new TFile("/afs/cern.ch/work/m/mmittal/private/DY2015/DYAnalysis/CMSSW_7_4_5/src/DelPanj/TreeMaker/test/RunCongigTest/NCUGlobalTuples.root");
+	f = new TFile("/hdfs/store/user/khurana/ExpressPhysicsLocalMiniAOD/treeMaker_Run2015B_cfg-MINIAOD_53.root");
       }
       //TDirectory * dir = (TDirectory*)f->Get("InputRootFile/NCUGlobalTuples_10.root:/tree");
-      TDirectory * dir = (TDirectory*)f->Get("/afs/cern.ch/work/m/mmittal/private/DY2015/DYAnalysis/CMSSW_7_4_5/src/DelPanj/TreeMaker/test/RunCongigTest/NCUGlobalTuples.root:/tree");
+      TDirectory * dir = (TDirectory*)f->Get("/hdfs/store/user/khurana/ExpressPhysicsLocalMiniAOD/treeMaker_Run2015B_cfg-MINIAOD_53.root:/tree");
       dir->GetObject("treeMaker",tree);
 
    }
