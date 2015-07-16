@@ -7,6 +7,7 @@
 #define Electron_h_
 #include <iostream>
 #include <TLorentzVector.h>
+#include <bitset>
 class Electron {
  public:
   // Variables for corrected Electron
@@ -59,11 +60,15 @@ class Electron {
   Bool_t   barrel; 
   Bool_t   endcap; 
   Bool_t   trigger;
+  std::bitset<16> cutsStatus;
+  std::bitset<16> cutsStatus;
+  std::bitset<16> cutsStatus;
+
   bool operator== (Electron& other_){
     return((this->p4.Pt()==other_.p4.Pt()) && (this->charge == other_.charge));
   }
   void Clear(){
-
+    cutsStatus = 0b0000000000000000;
     IsPassVeto= 0;
      IsPassLoose= 0;
      IsPassMedium= 0;

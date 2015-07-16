@@ -27,7 +27,7 @@ class NMinusOne {
  public:
   NMinusOne(){};
   ~NMinusOne(){};
-  void  Fill(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > objectCollection);
+  void  Fill(std::vector<Electron> objectCollection);
   void GetInputs(TFile* f, TString prefix_);
   void DefineHistograms();
   void Write();

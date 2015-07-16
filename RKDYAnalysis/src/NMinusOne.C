@@ -2,7 +2,7 @@
 #include "../interface/NMinusOne.h"
 #include "../../RKUtilities/interface/RKDebugger.h"
 
-void  NMinusOne::Fill(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > objectCollection){
+void  NMinusOne::Fill(std::vector<Electron> objectCollection){
   if(objectCollection.size()>0){
     for(int i=0; i<(int)objectCollection.size();i++){
       if(true/*i<2*/) { // i = 0, i = 1 ; save only two combinations not more than that. 
@@ -10,7 +10,7 @@ void  NMinusOne::Fill(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > object
 	int icut=0;
 	for(mapiter=cutsMap.begin(); mapiter != cutsMap.end(); ++mapiter){
 	  //std::cout<<mapiter->first<<"  "<<mapiter->second<<std::endl;
-	  std::cout<<" status= "<<objectCollection[0].cutsStatus
+	  std::cout<<" status= "<<objectCollection[i].cutsStatus
 		   <<" map = "<<mapiter->second
 		   <<std::endl;
 	  if(objectCollection[i].cutsStatus == mapiter->second || objectCollection[i].cutsStatus == 0b0000001111111111) {
