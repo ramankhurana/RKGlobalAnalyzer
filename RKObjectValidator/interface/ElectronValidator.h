@@ -5,7 +5,7 @@
 #ifndef ElectronValidator_h_
 #define ElectronValidator_h_
 
-#define nELECTRONS  4
+#define nELECTRONS 5 
 #include "../../RKDataFormats/interface/Electron.h"
 #include <vector>
 #include <iostream>

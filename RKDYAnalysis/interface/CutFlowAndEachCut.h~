@@ -1,0 +1,46 @@
+// Original class : CutFlowAndNMiunsOne.h
+// Created By     : ramankhurana 
+// Created On     : Sun May  3 00:03:45 CEST 2015
+
+// This class saves the N-1 and Cut Flow histograms. 
+// This can be configured to do a lot more than these two tasks. 
+
+#ifndef CutFlowAndNMiunsOne_h_
+#define CutFlowAndNMiunsOne_h_
+#define NOBJECTS 4
+
+#include <TFile.h>
+#include <TTree.h>
+#include <TH1F.h>
+#include <TH2F.h>
+#include <TH3F.h>
+#include <TProfile.h>
+#include <TProfile2D.h>
+#include <TString.h>
+#include "../../NCUDataFormats/interface/Jet.h"
+#include "../../NCUDataFormats/interface/MET.h"
+#include "../../NCUDataFormats/interface/Resonance.h"
+#include "../../NCUDataFormats/interface/ResonanceMET.h"
+#include "../../NCUUtilities/interface/MonoHiggsCuts.h"
+
+class CutFlowAndNMiunsOne {
+ public:
+  CutFlowAndNMiunsOne(){};
+  ~CutFlowAndNMiunsOne(){};
+  void  CutFlow(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > objectCollection);
+  void GetInputs(TFile* f, TString prefix_);
+  void DefineHistograms();
+  void Write();
+  
+  TString prefix;
+  TFile* file;
+  // Histograms CutFlow 
+  TH1F* h_cutflow[NOBJECTS];
+  TH1F* h_eachcut[NOBJECTS];
+
+  protected:
+
+  private:
+
+};
+#endif

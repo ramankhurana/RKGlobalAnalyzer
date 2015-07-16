@@ -4,6 +4,51 @@ void ElectronValidator::Fill(std::vector<Electron> electroncollection){
   
   h_nElectron->Fill(electroncollection.size());
   for (int i=0; i< (int) electroncollection.size(); i++){
+      h_pt[4]->Fill(electroncollection[i].p4.Pt());
+      h_eta[4]->Fill(electroncollection[i].p4.Eta());
+      h_phi[4]->Fill(electroncollection[i].p4.Phi());
+      h_IsPassVeto[4]->Fill(electroncollection[i].IsPassVeto);
+      h_IsPassLoose[4]->Fill(electroncollection[i].IsPassLoose);
+      h_IsPassMedium[4]->Fill(electroncollection[i].IsPassMedium);
+      h_IsPassTight[4]->Fill(electroncollection[i].IsPassTight);
+      h_IsPassHEEP[4]->Fill(electroncollection[i].IsPassHEEP);
+      h_IsMVATrig[4]->Fill(electroncollection[i].IsMVATrig);  //Add This
+      h_IsMVANonTrig[4]->Fill(electroncollection[i].IsMVANonTrig);
+      h_MVATrig[4]->Fill(electroncollection[i].MVATrig);
+      h_MVANonTrig[4]->Fill(electroncollection[i].MVANonTrig);
+      h_charge[4]->Fill(electroncollection[i].charge);
+      h_r9[4]->Fill(electroncollection[i].r9);
+
+      h_etSC[4]->Fill(electroncollection[i].etSC);
+      h_etaSC[4]->Fill(electroncollection[i].etaSC);
+      h_energySC[4]->Fill(electroncollection[i].energySC);
+      h_preenergySC[4]->Fill(electroncollection[i].preenergySC);
+      h_phiSC[4]->Fill(electroncollection[i].phiSC);
+      h_dEtaIn[4]->Fill(electroncollection[i].dEtaIn);
+      h_dPhiIn[4]->Fill(electroncollection[i].dPhiIn);
+      h_hOverE[4]->Fill(electroncollection[i].hOverE);
+      h_full5x5_sigmaIetaIeta[4]->Fill(electroncollection[i].full5x5_sigmaIetaIeta);
+      h_eoverP[4]->Fill(electroncollection[i].eoverP);
+      h_eoverPInv[4]->Fill(electroncollection[i].eoverPInv);
+      h_brem[4]->Fill(electroncollection[i].brem);
+      h_dEtaWidth[4]->Fill(electroncollection[i].dEtaWidth);
+      h_dPhiWidth[4]->Fill(electroncollection[i].dPhiWidth);
+      h_isoChargedHadrons[4]->Fill((electroncollection[i].isoChargedHadrons)/(electroncollection[i].p4.Pt()));
+      h_isoNeutralHadrons[4]->Fill((electroncollection[i].isoNeutralHadrons)/(electroncollection[i].p4.Pt()));
+      h_isoPhotons[4]->Fill((electroncollection[i].isoPhotons)/(electroncollection[i].p4.Pt()));
+      h_isoChargedFromPU[4]->Fill((electroncollection[i].isoChargedFromPU)/(electroncollection[i].p4.Pt())); //add in main code
+      h_isoDeltaBeta[4]->Fill((electroncollection[i].isoDeltaBeta)/(electroncollection[i].p4.Pt()));
+      h_isoRho[4]->Fill((electroncollection[i].isoRho)/(electroncollection[i].p4.Pt()));
+      h_d0[4]->Fill(electroncollection[i].d0);     //fix it 
+      h_dz[4]->Fill(electroncollection[i].dz);
+      h_expectedMissingInnerHits[4]->Fill(electroncollection[i].expectedMissingInnerHits);
+      h_passConversionVeto[4]->Fill(electroncollection[i].passConversionVeto);
+      h_barrel[4]->Fill(electroncollection[i].barrel);
+      h_endcap[4]->Fill(electroncollection[i].endcap);
+
+
+
+
     // Fill First Four Jets Properties 
     if(i<4){
       h_pt[i]->Fill(electroncollection[i].p4.Pt());
@@ -40,7 +85,7 @@ void ElectronValidator::Fill(std::vector<Electron> electroncollection){
       h_isoPhotons[i]->Fill((electroncollection[i].isoPhotons)/(electroncollection[i].p4.Pt()));
       h_isoChargedFromPU[i]->Fill((electroncollection[i].isoChargedFromPU)/(electroncollection[i].p4.Pt())); //add in main code
       h_isoDeltaBeta[i]->Fill((electroncollection[i].isoDeltaBeta)/(electroncollection[i].p4.Pt()));
-    h_isoRho[i]->Fill((electroncollection[i].isoRho)/(electroncollection[i].p4.Pt()));
+      h_isoRho[i]->Fill((electroncollection[i].isoRho)/(electroncollection[i].p4.Pt()));
       // h_ooEmooP[i]->Fill(electroncollection[i].ooEmooP);
       h_d0[i]->Fill(electroncollection[i].d0);     //fix it 
       h_dz[i]->Fill(electroncollection[i].dz);
@@ -66,7 +111,7 @@ void ElectronValidator::GetInputs(TFile* f, TString prefix_){
 
 void ElectronValidator::DefineHistograms(){
   TString postfix;
-  for(int i=0; i<4;i++){
+  for(int i=0; i<5;i++){
     postfix.Form("%d",i);
     h_pt[i]                         =  new TH1F("h_pt"+postfix,"",100,0.,700.);
     h_eta[i]                        =  new TH1F("h_eta"+postfix,"",48,-2.4,2.4);
@@ -124,7 +169,7 @@ void ElectronValidator::Write(){
   file->mkdir(prefix);
   file->cd(prefix);
   
-  for(int i=0; i<4;i++){
+  for(int i=0; i<5;i++){
      h_pt[i]                         ->Write();   
      h_eta[i]                        ->Write();
      h_phi[i]                        ->Write();
