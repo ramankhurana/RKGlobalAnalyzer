@@ -39,6 +39,7 @@
 #include "../../RKMonoHAnalyzer/interface/HistFactory.h"
 #include "../../RKMonoHAnalyzer/interface/ABCDMethod.h"
 #include "../../RKUtilities/interface/MonoHiggsCuts.h" 
+#include "../../RKMonoHAnalyzer/interface/Synchronization.h" 
 using namespace std;
 // Fixed size dimensions of array or collections stored in the TTree if any.
 const Int_t kMaxmuInnerdxy = 1;
@@ -81,7 +82,8 @@ class RKAnalyzer {
    ObjectMETCombination<Jet,MET> jet_met;
    //DiObject-MET
    TwoObjectMETCombination< Resonance<Jet,Jet>,MET > dijet_met;
-
+   // Synchronize
+   Synchronization syncmonoh;
    
    // Physics Object Validator 
    // jet 
@@ -383,6 +385,7 @@ class RKAnalyzer {
    vector<int>     *THINjetCharge;
    vector<int>     *THINjetPartonFlavor;
    vector<int>     *THINjetPassID;
+   std::vector<float> *THINPUJetID;
    vector<int>     *THINjet_nSV;
    vector<vector<float> > *THINjet_SVMass;
    vector<vector<float> > *THINjet_SVEnergyRatio;
@@ -793,6 +796,7 @@ class RKAnalyzer {
    TBranch        *b_THINjetCorrUncUp;   //!
    TBranch        *b_THINjetCorrUncDown;   //!
    TBranch        *b_THINjetCharge;   //!
+   TBranch *b_THINPUJetID; //!
    TBranch        *b_THINjetPartonFlavor;   //!
    TBranch        *b_THINjetPassID;   //!
    TBranch        *b_THINjet_nSV;   //!
@@ -993,7 +997,7 @@ class RKAnalyzer {
   //  outputfilename=output;
 // if parameter tree is not specified (or zero), connect the file
 // used to generate this class and read the Tree.
-  TString filename="/hdfs/store/user/khurana/SingleElectron/crab_SingleElectron_Run2015B-PromptReco-v1/150713_071520/0000/NCUGlobalTuples_32.root";
+  TString filename="NCUGlobalTuplesTTBar.root";
    if (tree == 0) {
      //f = (TFile*)gROOT->GetListOfFiles()->FindObject("/hdfs/store/user/khurana/ExpressPhysicsLocalMiniAOD/treeMaker_Run2015B_cfg-MINIAOD_53.root");
      f = (TFile*)gROOT->GetListOfFiles()->FindObject(filename);
@@ -1252,6 +1256,7 @@ void RKAnalyzer::Init(TTree *tree)
    THINjetCorrUncUp = 0;
    THINjetCorrUncDown = 0;
    THINjetCharge = 0;
+   THINPUJetID = 0;
    THINjetPartonFlavor = 0;
    THINjetPassID = 0;
    THINjet_nSV = 0;
@@ -1652,6 +1657,7 @@ void RKAnalyzer::Init(TTree *tree)
    fChain->SetBranchAddress("THINjetCorrUncUp", &THINjetCorrUncUp, &b_THINjetCorrUncUp);
    fChain->SetBranchAddress("THINjetCorrUncDown", &THINjetCorrUncDown, &b_THINjetCorrUncDown);
    fChain->SetBranchAddress("THINjetCharge", &THINjetCharge, &b_THINjetCharge);
+   fChain->SetBranchAddress("THINPUJetID", &THINPUJetID, &b_THINPUJetID);
    fChain->SetBranchAddress("THINjetPartonFlavor", &THINjetPartonFlavor, &b_THINjetPartonFlavor);
    fChain->SetBranchAddress("THINjetPassID", &THINjetPassID, &b_THINjetPassID);
    fChain->SetBranchAddress("THINjet_nSV", &THINjet_nSV, &b_THINjet_nSV);

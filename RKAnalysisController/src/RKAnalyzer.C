@@ -35,7 +35,7 @@ void RKAnalyzer::Loop(TString output){
   histfac.GetInputs(fout,"NoCut");
   histfacJetPreSel.GetInputs(fout,"JetPreSel");
   //histfacJetHardPreSel.GetInputs(fout,"JetHardPreSel");
-  
+  syncmonoh.GetInputs(fout,"syncSig");
   abcd.GetInputs(fout,"ABCD");
   
   if(debug) std::cout<<" Sending information to JetValidator "<<std::endl;
@@ -130,6 +130,7 @@ void RKAnalyzer::Loop(TString output){
      RKDiJetMETCollectionTTBar = selectionbits.SelectionBitsSaver(RKDiJetMETCollection,cuts.cutValueMapTTBar);
      
      
+     syncmonoh.Fill(RKDiJetMETCollectionWithStatus);
      // --------------------------------//
      // ---------- Histograms -----------//
      // --------------------------------//
@@ -191,6 +192,7 @@ void RKAnalyzer::Loop(TString output){
    histfac.Write();
    histfacJetPreSel.Write();
    //histfacJetHardPreSel.Write();
+   syncmonoh.Write();
    abcd.Write();
    fout->cd();
    nEvents->Write();
@@ -245,11 +247,14 @@ void RKAnalyzer::JetProducer(){
     jets.isCSVL_         =   csv > 0.432                      ;
     jets.isCSVMed_       =   csv > 0.532                      ;// myself
     jets.isCSVT_         =   csv > 0.732                      ;
-    jets.isLooseJet_     =   pt > 30.  && 
-                        fabs(eta_) < 2.5 && 
-                        csv > 0.432                      ;
+    // For loose Jet ID
+    bool eta24    =  (fabs(eta_) < 2.4) && ((*THINjetNHadEF)[i] < 0.99) && ((*THINjetNEmEF)[i] < 0.99) && ((*THINjetMuEF)[i] < 0.8) ;    
+    bool eta24_25 =  (fabs(eta_) > 2.4) && (fabs(eta_) < 2.5) && ((*THINjetNHadEF)[i] < 0.99) && ((*THINjetNEmEF)[i] < 0.99) && ((*THINjetMuEF)[i] < 0.8) && ((*THINjetCHadEF)[i] > 0.) && ((*THINjetCMulti)[i] > 0) && ((*THINjetCEmEF)[i] < 0.99) ;    
+    jets.isLooseJet_     =  eta24 || eta24_25 ;
     
-    
+    jets.isPUJet_        = (*THINPUJetID)[i] > -0.63  ;
+    jets.nVtx            = info_nVtx;
+    std::cout<<" ==============="<<info_nVtx<<std::endl;
     
     // not in NCU Global tuple right now
     /*
@@ -267,7 +272,8 @@ void RKAnalyzer::JetProducer(){
     jets.jetHOEF                        = (*THINjetHOEF)[i];
     */
     RKJetCollection.push_back(jets);
-    if(fabs(fourmom.Eta())<2.5 && jets.B_CISVV2 > 0.432 && fourmom.Pt() > 30. && RKJetCollection.size()<4 )     RKJetCollection_selected.push_back(jets);
+    //if(fabs(fourmom.Eta())<2.5 && jets.B_CISVV2 > 0.432 && fourmom.Pt() > 30. && RKJetCollection.size()<4 )     RKJetCollection_selected.push_back(jets);
+    if(fabs(fourmom.Eta())<2.5  && fourmom.Pt() > 30. )     RKJetCollection_selected.push_back(jets);
     //RKJetCollection_selected.push_back(jets);
     
   }
