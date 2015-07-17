@@ -4,48 +4,48 @@ CFLAGS=-c -Wall
 
 all: runallAnalysis.exe
 
-runallAnalysis.exe: Main.o RKAnalyzer.o JetValidator.o ElectronValidator.o METValidator.o SelectionBitsProducer.o CutFlowAndEachCut.o NMinusOne.o HistFactory.o ABCDMethod.o ElectronSelectionBitsProducer.o ElectronNMinusOne.o 
-	$(CC)  Main.o RKAnalyzer.o JetValidator.o ElectronValidator.o METValidator.o SelectionBitsProducer.o CutFlowAndEachCut.o NMinusOne.o HistFactory.o ABCDMethod.o ElectronSelectionBitsProducer.o ElectronNMinusOne.o -o runallAnalysis.exe  `root-config --libs`
+runallAnalysis.exe: bin/Main.o bin/RKAnalyzer.o bin/JetValidator.o bin/ElectronValidator.o bin/METValidator.o bin/SelectionBitsProducer.o bin/CutFlowAndEachCut.o bin/NMinusOne.o bin/HistFactory.o bin/ABCDMethod.o bin/ElectronSelectionBitsProducer.o bin/ElectronNMinusOne.o 
+	$(CC) bin/Main.o bin/RKAnalyzer.o bin/JetValidator.o bin/ElectronValidator.o bin/METValidator.o bin/SelectionBitsProducer.o bin/CutFlowAndEachCut.o bin/NMinusOne.o bin/HistFactory.o bin/ABCDMethod.o bin/ElectronSelectionBitsProducer.o bin/ElectronNMinusOne.o  -o runallAnalysis.exe  `root-config --libs`
 
-Main.o: RKAnalysisController/src/Main.C
-	$(CC) $(CFLAGS)  RKAnalysisController/src/Main.C
+bin/Main.o: RKAnalysisController/src/Main.C
+	$(CC) $(CFLAGS)  RKAnalysisController/src/Main.C -o bin/Main.o
 
-RKAnalyzer.o: RKAnalysisController/src/RKAnalyzer.C
-	$(CC) $(CFLAGS)  RKAnalysisController/src/RKAnalyzer.C -c
+bin/RKAnalyzer.o: RKAnalysisController/src/RKAnalyzer.C
+	$(CC) $(CFLAGS)  RKAnalysisController/src/RKAnalyzer.C -o bin/RKAnalyzer.o 
 
-JetValidator.o: RKObjectValidator/src/JetValidator.C
-	$(CC) $(CFLAGS)   RKObjectValidator/src/JetValidator.C -c 
+bin/JetValidator.o: RKObjectValidator/src/JetValidator.C
+	$(CC) $(CFLAGS)   RKObjectValidator/src/JetValidator.C -o bin/JetValidator.o 
 
-ElectronValidator.o: RKObjectValidator/src/ElectronValidator.C
-	$(CC) $(CFLAGS)   RKObjectValidator/src/ElectronValidator.C -c 
+bin/ElectronValidator.o: RKObjectValidator/src/ElectronValidator.C
+	$(CC) $(CFLAGS)   RKObjectValidator/src/ElectronValidator.C -o bin/ElectronValidator.o
 
-METValidator.o: RKObjectValidator/src/METValidator.C
-	$(CC) $(CFLAGS)   RKObjectValidator/src/METValidator.C -c 
+bin/METValidator.o: RKObjectValidator/src/METValidator.C
+	$(CC) $(CFLAGS)   RKObjectValidator/src/METValidator.C -o bin/METValidator.o 
 
-SelectionBitsProducer.o: RKMonoHAnalyzer/src/SelectionBitsProducer.C
-	$(CC) $(CFLAGS)   RKMonoHAnalyzer/src/SelectionBitsProducer.C  -c 
+bin/SelectionBitsProducer.o: RKMonoHAnalyzer/src/SelectionBitsProducer.C
+	$(CC) $(CFLAGS)   RKMonoHAnalyzer/src/SelectionBitsProducer.C  -o bin/SelectionBitsProducer.o
 
-CutFlowAndEachCut.o: RKMonoHAnalyzer/src/CutFlowAndEachCut.C
-	$(CC) $(CFLAGS)   RKMonoHAnalyzer/src/CutFlowAndEachCut.C  -c 
+bin/CutFlowAndEachCut.o: RKMonoHAnalyzer/src/CutFlowAndEachCut.C
+	$(CC) $(CFLAGS)   RKMonoHAnalyzer/src/CutFlowAndEachCut.C  -o bin/CutFlowAndEachCut.o
 
-NMinusOne.o: RKMonoHAnalyzer/src/NMinusOne.C
-	$(CC) $(CFLAGS)   RKMonoHAnalyzer/src/NMinusOne.C  -c 
+bin/NMinusOne.o: RKMonoHAnalyzer/src/NMinusOne.C
+	$(CC) $(CFLAGS)   RKMonoHAnalyzer/src/NMinusOne.C  -o bin/NMinusOne.o
 
-HistFactory.o: RKMonoHAnalyzer/src/HistFactory.C
-	$(CC) $(CFLAGS)   RKMonoHAnalyzer/src/HistFactory.C  -c 
+bin/HistFactory.o: RKMonoHAnalyzer/src/HistFactory.C
+	$(CC) $(CFLAGS)   RKMonoHAnalyzer/src/HistFactory.C  -o bin/HistFactory.o 
 
-ABCDMethod.o: RKMonoHAnalyzer/src/ABCDMethod.C
-	$(CC) $(CFLAGS)   RKMonoHAnalyzer/src/ABCDMethod.C  -c 
+bin/ABCDMethod.o: RKMonoHAnalyzer/src/ABCDMethod.C
+	$(CC) $(CFLAGS)   RKMonoHAnalyzer/src/ABCDMethod.C  -o bin/ABCDMethod.o
 
-ElectronSelectionBitsProducer.o: RKDYAnalysis/src/ElectronSelectionBitsProducer.C
-	$(CC) $(CFLAGS)   RKDYAnalysis/src/ElectronSelectionBitsProducer.C -c 
+bin/ElectronSelectionBitsProducer.o: RKDYAnalysis/src/ElectronSelectionBitsProducer.C
+	$(CC) $(CFLAGS)   RKDYAnalysis/src/ElectronSelectionBitsProducer.C -o bin/ElectronSelectionBitsProducer.o
 
-ElectronNMinusOne.o: RKDYAnalysis/src/ElectronNMinusOne.C
-	$(CC) $(CFLAGS)   RKDYAnalysis/src/ElectronNMinusOne.C -c 
+bin/ElectronNMinusOne.o: RKDYAnalysis/src/ElectronNMinusOne.C
+	$(CC) $(CFLAGS)   RKDYAnalysis/src/ElectronNMinusOne.C -o bin/ElectronNMinusOne.o
 
 
 clean:
-	rm -r *.o runallAnalysis.exe
+	rm -r bin/*.o runallAnalysis.exe
 #g++ `root-config --cflags` RKAnalysisController/src/Main.C RKAnalyzer.o JetValidator.o ElectronValidator.o METValidator.o SelectionBitsProducer.o CutFlowAndEachCut.o NMinusOne.o HistFactory.o ABCDMethod.o ElectronSelectionBitsProducer.o ElectronNMinusOne.o -o main.exe `root-config --libs`
 
 #g++ `root-config --cflags` RKAnalysisController/src/MyfarmoutAnalyzer.cc 
