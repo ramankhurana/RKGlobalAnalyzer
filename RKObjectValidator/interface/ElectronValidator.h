@@ -30,6 +30,22 @@ class ElectronValidator {
   void GetInputs(TFile* f, TString prefix_);
   void Write();
   
+  //TProfile histos 
+  TProfile *h_vtxdetaIn;
+  TProfile *h_vtxdphiIn;
+  TProfile *h_vtxhoverE;   
+  TProfile *h_vtxsigmaietaieta;
+  TProfile *h_vtxeoverpinv;
+  TProfile *h_vtxisoRho;
+  TProfile *h_vtxd0;
+  TProfile *h_vtxdz;
+  TProfile *h_vtxmissinghits;
+  TProfile *h_vtxconversionveto; 
+ 
+ 
+ 
+ 
+
   // 1D Histograms 
   TH1F*     h_pt[nELECTRONS];                    
   TH1F*     h_eta[nELECTRONS];   
@@ -45,7 +61,6 @@ class ElectronValidator {
   TH1F*     h_IsMVANonTrig[nELECTRONS];
   TH1F*     h_MVATrig[nELECTRONS];
   TH1F*     h_MVANonTrig[nELECTRONS];
-  
   TH1F*     h_nElectron;
   TH1F*     h_charge[nELECTRONS];
   TH1F*     h_r9[nELECTRONS];
