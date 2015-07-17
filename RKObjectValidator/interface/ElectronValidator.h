@@ -47,6 +47,7 @@ class ElectronValidator {
  
 
   // 1D Histograms 
+  TH1F*     h_nVtx;
   TH1F*     h_pt[nELECTRONS];                    
   TH1F*     h_eta[nELECTRONS];   
   

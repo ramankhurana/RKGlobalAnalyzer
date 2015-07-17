@@ -47,7 +47,7 @@ void HistFactory::Fill(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > objec
 	  nbits++;
 	}
       }
-      if(nbits==istatus.size()){
+      if(nbits==(int)istatus.size()){
 	h_nMuons[i]->Fill(objectCollection[i].muons.size());
 	h_nElectrons[i]->Fill(objectCollection[i].electrons.size());
 	if(objectCollection[i].jets.size() >= 2) h_nJets[i]->Fill(objectCollection[i].jets.size()-2); //  -2 is required to get the additional jets.

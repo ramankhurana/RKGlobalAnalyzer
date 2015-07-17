@@ -1011,15 +1011,18 @@ class RKAnalyzer {
   //  outputfilename=output;
 // if parameter tree is not specified (or zero), connect the file
 // used to generate this class and read the Tree.
+  //TString filename="/hdfs/store/user/khurana/SingleElectron/crab_SingleElectron_Run2015B-PromptReco-v1/150713_071520/0000/NCUGlobalTuples_89.root";
+  TString filename="/hdfs/store/user/khurana/SingleElectron/crab_SingleElectron_Run2015B-PromptReco-v1/150713_071520/0000/NCUGlobalTuples_108.root";
    if (tree == 0) {
      //f = (TFile*)gROOT->GetListOfFiles()->FindObject("InputRootFile/NCUGlobalTuples_10.root");
-     f = (TFile*)gROOT->GetListOfFiles()->FindObject("/hdfs/store/user/khurana/ExpressPhysicsLocalMiniAOD/treeMaker_Run2015B_cfg-MINIAOD_53.root");
+     
+     f = (TFile*)gROOT->GetListOfFiles()->FindObject(filename);
       if (!f || !f->IsOpen()) {
 	//f = new TFile("InputRootFile/NCUGlobalTuples_10.root");
-	f = new TFile("/hdfs/store/user/khurana/ExpressPhysicsLocalMiniAOD/treeMaker_Run2015B_cfg-MINIAOD_53.root");
+	f = new TFile(filename);
       }
       //TDirectory * dir = (TDirectory*)f->Get("InputRootFile/NCUGlobalTuples_10.root:/tree");
-      TDirectory * dir = (TDirectory*)f->Get("/hdfs/store/user/khurana/ExpressPhysicsLocalMiniAOD/treeMaker_Run2015B_cfg-MINIAOD_53.root:/tree");
+      TDirectory * dir = (TDirectory*)f->Get(filename+":/tree");
       dir->GetObject("treeMaker",tree);
 
    }

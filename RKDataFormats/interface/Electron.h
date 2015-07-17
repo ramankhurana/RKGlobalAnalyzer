@@ -63,7 +63,7 @@ class Electron {
   std::bitset<16> cutsStatusL;
   std::bitset<16> cutsStatusM;
   std::bitset<16> cutsStatusT;
-
+  Int_t nVtx;
   bool operator== (Electron& other_){
     return((this->p4.Pt()==other_.p4.Pt()) && (this->charge == other_.charge));
   }
@@ -113,7 +113,7 @@ class Electron {
      barrel= 0;
      endcap= 0;
      trigger=false;
-
+     nVtx=0;
 
 
      
