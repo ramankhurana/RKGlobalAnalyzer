@@ -399,9 +399,10 @@ void RKAnalyzer::ElectronProducer(){
     //std::cout<<" after gamma iso"<<std::endl;
     electrons.isoChargedFromPU  = (*elePUPt)[i]  ; //add in main code
     //std::cout<<" after electrons.isoChargedFromPU "<<std::endl;
-    electrons.isoDeltaBeta  = ((*eleChHadIso)[i] + max<float>( 0.0, ((*eleNeHadIso)[i]+(*eleGamIso)[i]- 0.5 * (*elePUPt)[i])));
+    electrons.isoDeltaBeta  = ((*eleChHadIso)[i] + max<float>( 0.0, ((*eleNeHadIso)[i]+(*eleGamIso)[i]- 0.5 * (*elePUPt)[i])))/(electrons.p4.Pt());
+    // electrons.pt.Pt()
     //std::cout<<" electrons.isoDeltaBeta "<<std::endl;
-    electrons.isoRho  = ((*eleChHadIso)[i] + max<float>( 0.0, ((*eleNeHadIso)[i]+(*eleGamIso)[i]- (eleRho) * (eA)) ));
+    electrons.isoRho  = ((*eleChHadIso)[i] + max<float>( 0.0, ((*eleNeHadIso)[i]+(*eleGamIso)[i]- (eleRho) * (eA)) ))/(electrons.p4.Pt());
     //std::cout<<" electrons.isoRho "<<std::endl;
     //electrons.ooEmooP  =  -999.  ;
     //std::cout<<" electrons.ooEmooP "<<std::endl;

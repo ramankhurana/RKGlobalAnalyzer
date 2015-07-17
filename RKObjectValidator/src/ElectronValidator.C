@@ -5,12 +5,12 @@ void ElectronValidator::Fill(std::vector<Electron> electroncollection){
   h_nElectron->Fill(electroncollection.size());
   for (int i=0; i< (int) electroncollection.size(); i++){
 
-    h_vtxdetaIn->Fill(nVtx,electroncollection[i].dEtaIn);
+  h_vtxdetaIn->Fill(nVtx,electroncollection[i].dEtaIn);
   h_vtxdphiIn        ->Fill(nVtx,electroncollection[i].dPhiIn);
   h_vtxhoverE        ->Fill(nVtx,electroncollection[i].hOverE);
   h_vtxsigmaietaieta ->Fill(nVtx,electroncollection[i].full5x5_sigmaIetaIeta);
   h_vtxeoverpinv     ->Fill(nVtx,electroncollection[i].eoverPInv);
-  h_vtxisoRho	     ->Fill(nVtx,(electroncollection[i].isoRho)/(electroncollection[i].p4.Pt()));
+  h_vtxisoRho	     ->Fill(nVtx,electroncollection[i].isoRho);
   h_vtxd0	     ->Fill(nVtx,electroncollection[i].d0);
   h_vtxdz	     ->Fill(nVtx,electroncollection[i].dz);
   h_vtxmissinghits   ->Fill(nVtx,electroncollection[i].expectedMissingInnerHits);
@@ -53,8 +53,8 @@ void ElectronValidator::Fill(std::vector<Electron> electroncollection){
       h_isoNeutralHadrons[4]->Fill((electroncollection[i].isoNeutralHadrons)/(electroncollection[i].p4.Pt()));
       h_isoPhotons[4]->Fill((electroncollection[i].isoPhotons)/(electroncollection[i].p4.Pt()));
       h_isoChargedFromPU[4]->Fill((electroncollection[i].isoChargedFromPU)/(electroncollection[i].p4.Pt())); //add in main code
-      h_isoDeltaBeta[4]->Fill((electroncollection[i].isoDeltaBeta)/(electroncollection[i].p4.Pt()));
-      h_isoRho[4]->Fill((electroncollection[i].isoRho)/(electroncollection[i].p4.Pt()));
+      h_isoDeltaBeta[4]->Fill(electroncollection[i].isoDeltaBeta);
+      h_isoRho[4]->Fill(electroncollection[i].isoRho);
       h_d0[4]->Fill(electroncollection[i].d0);     //fix it 
       h_dz[4]->Fill(electroncollection[i].dz);
       h_expectedMissingInnerHits[4]->Fill(electroncollection[i].expectedMissingInnerHits);
@@ -100,8 +100,8 @@ void ElectronValidator::Fill(std::vector<Electron> electroncollection){
       h_isoNeutralHadrons[i]->Fill((electroncollection[i].isoNeutralHadrons)/(electroncollection[i].p4.Pt()));
       h_isoPhotons[i]->Fill((electroncollection[i].isoPhotons)/(electroncollection[i].p4.Pt()));
       h_isoChargedFromPU[i]->Fill((electroncollection[i].isoChargedFromPU)/(electroncollection[i].p4.Pt())); //add in main code
-      h_isoDeltaBeta[i]->Fill((electroncollection[i].isoDeltaBeta)/(electroncollection[i].p4.Pt()));
-      h_isoRho[i]->Fill((electroncollection[i].isoRho)/(electroncollection[i].p4.Pt()));
+      h_isoDeltaBeta[i]->Fill(electroncollection[i].isoDeltaBeta);
+      h_isoRho[i]->Fill(electroncollection[i].isoRho);
       // h_ooEmooP[i]->Fill(electroncollection[i].ooEmooP);
       h_d0[i]->Fill(electroncollection[i].d0);     //fix it 
       h_dz[i]->Fill(electroncollection[i].dz);
@@ -183,7 +183,7 @@ void ElectronValidator::DefineHistograms(){
     h_vtxdphiIn      = new  TProfile("vtxdphiIn"+postfix, "vtxdphiIn"+postfix, 50,0,50,0,0.08);
     h_vtxhoverE         = new  TProfile("vtxhoverE"+postfix, "vtxhoverE"+postfix, 50,0,50,0,0.1);                 
     h_vtxsigmaietaieta  = new  TProfile("vtxsigmaietaieta"+postfix, "vtxsigmaietaieta"+postfix, 50,0,50,0,0.1);
-    h_vtxeoverpinv      = new  TProfile("vtxeoverpinv"+postfix, "vtxeoverpinv"+postfix, 50,0,50,0.0.5);
+    h_vtxeoverpinv      = new  TProfile("vtxeoverpinv"+postfix, "vtxeoverpinv"+postfix, 50,0,50,0.,0.5);
     h_vtxisoRho	       = new  TProfile("vtxisoRho"+postfix, "vtxisoRho"+postfix, 50,0,50,0,0.4);
     h_vtxd0	     = new  TProfile("vtxd0"+postfix, "vtxd0"+postfix, 50,0,50,0,0.2);
     h_vtxdz	     = new  TProfile("vtxdz"+postfix, "vtxdz"+postfix, 50,0,50,0.2);
