@@ -39,6 +39,9 @@
 #include "../../RKMonoHAnalyzer/interface/HistFactory.h"
 #include "../../RKMonoHAnalyzer/interface/ABCDMethod.h"
 #include "../../RKUtilities/interface/MonoHiggsCuts.h" 
+#include "../../RKUtilities/interface/DYAnalysisCuts.h" 
+#include "../../RKDYAnalysis/interface/ElectronSelectionBitsProducer.h"
+#include "../../RKDYAnalysis/interface/ElectronNMinusOne.h"
 using namespace std;
 // Fixed size dimensions of array or collections stored in the TTree if any.
 const Int_t kMaxmuInnerdxy = 1;
@@ -82,7 +85,7 @@ class RKAnalyzer {
    ObjectMETCombination<Jet,MET> jet_met;
    //DiObject-MET
    TwoObjectMETCombination< Resonance<Jet,Jet>,MET > dijet_met;
-
+   
    
    // Physics Object Validator 
    // jet 
@@ -99,6 +102,7 @@ class RKAnalyzer {
 
    // DiJet   
    TwoObjectValidator<Resonance<Electron,Electron> > diElectronValidator;
+   TwoObjectValidator<Resonance<Electron,Electron> > diElectronValidatorIso;
    // Jet-MET
    ObjectMETValidator<ResonanceWithMET<Jet,MET> > jetmetValidator;
    // DiJet-MET
@@ -110,6 +114,8 @@ class RKAnalyzer {
    ABCDMethod abcd;
    // Mono-H cuts maps and vectos
    MonoHiggsCuts cuts;
+   // DYAnalysis Electron Cuts
+   DYAnalysisCuts eleCuts;
    // Physics Object Container 
    // Jets
    std::vector<Jet> RKJetCollection;
@@ -120,7 +126,8 @@ class RKAnalyzer {
    std::vector<Electron> RKElectronCollection;
    std::vector<Electron> RKElectronCollection_barrel;
    std::vector<Electron> RKElectronCollection_endcap;
-   std::vector<Electron> RKElectronCollection_allCut;
+   std::vector<Electron> RKElectronCollection_allCutM;
+   std::vector<Electron> RKElectronCollection_allCutMIso;
    
    // DiJet
    std::vector<Resonance<Jet,Jet> > RKdiJetCollection;
@@ -128,6 +135,7 @@ class RKAnalyzer {
    
    // DiElectron 
    std::vector<Resonance<Electron,Electron> > RKdiElectronCollection;
+   std::vector<Resonance<Electron,Electron> > RKdiElectronCollectionIso;
    
    // Jet-MET
    std::vector<ResonanceWithMET<Jet,MET> > RKjetMETCollection;
@@ -143,6 +151,8 @@ class RKAnalyzer {
    SelectionBitsProducer selectionbits;
    CutFlowAndEachCut cutflowobj;
    NMinusOne nminusobj;
+   ElectronNMinusOne elenminusoneobjB;
+   ElectronNMinusOne elenminusoneobjE;
    //// Use the bits to fill N-1 Histograms
    //// And cut flow histograms. 
   

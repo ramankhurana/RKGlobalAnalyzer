@@ -60,30 +60,32 @@ class Electron {
   Bool_t   barrel; 
   Bool_t   endcap; 
   Bool_t   trigger;
-  std::bitset<16> cutsStatus;
-  std::bitset<16> cutsStatus;
-  std::bitset<16> cutsStatus;
+  std::bitset<16> cutsStatusL;
+  std::bitset<16> cutsStatusM;
+  std::bitset<16> cutsStatusT;
 
   bool operator== (Electron& other_){
     return((this->p4.Pt()==other_.p4.Pt()) && (this->charge == other_.charge));
   }
   void Clear(){
-    cutsStatus = 0b0000000000000000;
+    cutsStatusL = 0b0000000000000000;
+    cutsStatusM = 0b0000000000000000;
+    cutsStatusT = 0b0000000000000000;
     IsPassVeto= 0;
-     IsPassLoose= 0;
-     IsPassMedium= 0;
-     IsPassTight= 0;
-     IsPassHEEP= 0;
-     IsMVATrig= 0;
-     IsMVANonTrig= 0;
-     MVATrig= 0;
-     MVANonTrig= 0;
-     p4.SetPxPyPzE(0.,0.,0.,0.);
-     nElectron= 0;
-     charge= 0;
-     r9= 0;
-     etSC= 0;
-     etaSC= 0;
+    IsPassLoose= 0;
+    IsPassMedium= 0;
+    IsPassTight= 0;
+    IsPassHEEP= 0;
+    IsMVATrig= 0;
+    IsMVANonTrig= 0;
+    MVATrig= 0;
+    MVANonTrig= 0;
+    p4.SetPxPyPzE(0.,0.,0.,0.);
+    nElectron= 0;
+    charge= 0;
+    r9= 0;
+    etSC= 0;
+    etaSC= 0;
      energySC= 0;
      preenergySC= 0;
      phiSC= 0;

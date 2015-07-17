@@ -1,16 +1,16 @@
-// Original class : MonoHiggsCuts.h
+// Original class : DYAnalysisCuts.h
 // Created By     : khurana 
 // Created On     : Sun Apr 26 00:55:43 CEST 2015
 
-#ifndef MonoHiggsCuts_h_
-#define MonoHiggsCuts_h_
+#ifndef DYAnalysisCuts_h_
+#define DYAnalysisCuts_h_
 #include <map>
 #include <unordered_map>
 using namespace std;
 
-class MonoHiggsCuts {
+class DYAnalysisCuts {
  public:
-  MonoHiggsCuts(){
+  DYAnalysisCuts(){
     // cutsMap
     // they are named like this so that they remain sorted in the map.
     // saved in alphabatical order in the cuts name map.
@@ -121,16 +121,16 @@ class MonoHiggsCuts {
 
 
   };
-  ~MonoHiggsCuts(){};
-  std::map<std::string, int> cutsMap;
-  std::map<std::string, float> cutValueMap;
-  std::map<std::string, float> cutValueMapTTBar;
-    enum cuts  {
-      dijetmass    = 0b0000000000000001,
-      detaJets     = 0b0000000000000011,
-      dphiJets     = 0b0000000000000111,
-      ptOverpt1pt1 = 0b0000000000001111
-    };
+  ~DYAnalysisCuts(){};
+ public:
+  std::map<std::string, int>   DYcutsMap;
+  std::map<std::string, float> TightDYcutValueMapEndcap;
+  std::map<std::string, float> TightDYcutValueMapBarrel;
+  std::map<std::string, float> MediumDYcutValueMapEndcap;
+  std::map<std::string, float> MediumDYcutValueMapBarrel;
+  std::map<std::string, float> LooseDYcutValueMapEndcap;
+  std::map<std::string, float> LooseDYcutValueMapBarrel;
+  
  protected:
  private:
   
