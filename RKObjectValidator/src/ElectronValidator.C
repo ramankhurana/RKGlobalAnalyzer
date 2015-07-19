@@ -170,7 +170,7 @@ void ElectronValidator::DefineHistograms(){
     //    h_ooEmooP[i]                    =  new TH1F("h_ooEmooP"+postfix,"",400,0.,0.5);
     h_d0[i]                         =  new TH1F("h_d0"+postfix,"",1000,0,2.);
     h_dz[i]                         =  new TH1F("h_dz"+postfix,"",1000,0,2.);
-    h_expectedMissingInnerHits[i]   =  new TH1F("h_expectedMissingInnerHits"+postfix,"",8,-1,7);
+    h_expectedMissingInnerHits[i]   =  new TH1F("h_expectedMissingInnerHits"+postfix,"",8,0,8);
     h_passConversionVeto[i]         =  new TH1F("h_passConversionVeto"+postfix,"",5,-1,4);
     h_barrel[i]                     =  new TH1F("h_barrel"+postfix,"",2,0,2);
     h_endcap[i]                     =  new TH1F("h_endcap"+postfix,"",2,0,2);

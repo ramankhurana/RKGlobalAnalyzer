@@ -106,7 +106,7 @@ template <class T>
 void TwoObjectValidator<T>::DefineHistograms(){
   // 1D Histograms 
   h_pt                    = new TH1F("h_pt","h_pt",2000,0,2000);
-  h_eta                   = new TH1F("h_eta","h_eta",60,-3,3);
+  h_eta                   = new TH1F("h_eta","h_eta",100,-5,5);
   h_phi                   = new TH1F("h_phi","h_phi",35,-3.5,3.5);
   h_energy                = new TH1F("h_energy","h_energy",2000,0,2000);
   h_DeltaR                = new TH1F("h_DeltaR","h_DeltaR",50,0.,5);

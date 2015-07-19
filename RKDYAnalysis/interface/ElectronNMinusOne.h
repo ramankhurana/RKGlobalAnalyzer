@@ -18,11 +18,12 @@
 #include <TProfile2D.h>
 #include <TString.h>
 #include "ElectronSelectionBitsProducer.h"
-#include "../../RKDataFormats/interface/Jet.h"
-#include "../../RKDataFormats/interface/MET.h"
-#include "../../RKDataFormats/interface/Resonance.h"
-#include "../../RKDataFormats/interface/ResonanceMET.h"
-#include "../../RKUtilities/interface/MonoHiggsCuts.h"
+#include "../../RKDataFormats/interface/Electron.h"
+//#include "../../RKDataFormats/interface/Jet.h"
+//#include "../../RKDataFormats/interface/MET.h"
+//#include "../../RKDataFormats/interface/Resonance.h"
+//#include "../../RKDataFormats/interface/ResonanceMET.h"
+//#include "../../RKUtilities/interface/MonoHiggsCuts.h"
 
 class ElectronNMinusOne {
  public:
@@ -47,7 +48,7 @@ class ElectronNMinusOne {
   TH1F*  h_IdisoRho[RKVARS];
   TH1F*  h_IdexpectedMissingInnerHits[RKVARS];
   TH1F*  h_IdpassConversionVeto[RKVARS];
-  std::map <TString, bitset<16> > cutsMap; 
+  std::map <TString, bitset<16> > ElectroncutsMap; 
   
   protected:
 

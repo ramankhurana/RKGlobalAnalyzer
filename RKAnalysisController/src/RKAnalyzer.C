@@ -54,7 +54,7 @@ void RKAnalyzer::Loop(TString output){
   Long64_t nentries = fChain->GetEntriesFast();
   
   std::cout<<" nevents ====== "<<nentries<<std::endl;
-  //nentries = 1;
+  //nentries = 100;
   Long64_t nbytes = 0, nb = 0;
    for (Long64_t jentry=0; jentry<nentries;jentry++) {
      nEvents->Fill(1);
@@ -76,10 +76,11 @@ void RKAnalyzer::Loop(TString output){
      ElectronProducer();
 
      // N-1 For Electron ID
-     std::cout<<" N-1 for barrel"<<std::endl;
-     elenminusoneobjB.Fill(RKElectronCollection_barrel);
-     std::cout<<" N-1 for endcap"<<std::endl;
-     elenminusoneobjE.Fill(RKElectronCollection_endcap);
+     std::cout<<" N-1 for barrel with size "<<RKElectronCollection_barrel.size()<<std::endl;
+     if(RKElectronCollection_barrel.size()>0) elenminusoneobjB.Fill(RKElectronCollection_barrel);
+     std::cout<<" N-1 for endcap with size "<<RKElectronCollection_endcap.size()<<std::endl;
+     if(RKElectronCollection_endcap.size()>0) elenminusoneobjE.Fill(RKElectronCollection_endcap);
+     
      // Fill Validation Histograms for Jets
      std::cout<<" Jet Validator no sel"<<std::endl;
      if(RKJetCollection.size()>0) jetvalidator.Fill(RKJetCollection);
@@ -89,9 +90,9 @@ void RKAnalyzer::Loop(TString output){
      std::cout<<" electron Validator no sel"<<std::endl;
      // Fill the electron validation histograms 
      if(RKElectronCollection.size()>0) electronvalidator.Fill(RKElectronCollection);
-     std::cout<<" electron Validator no sel barrel"<<std::endl;
+     std::cout<<" electron Validator no sel barrel with size "<<RKElectronCollection_barrel.size()<<std::endl;
      if(RKElectronCollection_barrel.size()>0) electronvalidator_barrel.Fill(RKElectronCollection_barrel);
-     std::cout<<" electron Validator no sel endcap"<<std::endl;
+     std::cout<<" electron Validator no sel endcap"<<RKElectronCollection_endcap.size()<<std::endl;
      if(RKElectronCollection_endcap.size()>0) electronvalidator_endcap.Fill(RKElectronCollection_endcap);
      // Fill Validation histograms for MET
      std::cout<<" MET Validator"<<std::endl;
@@ -409,7 +410,7 @@ void RKAnalyzer::ElectronProducer(){
     
     if(triggerstatus && fourmom->Pt() > 20 && fabs(fourmom->Eta())<2.5)  RKElectronCollection.push_back(electrons);
     if(triggerstatus && fourmom->Pt() > 20 && fabs(fourmom->Eta())<2.5 && (*eleInBarrel)[i] ==1 )  RKElectronCollection_barrel.push_back(electrons);
-    if(triggerstatus && fourmom->Pt() > 20 && fabs(fourmom->Eta())<2.5 && (*eleInEndcap)[i]==1)  RKElectronCollection_endcap.push_back(electrons);
+    if(triggerstatus && fourmom->Pt() > 20 && fabs(fourmom->Eta())<2.5 && (*eleInEndcap)[i]==1  )    RKElectronCollection_endcap.push_back(electrons);
 
     if(triggerstatus && fourmom->Pt() > 20 && fabs(fourmom->Eta())<2.5 && (*isPassMedium)[i]==1)  RKElectronCollection_allCutM.push_back(electrons);
     bool isobarrel =  electrons.barrel && (electrons.isoRho ) < 0.107587;

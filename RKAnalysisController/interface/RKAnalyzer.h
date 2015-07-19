@@ -1012,7 +1012,8 @@ class RKAnalyzer {
 // if parameter tree is not specified (or zero), connect the file
 // used to generate this class and read the Tree.
   //TString filename="/hdfs/store/user/khurana/SingleElectron/crab_SingleElectron_Run2015B-PromptReco-v1/150713_071520/0000/NCUGlobalTuples_89.root";
-  TString filename="/hdfs/store/user/khurana/SingleElectron/crab_SingleElectron_Run2015B-PromptReco-v1/150713_071520/0000/NCUGlobalTuples_108.root";
+  //TString filename="/hdfs/store/user/khurana/SingleElectron/crab_SingleElectron_Run2015B-PromptReco-v1/150713_071520/0000/NCUGlobalTuples_108.root";
+  TString filename="/hdfs/store/user/khurana/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/crab_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_HLT/150713_072349/0000/NCUGlobalTuples_1.root";
    if (tree == 0) {
      //f = (TFile*)gROOT->GetListOfFiles()->FindObject("InputRootFile/NCUGlobalTuples_10.root");
      
