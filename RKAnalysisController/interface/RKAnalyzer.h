@@ -997,7 +997,7 @@ class RKAnalyzer {
   //  outputfilename=output;
 // if parameter tree is not specified (or zero), connect the file
 // used to generate this class and read the Tree.
-  TString filename="NCUGlobalTuplesTTBar.root";
+  TString filename="NCUGlobalTuplesSignal.root";
    if (tree == 0) {
      //f = (TFile*)gROOT->GetListOfFiles()->FindObject("/hdfs/store/user/khurana/ExpressPhysicsLocalMiniAOD/treeMaker_Run2015B_cfg-MINIAOD_53.root");
      f = (TFile*)gROOT->GetListOfFiles()->FindObject(filename);

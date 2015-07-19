@@ -273,7 +273,7 @@ void RKAnalyzer::JetProducer(){
     */
     RKJetCollection.push_back(jets);
     //if(fabs(fourmom.Eta())<2.5 && jets.B_CISVV2 > 0.432 && fourmom.Pt() > 30. && RKJetCollection.size()<4 )     RKJetCollection_selected.push_back(jets);
-    if(fabs(fourmom.Eta())<2.5  && fourmom.Pt() > 30. )     RKJetCollection_selected.push_back(jets);
+    if(fabs(fourmom.Eta())<2.5  && fourmom.Pt() > 30. )   RKJetCollection_selected.push_back(jets);
     //RKJetCollection_selected.push_back(jets);
     
   }

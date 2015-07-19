@@ -16,7 +16,7 @@ void Synchronization::DefineHistograms(){
   sync_ = new TH1F("sync_","",10,0,10);
 }
 
-void Synchronization::Fill(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > objectCollection){
+void Synchronization::Fill(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > objectCollection, std::vector<Jet> jetcollection){
   if(objectCollection.size()>0){
     bool isvtx=false;
     bool isleadingjet=false;
@@ -26,22 +26,36 @@ void Synchronization::Fill(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > o
     bool nlepton=false;
     bool ntau=false;
     bool nphoton=false;
-    
+    sync_->Fill(0);
     for(size_t i=0; i< TMath::Min(objectCollection.size(),(size_t)nobjectmet);i++){
-      if(i==0) sync_->Fill(1);
-      if(objectCollection[i].jet1.jet1.nVtx>0 && !sync_) {
-	sync_->Fill(2);
+      std::cout<<" nVtx in Fill == "<<objectCollection[i].jet1.jet1.nVtx<<std::endl;
+      if(objectCollection[i].jet1.jet1.nVtx > 0 && !isvtx) {
+	sync_->Fill(1);
 	isvtx=true;
-	
-	if( objectCollection[i].jet1.jet1.p4.Pt() > 110. && objectCollection[i].jet1.jet1.jetCHadEF > 0.2 && objectCollection[i].jet1.jet1.jetNHadEF < 0.7 && objectCollection[i].jet1.jet1.jetNEmEF < 0.7 && objectCollection[i].jet1.jet1.isLooseJet_ && objectCollection[i].jet1.jet1.isPUJet_ &&  !isleadingjet) { 
-	  sync_->Fill(3);
-	  isleadingjet=true;
-	  if(!isdphi){
-	    
-	    isdphi=true;
-	  }//isdphi
-	}//isleadingjet 
-      }//nVtx
+      }	
+
+      if( objectCollection[i].jet1.jet1.p4.Pt() > 110. && objectCollection[i].jet1.jet1.jetCHadEF > 0.2 && objectCollection[i].jet1.jet1.jetNHadEF < 0.7 && objectCollection[i].jet1.jet1.jetNEmEF < 0.7 && objectCollection[i].jet1.jet1.isLooseJet_ && objectCollection[i].jet1.jet1.isPUJet_ && isvtx &&  !isleadingjet) { 
+	sync_->Fill(2);
+	isleadingjet=true;
+      }
+      
+      if(objectCollection[i].jet1.jet2.isLooseJet_
+	 && objectCollection[i].jet1.jet2.isPUJet_
+	 && objectCollection[i].jet1.jet2.jetNHadEF < 0.7
+	 && objectCollection[i].jet1.jet2.jetNEmEF < 0.9
+	 && TMath::Abs(objectCollection[i].jet1.ResonanceProp.DeltaPhi) < 2.5
+	 && !isdphi
+	 && isleadingjet){
+	isdphi=true;
+	sync_->Fill(3);
+      }//isdphi
+
+      if(objectCollection[i].jet2.CorrPt > 200. && isdphi && !ismet ){
+	ismet=true;
+	sync_->Fill(4);
+      }//isdphi
+
+      
     }//for(int i=0; i<(int)objectCollection.size();i++){
   }// if(objectCollection.size()>0){
 
