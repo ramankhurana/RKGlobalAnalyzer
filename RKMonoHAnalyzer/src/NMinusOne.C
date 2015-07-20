@@ -10,7 +10,7 @@ void  NMinusOne::Fill(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > object
 	int icut=0;
 	for(mapiter=cutsMap.begin(); mapiter != cutsMap.end(); ++mapiter){
 	  //std::cout<<mapiter->first<<"  "<<mapiter->second<<std::endl;
-	  std::cout<<" status= "<<objectCollection[0].cutsStatus
+	  if(false) std::cout<<" status= "<<objectCollection[0].cutsStatus
 		   <<" map = "<<mapiter->second
 		   <<std::endl;
 	  if(objectCollection[0].cutsStatus == mapiter->second || objectCollection[0].cutsStatus == 0b0000000000001111) {
@@ -24,7 +24,7 @@ void  NMinusOne::Fill(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > object
 	    h_DeltaEtaJets[icut]->Fill(objectCollection[0].jet1.ResonanceProp.DeltaEta);
 	    h_DeltaPhiJets[icut]->Fill(objectCollection[0].jet1.ResonanceProp.DeltaPhi);
 	    h_PtOverPt1Pt2[icut]->Fill(objectCollection[0].jet1.ResonanceProp.PtOverPt1Pt2);
-	    std::cout<<" matched "<<objectCollection[0].jet1.ResonanceProp.p4.Mag()<<std::endl;
+	    if(false) std::cout<<" matched "<<objectCollection[0].jet1.ResonanceProp.p4.Mag()<<std::endl;
 	  }
 	  icut++;
 	}
@@ -38,8 +38,8 @@ void  NMinusOne::Fill(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > object
 void NMinusOne::GetInputs(TFile* f, TString prefix_){
   prefix = prefix_;
   file = f;
-  std::cout<<" calling define histograms for MET "<<std::endl;
-  std::cout<<" MET histo defined "<<std::endl;
+  if(false) std::cout<<" calling define histograms for MET "<<std::endl;
+  if(false) std::cout<<" MET histo defined "<<std::endl;
   cutsMap["dijetmass"]      = 0b0000000000001110;
   cutsMap["detaJets"]       = 0b0000000000001101;
   cutsMap["dphiJets"]       = 0b0000000000001011;

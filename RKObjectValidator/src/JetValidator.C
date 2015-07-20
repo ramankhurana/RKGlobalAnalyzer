@@ -2,7 +2,7 @@
 #include "../interface/JetValidator.h"
 void JetValidator::Fill(std::vector<Jet> jetcollection){
   
-  std::cout<<" num of jets = "<<jetcollection.size()<<std::endl;
+  if(false) std::cout<<" num of jets = "<<jetcollection.size()<<std::endl;
   
   // Construct variables for two jets 
   // you don't need to loop over jets for this
@@ -19,7 +19,7 @@ void JetValidator::Fill(std::vector<Jet> jetcollection){
     Float_t pT              = diJetp4.Pt();
     Float_t eta             = diJetp4.Eta();
     Float_t phi             = diJetp4.Phi();
-    std::cout<<"    deltaR = "<<deltaR
+    if(false) std::cout<<"    deltaR = "<<deltaR
 	     <<"    deltaPhi = "<<deltaPhi
 	     <<"    deltaEta = "<<deltaEta
 	     <<"    InvMass = "<<InvMass
@@ -129,9 +129,9 @@ void JetValidator::Fill(std::vector<Jet> jetcollection){
 void JetValidator::GetInputs(TFile* f, TString prefix_){
   prefix = prefix_;
   file = f;
-  std::cout<<" calling define histograms for Jets "<<std::endl;
+  if(false) std::cout<<" calling define histograms for Jets "<<std::endl;
   DefineHistograms();
-  std::cout<<" Jets histo defined "<<std::endl;
+  if(false) std::cout<<" Jets histo defined "<<std::endl;
 }
 
 
@@ -139,7 +139,7 @@ void JetValidator::DefineHistograms(){
   TString postfix;
   for(int i=0; i<4;i++){
     postfix.Form("%d",i);
-    std::cout<<" postfix for jets= "<<postfix<<std::endl;
+    if(false) std::cout<<" postfix for jets= "<<postfix<<std::endl;
     h_pt_vec[i]           = new TH1F("h_pt_vec_"+postfix,"h_pt_vec_"+postfix,100,0,500);
     h_eta_vec[i]                   = new TH1F("h_eta_vec_"+postfix,"h_eta_vec_"+postfix,100,-5.0,5.0);
     h_phi_vec[i]                   = new TH1F("h_phi_vec_"+postfix,"h_phi_vec_"+postfix,80,-4.0,4.);
@@ -179,7 +179,7 @@ void JetValidator::DefineHistograms(){
     h_tau21_vec[i]                 = new TH1F("h_tau21_vec_"+postfix,"h_tau21_vec_"+postfix,100,-50,50);
     
   }
-  std::cout<<" vector histo defined "<<std::endl;
+  if(false) std::cout<<" vector histo defined "<<std::endl;
   h_nJets                 = new TH1F("h_nJets","h_nJets",25,0,25);
   h_pt                    = new TH1F("h_pt","h_pt",100,0,500);
   h_eta                   = new TH1F("h_eta","h_eta",100,-5.0,5.0);

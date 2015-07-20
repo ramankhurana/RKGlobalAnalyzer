@@ -25,7 +25,7 @@ class Synchronization {
  public:
   Synchronization(){};
   ~Synchronization(){};
-  void Fill(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > objectCollection);
+  void Fill(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > objectCollection, std::vector<Jet> jetcollection);
   void DefineHistograms();
   void GetInputs(TFile* f, TString prefix_);
   void Write();

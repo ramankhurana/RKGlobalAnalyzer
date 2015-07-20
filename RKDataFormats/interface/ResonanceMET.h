@@ -15,7 +15,7 @@
 #include "Muon.h"
 #include "Electron.h"
 #include <bitset>
-
+#include "Event.h"
 using namespace std;
 template <class T1,class T2>
 class ResonanceMET{
@@ -34,7 +34,7 @@ class ResonanceMET{
   MET met;
   std::vector<Muon> muons;
   std::vector<Electron> electrons;
-  
+  Event events;
  private:
  protected:
   

@@ -64,7 +64,7 @@ class TwoObjectValidator {
 template <class T>
 void TwoObjectValidator<T>::Fill(std::vector<T> objectcollection){
   
-  std::cout<<" num of dijets = "<<objectcollection.size()<<std::endl;
+  if(false) std::cout<<" num of dijets = "<<objectcollection.size()<<std::endl;
   
   if(objectcollection.size()>0){
     // Fill properties of first di-jet combination made from 
@@ -97,9 +97,9 @@ template <class T>
 void TwoObjectValidator<T>::GetInputs(TFile* f, TString prefix_){
   prefix = prefix_;
   file = f;
-  std::cout<<" calling define histograms for diJets "<<std::endl;
+  if(false) std::cout<<" calling define histograms for diJets "<<std::endl;
   DefineHistograms();
-  std::cout<<" diJets histo defined "<<std::endl;
+  if(false) std::cout<<" diJets histo defined "<<std::endl;
 }
 
 template <class T>

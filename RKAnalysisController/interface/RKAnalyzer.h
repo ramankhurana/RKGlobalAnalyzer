@@ -23,6 +23,7 @@
 #include "../../RKDataFormats/interface/MET.h"
 #include "../../RKDataFormats/interface/Muon.h"
 #include "../../RKDataFormats/interface/Electron.h"
+#include "../../RKDataFormats/interface/Event.h"
 
 #include "../../RKDataFormats/interface/Resonance.h"
 #include "../../RKObjectValidator/interface/JetValidator.h"
@@ -73,6 +74,10 @@ class RKAnalyzer {
    Muon muons;
    //Electrons
    Electron electrons;
+   //Photons
+   Muon photons;
+   //Event
+   Event events;
    // Dijets
    TwoObjectCombination<Jet,Jet> dijet;
    
@@ -114,6 +119,8 @@ class RKAnalyzer {
    std::vector<Jet> RKJetCollection_selected;
    //Muons
    std::vector<Muon> RKMuonCollection;
+   //Photon
+   std::vector<Muon> RKPhotonCollection; // Using Muon for photon
    //Electron
    std::vector<Electron> RKElectronCollection;
    // DiJet
@@ -384,7 +391,8 @@ class RKAnalyzer {
    vector<float>   *THINjetCorrUncDown;
    vector<int>     *THINjetCharge;
    vector<int>     *THINjetPartonFlavor;
-   vector<int>     *THINjetPassID;
+   vector<int>     *THINjetPassIDLoose;
+   vector<int>     *THINjetPassIDTight;
    std::vector<float> *THINPUJetID;
    vector<int>     *THINjet_nSV;
    vector<vector<float> > *THINjet_SVMass;
@@ -481,6 +489,15 @@ class RKAnalyzer {
    Int_t           hlt_nTrigs;
    vector<int>     *hlt_trigResult;
    vector<string>  *trigName;
+
+   Int_t           nPho;
+   vector<float>   *phoPt;
+   vector<float>   *phoEta;
+   vector<float>   *phoPhi;
+   vector<float>   *phoE;
+   vector<bool>    *phoisPassTight;
+   vector<bool>    *phoisPassLoose;
+   vector<bool>    *phoisPassMedium;
    
    //We may need taus some day 
    /*
@@ -798,7 +815,8 @@ class RKAnalyzer {
    TBranch        *b_THINjetCharge;   //!
    TBranch *b_THINPUJetID; //!
    TBranch        *b_THINjetPartonFlavor;   //!
-   TBranch        *b_THINjetPassID;   //!
+   TBranch        *b_THINjetPassIDLoose;   //!
+   TBranch        *b_THINjetPassIDTight;   //!
    TBranch        *b_THINjet_nSV;   //!
    TBranch        *b_THINjet_SVMass;   //!
    TBranch        *b_THINjet_SVEnergyRatio;   //!
@@ -892,6 +910,14 @@ class RKAnalyzer {
    TBranch        *b_hlt_nTrigs;   //!
    TBranch        *b_hlt_trigResult;   //!
    TBranch        *b_trigName;   //!
+   TBranch        *b_nPho;   //!
+   TBranch        *b_phoPt;   //!
+   TBranch        *b_phoEta;   //!
+   TBranch        *b_phoPhi;   //!
+   TBranch        *b_phoE;   //!
+   TBranch        *b_phoisPassTight;   //!
+   TBranch        *b_phoisPassLoose;   //!
+   TBranch        *b_phoisPassMedium;   //!
    
    // we may need this later
    /*
@@ -986,6 +1012,9 @@ class RKAnalyzer {
    void ElectronProducer();
    // fill all the muon variables in the vector 
    void MuonProducer();
+   void PhotonProducer();
+   void TauProducer();
+
 };
 
 #endif
@@ -998,6 +1027,7 @@ class RKAnalyzer {
 // if parameter tree is not specified (or zero), connect the file
 // used to generate this class and read the Tree.
   TString filename="NCUGlobalTuplesSignal.root";
+  //TString filename="NCUGlobalTuplesTTBar.root";
    if (tree == 0) {
      //f = (TFile*)gROOT->GetListOfFiles()->FindObject("/hdfs/store/user/khurana/ExpressPhysicsLocalMiniAOD/treeMaker_Run2015B_cfg-MINIAOD_53.root");
      f = (TFile*)gROOT->GetListOfFiles()->FindObject(filename);
@@ -1258,7 +1288,8 @@ void RKAnalyzer::Init(TTree *tree)
    THINjetCharge = 0;
    THINPUJetID = 0;
    THINjetPartonFlavor = 0;
-   THINjetPassID = 0;
+   THINjetPassIDLoose = 0;
+   THINjetPassIDTight = 0;
    THINjet_nSV = 0;
    THINjet_SVMass = 0;
    THINjet_SVEnergyRatio = 0;
@@ -1350,7 +1381,14 @@ void RKAnalyzer::Init(TTree *tree)
    ADDsubjetSDCSV = 0;
    hlt_trigResult = 0;
    trigName = 0;
-
+   phoPt = 0;
+   phoEta = 0;
+   phoPhi = 0;
+   phoE = 0;
+   phoisPassTight = 0;
+   phoisPassLoose = 0;
+   phoisPassMedium = 0;
+   
    // we may need this later
    /*
 
@@ -1659,7 +1697,8 @@ void RKAnalyzer::Init(TTree *tree)
    fChain->SetBranchAddress("THINjetCharge", &THINjetCharge, &b_THINjetCharge);
    fChain->SetBranchAddress("THINPUJetID", &THINPUJetID, &b_THINPUJetID);
    fChain->SetBranchAddress("THINjetPartonFlavor", &THINjetPartonFlavor, &b_THINjetPartonFlavor);
-   fChain->SetBranchAddress("THINjetPassID", &THINjetPassID, &b_THINjetPassID);
+   fChain->SetBranchAddress("THINjetPassIDLoose", &THINjetPassIDLoose, &b_THINjetPassIDLoose);
+   fChain->SetBranchAddress("THINjetPassIDTight", &THINjetPassIDTight, &b_THINjetPassIDTight);
    fChain->SetBranchAddress("THINjet_nSV", &THINjet_nSV, &b_THINjet_nSV);
    fChain->SetBranchAddress("THINjet_SVMass", &THINjet_SVMass, &b_THINjet_SVMass);
    fChain->SetBranchAddress("THINjet_SVEnergyRatio", &THINjet_SVEnergyRatio, &b_THINjet_SVEnergyRatio);
@@ -1753,6 +1792,15 @@ void RKAnalyzer::Init(TTree *tree)
    fChain->SetBranchAddress("hlt_nTrigs", &hlt_nTrigs, &b_hlt_nTrigs);
    fChain->SetBranchAddress("hlt_trigResult", &hlt_trigResult, &b_hlt_trigResult);
    fChain->SetBranchAddress("trigName", &trigName, &b_trigName);
+   fChain->SetBranchAddress("nPho", &nPho, &b_nPho);
+   fChain->SetBranchAddress("phoPt", &phoPt, &b_phoPt);
+   fChain->SetBranchAddress("phoEta", &phoEta, &b_phoEta);
+   fChain->SetBranchAddress("phoPhi", &phoPhi, &b_phoPhi);
+   fChain->SetBranchAddress("phoE", &phoE, &b_phoE);
+   fChain->SetBranchAddress("phoisPassTight", &phoisPassTight, &b_phoisPassTight);
+   fChain->SetBranchAddress("phoisPassLoose", &phoisPassLoose, &b_phoisPassLoose);
+   fChain->SetBranchAddress("phoisPassMedium", &phoisPassMedium, &b_phoisPassMedium);
+   
    // we may need this later
    /*
    fChain->SetBranchAddress("HPSTau_n", &HPSTau_n, &b_HPSTau_n);
