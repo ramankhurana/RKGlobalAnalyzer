@@ -78,6 +78,7 @@ class RKAnalyzer {
    Electron electrons;
    // Dijets
    TwoObjectCombination<Jet,Jet> dijet;
+   TwoObjectCombination<Jet,Jet> dijet_selected;
    
    // DiElectron 
    TwoObjectCombination<Electron,Electron> dielectron;
@@ -162,15 +163,12 @@ class RKAnalyzer {
    //   Float_t         pu_nTrueInt;
    //   Int_t           pu_nPUVert;
    
-   Int_t           info_isData;
-   Int_t           info_eventId;
-   Int_t           info_runId;
-   Int_t           info_lumiSection;
-   Int_t           info_bunchXing;
-   Int_t           info_nVtx;
-   vector<float>   *info_vx;
-   vector<float>   *info_vy;
-   vector<float>   *info_vz;
+   Int_t           isData;
+   Int_t           eventId;
+   Int_t           runId;
+   Int_t           lumiSection;
+   Int_t           bunchXing;
+   Int_t           nVtx;
    Float_t         ptHat;
    Float_t         mcWeight;
    Int_t           nGenPar;
@@ -199,15 +197,17 @@ class RKAnalyzer {
    vector<float>   *genJetHAD;
    
    Int_t           nMu;
+   TClonesArray    *muP4;
    vector<int>     *muType;
-   vector<float>   *muPt;
-   vector<float>   *muEta;
-   vector<float>   *muPhi;
-   vector<float>   *muM;
-   vector<float>   *muCharge;
-   vector<int>     *isGlobalMuon;
-   vector<int>     *isTrackerMuon;
-   vector<int>     *isPFMuon;
+   vector<int>     *muCharge;
+   vector<bool>    *isGlobalMuon;
+   vector<bool>    *isTrackerMuon;
+   vector<bool>    *isPFMuon;
+   vector<int>     *muITrkID;
+   vector<int>     *muSegID;
+   vector<int>     *muNSegs;
+   vector<bool>    *muGood;
+   vector<bool>    *muIsGood;
    vector<float>   *muTrkPt;
    vector<float>   *muTrkPtErr;
    vector<float>   *mudxy;
@@ -215,21 +215,16 @@ class RKAnalyzer {
    vector<float>   *musegmentCompatibility;
    vector<float>   *muchi2LocalPosition;
    vector<float>   *mutrkKink;
-   vector<float>   *muInnerdxy_;
-   vector<float>   *muInnerdz_;
+   vector<float>   *muInnerdxy;
+   vector<float>   *muInnerdz;
    vector<int>     *muTrkLayers;
    vector<int>     *muPixelLayers;
    vector<int>     *muPixelHits;
    vector<float>   *muTrkQuality_;
    vector<int>     *muHits;
    vector<float>   *muChi2NDF;
-   vector<float>   *MuInnervalidFraction_;
+   vector<float>   *muInnervalidFraction_;
    vector<int>     *muMatches;
-   vector<int>     *muITrkID;
-   vector<int>     *muSegID;
-   vector<int>     *muNSegs;
-   vector<int>     *muGood;
-   vector<int>     *patMuonIsGood;
    vector<float>   *muTrkIso;
    vector<float>   *muHcalIso;
    vector<float>   *muEcalIso;
@@ -237,25 +232,84 @@ class RKAnalyzer {
    vector<float>   *muNeHadIso;
    vector<float>   *muGamIso;
    vector<float>   *muPUPt;
-   Int_t           nEle;
-   vector<bool>    *isPassVeto;
-   vector<bool>    *isPassLoose;
-   vector<bool>    *isPassMedium;
-   vector<bool>    *isPassTight;
-   vector<bool>    *isPassHEEP;
-   vector<bool>    *isPassMVAMedium; 
-   vector<bool>    *isPassMVATight;
-   vector<float>   *mvaValue;
-   vector<float>   *mvaCategory; 
-
-   TClonesArray    *patElecP4;
+   vector<float>   *muMiniIso;
+   Int_t           HPSTau_n;
+   vector<float>   *taupt;
+   TClonesArray    *HPSTau_4Momentum;
+   TClonesArray    *HPSTau_Vposition;
+   vector<bool>    *HPSTau_leadPFChargedHadrCand;
+   vector<bool>    *HPSTau_leadPFChargedHadrCand_trackRef;
+   vector<bool>    *disc_againstElectronLoose;
+   vector<bool>    *disc_againstElectronMedium;
+   vector<bool>    *disc_againstElectronTight;
+   vector<bool>    *disc_againstElectronLooseMVA5;
+   vector<bool>    *disc_againstElectronMediumMVA5;
+   vector<bool>    *disc_againstElectronTightMVA5;
+   vector<bool>    *disc_againstElectronVLooseMVA5;
+   vector<bool>    *disc_againstElectronVTightMVA5;
+   vector<bool>    *disc_againstMuonLoose;
+   vector<bool>    *disc_againstMuonMedium;
+   vector<bool>    *disc_againstMuonTight;
+   vector<bool>    *disc_againstMuonLoose2;
+   vector<bool>    *disc_againstMuonMedium2;
+   vector<bool>    *disc_againstMuonTight2;
+   vector<bool>    *disc_againstMuonLooseMVA;
+   vector<bool>    *disc_againstMuonMediumMVA;
+   vector<bool>    *disc_againstMuonTightMVA;
+   vector<bool>    *disc_againstMuonLoose3;
+   vector<bool>    *disc_againstMuonTight3;
+   vector<bool>    *disc_byVLooseCombinedIsolationDeltaBetaCorr;
+   vector<bool>    *disc_byLooseCombinedIsolationDeltaBetaCorr;
+   vector<bool>    *disc_byMediumCombinedIsolationDeltaBetaCorr;
+   vector<bool>    *disc_byTightCombinedIsolationDeltaBetaCorr;
+   vector<bool>    *disc_byLooseIsolation;
+   vector<bool>    *disc_byVLooseIsolationMVA3newDMwLT;
+   vector<bool>    *disc_byLooseIsolationMVA3newDMwLT;
+   vector<bool>    *disc_byMediumIsolationMVA3newDMwLT;
+   vector<bool>    *disc_byTightIsolationMVA3newDMwLT;
+   vector<bool>    *disc_byVTightIsolationMVA3newDMwLT;
+   vector<bool>    *disc_byVVTightIsolationMVA3newDMwLT;
+   vector<bool>    *disc_byVLooseIsolationMVA3newDMwoLT;
+   vector<bool>    *disc_byLooseIsolationMVA3newDMwoLT;
+   vector<bool>    *disc_byMediumIsolationMVA3newDMwoLT;
+   vector<bool>    *disc_byTightIsolationMVA3newDMwoLT;
+   vector<bool>    *disc_byVTightIsolationMVA3newDMwoLT;
+   vector<bool>    *disc_byVVTightIsolationMVA3newDMwoLT;
+   vector<bool>    *disc_byVLooseIsolationMVA3oldDMwLT;
+   vector<bool>    *disc_byLooseIsolationMVA3oldDMwLT;
+   vector<bool>    *disc_byMediumIsolationMVA3oldDMwLT;
+   vector<bool>    *disc_byTightIsolationMVA3oldDMwLT;
+   vector<bool>    *disc_byVTightIsolationMVA3oldDMwLT;
+   vector<bool>    *disc_byVVTightIsolationMVA3oldDMwLT;
+   vector<bool>    *disc_byVLooseIsolationMVA3oldDMwoLT;
+   vector<bool>    *disc_byLooseIsolationMVA3oldDMwoLT;
+   vector<bool>    *disc_byMediumIsolationMVA3oldDMwoLT;
+   vector<bool>    *disc_byTightIsolationMVA3oldDMwoLT;
+   vector<bool>    *disc_byVTightIsolationMVA3oldDMwoLT;
+   vector<bool>    *disc_byVVTightIsolationMVA3oldDMwoLT;
+   vector<bool>    *disc_byLooseCombinedIsolationDeltaBetaCorr3Hits;
+   vector<bool>    *disc_byMediumCombinedIsolationDeltaBetaCorr3Hits;
+   vector<bool>    *disc_byTightCombinedIsolationDeltaBetaCorr3Hits;
+   vector<bool>    *disc_decayModeFinding;
+   vector<bool>    *disc_decayModeFindingNewDMs;
+   vector<float>   *disc_chargedIsoPtSum;
+   vector<float>   *disc_neutralIsoPtSum;
+   vector<float>   *disc_puCorrPtSum;
+   vector<float>   *HPSTau_NewVz;
+   vector<int>     *HPSTau_charge;
+   Int_t           nPho;
+   TClonesArray    *phoP4;
+   vector<bool>    *phoIsPassTight;
+   vector<bool>    *phoIsPassLoose;
+   vector<bool>    *phoIsPassMedium;
    Float_t         eleRho;
-   vector<float>   *eleCharge;
-   vector<float>   *eleChargeConsistent;
-   vector<float>   *eleR9;
-   vector<float>   *eleHoverE;
-   vector<float>   *eleD0;
-   vector<float>   *eleDz;
+   Int_t           nEle;
+   TClonesArray    *eleP4;
+   vector<bool>    *eleInBarrel;
+   vector<bool>    *eleInEndcap;
+   vector<int>     *eleCharge;
+   vector<int>     *eleChargeConsistent;
+   vector<float>   *elecaloEnergy;
    vector<float>   *eleScEt;
    vector<float>   *eleScEn;
    vector<float>   *eleScPreEn;
@@ -264,6 +318,10 @@ class RKAnalyzer {
    vector<float>   *eleScRawEn;
    vector<float>   *eleScEtaWidth;
    vector<float>   *eleScPhiWidth;
+   vector<float>   *eleR9;
+   vector<float>   *eleHoverE;
+   vector<float>   *eleD0;
+   vector<float>   *eleDz;
    vector<float>   *eleEoverP;
    vector<float>   *eleBrem;
    vector<float>   *eledEtaAtVtx;
@@ -271,33 +329,39 @@ class RKAnalyzer {
    vector<float>   *eleSigmaIEtaIEta;
    vector<float>   *eleSigmaIEtaIPhi;
    vector<float>   *eleSigmaIPhiIPhi;
-   vector<float>   *eleConvVeto;
-   vector<float>   *eleMissHits;
+   vector<bool>    *eleConvVeto;
+   vector<int>     *eleMissHits;
    vector<float>   *eleEoverPInv;
    vector<float>   *eleEtaseedAtVtx;
    vector<float>   *eleE1x5;
    vector<float>   *eleE2x5;
    vector<float>   *eleE5x5;
-   vector<float>   *eleChHadIso;
-   vector<float>   *eleNeHadIso;
-   vector<float>   *eleGamIso;
-   vector<float>   *elePUPt;
-   vector<float>   *elecaloEnergy;
    vector<float>   *eleSigmaIEtaIEtaFull5x5;
    vector<float>   *eleE1x5Full5x5;
    vector<float>   *eleE2x5Full5x5;
    vector<float>   *eleE5x5Full5x5;
    vector<float>   *eleR9Full5x5;
+   vector<float>   *eleChHadIso;
+   vector<float>   *eleNeHadIso;
+   vector<float>   *eleGamIso;
+   vector<float>   *elePUPt;
+   vector<float>   *eleMiniIso;
    vector<float>   *eleEcalDrivenSeed;
    vector<float>   *eleDr03EcalRecHitSumEt;
    vector<float>   *eleDr03HcalDepth1TowerSumEt;
    vector<float>   *eleDr03HcalDepth2TowerSumEt;
    vector<float>   *eleDr03HcalTowerSumEt;
    vector<float>   *eleDr03TkSumPt;
-   //   vector<float>   *eleTrkdztrackref;
-   //vector<float>   *eleTrkdxytrackref;
-   vector<float>   *eleInBarrel;
-   vector<float>   *eleInEndcap;
+   vector<bool>    *eleIsPassVeto;
+   vector<bool>    *eleIsPassLoose;
+   vector<bool>    *eleIsPassMedium;
+   vector<bool>    *eleIsPassTight;
+   vector<bool>    *eleIsPassHEEP;
+   vector<bool>    *eleIsPassMVAMedium;
+   vector<bool>    *eleIsPassMVATight;
+   vector<float>   *eleMVAValue;
+   vector<int>     *eleMVACategory;
+   
    Float_t         pfMetCorrPt;
    Float_t         pfMetCorrPhi;
    Float_t         pfMetCorrSumEt;
@@ -381,48 +445,39 @@ class RKAnalyzer {
    vector<vector<float> > *FATsubjetSDPhi;
    vector<vector<float> > *FATsubjetSDMass;
    vector<vector<float> > *FATsubjetSDCSV;
+   
+   
    Int_t           THINnJet;
-   vector<float>   *THINjetPt;
-   vector<float>   *THINjetEta;
-   vector<float>   *THINjetPhi;
-   vector<float>   *THINjetMass;
-   vector<float>   *THINjetEn;
-   vector<float>   *THINgenjetPx;
-   vector<float>   *THINgenjetPy;
-   vector<float>   *THINgenjetPz;
-   vector<float>   *THINgenjetEn;
+   TClonesArray    *THINgenjetP4;
    vector<float>   *THINgenjetEM;
    vector<float>   *THINgenjetHAD;
    vector<float>   *THINgenjetINV;
    vector<float>   *THINgenjetAUX;
    vector<float>   *THINmatchedDR;
-   vector<float>   *THINjetCorrUncUp;
-   vector<float>   *THINjetCorrUncDown;
+   vector<float>   *THINjetRawFactor;
+   TClonesArray    *THINjetP4;
    vector<int>     *THINjetCharge;
    vector<int>     *THINjetPartonFlavor;
-   vector<int>     *THINjetPassID;
-   vector<int>     *THINjet_nSV;
-   vector<vector<float> > *THINjet_SVMass;
-   vector<vector<float> > *THINjet_SVEnergyRatio;
+   vector<bool>    *THINjetPassIDLoose;
+   vector<bool>    *THINjetPassIDTight;
+   vector<float>   *THINPUJetID;
+   vector<bool>    *THINisPUJetID;
+   vector<float>   *THINjetCEmEF;
+   vector<float>   *THINjetCHadEF;
+   vector<float>   *THINjetPhoEF;
+   vector<float>   *THINjetNEmEF;
+   vector<float>   *THINjetNHadEF;
+   vector<float>   *THINjetMuEF;
+   vector<int>     *THINjetCMulti;
    vector<float>   *THINjetSSV;
-   vector<float>   *THINjetSSVHE;
    vector<float>   *THINjetCSV;
+   vector<float>   *THINjetSSVHE;
    vector<float>   *THINjetCISVV2;
    vector<float>   *THINjetTCHP;
    vector<float>   *THINjetTCHE;
    vector<float>   *THINjetJP;
    vector<float>   *THINjetJBP;
-   vector<float>   *THINjetTau1;
-   vector<float>   *THINjetTau2;
-   vector<float>   *THINjetTau3;
-   vector<float>   *THINjetTau4;
-   vector<float>   *THINjetMuEF;
-   vector<float>   *THINjetPhoEF;
-   vector<float>   *THINjetCEmEF;
-   vector<float>   *THINjetCHadEF;
-   vector<float>   *THINjetNEmEF;
-   vector<float>   *THINjetNHadEF;
-   vector<float>   *THINjetCMulti;
+   
    Int_t           ADDnJet;
    vector<float>   *ADDjetPt;
    vector<float>   *ADDjetEta;
@@ -494,92 +549,18 @@ class RKAnalyzer {
 
    
    Int_t           hlt_nTrigs;
-   vector<int>     *hlt_trigResult;
-   vector<string>  *trigName;
+   vector<bool>     *hlt_trigResult;
+   vector<string>  *hlt_trigName;
    
-   //We may need taus some day 
-   /*
-     Int_t           genjetngenMuons;
-   Int_t           genjetgenjet_n;
-   TClonesArray    *GenJets_4Momentum;
-   
-   Int_t           HPSTau_n;
-   vector<float>   *taupt;
-   TClonesArray    *HPSTau_4Momentum;
-   TClonesArray    *HPSTau_Vposition;
-   vector<bool>    *HPSTau_leadPFChargedHadrCand;
-   vector<bool>    *HPSTau_leadPFChargedHadrCand_trackRef;
-   vector<bool>    *disc_againstElectronLoose;
-   vector<bool>    *disc_againstElectronMedium;
-   vector<bool>    *disc_againstElectronTight;
-   vector<bool>    *disc_againstElectronLooseMVA5;
-   vector<bool>    *disc_againstElectronMediumMVA5;
-   vector<bool>    *disc_againstElectronTightMVA5;
-   vector<bool>    *disc_againstElectronVLooseMVA5;
-   vector<bool>    *disc_againstElectronVTightMVA5;
-   vector<bool>    *disc_againstMuonLoose;
-   vector<bool>    *disc_againstMuonMedium;
-   vector<bool>    *disc_againstMuonTight;
-   vector<bool>    *disc_againstMuonLoose2;
-   vector<bool>    *disc_againstMuonMedium2;
-   vector<bool>    *disc_againstMuonTight2;
-   vector<bool>    *disc_againstMuonLooseMVA;
-   vector<bool>    *disc_againstMuonMediumMVA;
-   vector<bool>    *disc_againstMuonTightMVA;
-   vector<bool>    *disc_againstMuonLoose3;
-   vector<bool>    *disc_againstMuonTight3;
-   vector<bool>    *disc_byVLooseCombinedIsolationDeltaBetaCorr;
-   vector<bool>    *disc_byLooseCombinedIsolationDeltaBetaCorr;
-   vector<bool>    *disc_byMediumCombinedIsolationDeltaBetaCorr;
-   vector<bool>    *disc_byTightCombinedIsolationDeltaBetaCorr;
-   vector<bool>    *disc_byLooseIsolation;
-   vector<bool>    *disc_byVLooseIsolationMVA3newDMwLT;
-   vector<bool>    *disc_byLooseIsolationMVA3newDMwLT;
-   vector<bool>    *disc_byMediumIsolationMVA3newDMwLT;
-   vector<bool>    *disc_byTightIsolationMVA3newDMwLT;
-   vector<bool>    *disc_byVTightIsolationMVA3newDMwLT;
-   vector<bool>    *disc_byVVTightIsolationMVA3newDMwLT;
-   vector<bool>    *disc_byVLooseIsolationMVA3newDMwoLT;
-   vector<bool>    *disc_byLooseIsolationMVA3newDMwoLT;
-   vector<bool>    *disc_byMediumIsolationMVA3newDMwoLT;
-   vector<bool>    *disc_byTightIsolationMVA3newDMwoLT;
-   vector<bool>    *disc_byVTightIsolationMVA3newDMwoLT;
-   vector<bool>    *disc_byVVTightIsolationMVA3newDMwoLT;
-   vector<bool>    *disc_byVLooseIsolationMVA3oldDMwLT;
-   vector<bool>    *disc_byLooseIsolationMVA3oldDMwLT;
-   vector<bool>    *disc_byMediumIsolationMVA3oldDMwLT;
-   vector<bool>    *disc_byTightIsolationMVA3oldDMwLT;
-   vector<bool>    *disc_byVTightIsolationMVA3oldDMwLT;
-   vector<bool>    *disc_byVVTightIsolationMVA3oldDMwLT;
-   vector<bool>    *disc_byVLooseIsolationMVA3oldDMwoLT;
-   vector<bool>    *disc_byLooseIsolationMVA3oldDMwoLT;
-   vector<bool>    *disc_byMediumIsolationMVA3oldDMwoLT;
-   vector<bool>    *disc_byTightIsolationMVA3oldDMwoLT;
-   vector<bool>    *disc_byVTightIsolationMVA3oldDMwoLT;
-   vector<bool>    *disc_byVVTightIsolationMVA3oldDMwoLT;
-   vector<bool>    *disc_byLooseCombinedIsolationDeltaBetaCorr3Hits;
-   vector<bool>    *disc_byMediumCombinedIsolationDeltaBetaCorr3Hits;
-   vector<bool>    *disc_byTightCombinedIsolationDeltaBetaCorr3Hits;
-   vector<bool>    *disc_decayModeFinding;
-   vector<bool>    *disc_decayModeFindingNewDMs;
-   vector<float>   *disc_chargedIsoPtSum;
-   vector<float>   *disc_neutralIsoPtSum;
-   vector<float>   *disc_puCorrPtSum;
-   vector<float>   *HPSTau_NewVz;
-   vector<int>     *HPSTau_charge;
-   */
    // List of branches
    //   TBranch        *b_pu_nTrueInt;   //!
    //TBranch        *b_pu_nPUVert;   //!
-   TBranch        *b_info_isData;   //!
-   TBranch        *b_info_eventId;   //!
-   TBranch        *b_info_runId;   //!
-   TBranch        *b_info_lumiSection;   //!
-   TBranch        *b_info_bunchXing;   //!
-   TBranch        *b_info_nVtx;   //!
-   TBranch        *b_info_vx;   //!
-   TBranch        *b_info_vy;   //!
-   TBranch        *b_info_vz;   //!
+   TBranch        *b_isData;   //!
+   TBranch        *b_eventId;   //!
+   TBranch        *b_runId;   //!
+   TBranch        *b_lumiSection;   //!
+   TBranch        *b_bunchXing;   //!
+   TBranch        *b_nVtx;   //!
    TBranch        *b_ptHat;   //!
    TBranch        *b_mcWeight;   //!
    TBranch        *b_nGenPar;   //!
@@ -607,17 +588,18 @@ class RKAnalyzer {
    TBranch        *b_genJetEM;   //!
    TBranch        *b_genJetHAD;   //!
    
-   
    TBranch        *b_nMu;   //!
+   TBranch        *b_muP4;   //!
    TBranch        *b_muType;   //!
-   TBranch        *b_muPt;   //!
-   TBranch        *b_muEta;   //!
-   TBranch        *b_muPhi;   //!
-   TBranch        *b_muM;   //!
    TBranch        *b_muCharge;   //!
    TBranch        *b_isGlobalMuon;   //!
    TBranch        *b_isTrackerMuon;   //!
    TBranch        *b_isPFMuon;   //!
+   TBranch        *b_muITrkID;   //!
+   TBranch        *b_muSegID;   //!
+   TBranch        *b_muNSegs;   //!
+   TBranch        *b_muGood;   //!
+   TBranch        *b_muIsGood;   //!
    TBranch        *b_muTrkPt;   //!
    TBranch        *b_muTrkPtErr;   //!
    TBranch        *b_mudxy;   //!
@@ -625,21 +607,16 @@ class RKAnalyzer {
    TBranch        *b_musegmentCompatibility;   //!
    TBranch        *b_muchi2LocalPosition;   //!
    TBranch        *b_mutrkKink;   //!
-   TBranch        *b_muInnerdxy_;   //!
-   TBranch        *b_muInnerdz_;   //!
+   TBranch        *b_muInnerdxy;   //!
+   TBranch        *b_muInnerdz;   //!
    TBranch        *b_muTrkLayers;   //!
    TBranch        *b_muPixelLayers;   //!
    TBranch        *b_muPixelHits;   //!
    TBranch        *b_muTrkQuality_;   //!
    TBranch        *b_muHits;   //!
    TBranch        *b_muChi2NDF;   //!
-   TBranch        *b_MuInnervalidFraction_;   //!
+   TBranch        *b_muInnervalidFraction_;   //!
    TBranch        *b_muMatches;   //!
-   TBranch        *b_muITrkID;   //!
-   TBranch        *b_muSegID;   //!
-   TBranch        *b_muNSegs;   //!
-   TBranch        *b_muGood;   //!
-   TBranch        *b_patMuonIsGood;   //!
    TBranch        *b_muTrkIso;   //!
    TBranch        *b_muHcalIso;   //!
    TBranch        *b_muEcalIso;   //!
@@ -647,28 +624,86 @@ class RKAnalyzer {
    TBranch        *b_muNeHadIso;   //!
    TBranch        *b_muGamIso;   //!
    TBranch        *b_muPUPt;   //!
-   TBranch        *b_nEle;   //!
-   TBranch        *b_isPassVeto;   //!
-   TBranch        *b_isPassLoose;   //!
-   TBranch        *b_isPassMedium;   //!
-   TBranch        *b_isPassTight;   //!
-   TBranch        *b_isPassHEEP;   //!
-   TBranch        *b_isPassMVAMedium;//
-   TBranch        *b_isPassMVATight;
-   TBranch        *b_mvaValue;
-   TBranch        *b_mvaCategory; 
-
+   TBranch        *b_muMiniIso;   //!
+   TBranch        *b_HPSTau_n;   //!
+   TBranch        *b_taupt;   //!
+   TBranch        *b_HPSTau_4Momentum;   //!
+   TBranch        *b_HPSTau_Vposition;   //!
+   TBranch        *b_HPSTau_leadPFChargedHadrCand;   //!
+   TBranch        *b_HPSTau_leadPFChargedHadrCand_trackRef;   //!
+   TBranch        *b_disc_againstElectronLoose;   //!
+   TBranch        *b_disc_againstElectronMedium;   //!
+   TBranch        *b_disc_againstElectronTight;   //!
+   TBranch        *b_disc_againstElectronLooseMVA5;   //!
+   TBranch        *b_disc_againstElectronMediumMVA5;   //!
+   TBranch        *b_disc_againstElectronTightMVA5;   //!
+   TBranch        *b_disc_againstElectronVLooseMVA5;   //!
+   TBranch        *b_disc_againstElectronVTightMVA5;   //!
+   TBranch        *b_disc_againstMuonLoose;   //!
+   TBranch        *b_disc_againstMuonMedium;   //!
+   TBranch        *b_disc_againstMuonTight;   //!
+   TBranch        *b_disc_againstMuonLoose2;   //!
+   TBranch        *b_disc_againstMuonMedium2;   //!
+   TBranch        *b_disc_againstMuonTight2;   //!
+   TBranch        *b_disc_againstMuonLooseMVA;   //!
+   TBranch        *b_disc_againstMuonMediumMVA;   //!
+   TBranch        *b_disc_againstMuonTightMVA;   //!
+   TBranch        *b_disc_againstMuonLoose3;   //!
+   TBranch        *b_disc_againstMuonTight3;   //!
+   TBranch        *b_disc_byVLooseCombinedIsolationDeltaBetaCorr;   //!
+   TBranch        *b_disc_byLooseCombinedIsolationDeltaBetaCorr;   //!
+   TBranch        *b_disc_byMediumCombinedIsolationDeltaBetaCorr;   //!
+   TBranch        *b_disc_byTightCombinedIsolationDeltaBetaCorr;   //!
+   TBranch        *b_disc_byLooseIsolation;   //!
+   TBranch        *b_disc_byVLooseIsolationMVA3newDMwLT;   //!
+   TBranch        *b_disc_byLooseIsolationMVA3newDMwLT;   //!
+   TBranch        *b_disc_byMediumIsolationMVA3newDMwLT;   //!
+   TBranch        *b_disc_byTightIsolationMVA3newDMwLT;   //!
+   TBranch        *b_disc_byVTightIsolationMVA3newDMwLT;   //!
+   TBranch        *b_disc_byVVTightIsolationMVA3newDMwLT;   //!
+   TBranch        *b_disc_byVLooseIsolationMVA3newDMwoLT;   //!
+   TBranch        *b_disc_byLooseIsolationMVA3newDMwoLT;   //!
+   TBranch        *b_disc_byMediumIsolationMVA3newDMwoLT;   //!
+   TBranch        *b_disc_byTightIsolationMVA3newDMwoLT;   //!
+   TBranch        *b_disc_byVTightIsolationMVA3newDMwoLT;   //!
+   TBranch        *b_disc_byVVTightIsolationMVA3newDMwoLT;   //!
+   TBranch        *b_disc_byVLooseIsolationMVA3oldDMwLT;   //!
+   TBranch        *b_disc_byLooseIsolationMVA3oldDMwLT;   //!
+   TBranch        *b_disc_byMediumIsolationMVA3oldDMwLT;   //!
+   TBranch        *b_disc_byTightIsolationMVA3oldDMwLT;   //!
+   TBranch        *b_disc_byVTightIsolationMVA3oldDMwLT;   //!
+   TBranch        *b_disc_byVVTightIsolationMVA3oldDMwLT;   //!
+   TBranch        *b_disc_byVLooseIsolationMVA3oldDMwoLT;   //!
+   TBranch        *b_disc_byLooseIsolationMVA3oldDMwoLT;   //!
+   TBranch        *b_disc_byMediumIsolationMVA3oldDMwoLT;   //!
+   TBranch        *b_disc_byTightIsolationMVA3oldDMwoLT;   //!
+   TBranch        *b_disc_byVTightIsolationMVA3oldDMwoLT;   //!
+   TBranch        *b_disc_byVVTightIsolationMVA3oldDMwoLT;   //!
+   TBranch        *b_disc_byLooseCombinedIsolationDeltaBetaCorr3Hits;   //!
+   TBranch        *b_disc_byMediumCombinedIsolationDeltaBetaCorr3Hits;   //!
+   TBranch        *b_disc_byTightCombinedIsolationDeltaBetaCorr3Hits;   //!
+   TBranch        *b_disc_decayModeFinding;   //!
+   TBranch        *b_disc_decayModeFindingNewDMs;   //!
+   TBranch        *b_disc_chargedIsoPtSum;   //!
+   TBranch        *b_disc_neutralIsoPtSum;   //!
+   TBranch        *b_disc_puCorrPtSum;   //!
+   TBranch        *b_HPSTau_NewVz;   //!
+   TBranch        *b_HPSTau_charge;   //!
+   TBranch        *b_nPho;   //!
+   TBranch        *b_phoP4;   //!
+   TBranch        *b_phoIsPassTight;   //!
+   TBranch        *b_phoIsPassLoose;   //!
+   TBranch        *b_phoIsPassMedium;   //!   
    
-   TBranch        *b_patElecP4;   //!
    TBranch        *b_eleRho;   //!
-   //   TBranch        *b_eleEffArea;   //!
+   TBranch        *b_nEle;   //!
+   TBranch        *b_eleP4;   //!
+   TBranch        *b_eleInBarrel;   //!
+   TBranch        *b_eleInEndcap;   //!
    TBranch        *b_eleCharge;   //!
    TBranch        *b_eleChargeConsistent;   //!
-   TBranch        *b_eleR9;   //!
-   TBranch        *b_eleHoverE;   //!
-   TBranch        *b_eleD0;   //!
-   TBranch        *b_eleDz;   //!
-   TBranch        *b_eleScEt;  
+   TBranch        *b_elecaloEnergy;   //!
+   TBranch        *b_eleScEt;   //!
    TBranch        *b_eleScEn;   //!
    TBranch        *b_eleScPreEn;   //!
    TBranch        *b_eleScEta;   //!
@@ -676,6 +711,10 @@ class RKAnalyzer {
    TBranch        *b_eleScRawEn;   //!
    TBranch        *b_eleScEtaWidth;   //!
    TBranch        *b_eleScPhiWidth;   //!
+   TBranch        *b_eleR9;   //!
+   TBranch        *b_eleHoverE;   //!
+   TBranch        *b_eleD0;   //!
+   TBranch        *b_eleDz;   //!
    TBranch        *b_eleEoverP;   //!
    TBranch        *b_eleBrem;   //!
    TBranch        *b_eledEtaAtVtx;   //!
@@ -690,26 +729,31 @@ class RKAnalyzer {
    TBranch        *b_eleE1x5;   //!
    TBranch        *b_eleE2x5;   //!
    TBranch        *b_eleE5x5;   //!
-   TBranch        *b_eleChHadIso;   //!
-   TBranch        *b_eleNeHadIso;   //!
-   TBranch        *b_eleGamIso;   //!
-   TBranch        *b_elePUPt;   //!
-   TBranch        *b_elecaloEnergy;   //!
    TBranch        *b_eleSigmaIEtaIEtaFull5x5;   //!
    TBranch        *b_eleE1x5Full5x5;   //!
    TBranch        *b_eleE2x5Full5x5;   //!
    TBranch        *b_eleE5x5Full5x5;   //!
    TBranch        *b_eleR9Full5x5;   //!
+   TBranch        *b_eleChHadIso;   //!
+   TBranch        *b_eleNeHadIso;   //!
+   TBranch        *b_eleGamIso;   //!
+   TBranch        *b_elePUPt;   //!
+   TBranch        *b_eleMiniIso;   //!
    TBranch        *b_eleEcalDrivenSeed;   //!
    TBranch        *b_eleDr03EcalRecHitSumEt;   //!
    TBranch        *b_eleDr03HcalDepth1TowerSumEt;   //!
    TBranch        *b_eleDr03HcalDepth2TowerSumEt;   //!
    TBranch        *b_eleDr03HcalTowerSumEt;   //!
    TBranch        *b_eleDr03TkSumPt;   //!
-   //   TBranch        *b_eleTrkdztrackref;   //!
-   //TBranch        *b_eleTrkdxytrackref;   //!
-   TBranch        *b_eleInBarrel;   //!
-   TBranch        *b_eleInEndcap;   //!
+   TBranch        *b_eleIsPassVeto;   //!
+   TBranch        *b_eleIsPassLoose;   //!
+   TBranch        *b_eleIsPassMedium;   //!
+   TBranch        *b_eleIsPassTight;   //!
+   TBranch        *b_eleIsPassHEEP;   //!
+   TBranch        *b_eleIsPassMVAMedium;   //!
+   TBranch        *b_eleIsPassMVATight;   //!
+   TBranch        *b_eleMVAValue;   //!
+   TBranch        *b_eleMVACategory;   //!
    TBranch        *b_pfMetCorrPt;   //!
    TBranch        *b_pfMetCorrPhi;   //!
    TBranch        *b_pfMetCorrSumEt;   //!
@@ -793,48 +837,37 @@ class RKAnalyzer {
    TBranch        *b_FATsubjetSDPhi;   //!
    TBranch        *b_FATsubjetSDMass;   //!
    TBranch        *b_FATsubjetSDCSV;   //!
+   
    TBranch        *b_THINnJet;   //!
-   TBranch        *b_THINjetPt;   //!
-   TBranch        *b_THINjetEta;   //!
-   TBranch        *b_THINjetPhi;   //!
-   TBranch        *b_THINjetMass;   //!
-   TBranch        *b_THINjetEn;   //!
-   TBranch        *b_THINgenjetPx;   //!
-   TBranch        *b_THINgenjetPy;   //!
-   TBranch        *b_THINgenjetPz;   //!
-   TBranch        *b_THINgenjetEn;   //!
+   TBranch        *b_THINgenjetP4;   //!
    TBranch        *b_THINgenjetEM;   //!
    TBranch        *b_THINgenjetHAD;   //!
    TBranch        *b_THINgenjetINV;   //!
    TBranch        *b_THINgenjetAUX;   //!
    TBranch        *b_THINmatchedDR;   //!
-   TBranch        *b_THINjetCorrUncUp;   //!
-   TBranch        *b_THINjetCorrUncDown;   //!
+   TBranch        *b_THINjetRawFactor;   //!
+   TBranch        *b_THINjetP4;   //!
    TBranch        *b_THINjetCharge;   //!
    TBranch        *b_THINjetPartonFlavor;   //!
-   TBranch        *b_THINjetPassID;   //!
-   TBranch        *b_THINjet_nSV;   //!
-   TBranch        *b_THINjet_SVMass;   //!
-   TBranch        *b_THINjet_SVEnergyRatio;   //!
+   TBranch        *b_THINjetPassIDLoose;   //!
+   TBranch        *b_THINjetPassIDTight;   //!
+   TBranch        *b_THINPUJetID;   //!
+   TBranch        *b_THINisPUJetID;   //!
+   TBranch        *b_THINjetCEmEF;   //!
+   TBranch        *b_THINjetCHadEF;   //!
+   TBranch        *b_THINjetPhoEF;   //!
+   TBranch        *b_THINjetNEmEF;   //!
+   TBranch        *b_THINjetNHadEF;   //!
+   TBranch        *b_THINjetMuEF;   //!
+   TBranch        *b_THINjetCMulti;   //!
    TBranch        *b_THINjetSSV;   //!
-   TBranch        *b_THINjetSSVHE;   //!
    TBranch        *b_THINjetCSV;   //!
+   TBranch        *b_THINjetSSVHE;   //!
    TBranch        *b_THINjetCISVV2;   //!
    TBranch        *b_THINjetTCHP;   //!
    TBranch        *b_THINjetTCHE;   //!
    TBranch        *b_THINjetJP;   //!
    TBranch        *b_THINjetJBP;   //!
-   TBranch        *b_THINjetTau1;   //!
-   TBranch        *b_THINjetTau2;   //!
-   TBranch        *b_THINjetTau3;   //!
-   TBranch        *b_THINjetTau4;   //!
-   TBranch        *b_THINjetMuEF;   //!
-   TBranch        *b_THINjetPhoEF;   //!
-   TBranch        *b_THINjetCEmEF;   //!
-   TBranch        *b_THINjetCHadEF;   //!
-   TBranch        *b_THINjetNEmEF;   //!
-   TBranch        *b_THINjetNHadEF;   //!
-   TBranch        *b_THINjetCMulti;   //!
    TBranch        *b_ADDnJet;   //!
    TBranch        *b_ADDjetPt;   //!
    TBranch        *b_ADDjetEta;   //!
@@ -905,78 +938,8 @@ class RKAnalyzer {
    TBranch        *b_ADDsubjetSDCSV;   //!
    TBranch        *b_hlt_nTrigs;   //!
    TBranch        *b_hlt_trigResult;   //!
-   TBranch        *b_trigName;   //!
+   TBranch        *b_hlt_trigName;   //!
    
-   // we may need this later
-   /*
-   TBranch        *b_genjetngenMuons;   //!
-   TBranch        *b_genjetgenjet_n;   //!
-   TBranch        *b_GenJets_4Momentum;   //!
-   TBranch        *b_HPSTau_n;   //!
-   TBranch        *b_taupt;   //!
-   TBranch        *b_HPSTau_4Momentum;   //!
-   TBranch        *b_HPSTau_Vposition;   //!
-   TBranch        *b_HPSTau_leadPFChargedHadrCand;   //!
-   TBranch        *b_HPSTau_leadPFChargedHadrCand_trackRef;   //!
-   TBranch        *b_disc_againstElectronLoose;   //!
-   TBranch        *b_disc_againstElectronMedium;   //!
-   TBranch        *b_disc_againstElectronTight;   //!
-   TBranch        *b_disc_againstElectronLooseMVA5;   //!
-   TBranch        *b_disc_againstElectronMediumMVA5;   //!
-   TBranch        *b_disc_againstElectronTightMVA5;   //!
-   TBranch        *b_disc_againstElectronVLooseMVA5;   //!
-   TBranch        *b_disc_againstElectronVTightMVA5;   //!
-   TBranch        *b_disc_againstMuonLoose;   //!
-   TBranch        *b_disc_againstMuonMedium;   //!
-   TBranch        *b_disc_againstMuonTight;   //!
-   TBranch        *b_disc_againstMuonLoose2;   //!
-   TBranch        *b_disc_againstMuonMedium2;   //!
-   TBranch        *b_disc_againstMuonTight2;   //!
-   TBranch        *b_disc_againstMuonLooseMVA;   //!
-   TBranch        *b_disc_againstMuonMediumMVA;   //!
-   TBranch        *b_disc_againstMuonTightMVA;   //!
-   TBranch        *b_disc_againstMuonLoose3;   //!
-   TBranch        *b_disc_againstMuonTight3;   //!
-   TBranch        *b_disc_byVLooseCombinedIsolationDeltaBetaCorr;   //!
-   TBranch        *b_disc_byLooseCombinedIsolationDeltaBetaCorr;   //!
-   TBranch        *b_disc_byMediumCombinedIsolationDeltaBetaCorr;   //!
-   TBranch        *b_disc_byTightCombinedIsolationDeltaBetaCorr;   //!
-   TBranch        *b_disc_byLooseIsolation;   //!
-   TBranch        *b_disc_byVLooseIsolationMVA3newDMwLT;   //!
-   TBranch        *b_disc_byLooseIsolationMVA3newDMwLT;   //!
-   TBranch        *b_disc_byMediumIsolationMVA3newDMwLT;   //!
-   TBranch        *b_disc_byTightIsolationMVA3newDMwLT;   //!
-   TBranch        *b_disc_byVTightIsolationMVA3newDMwLT;   //!
-   TBranch        *b_disc_byVVTightIsolationMVA3newDMwLT;   //!
-   TBranch        *b_disc_byVLooseIsolationMVA3newDMwoLT;   //!
-   TBranch        *b_disc_byLooseIsolationMVA3newDMwoLT;   //!
-   TBranch        *b_disc_byMediumIsolationMVA3newDMwoLT;   //!
-   TBranch        *b_disc_byTightIsolationMVA3newDMwoLT;   //!
-   TBranch        *b_disc_byVTightIsolationMVA3newDMwoLT;   //!
-   TBranch        *b_disc_byVVTightIsolationMVA3newDMwoLT;   //!
-   TBranch        *b_disc_byVLooseIsolationMVA3oldDMwLT;   //!
-   TBranch        *b_disc_byLooseIsolationMVA3oldDMwLT;   //!
-   TBranch        *b_disc_byMediumIsolationMVA3oldDMwLT;   //!
-   TBranch        *b_disc_byTightIsolationMVA3oldDMwLT;   //!
-   TBranch        *b_disc_byVTightIsolationMVA3oldDMwLT;   //!
-   TBranch        *b_disc_byVVTightIsolationMVA3oldDMwLT;   //!
-   TBranch        *b_disc_byVLooseIsolationMVA3oldDMwoLT;   //!
-   TBranch        *b_disc_byLooseIsolationMVA3oldDMwoLT;   //!
-   TBranch        *b_disc_byMediumIsolationMVA3oldDMwoLT;   //!
-   TBranch        *b_disc_byTightIsolationMVA3oldDMwoLT;   //!
-   TBranch        *b_disc_byVTightIsolationMVA3oldDMwoLT;   //!
-   TBranch        *b_disc_byVVTightIsolationMVA3oldDMwoLT;   //!
-   TBranch        *b_disc_byLooseCombinedIsolationDeltaBetaCorr3Hits;   //!
-   TBranch        *b_disc_byMediumCombinedIsolationDeltaBetaCorr3Hits;   //!
-   TBranch        *b_disc_byTightCombinedIsolationDeltaBetaCorr3Hits;   //!
-   TBranch        *b_disc_decayModeFinding;   //!
-   TBranch        *b_disc_decayModeFindingNewDMs;   //!
-   TBranch        *b_disc_chargedIsoPtSum;   //!
-   TBranch        *b_disc_neutralIsoPtSum;   //!
-   TBranch        *b_disc_puCorrPtSum;   //!
-   TBranch        *b_HPSTau_NewVz;   //!
-   TBranch        *b_HPSTau_charge;   //!
-   */
    RKAnalyzer(TTree *tree=0);
    virtual ~RKAnalyzer();
    virtual Int_t    Cut(Long64_t entry);
@@ -1013,7 +976,8 @@ class RKAnalyzer {
 // used to generate this class and read the Tree.
   //TString filename="/hdfs/store/user/khurana/SingleElectron/crab_SingleElectron_Run2015B-PromptReco-v1/150713_071520/0000/NCUGlobalTuples_89.root";
   //TString filename="/hdfs/store/user/khurana/SingleElectron/crab_SingleElectron_Run2015B-PromptReco-v1/150713_071520/0000/NCUGlobalTuples_108.root";
-  TString filename="/hdfs/store/user/khurana/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/crab_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_HLT/150713_072349/0000/NCUGlobalTuples_1.root";
+  //TString filename="/hdfs/store/user/khurana/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/crab_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_HLT/150713_072349/0000/NCUGlobalTuples_1.root";
+  TString filename="/hdfs/store/user/khurana/SingleElectron/crab_SingleElectron_Run2015B-PromptReco-v1_JSON/150720_204200/0000/NCUGlobalTuples_212.root";
    if (tree == 0) {
      //f = (TFile*)gROOT->GetListOfFiles()->FindObject("InputRootFile/NCUGlobalTuples_10.root");
      
@@ -1066,9 +1030,6 @@ void RKAnalyzer::Init(TTree *tree)
    // (once per file to be processed).
 
    // Set object pointer
-   info_vx = 0;
-   info_vy = 0;
-   info_vz = 0;
    genParE = 0;
    genParPt = 0;
    genParEta = 0;
@@ -1091,15 +1052,17 @@ void RKAnalyzer::Init(TTree *tree)
    genJetPhi = 0;
    genJetEM = 0;
    genJetHAD = 0;
+   muP4 = 0;
    muType = 0;
-   muPt = 0;
-   muEta = 0;
-   muPhi = 0;
-   muM = 0;
    muCharge = 0;
    isGlobalMuon = 0;
    isTrackerMuon = 0;
    isPFMuon = 0;
+   muITrkID = 0;
+   muSegID = 0;
+   muNSegs = 0;
+   muGood = 0;
+   muIsGood = 0;
    muTrkPt = 0;
    muTrkPtErr = 0;
    mudxy = 0;
@@ -1107,21 +1070,16 @@ void RKAnalyzer::Init(TTree *tree)
    musegmentCompatibility = 0;
    muchi2LocalPosition = 0;
    mutrkKink = 0;
-   muInnerdxy_ = 0;
-   muInnerdz_ = 0;
+   muInnerdxy = 0;
+   muInnerdz = 0;
    muTrkLayers = 0;
    muPixelLayers = 0;
    muPixelHits = 0;
    muTrkQuality_ = 0;
    muHits = 0;
    muChi2NDF = 0;
-   MuInnervalidFraction_ = 0;
+   muInnervalidFraction_ = 0;
    muMatches = 0;
-   muITrkID = 0;
-   muSegID = 0;
-   muNSegs = 0;
-   muGood = 0;
-   patMuonIsGood = 0;
    muTrkIso = 0;
    muHcalIso = 0;
    muEcalIso = 0;
@@ -1129,31 +1087,92 @@ void RKAnalyzer::Init(TTree *tree)
    muNeHadIso = 0;
    muGamIso = 0;
    muPUPt = 0;
-   isPassVeto = 0;
-   isPassLoose = 0;
-   isPassMedium = 0;
-   isPassTight = 0;
-   isPassHEEP = 0;
-   isPassMVAMedium= 0;
-   isPassMVATight = 0;
-   mvaValue= 0;
-   mvaCategory = 0; 
-
-   patElecP4 = 0;
+   muMiniIso = 0;
+   taupt = 0;
+   HPSTau_4Momentum = 0;
+   HPSTau_Vposition = 0;
+   HPSTau_leadPFChargedHadrCand = 0;
+   HPSTau_leadPFChargedHadrCand_trackRef = 0;
+   disc_againstElectronLoose = 0;
+   disc_againstElectronMedium = 0;
+   disc_againstElectronTight = 0;
+   disc_againstElectronLooseMVA5 = 0;
+   disc_againstElectronMediumMVA5 = 0;
+   disc_againstElectronTightMVA5 = 0;
+   disc_againstElectronVLooseMVA5 = 0;
+   disc_againstElectronVTightMVA5 = 0;
+   disc_againstMuonLoose = 0;
+   disc_againstMuonMedium = 0;
+   disc_againstMuonTight = 0;
+   disc_againstMuonLoose2 = 0;
+   disc_againstMuonMedium2 = 0;
+   disc_againstMuonTight2 = 0;
+   disc_againstMuonLooseMVA = 0;
+   disc_againstMuonMediumMVA = 0;
+   disc_againstMuonTightMVA = 0;
+   disc_againstMuonLoose3 = 0;
+   disc_againstMuonTight3 = 0;
+   disc_byVLooseCombinedIsolationDeltaBetaCorr = 0;
+   disc_byLooseCombinedIsolationDeltaBetaCorr = 0;
+   disc_byMediumCombinedIsolationDeltaBetaCorr = 0;
+   disc_byTightCombinedIsolationDeltaBetaCorr = 0;
+   disc_byLooseIsolation = 0;
+   disc_byVLooseIsolationMVA3newDMwLT = 0;
+   disc_byLooseIsolationMVA3newDMwLT = 0;
+   disc_byMediumIsolationMVA3newDMwLT = 0;
+   disc_byTightIsolationMVA3newDMwLT = 0;
+   disc_byVTightIsolationMVA3newDMwLT = 0;
+   disc_byVVTightIsolationMVA3newDMwLT = 0;
+   disc_byVLooseIsolationMVA3newDMwoLT = 0;
+   disc_byLooseIsolationMVA3newDMwoLT = 0;
+   disc_byMediumIsolationMVA3newDMwoLT = 0;
+   disc_byTightIsolationMVA3newDMwoLT = 0;
+   disc_byVTightIsolationMVA3newDMwoLT = 0;
+   disc_byVVTightIsolationMVA3newDMwoLT = 0;
+   disc_byVLooseIsolationMVA3oldDMwLT = 0;
+   disc_byLooseIsolationMVA3oldDMwLT = 0;
+   disc_byMediumIsolationMVA3oldDMwLT = 0;
+   disc_byTightIsolationMVA3oldDMwLT = 0;
+   disc_byVTightIsolationMVA3oldDMwLT = 0;
+   disc_byVVTightIsolationMVA3oldDMwLT = 0;
+   disc_byVLooseIsolationMVA3oldDMwoLT = 0;
+   disc_byLooseIsolationMVA3oldDMwoLT = 0;
+   disc_byMediumIsolationMVA3oldDMwoLT = 0;
+   disc_byTightIsolationMVA3oldDMwoLT = 0;
+   disc_byVTightIsolationMVA3oldDMwoLT = 0;
+   disc_byVVTightIsolationMVA3oldDMwoLT = 0;
+   disc_byLooseCombinedIsolationDeltaBetaCorr3Hits = 0;
+   disc_byMediumCombinedIsolationDeltaBetaCorr3Hits = 0;
+   disc_byTightCombinedIsolationDeltaBetaCorr3Hits = 0;
+   disc_decayModeFinding = 0;
+   disc_decayModeFindingNewDMs = 0;
+   disc_chargedIsoPtSum = 0;
+   disc_neutralIsoPtSum = 0;
+   disc_puCorrPtSum = 0;
+   HPSTau_NewVz = 0;
+   HPSTau_charge = 0;
+   phoP4 = 0;
+   phoIsPassTight = 0;
+   phoIsPassLoose = 0;
+   phoIsPassMedium = 0;
+   eleP4 = 0;
+   eleInBarrel = 0;
+   eleInEndcap = 0;
    eleCharge = 0;
    eleChargeConsistent = 0;
-   eleR9 = 0;
-   eleHoverE = 0;
-   eleD0 = 0;
-   eleDz = 0;
-   eleScEn = 0;
+   elecaloEnergy = 0;
    eleScEt = 0;
+   eleScEn = 0;
    eleScPreEn = 0;
    eleScEta = 0;
    eleScPhi = 0;
    eleScRawEn = 0;
    eleScEtaWidth = 0;
    eleScPhiWidth = 0;
+   eleR9 = 0;
+   eleHoverE = 0;
+   eleD0 = 0;
+   eleDz = 0;
    eleEoverP = 0;
    eleBrem = 0;
    eledEtaAtVtx = 0;
@@ -1168,26 +1187,31 @@ void RKAnalyzer::Init(TTree *tree)
    eleE1x5 = 0;
    eleE2x5 = 0;
    eleE5x5 = 0;
-   eleChHadIso = 0;
-   eleNeHadIso = 0;
-   eleGamIso = 0;
-   elePUPt = 0;
-   elecaloEnergy = 0;
    eleSigmaIEtaIEtaFull5x5 = 0;
    eleE1x5Full5x5 = 0;
    eleE2x5Full5x5 = 0;
    eleE5x5Full5x5 = 0;
    eleR9Full5x5 = 0;
+   eleChHadIso = 0;
+   eleNeHadIso = 0;
+   eleGamIso = 0;
+   elePUPt = 0;
+   eleMiniIso = 0;
    eleEcalDrivenSeed = 0;
    eleDr03EcalRecHitSumEt = 0;
    eleDr03HcalDepth1TowerSumEt = 0;
    eleDr03HcalDepth2TowerSumEt = 0;
    eleDr03HcalTowerSumEt = 0;
    eleDr03TkSumPt = 0;
-   //   eleTrkdztrackref = 0;
-   //eleTrkdxytrackref = 0;
-   eleInBarrel = 0;
-   eleInEndcap = 0;
+   eleIsPassVeto = 0;
+   eleIsPassLoose = 0;
+   eleIsPassMedium = 0;
+   eleIsPassTight = 0;
+   eleIsPassHEEP = 0;
+   eleIsPassMVAMedium = 0;
+   eleIsPassMVATight = 0;
+   eleMVAValue = 0;
+   eleMVACategory = 0;
    FATjetPt = 0;
    FATjetEta = 0;
    FATjetPhi = 0;
@@ -1255,47 +1279,36 @@ void RKAnalyzer::Init(TTree *tree)
    FATsubjetSDPhi = 0;
    FATsubjetSDMass = 0;
    FATsubjetSDCSV = 0;
-   THINjetPt = 0;
-   THINjetEta = 0;
-   THINjetPhi = 0;
-   THINjetMass = 0;
-   THINjetEn = 0;
-   THINgenjetPx = 0;
-   THINgenjetPy = 0;
-   THINgenjetPz = 0;
-   THINgenjetEn = 0;
+   
+   THINgenjetP4 = 0;
    THINgenjetEM = 0;
    THINgenjetHAD = 0;
    THINgenjetINV = 0;
    THINgenjetAUX = 0;
    THINmatchedDR = 0;
-   THINjetCorrUncUp = 0;
-   THINjetCorrUncDown = 0;
+   THINjetRawFactor = 0;
+   THINjetP4 = 0;
    THINjetCharge = 0;
    THINjetPartonFlavor = 0;
-   THINjetPassID = 0;
-   THINjet_nSV = 0;
-   THINjet_SVMass = 0;
-   THINjet_SVEnergyRatio = 0;
+   THINjetPassIDLoose = 0;
+   THINjetPassIDTight = 0;
+   THINPUJetID = 0;
+   THINisPUJetID = 0;
+   THINjetCEmEF = 0;
+   THINjetCHadEF = 0;
+   THINjetPhoEF = 0;
+   THINjetNEmEF = 0;
+   THINjetNHadEF = 0;
+   THINjetMuEF = 0;
+   THINjetCMulti = 0;
    THINjetSSV = 0;
-   THINjetSSVHE = 0;
    THINjetCSV = 0;
+   THINjetSSVHE = 0;
    THINjetCISVV2 = 0;
    THINjetTCHP = 0;
    THINjetTCHE = 0;
    THINjetJP = 0;
    THINjetJBP = 0;
-   THINjetTau1 = 0;
-   THINjetTau2 = 0;
-   THINjetTau3 = 0;
-   THINjetTau4 = 0;
-   THINjetMuEF = 0;
-   THINjetPhoEF = 0;
-   THINjetCEmEF = 0;
-   THINjetCHadEF = 0;
-   THINjetNEmEF = 0;
-   THINjetNHadEF = 0;
-   THINjetCMulti = 0;
    ADDjetPt = 0;
    ADDjetEta = 0;
    ADDjetPhi = 0;
@@ -1364,75 +1377,8 @@ void RKAnalyzer::Init(TTree *tree)
    ADDsubjetSDMass = 0;
    ADDsubjetSDCSV = 0;
    hlt_trigResult = 0;
-   trigName = 0;
+   hlt_trigName = 0;
 
-   // we may need this later
-   /*
-
-   taupt = 0;
-   HPSTau_4Momentum = 0;
-   HPSTau_Vposition = 0;
-   HPSTau_leadPFChargedHadrCand = 0;
-   HPSTau_leadPFChargedHadrCand_trackRef = 0;
-   disc_againstElectronLoose = 0;
-   disc_againstElectronMedium = 0;
-   disc_againstElectronTight = 0;
-   disc_againstElectronLooseMVA5 = 0;
-   disc_againstElectronMediumMVA5 = 0;
-   disc_againstElectronTightMVA5 = 0;
-   disc_againstElectronVLooseMVA5 = 0;
-   disc_againstElectronVTightMVA5 = 0;
-   disc_againstMuonLoose = 0;
-   disc_againstMuonMedium = 0;
-   disc_againstMuonTight = 0;
-   disc_againstMuonLoose2 = 0;
-   disc_againstMuonMedium2 = 0;
-   disc_againstMuonTight2 = 0;
-   disc_againstMuonLooseMVA = 0;
-   disc_againstMuonMediumMVA = 0;
-   disc_againstMuonTightMVA = 0;
-   disc_againstMuonLoose3 = 0;
-   disc_againstMuonTight3 = 0;
-   disc_byVLooseCombinedIsolationDeltaBetaCorr = 0;
-   disc_byLooseCombinedIsolationDeltaBetaCorr = 0;
-   disc_byMediumCombinedIsolationDeltaBetaCorr = 0;
-   disc_byTightCombinedIsolationDeltaBetaCorr = 0;
-   disc_byLooseIsolation = 0;
-   disc_byVLooseIsolationMVA3newDMwLT = 0;
-   disc_byLooseIsolationMVA3newDMwLT = 0;
-   disc_byMediumIsolationMVA3newDMwLT = 0;
-   disc_byTightIsolationMVA3newDMwLT = 0;
-   disc_byVTightIsolationMVA3newDMwLT = 0;
-   disc_byVVTightIsolationMVA3newDMwLT = 0;
-   disc_byVLooseIsolationMVA3newDMwoLT = 0;
-   disc_byLooseIsolationMVA3newDMwoLT = 0;
-   disc_byMediumIsolationMVA3newDMwoLT = 0;
-   disc_byTightIsolationMVA3newDMwoLT = 0;
-   disc_byVTightIsolationMVA3newDMwoLT = 0;
-   disc_byVVTightIsolationMVA3newDMwoLT = 0;
-   disc_byVLooseIsolationMVA3oldDMwLT = 0;
-   disc_byLooseIsolationMVA3oldDMwLT = 0;
-   disc_byMediumIsolationMVA3oldDMwLT = 0;
-   disc_byTightIsolationMVA3oldDMwLT = 0;
-   disc_byVTightIsolationMVA3oldDMwLT = 0;
-   disc_byVVTightIsolationMVA3oldDMwLT = 0;
-   disc_byVLooseIsolationMVA3oldDMwoLT = 0;
-   disc_byLooseIsolationMVA3oldDMwoLT = 0;
-   disc_byMediumIsolationMVA3oldDMwoLT = 0;
-   disc_byTightIsolationMVA3oldDMwoLT = 0;
-   disc_byVTightIsolationMVA3oldDMwoLT = 0;
-   disc_byVVTightIsolationMVA3oldDMwoLT = 0;
-   disc_byLooseCombinedIsolationDeltaBetaCorr3Hits = 0;
-   disc_byMediumCombinedIsolationDeltaBetaCorr3Hits = 0;
-   disc_byTightCombinedIsolationDeltaBetaCorr3Hits = 0;
-   disc_decayModeFinding = 0;
-   disc_decayModeFindingNewDMs = 0;
-   disc_chargedIsoPtSum = 0;
-   disc_neutralIsoPtSum = 0;
-   disc_puCorrPtSum = 0;
-   HPSTau_NewVz = 0;
-   HPSTau_charge = 0;
-   */
    // Set branch addresses and branch pointers
    if (!tree) return;
    fChain = tree;
@@ -1441,15 +1387,12 @@ void RKAnalyzer::Init(TTree *tree)
    
    //   fChain->SetBranchAddress("pu_nTrueInt", &pu_nTrueInt, &b_pu_nTrueInt);
    //   fChain->SetBranchAddress("pu_nPUVert", &pu_nPUVert, &b_pu_nPUVert);
-   fChain->SetBranchAddress("info_isData", &info_isData, &b_info_isData);
-   fChain->SetBranchAddress("info_eventId", &info_eventId, &b_info_eventId);
-   fChain->SetBranchAddress("info_runId", &info_runId, &b_info_runId);
-   fChain->SetBranchAddress("info_lumiSection", &info_lumiSection, &b_info_lumiSection);
-   fChain->SetBranchAddress("info_bunchXing", &info_bunchXing, &b_info_bunchXing);
-   fChain->SetBranchAddress("info_nVtx", &info_nVtx, &b_info_nVtx);
-   fChain->SetBranchAddress("info_vx", &info_vx, &b_info_vx);
-   fChain->SetBranchAddress("info_vy", &info_vy, &b_info_vy);
-   fChain->SetBranchAddress("info_vz", &info_vz, &b_info_vz);
+   fChain->SetBranchAddress("isData", &isData, &b_isData);
+   fChain->SetBranchAddress("eventId", &eventId, &b_eventId);
+   fChain->SetBranchAddress("runId", &runId, &b_runId);
+   fChain->SetBranchAddress("lumiSection", &lumiSection, &b_lumiSection);
+   fChain->SetBranchAddress("bunchXing", &bunchXing, &b_bunchXing);
+   fChain->SetBranchAddress("nVtx", &nVtx, &b_nVtx);
    fChain->SetBranchAddress("ptHat", &ptHat, &b_ptHat);
    fChain->SetBranchAddress("mcWeight", &mcWeight, &b_mcWeight);
    fChain->SetBranchAddress("nGenPar", &nGenPar, &b_nGenPar);
@@ -1471,15 +1414,17 @@ void RKAnalyzer::Init(TTree *tree)
    fChain->SetBranchAddress("genDa2", &genDa2, &b_genDa2);
    
    fChain->SetBranchAddress("nMu", &nMu, &b_nMu);
+   fChain->SetBranchAddress("muP4", &muP4, &b_muP4);
    fChain->SetBranchAddress("muType", &muType, &b_muType);
-   fChain->SetBranchAddress("muPt", &muPt, &b_muPt);
-   fChain->SetBranchAddress("muEta", &muEta, &b_muEta);
-   fChain->SetBranchAddress("muPhi", &muPhi, &b_muPhi);
-   fChain->SetBranchAddress("muM", &muM, &b_muM);
    fChain->SetBranchAddress("muCharge", &muCharge, &b_muCharge);
    fChain->SetBranchAddress("isGlobalMuon", &isGlobalMuon, &b_isGlobalMuon);
    fChain->SetBranchAddress("isTrackerMuon", &isTrackerMuon, &b_isTrackerMuon);
    fChain->SetBranchAddress("isPFMuon", &isPFMuon, &b_isPFMuon);
+   fChain->SetBranchAddress("muITrkID", &muITrkID, &b_muITrkID);
+   fChain->SetBranchAddress("muSegID", &muSegID, &b_muSegID);
+   fChain->SetBranchAddress("muNSegs", &muNSegs, &b_muNSegs);
+   fChain->SetBranchAddress("muGood", &muGood, &b_muGood);
+   fChain->SetBranchAddress("muIsGood", &muIsGood, &b_muIsGood);
    fChain->SetBranchAddress("muTrkPt", &muTrkPt, &b_muTrkPt);
    fChain->SetBranchAddress("muTrkPtErr", &muTrkPtErr, &b_muTrkPtErr);
    fChain->SetBranchAddress("mudxy", &mudxy, &b_mudxy);
@@ -1487,21 +1432,16 @@ void RKAnalyzer::Init(TTree *tree)
    fChain->SetBranchAddress("musegmentCompatibility", &musegmentCompatibility, &b_musegmentCompatibility);
    fChain->SetBranchAddress("muchi2LocalPosition", &muchi2LocalPosition, &b_muchi2LocalPosition);
    fChain->SetBranchAddress("mutrkKink", &mutrkKink, &b_mutrkKink);
-   fChain->SetBranchAddress("muInnerdxy_", &muInnerdxy_, &b_muInnerdxy_);
-   fChain->SetBranchAddress("muInnerdz_", &muInnerdz_, &b_muInnerdz_);
+   fChain->SetBranchAddress("muInnerdxy", &muInnerdxy, &b_muInnerdxy);
+   fChain->SetBranchAddress("muInnerdz", &muInnerdz, &b_muInnerdz);
    fChain->SetBranchAddress("muTrkLayers", &muTrkLayers, &b_muTrkLayers);
    fChain->SetBranchAddress("muPixelLayers", &muPixelLayers, &b_muPixelLayers);
    fChain->SetBranchAddress("muPixelHits", &muPixelHits, &b_muPixelHits);
    fChain->SetBranchAddress("muTrkQuality_", &muTrkQuality_, &b_muTrkQuality_);
    fChain->SetBranchAddress("muHits", &muHits, &b_muHits);
    fChain->SetBranchAddress("muChi2NDF", &muChi2NDF, &b_muChi2NDF);
-   fChain->SetBranchAddress("MuInnervalidFraction_", &MuInnervalidFraction_, &b_MuInnervalidFraction_);
+   fChain->SetBranchAddress("muInnervalidFraction_", &muInnervalidFraction_, &b_muInnervalidFraction_);
    fChain->SetBranchAddress("muMatches", &muMatches, &b_muMatches);
-   fChain->SetBranchAddress("muITrkID", &muITrkID, &b_muITrkID);
-   fChain->SetBranchAddress("muSegID", &muSegID, &b_muSegID);
-   fChain->SetBranchAddress("muNSegs", &muNSegs, &b_muNSegs);
-   fChain->SetBranchAddress("muGood", &muGood, &b_muGood);
-   fChain->SetBranchAddress("patMuonIsGood", &patMuonIsGood, &b_patMuonIsGood);
    fChain->SetBranchAddress("muTrkIso", &muTrkIso, &b_muTrkIso);
    fChain->SetBranchAddress("muHcalIso", &muHcalIso, &b_muHcalIso);
    fChain->SetBranchAddress("muEcalIso", &muEcalIso, &b_muEcalIso);
@@ -1509,26 +1449,84 @@ void RKAnalyzer::Init(TTree *tree)
    fChain->SetBranchAddress("muNeHadIso", &muNeHadIso, &b_muNeHadIso);
    fChain->SetBranchAddress("muGamIso", &muGamIso, &b_muGamIso);
    fChain->SetBranchAddress("muPUPt", &muPUPt, &b_muPUPt);
-   fChain->SetBranchAddress("nEle", &nEle, &b_nEle);
-   fChain->SetBranchAddress("isPassVeto", &isPassVeto, &b_isPassVeto);
-   fChain->SetBranchAddress("isPassLoose", &isPassLoose, &b_isPassLoose);
-   fChain->SetBranchAddress("isPassMedium", &isPassMedium, &b_isPassMedium);
-   fChain->SetBranchAddress("isPassTight", &isPassTight, &b_isPassTight);
-   fChain->SetBranchAddress("isPassHEEP", &isPassHEEP, &b_isPassHEEP);
-   fChain->SetBranchAddress("patElecP4", &patElecP4, &b_patElecP4);
+   fChain->SetBranchAddress("muMiniIso", &muMiniIso, &b_muMiniIso);
+   fChain->SetBranchAddress("HPSTau_n", &HPSTau_n, &b_HPSTau_n);
+   fChain->SetBranchAddress("taupt", &taupt, &b_taupt);
+   fChain->SetBranchAddress("HPSTau_4Momentum", &HPSTau_4Momentum, &b_HPSTau_4Momentum);
+   fChain->SetBranchAddress("HPSTau_Vposition", &HPSTau_Vposition, &b_HPSTau_Vposition);
+   fChain->SetBranchAddress("HPSTau_leadPFChargedHadrCand", &HPSTau_leadPFChargedHadrCand, &b_HPSTau_leadPFChargedHadrCand);
+   fChain->SetBranchAddress("HPSTau_leadPFChargedHadrCand_trackRef", &HPSTau_leadPFChargedHadrCand_trackRef, &b_HPSTau_leadPFChargedHadrCand_trackRef);
+   fChain->SetBranchAddress("disc_againstElectronLoose", &disc_againstElectronLoose, &b_disc_againstElectronLoose);
+   fChain->SetBranchAddress("disc_againstElectronMedium", &disc_againstElectronMedium, &b_disc_againstElectronMedium);
+   fChain->SetBranchAddress("disc_againstElectronTight", &disc_againstElectronTight, &b_disc_againstElectronTight);
+   fChain->SetBranchAddress("disc_againstElectronLooseMVA5", &disc_againstElectronLooseMVA5, &b_disc_againstElectronLooseMVA5);
+   fChain->SetBranchAddress("disc_againstElectronMediumMVA5", &disc_againstElectronMediumMVA5, &b_disc_againstElectronMediumMVA5);
+   fChain->SetBranchAddress("disc_againstElectronTightMVA5", &disc_againstElectronTightMVA5, &b_disc_againstElectronTightMVA5);
+   fChain->SetBranchAddress("disc_againstElectronVLooseMVA5", &disc_againstElectronVLooseMVA5, &b_disc_againstElectronVLooseMVA5);
+   fChain->SetBranchAddress("disc_againstElectronVTightMVA5", &disc_againstElectronVTightMVA5, &b_disc_againstElectronVTightMVA5);
+   fChain->SetBranchAddress("disc_againstMuonLoose", &disc_againstMuonLoose, &b_disc_againstMuonLoose);
+   fChain->SetBranchAddress("disc_againstMuonMedium", &disc_againstMuonMedium, &b_disc_againstMuonMedium);
+   fChain->SetBranchAddress("disc_againstMuonTight", &disc_againstMuonTight, &b_disc_againstMuonTight);
+   fChain->SetBranchAddress("disc_againstMuonLoose2", &disc_againstMuonLoose2, &b_disc_againstMuonLoose2);
+   fChain->SetBranchAddress("disc_againstMuonMedium2", &disc_againstMuonMedium2, &b_disc_againstMuonMedium2);
+   fChain->SetBranchAddress("disc_againstMuonTight2", &disc_againstMuonTight2, &b_disc_againstMuonTight2);
+   fChain->SetBranchAddress("disc_againstMuonLooseMVA", &disc_againstMuonLooseMVA, &b_disc_againstMuonLooseMVA);
+   fChain->SetBranchAddress("disc_againstMuonMediumMVA", &disc_againstMuonMediumMVA, &b_disc_againstMuonMediumMVA);
+   fChain->SetBranchAddress("disc_againstMuonTightMVA", &disc_againstMuonTightMVA, &b_disc_againstMuonTightMVA);
+   fChain->SetBranchAddress("disc_againstMuonLoose3", &disc_againstMuonLoose3, &b_disc_againstMuonLoose3);
+   fChain->SetBranchAddress("disc_againstMuonTight3", &disc_againstMuonTight3, &b_disc_againstMuonTight3);
+   fChain->SetBranchAddress("disc_byVLooseCombinedIsolationDeltaBetaCorr", &disc_byVLooseCombinedIsolationDeltaBetaCorr, &b_disc_byVLooseCombinedIsolationDeltaBetaCorr);
+   fChain->SetBranchAddress("disc_byLooseCombinedIsolationDeltaBetaCorr", &disc_byLooseCombinedIsolationDeltaBetaCorr, &b_disc_byLooseCombinedIsolationDeltaBetaCorr);
+   fChain->SetBranchAddress("disc_byMediumCombinedIsolationDeltaBetaCorr", &disc_byMediumCombinedIsolationDeltaBetaCorr, &b_disc_byMediumCombinedIsolationDeltaBetaCorr);
+   fChain->SetBranchAddress("disc_byTightCombinedIsolationDeltaBetaCorr", &disc_byTightCombinedIsolationDeltaBetaCorr, &b_disc_byTightCombinedIsolationDeltaBetaCorr);
+   fChain->SetBranchAddress("disc_byLooseIsolation", &disc_byLooseIsolation, &b_disc_byLooseIsolation);
+   fChain->SetBranchAddress("disc_byVLooseIsolationMVA3newDMwLT", &disc_byVLooseIsolationMVA3newDMwLT, &b_disc_byVLooseIsolationMVA3newDMwLT);
+   fChain->SetBranchAddress("disc_byLooseIsolationMVA3newDMwLT", &disc_byLooseIsolationMVA3newDMwLT, &b_disc_byLooseIsolationMVA3newDMwLT);
+   fChain->SetBranchAddress("disc_byMediumIsolationMVA3newDMwLT", &disc_byMediumIsolationMVA3newDMwLT, &b_disc_byMediumIsolationMVA3newDMwLT);
+   fChain->SetBranchAddress("disc_byTightIsolationMVA3newDMwLT", &disc_byTightIsolationMVA3newDMwLT, &b_disc_byTightIsolationMVA3newDMwLT);
+   fChain->SetBranchAddress("disc_byVTightIsolationMVA3newDMwLT", &disc_byVTightIsolationMVA3newDMwLT, &b_disc_byVTightIsolationMVA3newDMwLT);
+   fChain->SetBranchAddress("disc_byVVTightIsolationMVA3newDMwLT", &disc_byVVTightIsolationMVA3newDMwLT, &b_disc_byVVTightIsolationMVA3newDMwLT);
+   fChain->SetBranchAddress("disc_byVLooseIsolationMVA3newDMwoLT", &disc_byVLooseIsolationMVA3newDMwoLT, &b_disc_byVLooseIsolationMVA3newDMwoLT);
+   fChain->SetBranchAddress("disc_byLooseIsolationMVA3newDMwoLT", &disc_byLooseIsolationMVA3newDMwoLT, &b_disc_byLooseIsolationMVA3newDMwoLT);
+   fChain->SetBranchAddress("disc_byMediumIsolationMVA3newDMwoLT", &disc_byMediumIsolationMVA3newDMwoLT, &b_disc_byMediumIsolationMVA3newDMwoLT);
+   fChain->SetBranchAddress("disc_byTightIsolationMVA3newDMwoLT", &disc_byTightIsolationMVA3newDMwoLT, &b_disc_byTightIsolationMVA3newDMwoLT);
+   fChain->SetBranchAddress("disc_byVTightIsolationMVA3newDMwoLT", &disc_byVTightIsolationMVA3newDMwoLT, &b_disc_byVTightIsolationMVA3newDMwoLT);
+   fChain->SetBranchAddress("disc_byVVTightIsolationMVA3newDMwoLT", &disc_byVVTightIsolationMVA3newDMwoLT, &b_disc_byVVTightIsolationMVA3newDMwoLT);
+   fChain->SetBranchAddress("disc_byVLooseIsolationMVA3oldDMwLT", &disc_byVLooseIsolationMVA3oldDMwLT, &b_disc_byVLooseIsolationMVA3oldDMwLT);
+   fChain->SetBranchAddress("disc_byLooseIsolationMVA3oldDMwLT", &disc_byLooseIsolationMVA3oldDMwLT, &b_disc_byLooseIsolationMVA3oldDMwLT);
+   fChain->SetBranchAddress("disc_byMediumIsolationMVA3oldDMwLT", &disc_byMediumIsolationMVA3oldDMwLT, &b_disc_byMediumIsolationMVA3oldDMwLT);
+   fChain->SetBranchAddress("disc_byTightIsolationMVA3oldDMwLT", &disc_byTightIsolationMVA3oldDMwLT, &b_disc_byTightIsolationMVA3oldDMwLT);
+   fChain->SetBranchAddress("disc_byVTightIsolationMVA3oldDMwLT", &disc_byVTightIsolationMVA3oldDMwLT, &b_disc_byVTightIsolationMVA3oldDMwLT);
+   fChain->SetBranchAddress("disc_byVVTightIsolationMVA3oldDMwLT", &disc_byVVTightIsolationMVA3oldDMwLT, &b_disc_byVVTightIsolationMVA3oldDMwLT);
+   fChain->SetBranchAddress("disc_byVLooseIsolationMVA3oldDMwoLT", &disc_byVLooseIsolationMVA3oldDMwoLT, &b_disc_byVLooseIsolationMVA3oldDMwoLT);
+   fChain->SetBranchAddress("disc_byLooseIsolationMVA3oldDMwoLT", &disc_byLooseIsolationMVA3oldDMwoLT, &b_disc_byLooseIsolationMVA3oldDMwoLT);
+   fChain->SetBranchAddress("disc_byMediumIsolationMVA3oldDMwoLT", &disc_byMediumIsolationMVA3oldDMwoLT, &b_disc_byMediumIsolationMVA3oldDMwoLT);
+   fChain->SetBranchAddress("disc_byTightIsolationMVA3oldDMwoLT", &disc_byTightIsolationMVA3oldDMwoLT, &b_disc_byTightIsolationMVA3oldDMwoLT);
+   fChain->SetBranchAddress("disc_byVTightIsolationMVA3oldDMwoLT", &disc_byVTightIsolationMVA3oldDMwoLT, &b_disc_byVTightIsolationMVA3oldDMwoLT);
+   fChain->SetBranchAddress("disc_byVVTightIsolationMVA3oldDMwoLT", &disc_byVVTightIsolationMVA3oldDMwoLT, &b_disc_byVVTightIsolationMVA3oldDMwoLT);
+   fChain->SetBranchAddress("disc_byLooseCombinedIsolationDeltaBetaCorr3Hits", &disc_byLooseCombinedIsolationDeltaBetaCorr3Hits, &b_disc_byLooseCombinedIsolationDeltaBetaCorr3Hits);
+   fChain->SetBranchAddress("disc_byMediumCombinedIsolationDeltaBetaCorr3Hits", &disc_byMediumCombinedIsolationDeltaBetaCorr3Hits, &b_disc_byMediumCombinedIsolationDeltaBetaCorr3Hits);
+   fChain->SetBranchAddress("disc_byTightCombinedIsolationDeltaBetaCorr3Hits", &disc_byTightCombinedIsolationDeltaBetaCorr3Hits, &b_disc_byTightCombinedIsolationDeltaBetaCorr3Hits);
+   fChain->SetBranchAddress("disc_decayModeFinding", &disc_decayModeFinding, &b_disc_decayModeFinding);
+   fChain->SetBranchAddress("disc_decayModeFindingNewDMs", &disc_decayModeFindingNewDMs, &b_disc_decayModeFindingNewDMs);
+   fChain->SetBranchAddress("disc_chargedIsoPtSum", &disc_chargedIsoPtSum, &b_disc_chargedIsoPtSum);
+   fChain->SetBranchAddress("disc_neutralIsoPtSum", &disc_neutralIsoPtSum, &b_disc_neutralIsoPtSum);
+   fChain->SetBranchAddress("disc_puCorrPtSum", &disc_puCorrPtSum, &b_disc_puCorrPtSum);
+   fChain->SetBranchAddress("HPSTau_NewVz", &HPSTau_NewVz, &b_HPSTau_NewVz);
+   fChain->SetBranchAddress("HPSTau_charge", &HPSTau_charge, &b_HPSTau_charge);
+   fChain->SetBranchAddress("nPho", &nPho, &b_nPho);
+   fChain->SetBranchAddress("phoP4", &phoP4, &b_phoP4);
+   fChain->SetBranchAddress("phoIsPassTight", &phoIsPassTight, &b_phoIsPassTight);
+   fChain->SetBranchAddress("phoIsPassLoose", &phoIsPassLoose, &b_phoIsPassLoose);
+   fChain->SetBranchAddress("phoIsPassMedium", &phoIsPassMedium, &b_phoIsPassMedium);
    fChain->SetBranchAddress("eleRho", &eleRho, &b_eleRho);
-   fChain->SetBranchAddress("isPassMVAMedium",&isPassMVAMedium,&b_isPassMVAMedium);
-   fChain->SetBranchAddress("isPassMVATight",&isPassMVATight,&b_isPassMVATight);
-   fChain->SetBranchAddress("mvaValue",&mvaValue,&b_mvaValue);
-   fChain->SetBranchAddress("mvaCategory",&mvaCategory,&b_mvaCategory);
-
-   //   fChain->SetBranchAddress("eleEffArea", &eleEffArea, &b_eleEffArea);
+   fChain->SetBranchAddress("nEle", &nEle, &b_nEle);
+   fChain->SetBranchAddress("eleP4", &eleP4, &b_eleP4);
+   fChain->SetBranchAddress("eleInBarrel", &eleInBarrel, &b_eleInBarrel);
+   fChain->SetBranchAddress("eleInEndcap", &eleInEndcap, &b_eleInEndcap);
    fChain->SetBranchAddress("eleCharge", &eleCharge, &b_eleCharge);
    fChain->SetBranchAddress("eleChargeConsistent", &eleChargeConsistent, &b_eleChargeConsistent);
-   fChain->SetBranchAddress("eleR9", &eleR9, &b_eleR9);
-   fChain->SetBranchAddress("eleHoverE", &eleHoverE, &b_eleHoverE);
-   fChain->SetBranchAddress("eleD0", &eleD0, &b_eleD0);
-   fChain->SetBranchAddress("eleDz", &eleDz, &b_eleDz);
+   fChain->SetBranchAddress("elecaloEnergy", &elecaloEnergy, &b_elecaloEnergy);
    fChain->SetBranchAddress("eleScEt", &eleScEt, &b_eleScEt);
    fChain->SetBranchAddress("eleScEn", &eleScEn, &b_eleScEn);
    fChain->SetBranchAddress("eleScPreEn", &eleScPreEn, &b_eleScPreEn);
@@ -1537,6 +1535,10 @@ void RKAnalyzer::Init(TTree *tree)
    fChain->SetBranchAddress("eleScRawEn", &eleScRawEn, &b_eleScRawEn);
    fChain->SetBranchAddress("eleScEtaWidth", &eleScEtaWidth, &b_eleScEtaWidth);
    fChain->SetBranchAddress("eleScPhiWidth", &eleScPhiWidth, &b_eleScPhiWidth);
+   fChain->SetBranchAddress("eleR9", &eleR9, &b_eleR9);
+   fChain->SetBranchAddress("eleHoverE", &eleHoverE, &b_eleHoverE);
+   fChain->SetBranchAddress("eleD0", &eleD0, &b_eleD0);
+   fChain->SetBranchAddress("eleDz", &eleDz, &b_eleDz);
    fChain->SetBranchAddress("eleEoverP", &eleEoverP, &b_eleEoverP);
    fChain->SetBranchAddress("eleBrem", &eleBrem, &b_eleBrem);
    fChain->SetBranchAddress("eledEtaAtVtx", &eledEtaAtVtx, &b_eledEtaAtVtx);
@@ -1551,26 +1553,31 @@ void RKAnalyzer::Init(TTree *tree)
    fChain->SetBranchAddress("eleE1x5", &eleE1x5, &b_eleE1x5);
    fChain->SetBranchAddress("eleE2x5", &eleE2x5, &b_eleE2x5);
    fChain->SetBranchAddress("eleE5x5", &eleE5x5, &b_eleE5x5);
-   fChain->SetBranchAddress("eleChHadIso", &eleChHadIso, &b_eleChHadIso);
-   fChain->SetBranchAddress("eleNeHadIso", &eleNeHadIso, &b_eleNeHadIso);
-   fChain->SetBranchAddress("eleGamIso", &eleGamIso, &b_eleGamIso);
-   fChain->SetBranchAddress("elePUPt", &elePUPt, &b_elePUPt);
-   fChain->SetBranchAddress("elecaloEnergy", &elecaloEnergy, &b_elecaloEnergy);
    fChain->SetBranchAddress("eleSigmaIEtaIEtaFull5x5", &eleSigmaIEtaIEtaFull5x5, &b_eleSigmaIEtaIEtaFull5x5);
    fChain->SetBranchAddress("eleE1x5Full5x5", &eleE1x5Full5x5, &b_eleE1x5Full5x5);
    fChain->SetBranchAddress("eleE2x5Full5x5", &eleE2x5Full5x5, &b_eleE2x5Full5x5);
    fChain->SetBranchAddress("eleE5x5Full5x5", &eleE5x5Full5x5, &b_eleE5x5Full5x5);
    fChain->SetBranchAddress("eleR9Full5x5", &eleR9Full5x5, &b_eleR9Full5x5);
+   fChain->SetBranchAddress("eleChHadIso", &eleChHadIso, &b_eleChHadIso);
+   fChain->SetBranchAddress("eleNeHadIso", &eleNeHadIso, &b_eleNeHadIso);
+   fChain->SetBranchAddress("eleGamIso", &eleGamIso, &b_eleGamIso);
+   fChain->SetBranchAddress("elePUPt", &elePUPt, &b_elePUPt);
+   fChain->SetBranchAddress("eleMiniIso", &eleMiniIso, &b_eleMiniIso);
    fChain->SetBranchAddress("eleEcalDrivenSeed", &eleEcalDrivenSeed, &b_eleEcalDrivenSeed);
    fChain->SetBranchAddress("eleDr03EcalRecHitSumEt", &eleDr03EcalRecHitSumEt, &b_eleDr03EcalRecHitSumEt);
    fChain->SetBranchAddress("eleDr03HcalDepth1TowerSumEt", &eleDr03HcalDepth1TowerSumEt, &b_eleDr03HcalDepth1TowerSumEt);
    fChain->SetBranchAddress("eleDr03HcalDepth2TowerSumEt", &eleDr03HcalDepth2TowerSumEt, &b_eleDr03HcalDepth2TowerSumEt);
    fChain->SetBranchAddress("eleDr03HcalTowerSumEt", &eleDr03HcalTowerSumEt, &b_eleDr03HcalTowerSumEt);
    fChain->SetBranchAddress("eleDr03TkSumPt", &eleDr03TkSumPt, &b_eleDr03TkSumPt);
-   //   fChain->SetBranchAddress("eleTrkdztrackref", &eleTrkdztrackref, &b_eleTrkdztrackref);
-   //fChain->SetBranchAddress("eleTrkdxytrackref", &eleTrkdxytrackref, &b_eleTrkdxytrackref);
-   fChain->SetBranchAddress("eleInBarrel", &eleInBarrel, &b_eleInBarrel);
-   fChain->SetBranchAddress("eleInEndcap", &eleInEndcap, &b_eleInEndcap);
+   fChain->SetBranchAddress("eleIsPassVeto", &eleIsPassVeto, &b_eleIsPassVeto);
+   fChain->SetBranchAddress("eleIsPassLoose", &eleIsPassLoose, &b_eleIsPassLoose);
+   fChain->SetBranchAddress("eleIsPassMedium", &eleIsPassMedium, &b_eleIsPassMedium);
+   fChain->SetBranchAddress("eleIsPassTight", &eleIsPassTight, &b_eleIsPassTight);
+   fChain->SetBranchAddress("eleIsPassHEEP", &eleIsPassHEEP, &b_eleIsPassHEEP);
+   fChain->SetBranchAddress("eleIsPassMVAMedium", &eleIsPassMVAMedium, &b_eleIsPassMVAMedium);
+   fChain->SetBranchAddress("eleIsPassMVATight", &eleIsPassMVATight, &b_eleIsPassMVATight);
+   fChain->SetBranchAddress("eleMVAValue", &eleMVAValue, &b_eleMVAValue);
+   fChain->SetBranchAddress("eleMVACategory", &eleMVACategory, &b_eleMVACategory);
    fChain->SetBranchAddress("pfMetCorrPt", &pfMetCorrPt, &b_pfMetCorrPt);
    fChain->SetBranchAddress("pfMetCorrPhi", &pfMetCorrPhi, &b_pfMetCorrPhi);
    fChain->SetBranchAddress("pfMetCorrSumEt", &pfMetCorrSumEt, &b_pfMetCorrSumEt);
@@ -1654,48 +1661,37 @@ void RKAnalyzer::Init(TTree *tree)
    fChain->SetBranchAddress("FATsubjetSDPhi", &FATsubjetSDPhi, &b_FATsubjetSDPhi);
    fChain->SetBranchAddress("FATsubjetSDMass", &FATsubjetSDMass, &b_FATsubjetSDMass);
    fChain->SetBranchAddress("FATsubjetSDCSV", &FATsubjetSDCSV, &b_FATsubjetSDCSV);
+   
    fChain->SetBranchAddress("THINnJet", &THINnJet, &b_THINnJet);
-   fChain->SetBranchAddress("THINjetPt", &THINjetPt, &b_THINjetPt);
-   fChain->SetBranchAddress("THINjetEta", &THINjetEta, &b_THINjetEta);
-   fChain->SetBranchAddress("THINjetPhi", &THINjetPhi, &b_THINjetPhi);
-   fChain->SetBranchAddress("THINjetMass", &THINjetMass, &b_THINjetMass);
-   fChain->SetBranchAddress("THINjetEn", &THINjetEn, &b_THINjetEn);
-   fChain->SetBranchAddress("THINgenjetPx", &THINgenjetPx, &b_THINgenjetPx);
-   fChain->SetBranchAddress("THINgenjetPy", &THINgenjetPy, &b_THINgenjetPy);
-   fChain->SetBranchAddress("THINgenjetPz", &THINgenjetPz, &b_THINgenjetPz);
-   fChain->SetBranchAddress("THINgenjetEn", &THINgenjetEn, &b_THINgenjetEn);
+   fChain->SetBranchAddress("THINgenjetP4", &THINgenjetP4, &b_THINgenjetP4);
    fChain->SetBranchAddress("THINgenjetEM", &THINgenjetEM, &b_THINgenjetEM);
    fChain->SetBranchAddress("THINgenjetHAD", &THINgenjetHAD, &b_THINgenjetHAD);
    fChain->SetBranchAddress("THINgenjetINV", &THINgenjetINV, &b_THINgenjetINV);
    fChain->SetBranchAddress("THINgenjetAUX", &THINgenjetAUX, &b_THINgenjetAUX);
    fChain->SetBranchAddress("THINmatchedDR", &THINmatchedDR, &b_THINmatchedDR);
-   fChain->SetBranchAddress("THINjetCorrUncUp", &THINjetCorrUncUp, &b_THINjetCorrUncUp);
-   fChain->SetBranchAddress("THINjetCorrUncDown", &THINjetCorrUncDown, &b_THINjetCorrUncDown);
+   fChain->SetBranchAddress("THINjetRawFactor", &THINjetRawFactor, &b_THINjetRawFactor);
+   fChain->SetBranchAddress("THINjetP4", &THINjetP4, &b_THINjetP4);
    fChain->SetBranchAddress("THINjetCharge", &THINjetCharge, &b_THINjetCharge);
    fChain->SetBranchAddress("THINjetPartonFlavor", &THINjetPartonFlavor, &b_THINjetPartonFlavor);
-   fChain->SetBranchAddress("THINjetPassID", &THINjetPassID, &b_THINjetPassID);
-   fChain->SetBranchAddress("THINjet_nSV", &THINjet_nSV, &b_THINjet_nSV);
-   fChain->SetBranchAddress("THINjet_SVMass", &THINjet_SVMass, &b_THINjet_SVMass);
-   fChain->SetBranchAddress("THINjet_SVEnergyRatio", &THINjet_SVEnergyRatio, &b_THINjet_SVEnergyRatio);
+   fChain->SetBranchAddress("THINjetPassIDLoose", &THINjetPassIDLoose, &b_THINjetPassIDLoose);
+   fChain->SetBranchAddress("THINjetPassIDTight", &THINjetPassIDTight, &b_THINjetPassIDTight);
+   fChain->SetBranchAddress("THINPUJetID", &THINPUJetID, &b_THINPUJetID);
+   fChain->SetBranchAddress("THINisPUJetID", &THINisPUJetID, &b_THINisPUJetID);
+   fChain->SetBranchAddress("THINjetCEmEF", &THINjetCEmEF, &b_THINjetCEmEF);
+   fChain->SetBranchAddress("THINjetCHadEF", &THINjetCHadEF, &b_THINjetCHadEF);
+   fChain->SetBranchAddress("THINjetPhoEF", &THINjetPhoEF, &b_THINjetPhoEF);
+   fChain->SetBranchAddress("THINjetNEmEF", &THINjetNEmEF, &b_THINjetNEmEF);
+   fChain->SetBranchAddress("THINjetNHadEF", &THINjetNHadEF, &b_THINjetNHadEF);
+   fChain->SetBranchAddress("THINjetMuEF", &THINjetMuEF, &b_THINjetMuEF);
+   fChain->SetBranchAddress("THINjetCMulti", &THINjetCMulti, &b_THINjetCMulti);
    fChain->SetBranchAddress("THINjetSSV", &THINjetSSV, &b_THINjetSSV);
-   fChain->SetBranchAddress("THINjetSSVHE", &THINjetSSVHE, &b_THINjetSSVHE);
    fChain->SetBranchAddress("THINjetCSV", &THINjetCSV, &b_THINjetCSV);
+   fChain->SetBranchAddress("THINjetSSVHE", &THINjetSSVHE, &b_THINjetSSVHE);
    fChain->SetBranchAddress("THINjetCISVV2", &THINjetCISVV2, &b_THINjetCISVV2);
    fChain->SetBranchAddress("THINjetTCHP", &THINjetTCHP, &b_THINjetTCHP);
    fChain->SetBranchAddress("THINjetTCHE", &THINjetTCHE, &b_THINjetTCHE);
    fChain->SetBranchAddress("THINjetJP", &THINjetJP, &b_THINjetJP);
    fChain->SetBranchAddress("THINjetJBP", &THINjetJBP, &b_THINjetJBP);
-   fChain->SetBranchAddress("THINjetTau1", &THINjetTau1, &b_THINjetTau1);
-   fChain->SetBranchAddress("THINjetTau2", &THINjetTau2, &b_THINjetTau2);
-   fChain->SetBranchAddress("THINjetTau3", &THINjetTau3, &b_THINjetTau3);
-   fChain->SetBranchAddress("THINjetTau4", &THINjetTau4, &b_THINjetTau4);
-   fChain->SetBranchAddress("THINjetMuEF", &THINjetMuEF, &b_THINjetMuEF);
-   fChain->SetBranchAddress("THINjetPhoEF", &THINjetPhoEF, &b_THINjetPhoEF);
-   fChain->SetBranchAddress("THINjetCEmEF", &THINjetCEmEF, &b_THINjetCEmEF);
-   fChain->SetBranchAddress("THINjetCHadEF", &THINjetCHadEF, &b_THINjetCHadEF);
-   fChain->SetBranchAddress("THINjetNEmEF", &THINjetNEmEF, &b_THINjetNEmEF);
-   fChain->SetBranchAddress("THINjetNHadEF", &THINjetNHadEF, &b_THINjetNHadEF);
-   fChain->SetBranchAddress("THINjetCMulti", &THINjetCMulti, &b_THINjetCMulti);
    fChain->SetBranchAddress("ADDnJet", &ADDnJet, &b_ADDnJet);
    fChain->SetBranchAddress("ADDjetPt", &ADDjetPt, &b_ADDjetPt);
    fChain->SetBranchAddress("ADDjetEta", &ADDjetEta, &b_ADDjetEta);
@@ -1766,7 +1762,7 @@ void RKAnalyzer::Init(TTree *tree)
    fChain->SetBranchAddress("ADDsubjetSDCSV", &ADDsubjetSDCSV, &b_ADDsubjetSDCSV);
    fChain->SetBranchAddress("hlt_nTrigs", &hlt_nTrigs, &b_hlt_nTrigs);
    fChain->SetBranchAddress("hlt_trigResult", &hlt_trigResult, &b_hlt_trigResult);
-   fChain->SetBranchAddress("trigName", &trigName, &b_trigName);
+   fChain->SetBranchAddress("hlt_trigName", &hlt_trigName, &b_hlt_trigName);
    // we may need this later
    /*
    fChain->SetBranchAddress("HPSTau_n", &HPSTau_n, &b_HPSTau_n);

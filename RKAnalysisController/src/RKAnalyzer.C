@@ -62,6 +62,7 @@ void RKAnalyzer::Loop(TString output){
      if (ientry < 0) break;
      nb = fChain->GetEntry(jentry);   nbytes += nb;
      
+       
      std::cout<<" ------------------- event number -----------------: = "<<jentry<<std::endl;
      // Clear all the collections
      ClearCollections();
@@ -101,9 +102,11 @@ void RKAnalyzer::Loop(TString output){
      // Dijet 
      std::cout<<" calling dijet maker "<<std::endl;
      // for validation 
-     if(RKJetCollection_selected.size()>0) RKdiJetCollection_selected = dijet.ReconstructDiObject(RKJetCollection_selected);
+     if(RKJetCollection_selected.size()>0) RKdiJetCollection_selected = dijet_selected.ReconstructDiObject(RKJetCollection_selected);
+     std::cout<<" made dijet selected "<<std::endl;
      // For further processing 
      if(RKJetCollection.size()>0) RKdiJetCollection = dijet.ReconstructDiObject(RKJetCollection);
+     //RKdiJetCollection = RKdiJetCollection_selected;
      std::cout<< " dijet collection size = ========== "<<RKdiJetCollection.size()<<std::endl;
 
      // DiElectron 
@@ -111,7 +114,7 @@ void RKAnalyzer::Loop(TString output){
      if(RKElectronCollection_allCutMIso.size()>0) RKdiElectronCollectionIso = dielectron.ReconstructDiObject(RKElectronCollection_allCutMIso);
 
      // DiJet Validation
-     if(debug) std::cout<<" diJet mass = "<<RKdiJetCollection[0].ResonanceProp.p4.Mag()<<std::endl;
+     if(RKdiJetCollection.size()>0) std::cout<<" diJet mass = "<<RKdiJetCollection[0].ResonanceProp.p4.Mag()<<std::endl;
      if(RKdiJetCollection.size() > 0) diJetValidator.Fill(RKdiJetCollection_selected);
      std::cout<<" dijet part done "<<std::endl;
      
@@ -129,12 +132,12 @@ void RKAnalyzer::Loop(TString output){
       
      
      // Jet-MET
-     RKjetMETCollection = jet_met.ReconstructDiObject(RKJetCollection_selected,met);
+     if(RKJetCollection_selected.size()>0) RKjetMETCollection = jet_met.ReconstructDiObject(RKJetCollection_selected,met);
      if(RKjetMETCollection.size()>0) std::cout<<" transverse mass = "<<RKjetMETCollection[0].TransverseObjProp.TransMass <<std::endl;
-     jetmetValidator.Fill(RKjetMETCollection);
+     if(RKjetMETCollection.size()>0) jetmetValidator.Fill(RKjetMETCollection);
      
      //DiJet-MET
-     RKDiJetMETCollection = dijet_met.ReconstructDiObject(RKdiJetCollection,met);
+     if(RKdiJetCollection.size()>0) RKDiJetMETCollection = dijet_met.ReconstructDiObject(RKdiJetCollection,met);
      std::cout<<" size of DIJETMET collection is = "<<RKDiJetMETCollection.size()<<std::endl;
      
      // add electron to RKDiJetMETCollectionWithStatus
@@ -148,24 +151,24 @@ void RKAnalyzer::Loop(TString output){
      if(RKDiJetMETCollection.size()>0) RKDiJetMETCollection[0].jets  = RKJetCollection_selected ;
      
      // add selection bits for baseline Analysis.
-     RKDiJetMETCollectionWithStatus = selectionbits.SelectionBitsSaver(RKDiJetMETCollection, cuts.cutValueMap);
+     if(RKDiJetMETCollection.size()>0)RKDiJetMETCollectionWithStatus = selectionbits.SelectionBitsSaver(RKDiJetMETCollection, cuts.cutValueMap);
      
      // add selection bits for ttbar control region 
-     RKDiJetMETCollectionTTBar = selectionbits.SelectionBitsSaver(RKDiJetMETCollection,cuts.cutValueMapTTBar);
+     if(RKDiJetMETCollection.size()>0) RKDiJetMETCollectionTTBar = selectionbits.SelectionBitsSaver(RKDiJetMETCollection,cuts.cutValueMapTTBar);
      
      
      // --------------------------------//
      // ---------- Histograms -----------//
      // --------------------------------//
      // fill histograms for di-jet + met vaiables. very basic and common variables.
-     dijetmetValidator.Fill(RKDiJetMETCollectionWithStatus,1); // Fill only one dijet+Met combo
+     if(RKDiJetMETCollectionWithStatus.size()>0) dijetmetValidator.Fill(RKDiJetMETCollectionWithStatus,1); // Fill only one dijet+Met combo
      
      // fill histograms for di-jet + met vaiables. Mono-H Specific histograms. 
      std::vector<int> bitVec; bitVec.clear();
-     histfac.Fill(RKDiJetMETCollectionWithStatus,1, bitVec); // empty vector for no cuts
+     if(RKDiJetMETCollectionWithStatus.size()>0) histfac.Fill(RKDiJetMETCollectionWithStatus,1, bitVec); // empty vector for no cuts
      // Following is pT,  Eta and CSV Loose
      bitVec.push_back(0); bitVec.push_back(1); bitVec.push_back(2); bitVec.push_back(3);
-     histfacJetPreSel.Fill(RKDiJetMETCollectionWithStatus,1, bitVec);
+     if(RKDiJetMETCollectionWithStatus.size()>0) histfacJetPreSel.Fill(RKDiJetMETCollectionWithStatus,1, bitVec);
      bitVec.clear();
      // Call again with different bit pattern to measure efficiency. 
      bitVec.push_back(0); bitVec.push_back(1); bitVec.push_back(2); 
@@ -177,10 +180,10 @@ void RKAnalyzer::Loop(TString output){
      if( RKDiJetMETCollectionWithStatus.size()>0)     std::cout<<" cut status main = "<<RKDiJetMETCollectionWithStatus[0].cutsStatus<<std::endl;
      
      std::cout<<" calling cutFlow "<<std::endl;
-     cutflowobj.CutFlow(RKDiJetMETCollectionWithStatus);
+     if(RKDiJetMETCollectionWithStatus.size()>0) cutflowobj.CutFlow(RKDiJetMETCollectionWithStatus);
      
      std::cout<<" calling nminus one"<<std::endl;
-     nminusobj.Fill(RKDiJetMETCollectionWithStatus);
+     if(RKDiJetMETCollectionWithStatus.size()>0) nminusobj.Fill(RKDiJetMETCollectionWithStatus);
      
      std::cout<<" calling ABCD method "<<std::endl;
      if(RKDiJetMETCollectionWithStatus.size()>0) abcd.Fill(RKDiJetMETCollectionWithStatus);
@@ -238,14 +241,14 @@ void RKAnalyzer::JetProducer(){
   std::cout<<" inside JetProducer "<<THINnJet<<std::endl;
   for(Int_t i=0;i<THINnJet;i++){
     jets.Clear();
-    TLorentzVector fourmom;
-    fourmom.SetPtEtaPhiE( (*THINjetPt)[i],
-			  (*THINjetEta)[i],
-			  (*THINjetPhi)[i],
-			  (*THINjetEn)[i]);
-    
+    TLorentzVector*  fourmom = (TLorentzVector*) THINjetP4->At(i);
+    if(false) std::cout<<" jet info = "<<fourmom->Pt()
+	     <<"  :  "<<fourmom->Eta()
+	     <<" : "<<(*THINjetCISVV2)[i]
+	     <<"  :  "<<(*THINjetCHadEF)[i]
+	     <<std::endl;
     jets.nJets                          = THINnJet;
-    jets.p4                             = fourmom;
+    jets.p4                             = *fourmom;
     jets.charge                         = (*THINjetCharge)[i];
     jets.partonFlavor                   = (*THINjetPartonFlavor)[i];
     jets.B_SSV                          = (*THINjetSSV)[i];
@@ -256,9 +259,9 @@ void RKAnalyzer::JetProducer(){
     jets.B_TCHE                         = (*THINjetTCHE)[i];
     jets.B_JP                           = (*THINjetJP)[i];
     jets.B_JBP                          = (*THINjetJBP)[i];
-    jets.tau1                           = (*THINjetTau1)[i];
-    jets.tau2                           = (*THINjetTau2)[i];
-    jets.tau3                           = (*THINjetTau3)[i];
+    jets.tau1                           = -1;
+    jets.tau2                           = -1;
+    jets.tau3                           = -1;
     jets.jetMuEF                        = (*THINjetMuEF)[i];
     jets.jetPhoEF                       = (*THINjetPhoEF)[i];
     jets.jetCEmEF                       = (*THINjetCEmEF)[i];
@@ -267,8 +270,8 @@ void RKAnalyzer::JetProducer(){
     jets.jetNHadEF                      = (*THINjetNHadEF)[i];
     jets.jetCMulti                      = (*THINjetCMulti)[i];
     
-    float pt  = (*THINjetPt )[i]                         ;
-    float eta_ = (*THINjetEta)[i]                         ; 
+    float pt  = fourmom->Pt();
+    float eta_ = fourmom->Eta();
     float csv = (*THINjetCISVV2)[i]                      ;
     jets.ispT30_         =   pt > 30.                         ;
     jets.ispT50_         =   pt > 50.                         ;
@@ -283,25 +286,9 @@ void RKAnalyzer::JetProducer(){
                         fabs(eta_) < 2.5 && 
                         csv > 0.432                      ;
     
-    
-    
-    // not in NCU Global tuple right now
-    /*
-      jets.jetHFHadEF                     = (*THINjetHFHadEF)[i];
-    jets.jetHFEMEF                      = (*THINjetHFEMEF)[i];
-    jets.jetCHHadMultiplicity           = (*THINjetCHHadMultiplicity)[i];
-    jets.jetNHadMulplicity              = (*THINjetNHadMulplicity)[i];
-    jets.jetPhMultiplicity              = (*THINjetPhMultiplicity)[i];
-    jets.jetEleMultiplicity             = (*THINjetEleMultiplicity)[i];
-    jets.jetHFHadMultiplicity           = (*THINjetHFHadMultiplicity)[i];
-    jets.jetHFEMMultiplicity            = (*THINjetHFEMMultiplicity)[i];
-    jets.jetChMuEF                      = (*THINjetChMuEF)[i];
-    jets.jetNMultiplicity               = (*THINjetNMultiplicity)[i];
-    jets.jetHOEnergy                    = (*THINjetHOEnergy)[i];
-    jets.jetHOEF                        = (*THINjetHOEF)[i];
-    */
     RKJetCollection.push_back(jets);
-    if(fabs(fourmom.Eta())<2.5 && jets.B_CISVV2 > 0.432 && fourmom.Pt() > 30. && RKJetCollection.size()<4 )     RKJetCollection_selected.push_back(jets);
+    RKJetCollection_selected.push_back(jets);
+    //if(fabs(fourmom->Eta())<2.5 && jets.B_CISVV2 > 0.432 && fourmom->Pt() > 30. && RKJetCollection.size()<4 )     RKJetCollection_selected.push_back(jets);
     //RKJetCollection_selected.push_back(jets);
     
   }
@@ -332,14 +319,10 @@ void RKAnalyzer::MuonProducer(){
   std::cout<< " inside muon producer "<<std::endl;
   for(size_t i=0; i<(size_t) nMu; i++){
     muons.Clear();
-    TLorentzVector fourmom;
-    fourmom.SetPtEtaPhiM((*muPt)[i], 
-			 (*muEta)[i], 
-			 (*muPhi)[i], 
-			 (*muM)[i] );
-    muons.p4      = fourmom ;
+    TLorentzVector*  fourmom = (TLorentzVector*) muP4->At(i);
+    muons.p4      = *fourmom ;
     muons.charge  = (*muCharge)[i] ;
-    if(fourmom.Pt() > 20 && fabs(fourmom.Eta())<2.4 && (*isPFMuon)[i] == 1) RKMuonCollection.push_back(muons);
+    if(fourmom->Pt() > 20 && fabs(fourmom->Eta())<2.4 && (*isPFMuon)[i] == 1) RKMuonCollection.push_back(muons);
   }
 }
 
@@ -351,14 +334,14 @@ void RKAnalyzer::ElectronProducer(){
 
   ElectronSelectionBitsProducer eleselectbits;
   for(size_t i=0; i<(size_t) nEle; i++){
-    TLorentzVector*  fourmom = (TLorentzVector*) patElecP4->At(i);
+    TLorentzVector*  fourmom = (TLorentzVector*) eleP4->At(i);
     float eA =EAElectron::EA(fourmom->Eta());
     electrons.p4         = (*fourmom); 
-    electrons.IsPassVeto  =  (*isPassVeto)[i]  ; 
-    electrons.IsPassLoose  =  (*isPassLoose)[i]  ; 
-    electrons.IsPassMedium  =  (*isPassMedium)[i]  ; 
-    electrons.IsPassTight  =  (*isPassTight)[i]  ; 
-    electrons.IsPassHEEP  =  (*isPassHEEP)[i]  ;  
+    electrons.IsPassVeto  =  (*eleIsPassVeto)[i]  ; 
+    electrons.IsPassLoose  =  (*eleIsPassLoose)[i]  ; 
+    electrons.IsPassMedium  =  (*eleIsPassMedium)[i]  ; 
+    electrons.IsPassTight  =  (*eleIsPassTight)[i]  ; 
+    electrons.IsPassHEEP  =  (*eleIsPassHEEP)[i]  ;  
     electrons.IsMVATrig  =  false  ;  //Add This
     electrons.IsMVANonTrig  =  -999  ;
     electrons.MVATrig  =  -999.;
@@ -389,7 +372,7 @@ void RKAnalyzer::ElectronProducer(){
     electrons.dz  =  (*eleDz)[i]  ;
     electrons.expectedMissingInnerHits  =  (*eleMissHits)[i]  ;
     electrons.passConversionVeto  =  (*eleConvVeto)[i]  ;
-    electrons.nVtx    =  info_nVtx;
+    electrons.nVtx    =  nVtx;
 
     electrons.barrel  =  (*eleInBarrel)[i]  ; 
     electrons.endcap  =  (*eleInEndcap)[i]  ; 
@@ -412,10 +395,10 @@ void RKAnalyzer::ElectronProducer(){
     if(triggerstatus && fourmom->Pt() > 20 && fabs(fourmom->Eta())<2.5 && (*eleInBarrel)[i] ==1 )  RKElectronCollection_barrel.push_back(electrons);
     if(triggerstatus && fourmom->Pt() > 20 && fabs(fourmom->Eta())<2.5 && (*eleInEndcap)[i]==1  )    RKElectronCollection_endcap.push_back(electrons);
 
-    if(triggerstatus && fourmom->Pt() > 20 && fabs(fourmom->Eta())<2.5 && (*isPassMedium)[i]==1)  RKElectronCollection_allCutM.push_back(electrons);
+    if(triggerstatus && fourmom->Pt() > 20 && fabs(fourmom->Eta())<2.5 && (*eleIsPassMedium)[i]==1)  RKElectronCollection_allCutM.push_back(electrons);
     bool isobarrel =  electrons.barrel && (electrons.isoRho ) < 0.107587;
     bool isoendcap =  electrons.endcap && (electrons.isoRho ) < 0.113254;
-    if(triggerstatus && fourmom->Pt() > 20 && fabs(fourmom->Eta())<2.5 && (*isPassMedium)[i]==1 && (isobarrel || isoendcap) )  RKElectronCollection_allCutMIso.push_back(electrons);
+    if(triggerstatus && fourmom->Pt() > 20 && fabs(fourmom->Eta())<2.5 && (*eleIsPassMedium)[i]==1 && (isobarrel || isoendcap) )  RKElectronCollection_allCutMIso.push_back(electrons);
     
   }
   std::cout<<" electron collection filled " <<std::endl;
@@ -503,7 +486,7 @@ bool RKAnalyzer::TriggerStatus(std::string TRIGNAME){
   bool triggerstat=false;
   std::cout<<" number of triggers = "<<(*hlt_trigResult).size()<<std::endl;
   for(size_t i =0; i < (*hlt_trigResult).size() ; i++) {
-    std::string trigname = (*trigName)[i];
+    std::string trigname = (*hlt_trigName)[i];
     size_t foundEle00=trigname.find(TRIGNAME);//HLT_DoubleEle33
     if ( foundEle00==std::string::npos) continue;
     
