@@ -57,21 +57,13 @@ void Synchronization::Fill(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > o
     // Leading- SubLeading DPhi
   if(objectCollection.size()>0){
     for(size_t i=0; i< objectCollection.size();i++){
+      
+      if(jetcollection.size()==1 && isleadingjet)  {
+	sync_->Fill(3);
+	isdphi=true;
+      }
 
-      //std::cout<<
-      //std::cout<<" nVtx in Fill == "<<objectCollection[i].jet1.jet1.nVtx<<std::endl;
-      //if(objectCollection[i].jet1.jet1.nVtx > 0 && !isvtx) {
-      //	sync_->Fill(1);
-      //	isvtx=true;
-      //}	
-      //
-      if( objectCollection[i].jet1.jet1.p4.Pt() > 110.
-	  && objectCollection[i].jet1.jet1.jetCHadEF > 0.2
-	  && objectCollection[i].jet1.jet1.jetNHadEF < 0.7
-	  && objectCollection[i].jet1.jet1.jetNEmEF < 0.7
-	  && isvtx
-	  //if(//objectCollection[i].jet1.jet2.isLooseJet_
-	 //&& objectCollection[i].jet1.jet2.isPUJet_
+      if( isleadingjet
 	 && objectCollection[i].jet1.jet2.jetNHadEF < 0.7
 	 && objectCollection[i].jet1.jet2.jetNEmEF < 0.9
 	 && TMath::Abs(objectCollection[i].jet1.ResonanceProp.DeltaPhi) < 2.5
