@@ -68,6 +68,7 @@ void RKAnalyzer::Loop(TString output){
      ClearCollections();
      
      triggerstatus = TriggerStatus("HLT_Ele17_Ele12_CaloIdL_TrackIdL_IsoVL_DZ");
+
      // Produce jet collection for analysis and validation of object variables.
      JetProducer();
      // Produce MET collection for analysis and validation of object.
@@ -477,7 +478,6 @@ void RKAnalyzer::TotalEvent(TH1F* h){
   h->Write();
 
 }
-
 
 
 
