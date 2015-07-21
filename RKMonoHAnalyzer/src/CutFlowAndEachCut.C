@@ -6,7 +6,7 @@ void  CutFlowAndEachCut::CutFlow(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET
   if(objectCollection.size()>0){
     for(int i=0; i<(int)objectCollection.size();i++){
       if(i<2) { // i = 0, i = 1 ; save only two combinations not more than that. 
-	std::cout<<" bit size = "<<objectCollection[i].cutsStatus.size()
+	if(false) std::cout<<" bit size = "<<objectCollection[i].cutsStatus.size()
 		 <<" content = "<<objectCollection[i].cutsStatus
 		 <<std::endl;
 	// ---- For each cut 
@@ -21,7 +21,7 @@ void  CutFlowAndEachCut::CutFlow(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET
 	  int a = (int) objectCollection[i].cutsStatus[ibin];
 	  if(objectCollection[i].cutsStatus.test(ibin)){
 	    h_cutflow[i]->Fill(ibin*a);
-	    std::cout<<" bin val = "<<a<<std::endl;
+	    if(false) std::cout<<" bin val = "<<a<<std::endl;
 	  }
 	  else break;
 	}// End of For Cut Flow
@@ -35,9 +35,9 @@ void  CutFlowAndEachCut::CutFlow(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET
 void CutFlowAndEachCut::GetInputs(TFile* f, TString prefix_){
   prefix = prefix_;
   file = f;
-  std::cout<<" calling define histograms for MET "<<std::endl;
+  if(false) std::cout<<" calling define histograms for MET "<<std::endl;
   DefineHistograms();
-  std::cout<<" MET histo defined "<<std::endl;
+  if(false) std::cout<<" MET histo defined "<<std::endl;
 }
 
 

@@ -23,6 +23,7 @@
 #include "../../RKDataFormats/interface/MET.h"
 #include "../../RKDataFormats/interface/Muon.h"
 #include "../../RKDataFormats/interface/Electron.h"
+#include "../../RKDataFormats/interface/Event.h"
 
 #include "../../RKDataFormats/interface/Resonance.h"
 #include "../../RKObjectValidator/interface/JetValidator.h"
@@ -42,6 +43,8 @@
 #include "../../RKUtilities/interface/DYAnalysisCuts.h" 
 #include "../../RKDYAnalysis/interface/ElectronSelectionBitsProducer.h"
 #include "../../RKDYAnalysis/interface/ElectronNMinusOne.h"
+#include "../../RKMonoHAnalyzer/interface/Synchronization.h" 
+
 using namespace std;
 // Fixed size dimensions of array or collections stored in the TTree if any.
 const Int_t kMaxmuInnerdxy = 1;
@@ -76,6 +79,10 @@ class RKAnalyzer {
    Muon muons;
    //Electrons
    Electron electrons;
+   //Photons
+   Muon photons;
+   //Event
+   Event events;
    // Dijets
    TwoObjectCombination<Jet,Jet> dijet;
    TwoObjectCombination<Jet,Jet> dijet_selected;
@@ -86,7 +93,10 @@ class RKAnalyzer {
    ObjectMETCombination<Jet,MET> jet_met;
    //DiObject-MET
    TwoObjectMETCombination< Resonance<Jet,Jet>,MET > dijet_met;
-   
+
+   // Synchronize
+   Synchronization syncmonoh;
+
    
    // Physics Object Validator 
    // jet 
@@ -122,6 +132,8 @@ class RKAnalyzer {
    std::vector<Jet> RKJetCollection_selected;
    //Muons
    std::vector<Muon> RKMuonCollection;
+   //Photon
+   std::vector<Muon> RKPhotonCollection; // Using Muon for photon
    //Electron
    std::vector<Electron> RKElectronCollection;
    std::vector<Electron> RKElectronCollection_barrel;
@@ -457,6 +469,7 @@ class RKAnalyzer {
    TClonesArray    *THINjetP4;
    vector<int>     *THINjetCharge;
    vector<int>     *THINjetPartonFlavor;
+   
    vector<bool>    *THINjetPassIDLoose;
    vector<bool>    *THINjetPassIDTight;
    vector<float>   *THINPUJetID;
@@ -468,6 +481,7 @@ class RKAnalyzer {
    vector<float>   *THINjetNHadEF;
    vector<float>   *THINjetMuEF;
    vector<int>     *THINjetCMulti;
+
    vector<float>   *THINjetSSV;
    vector<float>   *THINjetCSV;
    vector<float>   *THINjetSSVHE;
@@ -550,6 +564,7 @@ class RKAnalyzer {
    Int_t           hlt_nTrigs;
    vector<bool>     *hlt_trigResult;
    vector<string>  *hlt_trigName;
+
    
    // List of branches
    //   TBranch        *b_pu_nTrueInt;   //!
@@ -850,6 +865,7 @@ class RKAnalyzer {
    TBranch        *b_THINjetPartonFlavor;   //!
    TBranch        *b_THINjetPassIDLoose;   //!
    TBranch        *b_THINjetPassIDTight;   //!
+   
    TBranch        *b_THINPUJetID;   //!
    TBranch        *b_THINisPUJetID;   //!
    TBranch        *b_THINjetCEmEF;   //!
@@ -859,6 +875,7 @@ class RKAnalyzer {
    TBranch        *b_THINjetNHadEF;   //!
    TBranch        *b_THINjetMuEF;   //!
    TBranch        *b_THINjetCMulti;   //!
+
    TBranch        *b_THINjetSSV;   //!
    TBranch        *b_THINjetCSV;   //!
    TBranch        *b_THINjetSSVHE;   //!
@@ -962,6 +979,9 @@ class RKAnalyzer {
    void ElectronProducer();
    // fill all the muon variables in the vector 
    void MuonProducer();
+   void PhotonProducer();
+   void TauProducer();
+
 };
 
 #endif
@@ -974,10 +994,12 @@ class RKAnalyzer {
 // if parameter tree is not specified (or zero), connect the file
 // used to generate this class and read the Tree.
 
+
   //TString filename="/hdfs/store/user/khurana/SingleElectron/crab_SingleElectron_Run2015B-PromptReco-v1/150713_071520/0000/NCUGlobalTuples_89.root";
   //TString filename="/hdfs/store/user/khurana/SingleElectron/crab_SingleElectron_Run2015B-PromptReco-v1/150713_071520/0000/NCUGlobalTuples_108.root";
   //TString filename="/hdfs/store/user/khurana/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/crab_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_HLT/150713_072349/0000/NCUGlobalTuples_1.root";
   TString filename="/hdfs/store/user/khurana/SingleElectron/crab_SingleElectron_Run2015B-PromptReco-v1_JSON/150720_204200/0000/NCUGlobalTuples_10.root";
+
    if (tree == 0) {
      //f = (TFile*)gROOT->GetListOfFiles()->FindObject("InputRootFile/NCUGlobalTuples_10.root");
      
@@ -1290,9 +1312,11 @@ void RKAnalyzer::Init(TTree *tree)
    THINjetRawFactor = 0;
    THINjetP4 = 0;
    THINjetCharge = 0;
+   THINPUJetID = 0;
    THINjetPartonFlavor = 0;
    THINjetPassIDLoose = 0;
    THINjetPassIDTight = 0;
+
    THINPUJetID = 0;
    THINisPUJetID = 0;
    THINjetCEmEF = 0;
@@ -1302,6 +1326,7 @@ void RKAnalyzer::Init(TTree *tree)
    THINjetNHadEF = 0;
    THINjetMuEF = 0;
    THINjetCMulti = 0;
+
    THINjetSSV = 0;
    THINjetCSV = 0;
    THINjetSSVHE = 0;
@@ -1378,7 +1403,9 @@ void RKAnalyzer::Init(TTree *tree)
    ADDsubjetSDMass = 0;
    ADDsubjetSDCSV = 0;
    hlt_trigResult = 0;
+
    hlt_trigName = 0;
+
 
    // Set branch addresses and branch pointers
    if (!tree) return;
@@ -1673,6 +1700,7 @@ void RKAnalyzer::Init(TTree *tree)
    fChain->SetBranchAddress("THINjetRawFactor", &THINjetRawFactor, &b_THINjetRawFactor);
    fChain->SetBranchAddress("THINjetP4", &THINjetP4, &b_THINjetP4);
    fChain->SetBranchAddress("THINjetCharge", &THINjetCharge, &b_THINjetCharge);
+   fChain->SetBranchAddress("THINPUJetID", &THINPUJetID, &b_THINPUJetID);
    fChain->SetBranchAddress("THINjetPartonFlavor", &THINjetPartonFlavor, &b_THINjetPartonFlavor);
    fChain->SetBranchAddress("THINjetPassIDLoose", &THINjetPassIDLoose, &b_THINjetPassIDLoose);
    fChain->SetBranchAddress("THINjetPassIDTight", &THINjetPassIDTight, &b_THINjetPassIDTight);
@@ -1685,6 +1713,7 @@ void RKAnalyzer::Init(TTree *tree)
    fChain->SetBranchAddress("THINjetNHadEF", &THINjetNHadEF, &b_THINjetNHadEF);
    fChain->SetBranchAddress("THINjetMuEF", &THINjetMuEF, &b_THINjetMuEF);
    fChain->SetBranchAddress("THINjetCMulti", &THINjetCMulti, &b_THINjetCMulti);
+
    fChain->SetBranchAddress("THINjetSSV", &THINjetSSV, &b_THINjetSSV);
    fChain->SetBranchAddress("THINjetCSV", &THINjetCSV, &b_THINjetCSV);
    fChain->SetBranchAddress("THINjetSSVHE", &THINjetSSVHE, &b_THINjetSSVHE);
@@ -1764,73 +1793,8 @@ void RKAnalyzer::Init(TTree *tree)
    fChain->SetBranchAddress("hlt_nTrigs", &hlt_nTrigs, &b_hlt_nTrigs);
    fChain->SetBranchAddress("hlt_trigResult", &hlt_trigResult, &b_hlt_trigResult);
    fChain->SetBranchAddress("hlt_trigName", &hlt_trigName, &b_hlt_trigName);
-   // we may need this later
-   /*
-   fChain->SetBranchAddress("HPSTau_n", &HPSTau_n, &b_HPSTau_n);
-   fChain->SetBranchAddress("taupt", &taupt, &b_taupt);
-   fChain->SetBranchAddress("HPSTau_4Momentum", &HPSTau_4Momentum, &b_HPSTau_4Momentum);
-   fChain->SetBranchAddress("HPSTau_Vposition", &HPSTau_Vposition, &b_HPSTau_Vposition);
-   fChain->SetBranchAddress("HPSTau_leadPFChargedHadrCand", &HPSTau_leadPFChargedHadrCand, &b_HPSTau_leadPFChargedHadrCand);
-   fChain->SetBranchAddress("HPSTau_leadPFChargedHadrCand_trackRef", &HPSTau_leadPFChargedHadrCand_trackRef, &b_HPSTau_leadPFChargedHadrCand_trackRef);
-   fChain->SetBranchAddress("disc_againstElectronLoose", &disc_againstElectronLoose, &b_disc_againstElectronLoose);
-   fChain->SetBranchAddress("disc_againstElectronMedium", &disc_againstElectronMedium, &b_disc_againstElectronMedium);
-   fChain->SetBranchAddress("disc_againstElectronTight", &disc_againstElectronTight, &b_disc_againstElectronTight);
-   fChain->SetBranchAddress("disc_againstElectronLooseMVA5", &disc_againstElectronLooseMVA5, &b_disc_againstElectronLooseMVA5);
-   fChain->SetBranchAddress("disc_againstElectronMediumMVA5", &disc_againstElectronMediumMVA5, &b_disc_againstElectronMediumMVA5);
-   fChain->SetBranchAddress("disc_againstElectronTightMVA5", &disc_againstElectronTightMVA5, &b_disc_againstElectronTightMVA5);
-   fChain->SetBranchAddress("disc_againstElectronVLooseMVA5", &disc_againstElectronVLooseMVA5, &b_disc_againstElectronVLooseMVA5);
-   fChain->SetBranchAddress("disc_againstElectronVTightMVA5", &disc_againstElectronVTightMVA5, &b_disc_againstElectronVTightMVA5);
-   fChain->SetBranchAddress("disc_againstMuonLoose", &disc_againstMuonLoose, &b_disc_againstMuonLoose);
-   fChain->SetBranchAddress("disc_againstMuonMedium", &disc_againstMuonMedium, &b_disc_againstMuonMedium);
-   fChain->SetBranchAddress("disc_againstMuonTight", &disc_againstMuonTight, &b_disc_againstMuonTight);
-   fChain->SetBranchAddress("disc_againstMuonLoose2", &disc_againstMuonLoose2, &b_disc_againstMuonLoose2);
-   fChain->SetBranchAddress("disc_againstMuonMedium2", &disc_againstMuonMedium2, &b_disc_againstMuonMedium2);
-   fChain->SetBranchAddress("disc_againstMuonTight2", &disc_againstMuonTight2, &b_disc_againstMuonTight2);
-   fChain->SetBranchAddress("disc_againstMuonLooseMVA", &disc_againstMuonLooseMVA, &b_disc_againstMuonLooseMVA);
-   fChain->SetBranchAddress("disc_againstMuonMediumMVA", &disc_againstMuonMediumMVA, &b_disc_againstMuonMediumMVA);
-   fChain->SetBranchAddress("disc_againstMuonTightMVA", &disc_againstMuonTightMVA, &b_disc_againstMuonTightMVA);
-   fChain->SetBranchAddress("disc_againstMuonLoose3", &disc_againstMuonLoose3, &b_disc_againstMuonLoose3);
-   fChain->SetBranchAddress("disc_againstMuonTight3", &disc_againstMuonTight3, &b_disc_againstMuonTight3);
-   fChain->SetBranchAddress("disc_byVLooseCombinedIsolationDeltaBetaCorr", &disc_byVLooseCombinedIsolationDeltaBetaCorr, &b_disc_byVLooseCombinedIsolationDeltaBetaCorr);
-   fChain->SetBranchAddress("disc_byLooseCombinedIsolationDeltaBetaCorr", &disc_byLooseCombinedIsolationDeltaBetaCorr, &b_disc_byLooseCombinedIsolationDeltaBetaCorr);
-   fChain->SetBranchAddress("disc_byMediumCombinedIsolationDeltaBetaCorr", &disc_byMediumCombinedIsolationDeltaBetaCorr, &b_disc_byMediumCombinedIsolationDeltaBetaCorr);
-   fChain->SetBranchAddress("disc_byTightCombinedIsolationDeltaBetaCorr", &disc_byTightCombinedIsolationDeltaBetaCorr, &b_disc_byTightCombinedIsolationDeltaBetaCorr);
-   fChain->SetBranchAddress("disc_byLooseIsolation", &disc_byLooseIsolation, &b_disc_byLooseIsolation);
-   fChain->SetBranchAddress("disc_byVLooseIsolationMVA3newDMwLT", &disc_byVLooseIsolationMVA3newDMwLT, &b_disc_byVLooseIsolationMVA3newDMwLT);
-   fChain->SetBranchAddress("disc_byLooseIsolationMVA3newDMwLT", &disc_byLooseIsolationMVA3newDMwLT, &b_disc_byLooseIsolationMVA3newDMwLT);
-   fChain->SetBranchAddress("disc_byMediumIsolationMVA3newDMwLT", &disc_byMediumIsolationMVA3newDMwLT, &b_disc_byMediumIsolationMVA3newDMwLT);
-   fChain->SetBranchAddress("disc_byTightIsolationMVA3newDMwLT", &disc_byTightIsolationMVA3newDMwLT, &b_disc_byTightIsolationMVA3newDMwLT);
-   fChain->SetBranchAddress("disc_byVTightIsolationMVA3newDMwLT", &disc_byVTightIsolationMVA3newDMwLT, &b_disc_byVTightIsolationMVA3newDMwLT);
-   fChain->SetBranchAddress("disc_byVVTightIsolationMVA3newDMwLT", &disc_byVVTightIsolationMVA3newDMwLT, &b_disc_byVVTightIsolationMVA3newDMwLT);
-   fChain->SetBranchAddress("disc_byVLooseIsolationMVA3newDMwoLT", &disc_byVLooseIsolationMVA3newDMwoLT, &b_disc_byVLooseIsolationMVA3newDMwoLT);
-   fChain->SetBranchAddress("disc_byLooseIsolationMVA3newDMwoLT", &disc_byLooseIsolationMVA3newDMwoLT, &b_disc_byLooseIsolationMVA3newDMwoLT);
-   fChain->SetBranchAddress("disc_byMediumIsolationMVA3newDMwoLT", &disc_byMediumIsolationMVA3newDMwoLT, &b_disc_byMediumIsolationMVA3newDMwoLT);
-   fChain->SetBranchAddress("disc_byTightIsolationMVA3newDMwoLT", &disc_byTightIsolationMVA3newDMwoLT, &b_disc_byTightIsolationMVA3newDMwoLT);
-   fChain->SetBranchAddress("disc_byVTightIsolationMVA3newDMwoLT", &disc_byVTightIsolationMVA3newDMwoLT, &b_disc_byVTightIsolationMVA3newDMwoLT);
-   fChain->SetBranchAddress("disc_byVVTightIsolationMVA3newDMwoLT", &disc_byVVTightIsolationMVA3newDMwoLT, &b_disc_byVVTightIsolationMVA3newDMwoLT);
-   fChain->SetBranchAddress("disc_byVLooseIsolationMVA3oldDMwLT", &disc_byVLooseIsolationMVA3oldDMwLT, &b_disc_byVLooseIsolationMVA3oldDMwLT);
-   fChain->SetBranchAddress("disc_byLooseIsolationMVA3oldDMwLT", &disc_byLooseIsolationMVA3oldDMwLT, &b_disc_byLooseIsolationMVA3oldDMwLT);
-   fChain->SetBranchAddress("disc_byMediumIsolationMVA3oldDMwLT", &disc_byMediumIsolationMVA3oldDMwLT, &b_disc_byMediumIsolationMVA3oldDMwLT);
-   fChain->SetBranchAddress("disc_byTightIsolationMVA3oldDMwLT", &disc_byTightIsolationMVA3oldDMwLT, &b_disc_byTightIsolationMVA3oldDMwLT);
-   fChain->SetBranchAddress("disc_byVTightIsolationMVA3oldDMwLT", &disc_byVTightIsolationMVA3oldDMwLT, &b_disc_byVTightIsolationMVA3oldDMwLT);
-   fChain->SetBranchAddress("disc_byVVTightIsolationMVA3oldDMwLT", &disc_byVVTightIsolationMVA3oldDMwLT, &b_disc_byVVTightIsolationMVA3oldDMwLT);
-   fChain->SetBranchAddress("disc_byVLooseIsolationMVA3oldDMwoLT", &disc_byVLooseIsolationMVA3oldDMwoLT, &b_disc_byVLooseIsolationMVA3oldDMwoLT);
-   fChain->SetBranchAddress("disc_byLooseIsolationMVA3oldDMwoLT", &disc_byLooseIsolationMVA3oldDMwoLT, &b_disc_byLooseIsolationMVA3oldDMwoLT);
-   fChain->SetBranchAddress("disc_byMediumIsolationMVA3oldDMwoLT", &disc_byMediumIsolationMVA3oldDMwoLT, &b_disc_byMediumIsolationMVA3oldDMwoLT);
-   fChain->SetBranchAddress("disc_byTightIsolationMVA3oldDMwoLT", &disc_byTightIsolationMVA3oldDMwoLT, &b_disc_byTightIsolationMVA3oldDMwoLT);
-   fChain->SetBranchAddress("disc_byVTightIsolationMVA3oldDMwoLT", &disc_byVTightIsolationMVA3oldDMwoLT, &b_disc_byVTightIsolationMVA3oldDMwoLT);
-   fChain->SetBranchAddress("disc_byVVTightIsolationMVA3oldDMwoLT", &disc_byVVTightIsolationMVA3oldDMwoLT, &b_disc_byVVTightIsolationMVA3oldDMwoLT);
-   fChain->SetBranchAddress("disc_byLooseCombinedIsolationDeltaBetaCorr3Hits", &disc_byLooseCombinedIsolationDeltaBetaCorr3Hits, &b_disc_byLooseCombinedIsolationDeltaBetaCorr3Hits);
-   fChain->SetBranchAddress("disc_byMediumCombinedIsolationDeltaBetaCorr3Hits", &disc_byMediumCombinedIsolationDeltaBetaCorr3Hits, &b_disc_byMediumCombinedIsolationDeltaBetaCorr3Hits);
-   fChain->SetBranchAddress("disc_byTightCombinedIsolationDeltaBetaCorr3Hits", &disc_byTightCombinedIsolationDeltaBetaCorr3Hits, &b_disc_byTightCombinedIsolationDeltaBetaCorr3Hits);
-   fChain->SetBranchAddress("disc_decayModeFinding", &disc_decayModeFinding, &b_disc_decayModeFinding);
-   fChain->SetBranchAddress("disc_decayModeFindingNewDMs", &disc_decayModeFindingNewDMs, &b_disc_decayModeFindingNewDMs);
-   fChain->SetBranchAddress("disc_chargedIsoPtSum", &disc_chargedIsoPtSum, &b_disc_chargedIsoPtSum);
-   fChain->SetBranchAddress("disc_neutralIsoPtSum", &disc_neutralIsoPtSum, &b_disc_neutralIsoPtSum);
-   fChain->SetBranchAddress("disc_puCorrPtSum", &disc_puCorrPtSum, &b_disc_puCorrPtSum);
-   fChain->SetBranchAddress("HPSTau_NewVz", &HPSTau_NewVz, &b_HPSTau_NewVz);
-   fChain->SetBranchAddress("HPSTau_charge", &HPSTau_charge, &b_HPSTau_charge);
-   */
+
+
    Notify();
 }
 

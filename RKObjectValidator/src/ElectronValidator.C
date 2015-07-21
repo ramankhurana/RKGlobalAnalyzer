@@ -121,9 +121,11 @@ void ElectronValidator::Fill(std::vector<Electron> electroncollection){
 void ElectronValidator::GetInputs(TFile* f, TString prefix_){
   prefix = prefix_;
   file = f;
-  std::cout<<" calling define histograms for Electron "<<std::endl;
+
+  if(false) std::cout<<" calling define histograms for Jets "<<std::endl;
   DefineHistograms();
-  std::cout<<" Electrons histo defined "<<std::endl;
+  if(false) std::cout<<" Jets histo defined "<<std::endl;
+
 }
 
 

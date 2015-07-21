@@ -9,7 +9,7 @@
 using namespace std;
 void RKAnalyzer::Loop(TString output){
   bool debug=false;
-  std::cout<<" output = "<<output<<std::endl;
+  if(false) std::cout<<" output = "<<output<<std::endl;
   nEvents = new TH1F("nEvents","",2,0,2);
   //nEvents = dynamic_cast<TH1F*> (f->Get("allEventsCounter/totalEvents"));
   
@@ -45,16 +45,16 @@ void RKAnalyzer::Loop(TString output){
   histfac.GetInputs(fout,"NoCut");
   histfacJetPreSel.GetInputs(fout,"JetPreSel");
   //histfacJetHardPreSel.GetInputs(fout,"JetHardPreSel");
-  
-  abcd.GetInputs(fout,"ABCD");
+  syncmonoh.GetInputs(fout,"syncSig");
+  //abcd.GetInputs(fout,"ABCD");
   
   if(debug) std::cout<<" Sending information to JetValidator "<<std::endl;
   if (fChain == 0) return;
   
   Long64_t nentries = fChain->GetEntriesFast();
   
-  std::cout<<" nevents ====== "<<nentries<<std::endl;
   //nentries = 100;
+  if(false) std::cout<<" nevents ====== "<<nentries<<std::endl;
   Long64_t nbytes = 0, nb = 0;
    for (Long64_t jentry=0; jentry<nentries;jentry++) {
      nEvents->Fill(1);
@@ -62,12 +62,19 @@ void RKAnalyzer::Loop(TString output){
      if (ientry < 0) break;
      nb = fChain->GetEntry(jentry);   nbytes += nb;
      
-       
      std::cout<<" ------------------- event number -----------------: = "<<jentry<<std::endl;
      // Clear all the collections
      ClearCollections();
      
      triggerstatus = TriggerStatus("HLT_Ele17_Ele12_CaloIdL_TrackIdL_IsoVL_DZ");
+
+
+     events.run = runId;
+     events.lumi = lumiSection;
+     events.event = eventId;
+     // Clear all the collections
+     ClearCollections();
+     
 
      // Produce jet collection for analysis and validation of object variables.
      JetProducer();
@@ -84,6 +91,7 @@ void RKAnalyzer::Loop(TString output){
      if(RKElectronCollection_endcap.size()>0) elenminusoneobjE.Fill(RKElectronCollection_endcap);
      
      // Fill Validation Histograms for Jets
+
      std::cout<<" Jet Validator no sel"<<std::endl;
      if(RKJetCollection.size()>0) jetvalidator.Fill(RKJetCollection);
      std::cout<<" Jet Validator with sel"<<std::endl;
@@ -101,14 +109,15 @@ void RKAnalyzer::Loop(TString output){
      metvalidator.Fill(met);
      
      // Dijet 
-     std::cout<<" calling dijet maker "<<std::endl;
      // for validation 
      if(RKJetCollection_selected.size()>0) RKdiJetCollection_selected = dijet_selected.ReconstructDiObject(RKJetCollection_selected);
      std::cout<<" made dijet selected "<<std::endl;
      // For further processing 
+
      if(RKJetCollection.size()>0) RKdiJetCollection = dijet.ReconstructDiObject(RKJetCollection);
      //RKdiJetCollection = RKdiJetCollection_selected;
      std::cout<< " dijet collection size = ========== "<<RKdiJetCollection.size()<<std::endl;
+
 
      // DiElectron 
      if(RKElectronCollection_allCutM.size()>0) RKdiElectronCollection = dielectron.ReconstructDiObject(RKElectronCollection_allCutM);
@@ -117,22 +126,19 @@ void RKAnalyzer::Loop(TString output){
      // DiJet Validation
      if(RKdiJetCollection.size()>0) std::cout<<" diJet mass = "<<RKdiJetCollection[0].ResonanceProp.p4.Mag()<<std::endl;
      if(RKdiJetCollection.size() > 0) diJetValidator.Fill(RKdiJetCollection_selected);
-     std::cout<<" dijet part done "<<std::endl;
+     if(debug) std::cout<<" dijet part done "<<std::endl;
      
      if(RKdiElectronCollection.size()>0)     diElectronValidator.Fill(RKdiElectronCollection);
      if(RKdiElectronCollectionIso.size()>0)  diElectronValidatorIso.Fill(RKdiElectronCollectionIso);
      
-     std::cout<<" before sorting "<<std::endl;
+     if(debug)      std::cout<<" before sorting "<<std::endl;
      // Dijet Vector Sorting wrt pT of diJet candidate 
-     for(size_t idj=0; idj<RKdiJetCollection.size();idj++){
-       std::cout<<" mass = "<<RKdiJetCollection[idj].ResonanceProp.p4.Pt()
-		<<std::endl;;
-     }
      std::sort(RKdiJetCollection.begin(), RKdiJetCollection.end(), DiJetpTSorting() );
-     std::cout<<" after sorting "<<std::endl;
+     if(debug) std::cout<<" after sorting "<<std::endl;
       
      
      // Jet-MET
+
      if(RKJetCollection_selected.size()>0) RKjetMETCollection = jet_met.ReconstructDiObject(RKJetCollection_selected,met);
      if(RKjetMETCollection.size()>0) std::cout<<" transverse mass = "<<RKjetMETCollection[0].TransverseObjProp.TransMass <<std::endl;
      if(RKjetMETCollection.size()>0) jetmetValidator.Fill(RKjetMETCollection);
@@ -143,10 +149,10 @@ void RKAnalyzer::Loop(TString output){
      
      // add electron to RKDiJetMETCollectionWithStatus
      if(RKDiJetMETCollection.size()>0) RKDiJetMETCollection[0].electrons = RKElectronCollection ;
-     
+     if(RKDiJetMETCollection.size()>0) RKDiJetMETCollection[0].events = events ;
      // add muon to RKDiJetMETCollectionWithStatus
      if(RKDiJetMETCollection.size()>0) RKDiJetMETCollection[0].muons = RKMuonCollection ;
-     if(RKDiJetMETCollection.size()>0) std::cout<<" ----------------- muon size = "<<RKDiJetMETCollection[0].muons.size()<<std::endl;
+     //if(RKDiJetMETCollection.size()>0) std::cout<<" ----------------- muon size = "<<RKDiJetMETCollection[0].muons.size()<<std::endl;
      
      // add jets to the RKDiJetMETCollectionWithStatus
      if(RKDiJetMETCollection.size()>0) RKDiJetMETCollection[0].jets  = RKJetCollection_selected ;
@@ -158,6 +164,7 @@ void RKAnalyzer::Loop(TString output){
      if(RKDiJetMETCollection.size()>0) RKDiJetMETCollectionTTBar = selectionbits.SelectionBitsSaver(RKDiJetMETCollection,cuts.cutValueMapTTBar);
      
      
+     syncmonoh.Fill(RKDiJetMETCollectionWithStatus, RKJetCollection);
      // --------------------------------//
      // ---------- Histograms -----------//
      // --------------------------------//
@@ -178,8 +185,9 @@ void RKAnalyzer::Loop(TString output){
      //histfacJetHardPreSel.Fill(RKDiJetMETCollectionWithStatus,1, bitVec);
      bitVec.clear();
      
-     if( RKDiJetMETCollectionWithStatus.size()>0)     std::cout<<" cut status main = "<<RKDiJetMETCollectionWithStatus[0].cutsStatus<<std::endl;
+     //if( RKDiJetMETCollectionWithStatus.size()>0)     std::cout<<" cut status main = "<<RKDiJetMETCollectionWithStatus[0].cutsStatus<<std::endl;
      
+
      std::cout<<" calling cutFlow "<<std::endl;
      if(RKDiJetMETCollectionWithStatus.size()>0) cutflowobj.CutFlow(RKDiJetMETCollectionWithStatus);
      
@@ -188,6 +196,7 @@ void RKAnalyzer::Loop(TString output){
      
      std::cout<<" calling ABCD method "<<std::endl;
      if(RKDiJetMETCollectionWithStatus.size()>0) abcd.Fill(RKDiJetMETCollectionWithStatus);
+
      if(debug) std::cout<<" pfMetCorrPt = "<<pfMetCorrPt
 			<<" pfMetCorrPhi = "<<pfMetCorrPhi
 			<<" pfMetCorrSumEt = "<<pfMetCorrSumEt
@@ -229,7 +238,8 @@ void RKAnalyzer::Loop(TString output){
    histfac.Write();
    histfacJetPreSel.Write();
    //histfacJetHardPreSel.Write();
-   abcd.Write();
+   syncmonoh.Write();
+   //abcd.Write();
    fout->cd();
    nEvents->Write();
 }
@@ -239,7 +249,7 @@ void RKAnalyzer::Loop(TString output){
 
 void RKAnalyzer::JetProducer(){
   
-  std::cout<<" inside JetProducer "<<THINnJet<<std::endl;
+  //std::cout<<" inside JetProducer "<<THINnJet<<std::endl;
   for(Int_t i=0;i<THINnJet;i++){
     jets.Clear();
     TLorentzVector*  fourmom = (TLorentzVector*) THINjetP4->At(i);
@@ -283,21 +293,36 @@ void RKAnalyzer::JetProducer(){
     jets.isCSVL_         =   csv > 0.432                      ;
     jets.isCSVMed_       =   csv > 0.532                      ;// myself
     jets.isCSVT_         =   csv > 0.732                      ;
-    jets.isLooseJet_     =   pt > 30.  && 
-                        fabs(eta_) < 2.5 && 
-                        csv > 0.432                      ;
+
+    // For loose Jet ID
+    //bool eta24    =  (fabs(eta_) < 2.5)
+    //  && ((*THINjetNHadEF)[i] < 0.99)
+    //  && ((*THINjetNEmEF)[i] < 0.99)
+    //  && ((*THINjetMuEF)[i] < 0.8)
+    //  && ((*THINjetCMulti)[i] > 0)
+    //  && ((*THINjetCHadEF)[i] > 0.)
+    //  && ((*THINjetCEmEF)[i] < 0.99);
+    //
+    //
+    //bool eta24_25 =  (fabs(eta_) > 2.4) && (fabs(eta_) < 2.5) && ((*THINjetNHadEF)[i] < 0.99) && ((*THINjetNEmEF)[i] < 0.99) && ((*THINjetMuEF)[i] < 0.8) && ((*THINjetCHadEF)[i] > 0.) && ((*THINjetCMulti)[i] > 0) && ((*THINjetCEmEF)[i] < 0.99) ;    
+
+    jets.isLooseJet_     =  (*THINjetPassIDLoose)[i];
+    
+    jets.isPUJet_        = (*THINPUJetID)[i] > -0.63  ;
+    jets.nVtx            = nVtx;
     
     RKJetCollection.push_back(jets);
     RKJetCollection_selected.push_back(jets);
     //if(fabs(fourmom->Eta())<2.5 && jets.B_CISVV2 > 0.432 && fourmom->Pt() > 30. && RKJetCollection.size()<4 )     RKJetCollection_selected.push_back(jets);
-    //RKJetCollection_selected.push_back(jets);
+
+    
     
   }
 }
 
 
 void RKAnalyzer::METProducer(){
-  std::cout<<" inside MET Prodicer "<<std::endl;
+  //std::cout<<" inside MET Prodicer "<<std::endl;
   met.CorrPt = pfMetCorrPt;
   met.CorrPhi = pfMetCorrPhi;
   met.CorrSumEt = pfMetCorrSumEt;
@@ -323,15 +348,36 @@ void RKAnalyzer::MuonProducer(){
     TLorentzVector*  fourmom = (TLorentzVector*) muP4->At(i);
     muons.p4      = *fourmom ;
     muons.charge  = (*muCharge)[i] ;
-    if(fourmom->Pt() > 20 && fabs(fourmom->Eta())<2.4 && (*isPFMuon)[i] == 1) RKMuonCollection.push_back(muons);
+    bool isloose = (*isPFMuon)[i] && ( (*isGlobalMuon)[i] ||(*isTrackerMuon)[i] );
+    if(fourmom->Pt() > 10 && fabs(fourmom->Eta())<2.4 && isloose == 1) RKMuonCollection.push_back(muons);
+
   }
 }
 
+
+
+void RKAnalyzer::PhotonProducer(){
+  //std::cout<< " inside photon producer "<<std::endl;
+  for(size_t i=0; i<(size_t)nPho; i++){
+    photons.Clear();
+    TLorentzVector*  fourmom = (TLorentzVector*) phoP4->At(i);
+    photons.p4      = *fourmom ;
+    
+    if(fourmom->Pt() > 15 && fabs(fourmom->Eta())<2.5 && (*phoIsPassLoose)[i] == 1) RKPhotonCollection.push_back(photons);
+  }
+}
+
+
+void RKAnalyzer::TauProducer(){
+  //std::cout<<" inside tau producer "<<std::endl;
+
+}
 void RKAnalyzer::ElectronProducer(){
 
   //opening file for effective area 
   //  edm::FileInPath eaConstantsFile("EgammaAnalysis/ElectronTools/data/PHYS14/effAreaElectrons_cone03_pfNeuHadronsAndPhotons.txt");
   //EffectiveAreas effectiveAreas(eaConstantsFile.fullPath());
+
 
   ElectronSelectionBitsProducer eleselectbits;
   for(size_t i=0; i<(size_t) nEle; i++){
@@ -401,8 +447,9 @@ void RKAnalyzer::ElectronProducer(){
     bool isoendcap =  electrons.endcap && (electrons.isoRho ) < 0.113254;
     if(triggerstatus && fourmom->Pt() > 20 && fabs(fourmom->Eta())<2.5 && (*eleIsPassMedium)[i]==1 && (isobarrel || isoendcap) )  RKElectronCollection_allCutMIso.push_back(electrons);
     
+
   }
-  std::cout<<" electron collection filled " <<std::endl;
+  
 }
 
 
@@ -413,6 +460,7 @@ void RKAnalyzer::ClearCollections(){
   RKMuonCollection.clear();
   
   RKElectronCollection.clear();
+
   RKElectronCollection_barrel.clear();
   RKElectronCollection_endcap.clear();
   RKElectronCollection_allCutM.clear();
@@ -420,6 +468,9 @@ void RKAnalyzer::ClearCollections(){
   
   RKdiElectronCollection.clear();
   RKdiElectronCollectionIso.clear();
+
+  RKPhotonCollection.clear();
+
   RKdiJetCollection.clear();
   RKdiJetCollection_selected.clear();
   RKjetMETCollection.clear();
@@ -445,25 +496,16 @@ void RKAnalyzer::TotalEvent(std::vector<TString> FileList) {
     std::string name2 = (std::string) FileList[iFile];
     std::string name = name0 + name1 + name2;
     
-    //TString name = "root:"+"/"+"/"+"cmsxrootd.hep.wisc.edu/"+"/"+FileList[iFile];
-    std::cout<<" name = "<<name<<std::endl;
-    std::cout<<" debug 1"<<iFile<<std::endl;
     m_f[iFile] = TFile::Open(name.c_str());
-    std::cout<<" debug 2"<<iFile<<std::endl;
     //if(false){
     if(iFile==0){
-      std::cout<<" debug 3"<<iFile<<std::endl;
       dummyHist = dynamic_cast<TH1F*> (m_f[iFile]->Get("allEventsCounter/totalEvents"));
-      std::cout<<" debug 4"<<iFile<<std::endl;
       outHist = (TH1F*)dummyHist->Clone();
     }
-    std::cout<<" debug 5"<<iFile<<std::endl;
     //if(false){
     if(iFile>0){
       dummyHist = dynamic_cast <TH1F*> (m_f[iFile]->Get("allEventsCounter/totalEvents"));
-      std::cout<<" debug 6"<<iFile<<std::endl;
       outHist->Add(dummyHist);
-      std::cout<<" debug 7"<<iFile<<std::endl;
     }
     
   }
@@ -483,6 +525,7 @@ void RKAnalyzer::TotalEvent(TH1F* h){
 
 
 bool RKAnalyzer::TriggerStatus(std::string TRIGNAME){
+
   bool triggerstat=false;
   std::cout<<" number of triggers = "<<(*hlt_trigResult).size()<<std::endl;
   for(size_t i =0; i < (*hlt_trigResult).size() ; i++) {

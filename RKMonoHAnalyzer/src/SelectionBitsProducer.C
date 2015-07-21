@@ -52,19 +52,19 @@ std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > SelectionBitsProducer::Selec
       
       std::map<std::string, int>::iterator mapit = cuts.cutsMap.begin();
       for(mapit=cuts.cutsMap.begin(); mapit != cuts.cutsMap.end(); ++mapit){
-	std::cout<<mapit->first<<"  :   "<<mapit->second<<std::endl;;
+	if(false) std::cout<<mapit->first<<"  :   "<<mapit->second<<std::endl;;
       }
       bool amuon = false;
       for (size_t imu=0; (imu< objectCollection[0].muons.size()) && (amuon==false); imu++){
 	float dr = objectCollection[0].muons[imu].p4.DeltaR(objectCollection[i].jet1.jet1.p4);
 	if(dr < 0.4) {
 	  amuon = true;
-	  std::cout<<" ***************** working "<<dr<<std::endl;
+	  if(false) std::cout<<" ***************** working "<<dr<<std::endl;
 	}
       }
       
       objectCollection[i].cutsStatus = StatusOfCuts;
-      std::cout<<" cut status selectionbits = "<<StatusOfCuts<<std::endl;
+      if(false) std::cout<<" cut status selectionbits = "<<StatusOfCuts<<std::endl;
       //std::cout<<" value 1 = "<<(bitset<16>)MonoHiggsCuts::dphiJets <<std::endl;
       outputvec.push_back(objectCollection[i]);
     }//for(int i=0; i<(int)objectCollection.size();i++){

@@ -61,6 +61,8 @@ class Jet{
   Bool_t isCSVMed_;
   Bool_t isCSVT_;
   Bool_t isLooseJet_;
+  Bool_t isPUJet_;
+  Int_t  nVtx;
   bool operator== (Jet& other_){
     return((this->p4.Pt()==other_.p4.Pt()) && (this->charge == other_.charge));
   }
@@ -69,7 +71,7 @@ class Jet{
     jetHOEnergy=0.;
     jetHOEF=0.;
     nJets = 0;
-    
+    nVtx  = 0;
     ispT30_         =   false   ;
     ispT50_         =   false   ;
     ispT80_         =   false   ;
@@ -80,6 +82,7 @@ class Jet{
     isCSVMed_       =   false   ;
     isCSVT_         =   false   ; 
     isLooseJet_     =   false   ;
+    isPUJet_        =   false   ;
   }
 };
 

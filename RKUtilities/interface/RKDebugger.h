@@ -14,7 +14,7 @@ class RKDebugger {
 
 
   
-  static bool debug_SelectionBitsProducer(){return true ;}
+  static bool debug_SelectionBitsProducer(){return false ;}
  protected:
  private:
   
