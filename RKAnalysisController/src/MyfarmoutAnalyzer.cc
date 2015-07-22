@@ -34,8 +34,7 @@ int main(){
   /// Loop through lines in file (paths to .root files)
       // and add to TChain
       TString infileName = ""; 
-      TFile* f;
-      TH1F* h_ntotal;
+      
   while( !inputList.eof() ) { 
     infileName="";
     inputList >> infileName;
