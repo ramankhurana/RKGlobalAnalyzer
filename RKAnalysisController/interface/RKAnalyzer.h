@@ -22,7 +22,6 @@
 #include "../../RKDataFormats/interface/Jet.h"
 #include "../../RKDataFormats/interface/MET.h"
 #include "../../RKDataFormats/interface/Muon.h"
-#include "../../RKDataFormats/interface/Electron.h"
 #include "../../RKDataFormats/interface/Event.h"
 
 #include "../../RKDataFormats/interface/Resonance.h"
@@ -46,6 +45,7 @@
 #include "../../RKMonoHAnalyzer/interface/Synchronization.h" 
 
 using namespace std;
+//class Electron;
 // Fixed size dimensions of array or collections stored in the TTree if any.
 const Int_t kMaxmuInnerdxy = 1;
 const Int_t kMaxmuInnerdz = 1;
