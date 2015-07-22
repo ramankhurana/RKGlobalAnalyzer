@@ -52,8 +52,8 @@ void RKAnalyzer::Loop(TString output){
      if (ientry < 0) break;
      nb = fChain->GetEntry(jentry);   nbytes += nb;
      
-     if(!(info_lumiSection==2)) continue;
-     if(!(info_eventId==108)) continue;
+     //if(!(info_lumiSection==2)) continue;
+     //if(!(info_eventId==113)) continue;
      events.run = info_runId;
      events.lumi = info_lumiSection;
      events.event = info_eventId;
@@ -63,12 +63,17 @@ void RKAnalyzer::Loop(TString output){
      //Trigger Status.
      bool eletrig1 = TriggerStatus("HLT_DoubleEle33");
      // Produce jet collection for analysis and validation of object variables.
+     METProducer();
+     MuonProducer();
+     //if(RKMuonCollection.size()>0) std::cout<<" muon = "<<RKMuonCollection.size()<<std::endl;
+     ElectronProducer();
+     //if(RKElectronCollection.size()>0) std::cout<<" electron = "<<RKElectronCollection.size()<<std::endl;
+     PhotonProducer();
+     //if(RKPhotonCollection.size()>0) std::cout<<" photon = "<<RKPhotonCollection.size()<<std::endl;
+     TauProducer();
      JetProducer();
      // Produce MET collection for analysis and validation of object.
      // this contain all raw PFMET, corrected PFMET and MVA PFMET.
-     METProducer();
-     MuonProducer();
-     ElectronProducer();
      if(debug) std::cout<<" Jet collecttion produced "<<std::endl;
      // Fill Validation Histograms for Jets
      if(RKJetCollection.size()>0) jetvalidator.Fill(RKJetCollection);
@@ -97,7 +102,7 @@ void RKAnalyzer::Loop(TString output){
      
      if(debug)      std::cout<<" before sorting "<<std::endl;
      // Dijet Vector Sorting wrt pT of diJet candidate 
-     std::sort(RKdiJetCollection.begin(), RKdiJetCollection.end(), DiJetpTSorting() );
+     if(false) std::sort(RKdiJetCollection.begin(), RKdiJetCollection.end(), DiJetpTSorting() );
      if(debug) std::cout<<" after sorting "<<std::endl;
       
      
@@ -244,7 +249,7 @@ void RKAnalyzer::JetProducer(){
     jets.isCSVL_         =   csv > 0.432                      ;
     jets.isCSVMed_       =   csv > 0.532                      ;// myself
     jets.isCSVT_         =   csv > 0.732                      ;
-
+    
     // For loose Jet ID
     bool eta24    =  (fabs(eta_) < 2.5)
       && ((*THINjetNHadEF)[i] < 0.99)
@@ -260,9 +265,24 @@ void RKAnalyzer::JetProducer(){
     
     jets.isPUJet_        = (*THINPUJetID)[i] > -0.63  ;
     jets.nVtx            = info_nVtx;
+    jets.run             = info_runId;
+    jets.lumi            = info_lumiSection;
+    jets.event           = info_eventId;
+    
+    jets.met             = met;
+    jets.electron        = RKElectronCollection.size();
+    jets.muon            = RKMuonCollection.size();
+    jets.tau             = RKTauCollection.size();
+    jets.photon          = RKPhotonCollection.size();
+    
+    if(false) std::cout<<" n ele "<<jets.electron
+	     <<" nmu = "<<jets.muon
+	     <<" ntau = "<<jets.tau
+	     <<" npho = "<<jets.photon
+	     <<std::endl;
     //std::cout<<" ==============="<<info_nVtx<<std::endl;
     
-    std::cout<<" run "<<info_runId
+    if(false) std::cout<<" run "<<info_runId
 	     <<" lumi "<<info_lumiSection
 	     <<" event "<<info_eventId
 	     <<" ijet = "<<i
@@ -278,7 +298,7 @@ void RKAnalyzer::JetProducer(){
 	     <<std::endl;
     if(TMath::Abs(fourmom.Eta())<2.5  && fourmom.Pt() > 30. && jets.isPUJet_ && jets.isLooseJet_) RKJetCollection.push_back(jets);
     //if(fabs(fourmom.Eta())<2.5 && jets.B_CISVV2 > 0.432 && fourmom.Pt() > 30. && RKJetCollection.size()<4 )     RKJetCollection_selected.push_back(jets);
-    if(fabs(fourmom.Eta())<2.5  && fourmom.Pt() > 30. && jets.isPUJet_ && jets.isLooseJet_)   RKJetCollection_selected.push_back(jets);
+    if(TMath::Abs(fourmom.Eta())<2.5  && fourmom.Pt() > 30. && jets.isPUJet_ && jets.isLooseJet_)   RKJetCollection_selected.push_back(jets);
     //RKJetCollection_selected.push_back(jets);
     
   }
@@ -316,8 +336,9 @@ void RKAnalyzer::MuonProducer(){
 			 (*muM)[i] );
     muons.p4      = fourmom ;
     muons.charge  = (*muCharge)[i] ;
+    bool looseiso =  ((*muChHadIso)[i] + max<float>( 0.0, ((*muNeHadIso)[i]+(*muGamIso)[i]- 0.5 * (*muPUPt)[i])));
     bool isloose = (*isPFMuon)[i] && ( (*isGlobalMuon)[i] ||(*isTrackerMuon)[i] );
-    if(fourmom.Pt() > 10 && fabs(fourmom.Eta())<2.4 && isloose == 1) RKMuonCollection.push_back(muons);
+    if(fourmom.Pt() > 10 && fabs(fourmom.Eta())<2.4 && isloose == 1 && looseiso==1 ) RKMuonCollection.push_back(muons);
   }
 }
 
@@ -334,13 +355,24 @@ void RKAnalyzer::PhotonProducer(){
 			 (*phoE)[i] );
     photons.p4      = fourmom ;
     
-    if(fourmom.Pt() > 15 && fabs(fourmom.Eta())<2.5 && (*phoisPassLoose)[i] == 1) RKPhotonCollection.push_back(photons);
+    if(fourmom.Pt() > 15 && TMath::Abs(fourmom.Eta())<2.5 && (*phoisPassLoose)[i] == 1) RKPhotonCollection.push_back(photons);
   }
 }
 
 
+
+
+
 void RKAnalyzer::TauProducer(){
-  //std::cout<<" inside tau producer "<<std::endl;
+    //std::cout<< " inside photon producer "<<std::endl;
+  for(size_t i=0; i<HPSTau_n; i++){
+    taus.Clear();
+    
+    TLorentzVector* fourmom = (TLorentzVector*) HPSTau_4Momentum->At(i);;
+    taus.p4      = *fourmom ;
+    
+    if(fourmom->Pt() > 18 && TMath::Abs(fourmom->Eta())<2.3 && (*disc_decayModeFinding)[i]== 1) RKTauCollection.push_back(taus);
+  }//std::cout<<" inside tau producer "<<std::endl;
 
 }
 void RKAnalyzer::ElectronProducer(){
@@ -402,7 +434,7 @@ void RKAnalyzer::ElectronProducer(){
     electrons.barrel  =  (*eleInBarrel)[i]  ; 
     electrons.endcap  =  (*eleInEndcap)[i]  ; 
     
-    if(fourmom->Pt() > 10 && fabs(fourmom->Eta())<2.5 && (*isPassVeto)[i]==1)  RKElectronCollection.push_back(electrons);
+    if(fourmom->Pt() > 10 && TMath::Abs(fourmom->Eta())<2.5 && (*isPassVeto)[i]==1)  RKElectronCollection.push_back(electrons);
   }
   
 }
@@ -415,6 +447,7 @@ void RKAnalyzer::ClearCollections(){
   RKMuonCollection.clear();
   RKElectronCollection.clear();
   RKPhotonCollection.clear();
+  RKTauCollection.clear();
   RKdiJetCollection.clear();
   RKdiJetCollection_selected.clear();
   RKjetMETCollection.clear();

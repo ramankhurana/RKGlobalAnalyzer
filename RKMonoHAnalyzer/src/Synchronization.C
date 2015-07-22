@@ -55,19 +55,19 @@ void Synchronization::Fill(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > o
     }
   }
     // Leading- SubLeading DPhi
+  
+  if(jetcollection.size()==1 && isleadingjet)  {
+    sync_->Fill(3);
+    isdphi=true;
+  }
   if(objectCollection.size()>0){
     for(size_t i=0; i< objectCollection.size();i++){
-      
-      if(jetcollection.size()==1 && isleadingjet)  {
-	sync_->Fill(3);
-	isdphi=true;
-      }
-
+      if(i>0) continue;
       if( isleadingjet
 	 && objectCollection[i].jet1.jet2.jetNHadEF < 0.7
 	 && objectCollection[i].jet1.jet2.jetNEmEF < 0.9
 	 && TMath::Abs(objectCollection[i].jet1.ResonanceProp.DeltaPhi) < 2.5
-	 && !isdphi
+	  //&& !isdphi
 	  //&& isleadingjet
 	  ){
 	std::cout<<objectCollection[0].events.run<<":"
@@ -77,7 +77,7 @@ void Synchronization::Fill(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > o
 	isdphi=true;
 	sync_->Fill(3);
       }//isdphi
-
+      
       // MET
       if(objectCollection[i].jet2.CorrPt > 200. && isdphi && !ismet ){
 	ismet=true;
@@ -86,10 +86,14 @@ void Synchronization::Fill(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > o
 
     }//for(int i=0; i<(int)objectCollection.size();i++){
   }// if(objectCollection.size()>0){
-
+  
+  if(jetcollection.size() > 0 && jetcollection[0].met.CorrPt > 200. && isdphi && !ismet){
+    ismet=true;
+    sync_->Fill(4);
+  }
+  
   if(ismet
-     && objectCollection.size()>0
-     && objectCollection[0].jets.size() <3
+     && jetcollection.size()<3
      && !njets
      ){
     sync_->Fill(5);
@@ -97,20 +101,31 @@ void Synchronization::Fill(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > o
   }
 
   if(njets
-     && objectCollection.size()>0
-     && objectCollection[0].muons.size() <1
-     && objectCollection[0].electrons.size() <1
+     && jetcollection[0].muon <1
+     && jetcollection[0].electron <1
      && !nlepton) {
     sync_->Fill(6);
     nlepton=true;
   }
 
-  if(nlepton) {
+  if(nlepton
+     && jetcollection[0].tau <1
+     && !ntau) {
     sync_->Fill(7);
     ntau=true;
+    std::cout<<jetcollection[0].run<<":"
+	     <<jetcollection[0].lumi<<":"
+	     <<jetcollection[0].event<<":"
+	     <<jetcollection[0].muon<<":"
+	     <<jetcollection[0].electron<<":"
+	     <<jetcollection[0].photon<<":"
+	     <<jetcollection[0].tau<<":"
+	     <<std::endl;//":"<<(Double_t)pfMetCorrPt<<std::endl;
   }
 
-  if(ntau){
+  if(ntau
+     && jetcollection[0].photon<1
+     && !nphoton){
     sync_->Fill(8);
     nphoton=true;
   }

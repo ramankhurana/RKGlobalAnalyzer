@@ -76,6 +76,8 @@ class RKAnalyzer {
    Electron electrons;
    //Photons
    Muon photons;
+   //Taus
+   Muon taus;
    //Event
    Event events;
    // Dijets
@@ -121,6 +123,8 @@ class RKAnalyzer {
    std::vector<Muon> RKMuonCollection;
    //Photon
    std::vector<Muon> RKPhotonCollection; // Using Muon for photon
+   //Tau
+   std::vector<Muon> RKTauCollection; // Using Muon for photon
    //Electron
    std::vector<Electron> RKElectronCollection;
    // DiJet
@@ -504,7 +508,7 @@ class RKAnalyzer {
      Int_t           genjetngenMuons;
    Int_t           genjetgenjet_n;
    TClonesArray    *GenJets_4Momentum;
-   
+   */
    Int_t           HPSTau_n;
    vector<float>   *taupt;
    TClonesArray    *HPSTau_4Momentum;
@@ -569,7 +573,7 @@ class RKAnalyzer {
    vector<float>   *disc_puCorrPtSum;
    vector<float>   *HPSTau_NewVz;
    vector<int>     *HPSTau_charge;
-   */
+
    // List of branches
    //   TBranch        *b_pu_nTrueInt;   //!
    //TBranch        *b_pu_nPUVert;   //!
@@ -924,6 +928,7 @@ class RKAnalyzer {
    TBranch        *b_genjetngenMuons;   //!
    TBranch        *b_genjetgenjet_n;   //!
    TBranch        *b_GenJets_4Momentum;   //!
+   */
    TBranch        *b_HPSTau_n;   //!
    TBranch        *b_taupt;   //!
    TBranch        *b_HPSTau_4Momentum;   //!
@@ -988,7 +993,7 @@ class RKAnalyzer {
    TBranch        *b_disc_puCorrPtSum;   //!
    TBranch        *b_HPSTau_NewVz;   //!
    TBranch        *b_HPSTau_charge;   //!
-   */
+   
    RKAnalyzer(TTree *tree=0);
    virtual ~RKAnalyzer();
    virtual Int_t    Cut(Long64_t entry);
@@ -1390,7 +1395,7 @@ void RKAnalyzer::Init(TTree *tree)
    phoisPassMedium = 0;
    
    // we may need this later
-   /*
+   
 
    taupt = 0;
    HPSTau_4Momentum = 0;
@@ -1455,7 +1460,7 @@ void RKAnalyzer::Init(TTree *tree)
    disc_puCorrPtSum = 0;
    HPSTau_NewVz = 0;
    HPSTau_charge = 0;
-   */
+   
    // Set branch addresses and branch pointers
    if (!tree) return;
    fChain = tree;
@@ -1802,7 +1807,7 @@ void RKAnalyzer::Init(TTree *tree)
    fChain->SetBranchAddress("phoisPassMedium", &phoisPassMedium, &b_phoisPassMedium);
    
    // we may need this later
-   /*
+   
    fChain->SetBranchAddress("HPSTau_n", &HPSTau_n, &b_HPSTau_n);
    fChain->SetBranchAddress("taupt", &taupt, &b_taupt);
    fChain->SetBranchAddress("HPSTau_4Momentum", &HPSTau_4Momentum, &b_HPSTau_4Momentum);
@@ -1867,7 +1872,7 @@ void RKAnalyzer::Init(TTree *tree)
    fChain->SetBranchAddress("disc_puCorrPtSum", &disc_puCorrPtSum, &b_disc_puCorrPtSum);
    fChain->SetBranchAddress("HPSTau_NewVz", &HPSTau_NewVz, &b_HPSTau_NewVz);
    fChain->SetBranchAddress("HPSTau_charge", &HPSTau_charge, &b_HPSTau_charge);
-   */
+   
    Notify();
 }
 

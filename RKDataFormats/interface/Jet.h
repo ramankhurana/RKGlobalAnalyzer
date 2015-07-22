@@ -3,11 +3,18 @@
 
 #include <iostream>
 #include <TLorentzVector.h>
-
+#include "MET.h"
+#include "Muon.h"
+#include "Electron.h"
 using namespace std;
 
 class Jet{
  public:
+  
+  Int_t  photon;
+  Int_t  muon;
+  Int_t  tau; // taking tau from muon
+  Int_t  electron;
   
   Int_t nJets;
   TLorentzVector p4;
@@ -63,6 +70,10 @@ class Jet{
   Bool_t isLooseJet_;
   Bool_t isPUJet_;
   Int_t  nVtx;
+  Int_t run;
+  Int_t lumi;
+  Int_t event;
+  MET   met;
   bool operator== (Jet& other_){
     return((this->p4.Pt()==other_.p4.Pt()) && (this->charge == other_.charge));
   }
