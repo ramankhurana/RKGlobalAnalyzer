@@ -73,6 +73,10 @@ class RKAnalyzer {
    // Physics Object Classes
    // Jets
    Jet jets;
+   // FatJets;
+   Jet fatjets;
+   // AddJets
+   Jet addjets;
    // MET
    MET met;
    // Muons
@@ -102,6 +106,8 @@ class RKAnalyzer {
    // jet 
    JetValidator jetvalidator;
    JetValidator jetvalidator_selected;
+   JetValidator fatjetvalidator;;
+   JetValidator addjetvalidator;;
    // Electron 
    ElectronValidator electronvalidator;
    ElectronValidator electronvalidator_barrel;
@@ -130,6 +136,8 @@ class RKAnalyzer {
    // Jets
    std::vector<Jet> RKJetCollection;
    std::vector<Jet> RKJetCollection_selected;
+   std::vector<Jet> MH_FATJetCollection;
+   std::vector<Jet> MH_ADDJetCollection;
    //Muons
    std::vector<Muon> RKMuonCollection;
    //Photon
@@ -388,75 +396,99 @@ class RKAnalyzer {
    Float_t         pfmvaMetPhi_;
    Float_t         pfmvaMetSumEt_;
    Float_t         pfmvaMetSig_;
+   
    Int_t           FATnJet;
-   vector<float>   *FATjetPt;
-   vector<float>   *FATjetEta;
-   vector<float>   *FATjetPhi;
-   vector<float>   *FATjetMass;
-   vector<float>   *FATjetEn;
-   vector<float>   *FATgenjetPx;
-   vector<float>   *FATgenjetPy;
-   vector<float>   *FATgenjetPz;
-   vector<float>   *FATgenjetEn;
+   TClonesArray    *FATgenjetP4;
    vector<float>   *FATgenjetEM;
    vector<float>   *FATgenjetHAD;
    vector<float>   *FATgenjetINV;
    vector<float>   *FATgenjetAUX;
    vector<float>   *FATmatchedDR;
-   vector<float>   *FATjetCorrUncUp;
-   vector<float>   *FATjetCorrUncDown;
+
+   vector<float>   *FATjetRawFactor;
+   TClonesArray    *FATjetP4;
    vector<int>     *FATjetCharge;
    vector<int>     *FATjetPartonFlavor;
-   vector<int>     *FATjetPassID;
-   vector<int>     *FATjet_nSV;
-   vector<vector<float> > *FATjet_SVMass;
-   vector<vector<float> > *FATjet_SVEnergyRatio;
+
+   vector<bool>    *FATjetPassIDLoose;
+   vector<bool>    *FATjetPassIDTight;
+   vector<float>   *FATPUJetID;
+   vector<bool>    *FATisPUJetID;
+
+   vector<float>   *FATjetCEmEF;
+   vector<float>   *FATjetCHadEF;
+   vector<float>   *FATjetPhoEF;
+   vector<float>   *FATjetNEmEF;
+   vector<float>   *FATjetNHadEF;
+   vector<float>   *FATjetMuEF;
+   vector<int>     *FATjetCMulti;
+   
    vector<float>   *FATjetSSV;
-   vector<float>   *FATjetSSVHE;
    vector<float>   *FATjetCSV;
+   vector<float>   *FATjetSSVHE;
    vector<float>   *FATjetCISVV2;
    vector<float>   *FATjetTCHP;
    vector<float>   *FATjetTCHE;
    vector<float>   *FATjetJP;
    vector<float>   *FATjetJBP;
-   vector<float>   *FATjetTau1;
-   vector<float>   *FATjetTau2;
-   vector<float>   *FATjetTau3;
-   vector<float>   *FATjetTau4;
-   vector<float>   *FATjetMuEF;
-   vector<float>   *FATjetPhoEF;
-   vector<float>   *FATjetCEmEF;
-   vector<float>   *FATjetCHadEF;
-   vector<float>   *FATjetNEmEF;
-   vector<float>   *FATjetNHadEF;
-   vector<float>   *FATjetCMulti;
-   vector<float>   *FATjetPrunedPt;
-   vector<float>   *FATjetPrunedEta;
-   vector<float>   *FATjetPrunedPhi;
-   vector<float>   *FATjetPrunedMass;
-   vector<float>   *FATjetPrunedEn;
-   vector<float>   *FATjetPrunedCorrUncUp;
-   vector<float>   *FATjetPrunedCorrUncDown;
-   vector<int>     *FATjetPrunedCharge;
-   vector<int>     *FATjetPrunedPartonFlavor;
-   vector<float>   *FATjetPrunedSSV;
-   vector<float>   *FATjetPrunedCSV;
-   vector<float>   *FATjetPrunedTCHP;
-   vector<float>   *FATjetPrunedTCHE;
-   vector<float>   *FATjetPrunedJP;
-   vector<float>   *FATjetPrunedJBP;
+
    vector<float>   *FATjetSDmass;
    vector<float>   *FATjetTRmass;
    vector<float>   *FATjetPRmass;
    vector<float>   *FATjetFimass;
-   vector<float>   *FATjet_DoubleSV;
+   vector<float>   *FATjetTau1;
+   vector<float>   *FATjetTau2;
+   vector<float>   *FATjetTau3;
+   vector<float>   *FATjetTau4;
    vector<int>     *FATnSubSDJet;
-   vector<vector<float> > *FATsubjetSDPt;
-   vector<vector<float> > *FATsubjetSDEta;
-   vector<vector<float> > *FATsubjetSDPhi;
-   vector<vector<float> > *FATsubjetSDMass;
+   vector<vector<float> > *FATsubjetSDPx;
+   vector<vector<float> > *FATsubjetSDPy;
+   vector<vector<float> > *FATsubjetSDPz;
+   vector<vector<float> > *FATsubjetSDCE;
    vector<vector<float> > *FATsubjetSDCSV;
-   
+   Int_t           ADDnJet;
+   TClonesArray    *ADDgenjetP4;
+   vector<float>   *ADDgenjetEM;
+   vector<float>   *ADDgenjetHAD;
+   vector<float>   *ADDgenjetINV;
+   vector<float>   *ADDgenjetAUX;
+   vector<float>   *ADDmatchedDR;
+   vector<float>   *ADDjetRawFactor;
+   TClonesArray    *ADDjetP4;
+   vector<int>     *ADDjetCharge;
+   vector<int>     *ADDjetPartonFlavor;
+   vector<bool>    *ADDjetPassIDLoose;
+   vector<bool>    *ADDjetPassIDTight;
+   vector<float>   *ADDPUJetID;
+   vector<bool>    *ADDisPUJetID;
+   vector<float>   *ADDjetCEmEF;
+   vector<float>   *ADDjetCHadEF;
+   vector<float>   *ADDjetPhoEF;
+   vector<float>   *ADDjetNEmEF;
+   vector<float>   *ADDjetNHadEF;
+   vector<float>   *ADDjetMuEF;
+   vector<int>     *ADDjetCMulti;
+   vector<float>   *ADDjetSSV;
+   vector<float>   *ADDjetCSV;
+   vector<float>   *ADDjetSSVHE;
+   vector<float>   *ADDjetCISVV2;
+   vector<float>   *ADDjetTCHP;
+   vector<float>   *ADDjetTCHE;
+   vector<float>   *ADDjetJP;
+   vector<float>   *ADDjetJBP;
+   vector<float>   *ADDjet_DoubleSV;
+   vector<int>     *ADDjet_nSV;
+   vector<vector<float> > *ADDjet_SVMass;
+   vector<float>   *ADDjetTau1;
+   vector<float>   *ADDjetTau2;
+   vector<float>   *ADDjetTau3;
+   vector<float>   *ADDjetTau4;
+   vector<int>     *ADDnSubSDJet;
+   vector<vector<float> > *ADDsubjetSDPx;
+   vector<vector<float> > *ADDsubjetSDPy;
+   vector<vector<float> > *ADDsubjetSDPz;
+   vector<vector<float> > *ADDsubjetSDCE;
+   vector<vector<float> > *ADDsubjetSDCSV;
    
    Int_t           THINnJet;
    TClonesArray    *THINgenjetP4;
@@ -491,74 +523,6 @@ class RKAnalyzer {
    vector<float>   *THINjetJP;
    vector<float>   *THINjetJBP;
    
-   Int_t           ADDnJet;
-   vector<float>   *ADDjetPt;
-   vector<float>   *ADDjetEta;
-   vector<float>   *ADDjetPhi;
-   vector<float>   *ADDjetMass;
-   vector<float>   *ADDjetEn;
-   vector<float>   *ADDgenjetPx;
-   vector<float>   *ADDgenjetPy;
-   vector<float>   *ADDgenjetPz;
-   vector<float>   *ADDgenjetEn;
-   vector<float>   *ADDgenjetEM;
-   vector<float>   *ADDgenjetHAD;
-   vector<float>   *ADDgenjetINV;
-   vector<float>   *ADDgenjetAUX;
-   vector<float>   *ADDmatchedDR;
-   vector<float>   *ADDjetCorrUncUp;
-   vector<float>   *ADDjetCorrUncDown;
-   vector<int>     *ADDjetCharge;
-   vector<int>     *ADDjetPartonFlavor;
-   vector<int>     *ADDjetPassID;
-   vector<int>     *ADDjet_nSV;
-   vector<vector<float> > *ADDjet_SVMass;
-   vector<vector<float> > *ADDjet_SVEnergyRatio;
-   vector<float>   *ADDjetSSV;
-   vector<float>   *ADDjetSSVHE;
-   vector<float>   *ADDjetCSV;
-   vector<float>   *ADDjetCISVV2;
-   vector<float>   *ADDjetTCHP;
-   vector<float>   *ADDjetTCHE;
-   vector<float>   *ADDjetJP;
-   vector<float>   *ADDjetJBP;
-   vector<float>   *ADDjetTau1;
-   vector<float>   *ADDjetTau2;
-   vector<float>   *ADDjetTau3;
-   vector<float>   *ADDjetTau4;
-   vector<float>   *ADDjetMuEF;
-   vector<float>   *ADDjetPhoEF;
-   vector<float>   *ADDjetCEmEF;
-   vector<float>   *ADDjetCHadEF;
-   vector<float>   *ADDjetNEmEF;
-   vector<float>   *ADDjetNHadEF;
-   vector<float>   *ADDjetCMulti;
-   vector<float>   *ADDjetPrunedPt;
-   vector<float>   *ADDjetPrunedEta;
-   vector<float>   *ADDjetPrunedPhi;
-   vector<float>   *ADDjetPrunedMass;
-   vector<float>   *ADDjetPrunedEn;
-   vector<float>   *ADDjetPrunedCorrUncUp;
-   vector<float>   *ADDjetPrunedCorrUncDown;
-   vector<int>     *ADDjetPrunedCharge;
-   vector<int>     *ADDjetPrunedPartonFlavor;
-   vector<float>   *ADDjetPrunedSSV;
-   vector<float>   *ADDjetPrunedCSV;
-   vector<float>   *ADDjetPrunedTCHP;
-   vector<float>   *ADDjetPrunedTCHE;
-   vector<float>   *ADDjetPrunedJP;
-   vector<float>   *ADDjetPrunedJBP;
-   vector<float>   *ADDjetSDmass;
-   vector<float>   *ADDjetTRmass;
-   vector<float>   *ADDjetPRmass;
-   vector<float>   *ADDjetFimass;
-   vector<float>   *ADDjet_DoubleSV;
-   vector<int>     *ADDnSubSDJet;
-   vector<vector<float> > *ADDsubjetSDPt;
-   vector<vector<float> > *ADDsubjetSDEta;
-   vector<vector<float> > *ADDsubjetSDPhi;
-   vector<vector<float> > *ADDsubjetSDMass;
-   vector<vector<float> > *ADDsubjetSDCSV;
 
    
    Int_t           hlt_nTrigs;
@@ -783,74 +747,94 @@ class RKAnalyzer {
    TBranch        *b_pfmvaMetPhi_;   //!
    TBranch        *b_pfmvaMetSumEt_;   //!
    TBranch        *b_pfmvaMetSig_;   //!
+   
    TBranch        *b_FATnJet;   //!
-   TBranch        *b_FATjetPt;   //!
-   TBranch        *b_FATjetEta;   //!
-   TBranch        *b_FATjetPhi;   //!
-   TBranch        *b_FATjetMass;   //!
-   TBranch        *b_FATjetEn;   //!
-   TBranch        *b_FATgenjetPx;   //!
-   TBranch        *b_FATgenjetPy;   //!
-   TBranch        *b_FATgenjetPz;   //!
-   TBranch        *b_FATgenjetEn;   //!
+   TBranch        *b_FATgenjetP4;   //!
    TBranch        *b_FATgenjetEM;   //!
    TBranch        *b_FATgenjetHAD;   //!
    TBranch        *b_FATgenjetINV;   //!
    TBranch        *b_FATgenjetAUX;   //!
    TBranch        *b_FATmatchedDR;   //!
-   TBranch        *b_FATjetCorrUncUp;   //!
-   TBranch        *b_FATjetCorrUncDown;   //!
+   TBranch        *b_FATjetRawFactor;   //!
+   TBranch        *b_FATjetP4;   //!
    TBranch        *b_FATjetCharge;   //!
    TBranch        *b_FATjetPartonFlavor;   //!
-   TBranch        *b_FATjetPassID;   //!
-   TBranch        *b_FATjet_nSV;   //!
-   TBranch        *b_FATjet_SVMass;   //!
-   TBranch        *b_FATjet_SVEnergyRatio;   //!
+   TBranch        *b_FATjetPassIDLoose;   //!
+   TBranch        *b_FATjetPassIDTight;   //!
+   TBranch        *b_FATPUJetID;   //!
+   TBranch        *b_FATisPUJetID;   //!
+   TBranch        *b_FATjetCEmEF;   //!
+   TBranch        *b_FATjetCHadEF;   //!
+   TBranch        *b_FATjetPhoEF;   //!
+   TBranch        *b_FATjetNEmEF;   //!
+   TBranch        *b_FATjetNHadEF;   //!
+   TBranch        *b_FATjetMuEF;   //!
+   TBranch        *b_FATjetCMulti;   //!
    TBranch        *b_FATjetSSV;   //!
-   TBranch        *b_FATjetSSVHE;   //!
    TBranch        *b_FATjetCSV;   //!
+   TBranch        *b_FATjetSSVHE;   //!
    TBranch        *b_FATjetCISVV2;   //!
    TBranch        *b_FATjetTCHP;   //!
    TBranch        *b_FATjetTCHE;   //!
    TBranch        *b_FATjetJP;   //!
    TBranch        *b_FATjetJBP;   //!
-   TBranch        *b_FATjetTau1;   //!
-   TBranch        *b_FATjetTau2;   //!
-   TBranch        *b_FATjetTau3;   //!
-   TBranch        *b_FATjetTau4;   //!
-   TBranch        *b_FATjetMuEF;   //!
-   TBranch        *b_FATjetPhoEF;   //!
-   TBranch        *b_FATjetCEmEF;   //!
-   TBranch        *b_FATjetCHadEF;   //!
-   TBranch        *b_FATjetNEmEF;   //!
-   TBranch        *b_FATjetNHadEF;   //!
-   TBranch        *b_FATjetCMulti;   //!
-   TBranch        *b_FATjetPrunedPt;   //!
-   TBranch        *b_FATjetPrunedEta;   //!
-   TBranch        *b_FATjetPrunedPhi;   //!
-   TBranch        *b_FATjetPrunedMass;   //!
-   TBranch        *b_FATjetPrunedEn;   //!
-   TBranch        *b_FATjetPrunedCorrUncUp;   //!
-   TBranch        *b_FATjetPrunedCorrUncDown;   //!
-   TBranch        *b_FATjetPrunedCharge;   //!
-   TBranch        *b_FATjetPrunedPartonFlavor;   //!
-   TBranch        *b_FATjetPrunedSSV;   //!
-   TBranch        *b_FATjetPrunedCSV;   //!
-   TBranch        *b_FATjetPrunedTCHP;   //!
-   TBranch        *b_FATjetPrunedTCHE;   //!
-   TBranch        *b_FATjetPrunedJP;   //!
-   TBranch        *b_FATjetPrunedJBP;   //!
    TBranch        *b_FATjetSDmass;   //!
    TBranch        *b_FATjetTRmass;   //!
    TBranch        *b_FATjetPRmass;   //!
    TBranch        *b_FATjetFimass;   //!
-   TBranch        *b_FATjet_DoubleSV;   //!
+   TBranch        *b_FATjetTau1;   //!
+   TBranch        *b_FATjetTau2;   //!
+   TBranch        *b_FATjetTau3;   //!
+   TBranch        *b_FATjetTau4;   //!
    TBranch        *b_FATnSubSDJet;   //!
-   TBranch        *b_FATsubjetSDPt;   //!
-   TBranch        *b_FATsubjetSDEta;   //!
-   TBranch        *b_FATsubjetSDPhi;   //!
-   TBranch        *b_FATsubjetSDMass;   //!
+   TBranch        *b_FATsubjetSDPx;   //!
+   TBranch        *b_FATsubjetSDPy;   //!
+   TBranch        *b_FATsubjetSDPz;   //!
+   TBranch        *b_FATsubjetSDCE;   //!
    TBranch        *b_FATsubjetSDCSV;   //!
+   TBranch        *b_ADDnJet;   //!
+   TBranch        *b_ADDgenjetP4;   //!
+   TBranch        *b_ADDgenjetEM;   //!
+   TBranch        *b_ADDgenjetHAD;   //!
+   TBranch        *b_ADDgenjetINV;   //!
+   TBranch        *b_ADDgenjetAUX;   //!
+   TBranch        *b_ADDmatchedDR;   //!
+   TBranch        *b_ADDjetRawFactor;   //!
+   TBranch        *b_ADDjetP4;   //!
+   TBranch        *b_ADDjetCharge;   //!
+   TBranch        *b_ADDjetPartonFlavor;   //!
+   TBranch        *b_ADDjetPassIDLoose;   //!
+   TBranch        *b_ADDjetPassIDTight;   //!
+   TBranch        *b_ADDPUJetID;   //!
+   TBranch        *b_ADDisPUJetID;   //!
+   TBranch        *b_ADDjetCEmEF;   //!
+   TBranch        *b_ADDjetCHadEF;   //!
+   TBranch        *b_ADDjetPhoEF;   //!
+   TBranch        *b_ADDjetNEmEF;   //!
+   TBranch        *b_ADDjetNHadEF;   //!
+   TBranch        *b_ADDjetMuEF;   //!
+   TBranch        *b_ADDjetCMulti;   //!
+   TBranch        *b_ADDjetSSV;   //!
+   TBranch        *b_ADDjetCSV;   //!
+   TBranch        *b_ADDjetSSVHE;   //!
+   TBranch        *b_ADDjetCISVV2;   //!
+   TBranch        *b_ADDjetTCHP;   //!
+   TBranch        *b_ADDjetTCHE;   //!
+   TBranch        *b_ADDjetJP;   //!
+   TBranch        *b_ADDjetJBP;   //!
+   TBranch        *b_ADDjet_DoubleSV;   //!
+   TBranch        *b_ADDjet_nSV;   //!
+   TBranch        *b_ADDjet_SVMass;   //!
+   TBranch        *b_ADDjetTau1;   //!
+   TBranch        *b_ADDjetTau2;   //!
+   TBranch        *b_ADDjetTau3;   //!
+   TBranch        *b_ADDjetTau4;   //!
+   TBranch        *b_ADDnSubSDJet;   //!
+   TBranch        *b_ADDsubjetSDPx;   //!
+   TBranch        *b_ADDsubjetSDPy;   //!
+   TBranch        *b_ADDsubjetSDPz;   //!
+   TBranch        *b_ADDsubjetSDCE;   //!
+   TBranch        *b_ADDsubjetSDCSV;   //!
    
    TBranch        *b_THINnJet;   //!
    TBranch        *b_THINgenjetP4;   //!
@@ -884,74 +868,8 @@ class RKAnalyzer {
    TBranch        *b_THINjetTCHE;   //!
    TBranch        *b_THINjetJP;   //!
    TBranch        *b_THINjetJBP;   //!
-   TBranch        *b_ADDnJet;   //!
-   TBranch        *b_ADDjetPt;   //!
-   TBranch        *b_ADDjetEta;   //!
-   TBranch        *b_ADDjetPhi;   //!
-   TBranch        *b_ADDjetMass;   //!
-   TBranch        *b_ADDjetEn;   //!
-   TBranch        *b_ADDgenjetPx;   //!
-   TBranch        *b_ADDgenjetPy;   //!
-   TBranch        *b_ADDgenjetPz;   //!
-   TBranch        *b_ADDgenjetEn;   //!
-   TBranch        *b_ADDgenjetEM;   //!
-   TBranch        *b_ADDgenjetHAD;   //!
-   TBranch        *b_ADDgenjetINV;   //!
-   TBranch        *b_ADDgenjetAUX;   //!
-   TBranch        *b_ADDmatchedDR;   //!
-   TBranch        *b_ADDjetCorrUncUp;   //!
-   TBranch        *b_ADDjetCorrUncDown;   //!
-   TBranch        *b_ADDjetCharge;   //!
-   TBranch        *b_ADDjetPartonFlavor;   //!
-   TBranch        *b_ADDjetPassID;   //!
-   TBranch        *b_ADDjet_nSV;   //!
-   TBranch        *b_ADDjet_SVMass;   //!
-   TBranch        *b_ADDjet_SVEnergyRatio;   //!
-   TBranch        *b_ADDjetSSV;   //!
-   TBranch        *b_ADDjetSSVHE;   //!
-   TBranch        *b_ADDjetCSV;   //!
-   TBranch        *b_ADDjetCISVV2;   //!
-   TBranch        *b_ADDjetTCHP;   //!
-   TBranch        *b_ADDjetTCHE;   //!
-   TBranch        *b_ADDjetJP;   //!
-   TBranch        *b_ADDjetJBP;   //!
-   TBranch        *b_ADDjetTau1;   //!
-   TBranch        *b_ADDjetTau2;   //!
-   TBranch        *b_ADDjetTau3;   //!
-   TBranch        *b_ADDjetTau4;   //!
-   TBranch        *b_ADDjetMuEF;   //!
-   TBranch        *b_ADDjetPhoEF;   //!
-   TBranch        *b_ADDjetCEmEF;   //!
-   TBranch        *b_ADDjetCHadEF;   //!
-   TBranch        *b_ADDjetNEmEF;   //!
-   TBranch        *b_ADDjetNHadEF;   //!
-   TBranch        *b_ADDjetCMulti;   //!
-   TBranch        *b_ADDjetPrunedPt;   //!
-   TBranch        *b_ADDjetPrunedEta;   //!
-   TBranch        *b_ADDjetPrunedPhi;   //!
-   TBranch        *b_ADDjetPrunedMass;   //!
-   TBranch        *b_ADDjetPrunedEn;   //!
-   TBranch        *b_ADDjetPrunedCorrUncUp;   //!
-   TBranch        *b_ADDjetPrunedCorrUncDown;   //!
-   TBranch        *b_ADDjetPrunedCharge;   //!
-   TBranch        *b_ADDjetPrunedPartonFlavor;   //!
-   TBranch        *b_ADDjetPrunedSSV;   //!
-   TBranch        *b_ADDjetPrunedCSV;   //!
-   TBranch        *b_ADDjetPrunedTCHP;   //!
-   TBranch        *b_ADDjetPrunedTCHE;   //!
-   TBranch        *b_ADDjetPrunedJP;   //!
-   TBranch        *b_ADDjetPrunedJBP;   //!
-   TBranch        *b_ADDjetSDmass;   //!
-   TBranch        *b_ADDjetTRmass;   //!
-   TBranch        *b_ADDjetPRmass;   //!
-   TBranch        *b_ADDjetFimass;   //!
-   TBranch        *b_ADDjet_DoubleSV;   //!
-   TBranch        *b_ADDnSubSDJet;   //!
-   TBranch        *b_ADDsubjetSDPt;   //!
-   TBranch        *b_ADDsubjetSDEta;   //!
-   TBranch        *b_ADDsubjetSDPhi;   //!
-   TBranch        *b_ADDsubjetSDMass;   //!
-   TBranch        *b_ADDsubjetSDCSV;   //!
+
+
    TBranch        *b_hlt_nTrigs;   //!
    TBranch        *b_hlt_trigResult;   //!
    TBranch        *b_hlt_trigName;   //!
@@ -973,6 +891,8 @@ class RKAnalyzer {
    void ClearCollections();
    // fill all the jet related variables in the vector which will be used later for analysis.
    void JetProducer();
+   void FATJetProducer();
+   void ADDJetProducer();
    // fill all the MET variables in the vector which will be used later for analysis. 
    void METProducer();
    // fill all the electron variables in the vector 
@@ -1235,73 +1155,92 @@ void RKAnalyzer::Init(TTree *tree)
    eleIsPassMVATight = 0;
    eleMVAValue = 0;
    eleMVACategory = 0;
-   FATjetPt = 0;
-   FATjetEta = 0;
-   FATjetPhi = 0;
-   FATjetMass = 0;
-   FATjetEn = 0;
-   FATgenjetPx = 0;
-   FATgenjetPy = 0;
-   FATgenjetPz = 0;
-   FATgenjetEn = 0;
+   
+   FATgenjetP4 = 0;
    FATgenjetEM = 0;
    FATgenjetHAD = 0;
    FATgenjetINV = 0;
    FATgenjetAUX = 0;
    FATmatchedDR = 0;
-   FATjetCorrUncUp = 0;
-   FATjetCorrUncDown = 0;
+   FATjetRawFactor = 0;
+   FATjetP4 = 0;
    FATjetCharge = 0;
    FATjetPartonFlavor = 0;
-   FATjetPassID = 0;
-   FATjet_nSV = 0;
-   FATjet_SVMass = 0;
-   FATjet_SVEnergyRatio = 0;
+   FATjetPassIDLoose = 0;
+   FATjetPassIDTight = 0;
+   FATPUJetID = 0;
+   FATisPUJetID = 0;
+   FATjetCEmEF = 0;
+   FATjetCHadEF = 0;
+   FATjetPhoEF = 0;
+   FATjetNEmEF = 0;
+   FATjetNHadEF = 0;
+   FATjetMuEF = 0;
+   FATjetCMulti = 0;
    FATjetSSV = 0;
-   FATjetSSVHE = 0;
    FATjetCSV = 0;
+   FATjetSSVHE = 0;
    FATjetCISVV2 = 0;
    FATjetTCHP = 0;
    FATjetTCHE = 0;
    FATjetJP = 0;
    FATjetJBP = 0;
-   FATjetTau1 = 0;
-   FATjetTau2 = 0;
-   FATjetTau3 = 0;
-   FATjetTau4 = 0;
-   FATjetMuEF = 0;
-   FATjetPhoEF = 0;
-   FATjetCEmEF = 0;
-   FATjetCHadEF = 0;
-   FATjetNEmEF = 0;
-   FATjetNHadEF = 0;
-   FATjetCMulti = 0;
-   FATjetPrunedPt = 0;
-   FATjetPrunedEta = 0;
-   FATjetPrunedPhi = 0;
-   FATjetPrunedMass = 0;
-   FATjetPrunedEn = 0;
-   FATjetPrunedCorrUncUp = 0;
-   FATjetPrunedCorrUncDown = 0;
-   FATjetPrunedCharge = 0;
-   FATjetPrunedPartonFlavor = 0;
-   FATjetPrunedSSV = 0;
-   FATjetPrunedCSV = 0;
-   FATjetPrunedTCHP = 0;
-   FATjetPrunedTCHE = 0;
-   FATjetPrunedJP = 0;
-   FATjetPrunedJBP = 0;
    FATjetSDmass = 0;
    FATjetTRmass = 0;
    FATjetPRmass = 0;
    FATjetFimass = 0;
-   FATjet_DoubleSV = 0;
+   FATjetTau1 = 0;
+   FATjetTau2 = 0;
+   FATjetTau3 = 0;
+   FATjetTau4 = 0;
    FATnSubSDJet = 0;
-   FATsubjetSDPt = 0;
-   FATsubjetSDEta = 0;
-   FATsubjetSDPhi = 0;
-   FATsubjetSDMass = 0;
+   FATsubjetSDPx = 0;
+   FATsubjetSDPy = 0;
+   FATsubjetSDPz = 0;
+   FATsubjetSDCE = 0;
    FATsubjetSDCSV = 0;
+   ADDgenjetP4 = 0;
+   ADDgenjetEM = 0;
+   ADDgenjetHAD = 0;
+   ADDgenjetINV = 0;
+   ADDgenjetAUX = 0;
+   ADDmatchedDR = 0;
+   ADDjetRawFactor = 0;
+   ADDjetP4 = 0;
+   ADDjetCharge = 0;
+   ADDjetPartonFlavor = 0;
+   ADDjetPassIDLoose = 0;
+   ADDjetPassIDTight = 0;
+   ADDPUJetID = 0;
+   ADDisPUJetID = 0;
+   ADDjetCEmEF = 0;
+   ADDjetCHadEF = 0;
+   ADDjetPhoEF = 0;
+   ADDjetNEmEF = 0;
+   ADDjetNHadEF = 0;
+   ADDjetMuEF = 0;
+   ADDjetCMulti = 0;
+   ADDjetSSV = 0;
+   ADDjetCSV = 0;
+   ADDjetSSVHE = 0;
+   ADDjetCISVV2 = 0;
+   ADDjetTCHP = 0;
+   ADDjetTCHE = 0;
+   ADDjetJP = 0;
+   ADDjetJBP = 0;
+   ADDjet_DoubleSV = 0;
+   ADDjet_nSV = 0;
+   ADDjet_SVMass = 0;
+   ADDjetTau1 = 0;
+   ADDjetTau2 = 0;
+   ADDjetTau3 = 0;
+   ADDjetTau4 = 0;
+   ADDnSubSDJet = 0;
+   ADDsubjetSDPx = 0;
+   ADDsubjetSDPy = 0;
+   ADDsubjetSDPz = 0;
+   ADDsubjetSDCE = 0;
+   ADDsubjetSDCSV = 0;
    
    THINgenjetP4 = 0;
    THINgenjetEM = 0;
@@ -1335,73 +1274,7 @@ void RKAnalyzer::Init(TTree *tree)
    THINjetTCHE = 0;
    THINjetJP = 0;
    THINjetJBP = 0;
-   ADDjetPt = 0;
-   ADDjetEta = 0;
-   ADDjetPhi = 0;
-   ADDjetMass = 0;
-   ADDjetEn = 0;
-   ADDgenjetPx = 0;
-   ADDgenjetPy = 0;
-   ADDgenjetPz = 0;
-   ADDgenjetEn = 0;
-   ADDgenjetEM = 0;
-   ADDgenjetHAD = 0;
-   ADDgenjetINV = 0;
-   ADDgenjetAUX = 0;
-   ADDmatchedDR = 0;
-   ADDjetCorrUncUp = 0;
-   ADDjetCorrUncDown = 0;
-   ADDjetCharge = 0;
-   ADDjetPartonFlavor = 0;
-   ADDjetPassID = 0;
-   ADDjet_nSV = 0;
-   ADDjet_SVMass = 0;
-   ADDjet_SVEnergyRatio = 0;
-   ADDjetSSV = 0;
-   ADDjetSSVHE = 0;
-   ADDjetCSV = 0;
-   ADDjetCISVV2 = 0;
-   ADDjetTCHP = 0;
-   ADDjetTCHE = 0;
-   ADDjetJP = 0;
-   ADDjetJBP = 0;
-   ADDjetTau1 = 0;
-   ADDjetTau2 = 0;
-   ADDjetTau3 = 0;
-   ADDjetTau4 = 0;
-   ADDjetMuEF = 0;
-   ADDjetPhoEF = 0;
-   ADDjetCEmEF = 0;
-   ADDjetCHadEF = 0;
-   ADDjetNEmEF = 0;
-   ADDjetNHadEF = 0;
-   ADDjetCMulti = 0;
-   ADDjetPrunedPt = 0;
-   ADDjetPrunedEta = 0;
-   ADDjetPrunedPhi = 0;
-   ADDjetPrunedMass = 0;
-   ADDjetPrunedEn = 0;
-   ADDjetPrunedCorrUncUp = 0;
-   ADDjetPrunedCorrUncDown = 0;
-   ADDjetPrunedCharge = 0;
-   ADDjetPrunedPartonFlavor = 0;
-   ADDjetPrunedSSV = 0;
-   ADDjetPrunedCSV = 0;
-   ADDjetPrunedTCHP = 0;
-   ADDjetPrunedTCHE = 0;
-   ADDjetPrunedJP = 0;
-   ADDjetPrunedJBP = 0;
-   ADDjetSDmass = 0;
-   ADDjetTRmass = 0;
-   ADDjetPRmass = 0;
-   ADDjetFimass = 0;
-   ADDjet_DoubleSV = 0;
-   ADDnSubSDJet = 0;
-   ADDsubjetSDPt = 0;
-   ADDsubjetSDEta = 0;
-   ADDsubjetSDPhi = 0;
-   ADDsubjetSDMass = 0;
-   ADDsubjetSDCSV = 0;
+   
    hlt_trigResult = 0;
 
    hlt_trigName = 0;
@@ -1621,74 +1494,94 @@ void RKAnalyzer::Init(TTree *tree)
    fChain->SetBranchAddress("pfmvaMetPhi_", &pfmvaMetPhi_, &b_pfmvaMetPhi_);
    fChain->SetBranchAddress("pfmvaMetSumEt_", &pfmvaMetSumEt_, &b_pfmvaMetSumEt_);
    fChain->SetBranchAddress("pfmvaMetSig_", &pfmvaMetSig_, &b_pfmvaMetSig_);
+   
    fChain->SetBranchAddress("FATnJet", &FATnJet, &b_FATnJet);
-   fChain->SetBranchAddress("FATjetPt", &FATjetPt, &b_FATjetPt);
-   fChain->SetBranchAddress("FATjetEta", &FATjetEta, &b_FATjetEta);
-   fChain->SetBranchAddress("FATjetPhi", &FATjetPhi, &b_FATjetPhi);
-   fChain->SetBranchAddress("FATjetMass", &FATjetMass, &b_FATjetMass);
-   fChain->SetBranchAddress("FATjetEn", &FATjetEn, &b_FATjetEn);
-   fChain->SetBranchAddress("FATgenjetPx", &FATgenjetPx, &b_FATgenjetPx);
-   fChain->SetBranchAddress("FATgenjetPy", &FATgenjetPy, &b_FATgenjetPy);
-   fChain->SetBranchAddress("FATgenjetPz", &FATgenjetPz, &b_FATgenjetPz);
-   fChain->SetBranchAddress("FATgenjetEn", &FATgenjetEn, &b_FATgenjetEn);
+   fChain->SetBranchAddress("FATgenjetP4", &FATgenjetP4, &b_FATgenjetP4);
    fChain->SetBranchAddress("FATgenjetEM", &FATgenjetEM, &b_FATgenjetEM);
    fChain->SetBranchAddress("FATgenjetHAD", &FATgenjetHAD, &b_FATgenjetHAD);
    fChain->SetBranchAddress("FATgenjetINV", &FATgenjetINV, &b_FATgenjetINV);
    fChain->SetBranchAddress("FATgenjetAUX", &FATgenjetAUX, &b_FATgenjetAUX);
    fChain->SetBranchAddress("FATmatchedDR", &FATmatchedDR, &b_FATmatchedDR);
-   fChain->SetBranchAddress("FATjetCorrUncUp", &FATjetCorrUncUp, &b_FATjetCorrUncUp);
-   fChain->SetBranchAddress("FATjetCorrUncDown", &FATjetCorrUncDown, &b_FATjetCorrUncDown);
+   fChain->SetBranchAddress("FATjetRawFactor", &FATjetRawFactor, &b_FATjetRawFactor);
+   fChain->SetBranchAddress("FATjetP4", &FATjetP4, &b_FATjetP4);
    fChain->SetBranchAddress("FATjetCharge", &FATjetCharge, &b_FATjetCharge);
    fChain->SetBranchAddress("FATjetPartonFlavor", &FATjetPartonFlavor, &b_FATjetPartonFlavor);
-   fChain->SetBranchAddress("FATjetPassID", &FATjetPassID, &b_FATjetPassID);
-   fChain->SetBranchAddress("FATjet_nSV", &FATjet_nSV, &b_FATjet_nSV);
-   fChain->SetBranchAddress("FATjet_SVMass", &FATjet_SVMass, &b_FATjet_SVMass);
-   fChain->SetBranchAddress("FATjet_SVEnergyRatio", &FATjet_SVEnergyRatio, &b_FATjet_SVEnergyRatio);
+   fChain->SetBranchAddress("FATjetPassIDLoose", &FATjetPassIDLoose, &b_FATjetPassIDLoose);
+   fChain->SetBranchAddress("FATjetPassIDTight", &FATjetPassIDTight, &b_FATjetPassIDTight);
+   fChain->SetBranchAddress("FATPUJetID", &FATPUJetID, &b_FATPUJetID);
+   fChain->SetBranchAddress("FATisPUJetID", &FATisPUJetID, &b_FATisPUJetID);
+   fChain->SetBranchAddress("FATjetCEmEF", &FATjetCEmEF, &b_FATjetCEmEF);
+   fChain->SetBranchAddress("FATjetCHadEF", &FATjetCHadEF, &b_FATjetCHadEF);
+   fChain->SetBranchAddress("FATjetPhoEF", &FATjetPhoEF, &b_FATjetPhoEF);
+   fChain->SetBranchAddress("FATjetNEmEF", &FATjetNEmEF, &b_FATjetNEmEF);
+   fChain->SetBranchAddress("FATjetNHadEF", &FATjetNHadEF, &b_FATjetNHadEF);
+   fChain->SetBranchAddress("FATjetMuEF", &FATjetMuEF, &b_FATjetMuEF);
+   fChain->SetBranchAddress("FATjetCMulti", &FATjetCMulti, &b_FATjetCMulti);
    fChain->SetBranchAddress("FATjetSSV", &FATjetSSV, &b_FATjetSSV);
-   fChain->SetBranchAddress("FATjetSSVHE", &FATjetSSVHE, &b_FATjetSSVHE);
    fChain->SetBranchAddress("FATjetCSV", &FATjetCSV, &b_FATjetCSV);
+   fChain->SetBranchAddress("FATjetSSVHE", &FATjetSSVHE, &b_FATjetSSVHE);
    fChain->SetBranchAddress("FATjetCISVV2", &FATjetCISVV2, &b_FATjetCISVV2);
    fChain->SetBranchAddress("FATjetTCHP", &FATjetTCHP, &b_FATjetTCHP);
    fChain->SetBranchAddress("FATjetTCHE", &FATjetTCHE, &b_FATjetTCHE);
    fChain->SetBranchAddress("FATjetJP", &FATjetJP, &b_FATjetJP);
    fChain->SetBranchAddress("FATjetJBP", &FATjetJBP, &b_FATjetJBP);
-   fChain->SetBranchAddress("FATjetTau1", &FATjetTau1, &b_FATjetTau1);
-   fChain->SetBranchAddress("FATjetTau2", &FATjetTau2, &b_FATjetTau2);
-   fChain->SetBranchAddress("FATjetTau3", &FATjetTau3, &b_FATjetTau3);
-   fChain->SetBranchAddress("FATjetTau4", &FATjetTau4, &b_FATjetTau4);
-   fChain->SetBranchAddress("FATjetMuEF", &FATjetMuEF, &b_FATjetMuEF);
-   fChain->SetBranchAddress("FATjetPhoEF", &FATjetPhoEF, &b_FATjetPhoEF);
-   fChain->SetBranchAddress("FATjetCEmEF", &FATjetCEmEF, &b_FATjetCEmEF);
-   fChain->SetBranchAddress("FATjetCHadEF", &FATjetCHadEF, &b_FATjetCHadEF);
-   fChain->SetBranchAddress("FATjetNEmEF", &FATjetNEmEF, &b_FATjetNEmEF);
-   fChain->SetBranchAddress("FATjetNHadEF", &FATjetNHadEF, &b_FATjetNHadEF);
-   fChain->SetBranchAddress("FATjetCMulti", &FATjetCMulti, &b_FATjetCMulti);
-   fChain->SetBranchAddress("FATjetPrunedPt", &FATjetPrunedPt, &b_FATjetPrunedPt);
-   fChain->SetBranchAddress("FATjetPrunedEta", &FATjetPrunedEta, &b_FATjetPrunedEta);
-   fChain->SetBranchAddress("FATjetPrunedPhi", &FATjetPrunedPhi, &b_FATjetPrunedPhi);
-   fChain->SetBranchAddress("FATjetPrunedMass", &FATjetPrunedMass, &b_FATjetPrunedMass);
-   fChain->SetBranchAddress("FATjetPrunedEn", &FATjetPrunedEn, &b_FATjetPrunedEn);
-   fChain->SetBranchAddress("FATjetPrunedCorrUncUp", &FATjetPrunedCorrUncUp, &b_FATjetPrunedCorrUncUp);
-   fChain->SetBranchAddress("FATjetPrunedCorrUncDown", &FATjetPrunedCorrUncDown, &b_FATjetPrunedCorrUncDown);
-   fChain->SetBranchAddress("FATjetPrunedCharge", &FATjetPrunedCharge, &b_FATjetPrunedCharge);
-   fChain->SetBranchAddress("FATjetPrunedPartonFlavor", &FATjetPrunedPartonFlavor, &b_FATjetPrunedPartonFlavor);
-   fChain->SetBranchAddress("FATjetPrunedSSV", &FATjetPrunedSSV, &b_FATjetPrunedSSV);
-   fChain->SetBranchAddress("FATjetPrunedCSV", &FATjetPrunedCSV, &b_FATjetPrunedCSV);
-   fChain->SetBranchAddress("FATjetPrunedTCHP", &FATjetPrunedTCHP, &b_FATjetPrunedTCHP);
-   fChain->SetBranchAddress("FATjetPrunedTCHE", &FATjetPrunedTCHE, &b_FATjetPrunedTCHE);
-   fChain->SetBranchAddress("FATjetPrunedJP", &FATjetPrunedJP, &b_FATjetPrunedJP);
-   fChain->SetBranchAddress("FATjetPrunedJBP", &FATjetPrunedJBP, &b_FATjetPrunedJBP);
    fChain->SetBranchAddress("FATjetSDmass", &FATjetSDmass, &b_FATjetSDmass);
    fChain->SetBranchAddress("FATjetTRmass", &FATjetTRmass, &b_FATjetTRmass);
    fChain->SetBranchAddress("FATjetPRmass", &FATjetPRmass, &b_FATjetPRmass);
    fChain->SetBranchAddress("FATjetFimass", &FATjetFimass, &b_FATjetFimass);
-   fChain->SetBranchAddress("FATjet_DoubleSV", &FATjet_DoubleSV, &b_FATjet_DoubleSV);
+   fChain->SetBranchAddress("FATjetTau1", &FATjetTau1, &b_FATjetTau1);
+   fChain->SetBranchAddress("FATjetTau2", &FATjetTau2, &b_FATjetTau2);
+   fChain->SetBranchAddress("FATjetTau3", &FATjetTau3, &b_FATjetTau3);
+   fChain->SetBranchAddress("FATjetTau4", &FATjetTau4, &b_FATjetTau4);
    fChain->SetBranchAddress("FATnSubSDJet", &FATnSubSDJet, &b_FATnSubSDJet);
-   fChain->SetBranchAddress("FATsubjetSDPt", &FATsubjetSDPt, &b_FATsubjetSDPt);
-   fChain->SetBranchAddress("FATsubjetSDEta", &FATsubjetSDEta, &b_FATsubjetSDEta);
-   fChain->SetBranchAddress("FATsubjetSDPhi", &FATsubjetSDPhi, &b_FATsubjetSDPhi);
-   fChain->SetBranchAddress("FATsubjetSDMass", &FATsubjetSDMass, &b_FATsubjetSDMass);
+   fChain->SetBranchAddress("FATsubjetSDPx", &FATsubjetSDPx, &b_FATsubjetSDPx);
+   fChain->SetBranchAddress("FATsubjetSDPy", &FATsubjetSDPy, &b_FATsubjetSDPy);
+   fChain->SetBranchAddress("FATsubjetSDPz", &FATsubjetSDPz, &b_FATsubjetSDPz);
+   fChain->SetBranchAddress("FATsubjetSDCE", &FATsubjetSDCE, &b_FATsubjetSDCE);
    fChain->SetBranchAddress("FATsubjetSDCSV", &FATsubjetSDCSV, &b_FATsubjetSDCSV);
+   fChain->SetBranchAddress("ADDnJet", &ADDnJet, &b_ADDnJet);
+   fChain->SetBranchAddress("ADDgenjetP4", &ADDgenjetP4, &b_ADDgenjetP4);
+   fChain->SetBranchAddress("ADDgenjetEM", &ADDgenjetEM, &b_ADDgenjetEM);
+   fChain->SetBranchAddress("ADDgenjetHAD", &ADDgenjetHAD, &b_ADDgenjetHAD);
+   fChain->SetBranchAddress("ADDgenjetINV", &ADDgenjetINV, &b_ADDgenjetINV);
+   fChain->SetBranchAddress("ADDgenjetAUX", &ADDgenjetAUX, &b_ADDgenjetAUX);
+   fChain->SetBranchAddress("ADDmatchedDR", &ADDmatchedDR, &b_ADDmatchedDR);
+   fChain->SetBranchAddress("ADDjetRawFactor", &ADDjetRawFactor, &b_ADDjetRawFactor);
+   fChain->SetBranchAddress("ADDjetP4", &ADDjetP4, &b_ADDjetP4);
+   fChain->SetBranchAddress("ADDjetCharge", &ADDjetCharge, &b_ADDjetCharge);
+   fChain->SetBranchAddress("ADDjetPartonFlavor", &ADDjetPartonFlavor, &b_ADDjetPartonFlavor);
+   fChain->SetBranchAddress("ADDjetPassIDLoose", &ADDjetPassIDLoose, &b_ADDjetPassIDLoose);
+   fChain->SetBranchAddress("ADDjetPassIDTight", &ADDjetPassIDTight, &b_ADDjetPassIDTight);
+   fChain->SetBranchAddress("ADDPUJetID", &ADDPUJetID, &b_ADDPUJetID);
+   fChain->SetBranchAddress("ADDisPUJetID", &ADDisPUJetID, &b_ADDisPUJetID);
+   fChain->SetBranchAddress("ADDjetCEmEF", &ADDjetCEmEF, &b_ADDjetCEmEF);
+   fChain->SetBranchAddress("ADDjetCHadEF", &ADDjetCHadEF, &b_ADDjetCHadEF);
+   fChain->SetBranchAddress("ADDjetPhoEF", &ADDjetPhoEF, &b_ADDjetPhoEF);
+   fChain->SetBranchAddress("ADDjetNEmEF", &ADDjetNEmEF, &b_ADDjetNEmEF);
+   fChain->SetBranchAddress("ADDjetNHadEF", &ADDjetNHadEF, &b_ADDjetNHadEF);
+   fChain->SetBranchAddress("ADDjetMuEF", &ADDjetMuEF, &b_ADDjetMuEF);
+   fChain->SetBranchAddress("ADDjetCMulti", &ADDjetCMulti, &b_ADDjetCMulti);
+   fChain->SetBranchAddress("ADDjetSSV", &ADDjetSSV, &b_ADDjetSSV);
+   fChain->SetBranchAddress("ADDjetCSV", &ADDjetCSV, &b_ADDjetCSV);
+   fChain->SetBranchAddress("ADDjetSSVHE", &ADDjetSSVHE, &b_ADDjetSSVHE);
+   fChain->SetBranchAddress("ADDjetCISVV2", &ADDjetCISVV2, &b_ADDjetCISVV2);
+   fChain->SetBranchAddress("ADDjetTCHP", &ADDjetTCHP, &b_ADDjetTCHP);
+   fChain->SetBranchAddress("ADDjetTCHE", &ADDjetTCHE, &b_ADDjetTCHE);
+   fChain->SetBranchAddress("ADDjetJP", &ADDjetJP, &b_ADDjetJP);
+   fChain->SetBranchAddress("ADDjetJBP", &ADDjetJBP, &b_ADDjetJBP);
+   fChain->SetBranchAddress("ADDjet_DoubleSV", &ADDjet_DoubleSV, &b_ADDjet_DoubleSV);
+   fChain->SetBranchAddress("ADDjet_nSV", &ADDjet_nSV, &b_ADDjet_nSV);
+   fChain->SetBranchAddress("ADDjet_SVMass", &ADDjet_SVMass, &b_ADDjet_SVMass);
+   fChain->SetBranchAddress("ADDjetTau1", &ADDjetTau1, &b_ADDjetTau1);
+   fChain->SetBranchAddress("ADDjetTau2", &ADDjetTau2, &b_ADDjetTau2);
+   fChain->SetBranchAddress("ADDjetTau3", &ADDjetTau3, &b_ADDjetTau3);
+   fChain->SetBranchAddress("ADDjetTau4", &ADDjetTau4, &b_ADDjetTau4);
+   fChain->SetBranchAddress("ADDnSubSDJet", &ADDnSubSDJet, &b_ADDnSubSDJet);
+   fChain->SetBranchAddress("ADDsubjetSDPx", &ADDsubjetSDPx, &b_ADDsubjetSDPx);
+   fChain->SetBranchAddress("ADDsubjetSDPy", &ADDsubjetSDPy, &b_ADDsubjetSDPy);
+   fChain->SetBranchAddress("ADDsubjetSDPz", &ADDsubjetSDPz, &b_ADDsubjetSDPz);
+   fChain->SetBranchAddress("ADDsubjetSDCE", &ADDsubjetSDCE, &b_ADDsubjetSDCE);
+   fChain->SetBranchAddress("ADDsubjetSDCSV", &ADDsubjetSDCSV, &b_ADDsubjetSDCSV);
    
    fChain->SetBranchAddress("THINnJet", &THINnJet, &b_THINnJet);
    fChain->SetBranchAddress("THINgenjetP4", &THINgenjetP4, &b_THINgenjetP4);
@@ -1722,74 +1615,8 @@ void RKAnalyzer::Init(TTree *tree)
    fChain->SetBranchAddress("THINjetTCHE", &THINjetTCHE, &b_THINjetTCHE);
    fChain->SetBranchAddress("THINjetJP", &THINjetJP, &b_THINjetJP);
    fChain->SetBranchAddress("THINjetJBP", &THINjetJBP, &b_THINjetJBP);
-   fChain->SetBranchAddress("ADDnJet", &ADDnJet, &b_ADDnJet);
-   fChain->SetBranchAddress("ADDjetPt", &ADDjetPt, &b_ADDjetPt);
-   fChain->SetBranchAddress("ADDjetEta", &ADDjetEta, &b_ADDjetEta);
-   fChain->SetBranchAddress("ADDjetPhi", &ADDjetPhi, &b_ADDjetPhi);
-   fChain->SetBranchAddress("ADDjetMass", &ADDjetMass, &b_ADDjetMass);
-   fChain->SetBranchAddress("ADDjetEn", &ADDjetEn, &b_ADDjetEn);
-   fChain->SetBranchAddress("ADDgenjetPx", &ADDgenjetPx, &b_ADDgenjetPx);
-   fChain->SetBranchAddress("ADDgenjetPy", &ADDgenjetPy, &b_ADDgenjetPy);
-   fChain->SetBranchAddress("ADDgenjetPz", &ADDgenjetPz, &b_ADDgenjetPz);
-   fChain->SetBranchAddress("ADDgenjetEn", &ADDgenjetEn, &b_ADDgenjetEn);
-   fChain->SetBranchAddress("ADDgenjetEM", &ADDgenjetEM, &b_ADDgenjetEM);
-   fChain->SetBranchAddress("ADDgenjetHAD", &ADDgenjetHAD, &b_ADDgenjetHAD);
-   fChain->SetBranchAddress("ADDgenjetINV", &ADDgenjetINV, &b_ADDgenjetINV);
-   fChain->SetBranchAddress("ADDgenjetAUX", &ADDgenjetAUX, &b_ADDgenjetAUX);
-   fChain->SetBranchAddress("ADDmatchedDR", &ADDmatchedDR, &b_ADDmatchedDR);
-   fChain->SetBranchAddress("ADDjetCorrUncUp", &ADDjetCorrUncUp, &b_ADDjetCorrUncUp);
-   fChain->SetBranchAddress("ADDjetCorrUncDown", &ADDjetCorrUncDown, &b_ADDjetCorrUncDown);
-   fChain->SetBranchAddress("ADDjetCharge", &ADDjetCharge, &b_ADDjetCharge);
-   fChain->SetBranchAddress("ADDjetPartonFlavor", &ADDjetPartonFlavor, &b_ADDjetPartonFlavor);
-   fChain->SetBranchAddress("ADDjetPassID", &ADDjetPassID, &b_ADDjetPassID);
-   fChain->SetBranchAddress("ADDjet_nSV", &ADDjet_nSV, &b_ADDjet_nSV);
-   fChain->SetBranchAddress("ADDjet_SVMass", &ADDjet_SVMass, &b_ADDjet_SVMass);
-   fChain->SetBranchAddress("ADDjet_SVEnergyRatio", &ADDjet_SVEnergyRatio, &b_ADDjet_SVEnergyRatio);
-   fChain->SetBranchAddress("ADDjetSSV", &ADDjetSSV, &b_ADDjetSSV);
-   fChain->SetBranchAddress("ADDjetSSVHE", &ADDjetSSVHE, &b_ADDjetSSVHE);
-   fChain->SetBranchAddress("ADDjetCSV", &ADDjetCSV, &b_ADDjetCSV);
-   fChain->SetBranchAddress("ADDjetCISVV2", &ADDjetCISVV2, &b_ADDjetCISVV2);
-   fChain->SetBranchAddress("ADDjetTCHP", &ADDjetTCHP, &b_ADDjetTCHP);
-   fChain->SetBranchAddress("ADDjetTCHE", &ADDjetTCHE, &b_ADDjetTCHE);
-   fChain->SetBranchAddress("ADDjetJP", &ADDjetJP, &b_ADDjetJP);
-   fChain->SetBranchAddress("ADDjetJBP", &ADDjetJBP, &b_ADDjetJBP);
-   fChain->SetBranchAddress("ADDjetTau1", &ADDjetTau1, &b_ADDjetTau1);
-   fChain->SetBranchAddress("ADDjetTau2", &ADDjetTau2, &b_ADDjetTau2);
-   fChain->SetBranchAddress("ADDjetTau3", &ADDjetTau3, &b_ADDjetTau3);
-   fChain->SetBranchAddress("ADDjetTau4", &ADDjetTau4, &b_ADDjetTau4);
-   fChain->SetBranchAddress("ADDjetMuEF", &ADDjetMuEF, &b_ADDjetMuEF);
-   fChain->SetBranchAddress("ADDjetPhoEF", &ADDjetPhoEF, &b_ADDjetPhoEF);
-   fChain->SetBranchAddress("ADDjetCEmEF", &ADDjetCEmEF, &b_ADDjetCEmEF);
-   fChain->SetBranchAddress("ADDjetCHadEF", &ADDjetCHadEF, &b_ADDjetCHadEF);
-   fChain->SetBranchAddress("ADDjetNEmEF", &ADDjetNEmEF, &b_ADDjetNEmEF);
-   fChain->SetBranchAddress("ADDjetNHadEF", &ADDjetNHadEF, &b_ADDjetNHadEF);
-   fChain->SetBranchAddress("ADDjetCMulti", &ADDjetCMulti, &b_ADDjetCMulti);
-   fChain->SetBranchAddress("ADDjetPrunedPt", &ADDjetPrunedPt, &b_ADDjetPrunedPt);
-   fChain->SetBranchAddress("ADDjetPrunedEta", &ADDjetPrunedEta, &b_ADDjetPrunedEta);
-   fChain->SetBranchAddress("ADDjetPrunedPhi", &ADDjetPrunedPhi, &b_ADDjetPrunedPhi);
-   fChain->SetBranchAddress("ADDjetPrunedMass", &ADDjetPrunedMass, &b_ADDjetPrunedMass);
-   fChain->SetBranchAddress("ADDjetPrunedEn", &ADDjetPrunedEn, &b_ADDjetPrunedEn);
-   fChain->SetBranchAddress("ADDjetPrunedCorrUncUp", &ADDjetPrunedCorrUncUp, &b_ADDjetPrunedCorrUncUp);
-   fChain->SetBranchAddress("ADDjetPrunedCorrUncDown", &ADDjetPrunedCorrUncDown, &b_ADDjetPrunedCorrUncDown);
-   fChain->SetBranchAddress("ADDjetPrunedCharge", &ADDjetPrunedCharge, &b_ADDjetPrunedCharge);
-   fChain->SetBranchAddress("ADDjetPrunedPartonFlavor", &ADDjetPrunedPartonFlavor, &b_ADDjetPrunedPartonFlavor);
-   fChain->SetBranchAddress("ADDjetPrunedSSV", &ADDjetPrunedSSV, &b_ADDjetPrunedSSV);
-   fChain->SetBranchAddress("ADDjetPrunedCSV", &ADDjetPrunedCSV, &b_ADDjetPrunedCSV);
-   fChain->SetBranchAddress("ADDjetPrunedTCHP", &ADDjetPrunedTCHP, &b_ADDjetPrunedTCHP);
-   fChain->SetBranchAddress("ADDjetPrunedTCHE", &ADDjetPrunedTCHE, &b_ADDjetPrunedTCHE);
-   fChain->SetBranchAddress("ADDjetPrunedJP", &ADDjetPrunedJP, &b_ADDjetPrunedJP);
-   fChain->SetBranchAddress("ADDjetPrunedJBP", &ADDjetPrunedJBP, &b_ADDjetPrunedJBP);
-   fChain->SetBranchAddress("ADDjetSDmass", &ADDjetSDmass, &b_ADDjetSDmass);
-   fChain->SetBranchAddress("ADDjetTRmass", &ADDjetTRmass, &b_ADDjetTRmass);
-   fChain->SetBranchAddress("ADDjetPRmass", &ADDjetPRmass, &b_ADDjetPRmass);
-   fChain->SetBranchAddress("ADDjetFimass", &ADDjetFimass, &b_ADDjetFimass);
-   fChain->SetBranchAddress("ADDjet_DoubleSV", &ADDjet_DoubleSV, &b_ADDjet_DoubleSV);
-   fChain->SetBranchAddress("ADDnSubSDJet", &ADDnSubSDJet, &b_ADDnSubSDJet);
-   fChain->SetBranchAddress("ADDsubjetSDPt", &ADDsubjetSDPt, &b_ADDsubjetSDPt);
-   fChain->SetBranchAddress("ADDsubjetSDEta", &ADDsubjetSDEta, &b_ADDsubjetSDEta);
-   fChain->SetBranchAddress("ADDsubjetSDPhi", &ADDsubjetSDPhi, &b_ADDsubjetSDPhi);
-   fChain->SetBranchAddress("ADDsubjetSDMass", &ADDsubjetSDMass, &b_ADDsubjetSDMass);
-   fChain->SetBranchAddress("ADDsubjetSDCSV", &ADDsubjetSDCSV, &b_ADDsubjetSDCSV);
+   
+   
    fChain->SetBranchAddress("hlt_nTrigs", &hlt_nTrigs, &b_hlt_nTrigs);
    fChain->SetBranchAddress("hlt_trigResult", &hlt_trigResult, &b_hlt_trigResult);
    fChain->SetBranchAddress("hlt_trigName", &hlt_trigName, &b_hlt_trigName);

@@ -25,6 +25,9 @@ void RKAnalyzer::Loop(TString output){
   jetvalidator.GetInputs(fout,"Jet_NoCut_");
   jetvalidator_selected.GetInputs(fout,"Jet_PtEtaBTag_");
   
+  fatjetvalidator.GetInputs(fout,"FatJets");
+  addjetvalidator.GetInputs(fout,"ADDJets");
+  
   elenminusoneobjB.GetInputs(fout,"ElectronNMinus1B");
   elenminusoneobjE.GetInputs(fout,"ElectronNMinus1E");
   
@@ -61,7 +64,7 @@ void RKAnalyzer::Loop(TString output){
      Long64_t ientry = LoadTree(jentry);
      if (ientry < 0) break;
      nb = fChain->GetEntry(jentry);   nbytes += nb;
-     
+     //if(jentry<535) continue;
      std::cout<<" ------------------- event number -----------------: = "<<jentry<<std::endl;
      // Clear all the collections
      ClearCollections();
@@ -78,6 +81,9 @@ void RKAnalyzer::Loop(TString output){
 
      // Produce jet collection for analysis and validation of object variables.
      JetProducer();
+     FATJetProducer();
+     ADDJetProducer();
+     
      // Produce MET collection for analysis and validation of object.
      // this contain all raw PFMET, corrected PFMET and MVA PFMET.
      METProducer();
@@ -96,6 +102,9 @@ void RKAnalyzer::Loop(TString output){
      if(RKJetCollection.size()>0) jetvalidator.Fill(RKJetCollection);
      std::cout<<" Jet Validator with sel"<<std::endl;
      if (RKJetCollection_selected.size()>0) jetvalidator_selected.Fill(RKJetCollection_selected);
+     if (MH_FATJetCollection.size() > 0 ) fatjetvalidator.Fill(MH_FATJetCollection);
+     if (MH_ADDJetCollection.size() > 0 ) addjetvalidator.Fill(MH_ADDJetCollection);
+     
      
      std::cout<<" electron Validator no sel"<<std::endl;
      // Fill the electron validation histograms 
@@ -194,8 +203,8 @@ void RKAnalyzer::Loop(TString output){
      std::cout<<" calling nminus one"<<std::endl;
      if(RKDiJetMETCollectionWithStatus.size()>0) nminusobj.Fill(RKDiJetMETCollectionWithStatus);
      
-     std::cout<<" calling ABCD method "<<std::endl;
-     if(RKDiJetMETCollectionWithStatus.size()>0) abcd.Fill(RKDiJetMETCollectionWithStatus);
+     //std::cout<<" calling ABCD method "<<std::endl;
+     //if(RKDiJetMETCollectionWithStatus.size()>0) abcd.Fill(RKDiJetMETCollectionWithStatus);
 
      if(debug) std::cout<<" pfMetCorrPt = "<<pfMetCorrPt
 			<<" pfMetCorrPhi = "<<pfMetCorrPhi
@@ -293,21 +302,10 @@ void RKAnalyzer::JetProducer(){
     jets.isCSVL_         =   csv > 0.432                      ;
     jets.isCSVMed_       =   csv > 0.532                      ;// myself
     jets.isCSVT_         =   csv > 0.732                      ;
-
-    // For loose Jet ID
-    //bool eta24    =  (fabs(eta_) < 2.5)
-    //  && ((*THINjetNHadEF)[i] < 0.99)
-    //  && ((*THINjetNEmEF)[i] < 0.99)
-    //  && ((*THINjetMuEF)[i] < 0.8)
-    //  && ((*THINjetCMulti)[i] > 0)
-    //  && ((*THINjetCHadEF)[i] > 0.)
-    //  && ((*THINjetCEmEF)[i] < 0.99);
-    //
-    //
+    
     //bool eta24_25 =  (fabs(eta_) > 2.4) && (fabs(eta_) < 2.5) && ((*THINjetNHadEF)[i] < 0.99) && ((*THINjetNEmEF)[i] < 0.99) && ((*THINjetMuEF)[i] < 0.8) && ((*THINjetCHadEF)[i] > 0.) && ((*THINjetCMulti)[i] > 0) && ((*THINjetCEmEF)[i] < 0.99) ;    
 
     jets.isLooseJet_     =  (*THINjetPassIDLoose)[i];
-    
     jets.isPUJet_        = (*THINPUJetID)[i] > -0.63  ;
     jets.nVtx            = nVtx;
     
@@ -317,6 +315,120 @@ void RKAnalyzer::JetProducer(){
 
     
     
+  }
+}
+
+
+
+void RKAnalyzer::FATJetProducer(){
+  
+  for(Int_t i=0;i<FATnJet;i++){
+    fatjets.Clear();
+    TLorentzVector*  fourmom = (TLorentzVector*) FATjetP4->At(i);
+    fatjets.p4                             = *fourmom;
+    fatjets.charge                         = (*FATjetCharge)[i];
+    fatjets.partonFlavor                   = (*FATjetPartonFlavor)[i];
+
+    fatjets.jetCEmEF                       = (*FATjetCEmEF)[i];
+    fatjets.jetCHadEF                      = (*FATjetCHadEF)[i];
+    fatjets.jetPhoEF                       = (*FATjetPhoEF)[i];
+    fatjets.jetNEmEF                       = (*FATjetNEmEF)[i];
+    fatjets.jetNHadEF                      = (*FATjetNHadEF)[i];
+    fatjets.jetMuEF                        = (*FATjetMuEF)[i];
+    fatjets.jetCMulti                      = (*FATjetCMulti)[i];
+
+    fatjets.B_SSV                          = (*FATjetSSV)[i];
+    fatjets.B_CSV                          = (*FATjetCSV)[i];
+    fatjets.B_SSVHE                        = (*FATjetSSVHE)[i];
+    fatjets.B_CISVV2                       = (*FATjetCISVV2)[i];
+    fatjets.B_TCHP                         = (*FATjetTCHP)[i];
+    fatjets.B_TCHE                         = (*FATjetTCHE)[i];
+    fatjets.B_JP                           = (*FATjetJP)[i];
+    fatjets.B_JBP                          = (*FATjetJBP)[i];
+    
+    fatjets.DMmass                         = (*FATjetSDmass)[i];
+    fatjets.TRmass                         = (*FATjetTRmass)[i];
+    fatjets.PRmass                         = (*FATjetPRmass)[i];
+    fatjets.Fimass                         = (*FATjetFimass)[i];
+
+    fatjets.tau1                           = (*FATjetTau1)[i];
+    fatjets.tau2                           = (*FATjetTau2)[i];
+    fatjets.tau3                           = (*FATjetTau3)[i];
+    fatjets.tau4                           = (*FATjetTau4)[i];
+
+    fatjets.nsubJets                       = (*FATnSubSDJet)[i];
+
+
+    fatjets.SDPx                           = (*FATsubjetSDPx)[i];
+    fatjets.SDPy                           = (*FATsubjetSDPy)[i];
+    fatjets.SDPz                           = (*FATsubjetSDPz)[i];
+    fatjets.SDEn                           = (*FATsubjetSDCE)[i];
+    fatjets.SDCSV                          = (*FATsubjetSDCSV)[i];
+    
+    fatjets.isLooseJet_     =  (*FATjetPassIDLoose)[i];
+    fatjets.isPUJet_        = (*FATPUJetID)[i] > -0.63  ;
+    fatjets.nVtx            = nVtx;
+    if(fourmom->Pt()>150.0) MH_FATJetCollection.push_back(fatjets);
+  }
+}
+
+
+
+
+
+void RKAnalyzer::ADDJetProducer(){
+  
+  for(Int_t i=0;i<ADDnJet;i++){
+    addjets.Clear();
+    TLorentzVector*  fourmom = (TLorentzVector*) ADDjetP4->At(i);
+    addjets.p4                             = *fourmom;
+    addjets.charge                         = (*ADDjetCharge)[i];
+    addjets.partonFlavor                   = (*ADDjetPartonFlavor)[i];
+
+    addjets.jetCEmEF                       = (*ADDjetCEmEF)[i];
+    addjets.jetCHadEF                      = (*ADDjetCHadEF)[i];
+    addjets.jetPhoEF                       = (*ADDjetPhoEF)[i];
+    addjets.jetNEmEF                       = (*ADDjetNEmEF)[i];
+    addjets.jetNHadEF                      = (*ADDjetNHadEF)[i];
+    addjets.jetMuEF                        = (*ADDjetMuEF)[i];
+    addjets.jetCMulti                      = (*ADDjetCMulti)[i];
+
+    addjets.B_SSV                          = (*ADDjetSSV)[i];
+    addjets.B_CSV                          = (*ADDjetCSV)[i];
+    addjets.B_SSVHE                        = (*ADDjetSSVHE)[i];
+    addjets.B_CISVV2                       = (*ADDjetCISVV2)[i];
+    addjets.B_TCHP                         = (*ADDjetTCHP)[i];
+    addjets.B_TCHE                         = (*ADDjetTCHE)[i];
+    addjets.B_JP                           = (*ADDjetJP)[i];
+    addjets.B_JBP                          = (*ADDjetJBP)[i];
+    
+    //addjets.DMmass                         = (*ADDjetSDmass)[i];
+    //addjets.TRmass                         = (*ADDjetTRmass)[i];
+    //addjets.PRmass                         = (*ADDjetPRmass)[i];
+    //addjets.Fimass                         = (*ADDjetFimass)[i];
+
+    addjets.doubleSV                       = (*ADDjet_DoubleSV)[i];
+    addjets.nSV                            = (*ADDjet_nSV)[i];
+    addjets.SVMass                         = (*ADDjet_SVMass)[i];
+    
+    addjets.tau1                           = (*ADDjetTau1)[i];
+    addjets.tau2                           = (*ADDjetTau2)[i];
+    addjets.tau3                           = (*ADDjetTau3)[i];
+    addjets.tau4                           = (*ADDjetTau4)[i];
+
+    addjets.nsubJets                       = (*ADDnSubSDJet)[i];
+
+
+    addjets.SDPx                           = (*ADDsubjetSDPx)[i];
+    addjets.SDPy                           = (*ADDsubjetSDPy)[i];
+    addjets.SDPz                           = (*ADDsubjetSDPz)[i];
+    addjets.SDEn                           = (*ADDsubjetSDCE)[i];
+    addjets.SDCSV                          = (*ADDsubjetSDCSV)[i];
+    
+    addjets.isLooseJet_     =  (*ADDjetPassIDLoose)[i];
+    addjets.isPUJet_        = (*ADDPUJetID)[i] > -0.63  ;
+    addjets.nVtx            = nVtx;
+    if(fourmom->Pt()>150.0) MH_ADDJetCollection.push_back(addjets);
   }
 }
 
@@ -458,6 +570,8 @@ void RKAnalyzer::ClearCollections(){
   RKJetCollection.clear();
   RKJetCollection_selected.clear();
   RKMuonCollection.clear();
+  MH_FATJetCollection.clear();
+  MH_ADDJetCollection.clear();
   
   RKElectronCollection.clear();
 
@@ -513,6 +627,10 @@ void RKAnalyzer::TotalEvent(std::vector<TString> FileList) {
   outHist->Write();
   
 }
+
+
+
+
 
 
 void RKAnalyzer::TotalEvent(TH1F* h){

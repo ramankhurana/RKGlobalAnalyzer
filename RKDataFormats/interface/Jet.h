@@ -26,15 +26,30 @@ class Jet{
   Float_t tau1;
   Float_t tau2;
   Float_t tau3;
-
-  Float_t jetMuEF;
+  Float_t tau4;
   Float_t jetPhoEF;
   Float_t jetCEmEF;
   Float_t jetCHadEF;
   Float_t jetNEmEF;
   Float_t jetNHadEF;
   Float_t jetCMulti;
-
+  Float_t jetMuEF;
+  
+  // sub-jet variable information 
+  Float_t DMmass;
+  Float_t TRmass;
+  Float_t PRmass;
+  Float_t Fimass;
+  
+  Int_t nsubJets;
+  std::vector<Float_t> SDPx;
+  std::vector<Float_t> SDPy;
+  std::vector<Float_t> SDPz;
+  std::vector<Float_t> SDEn;
+  std::vector<Float_t> SDCSV;
+  Float_t doubleSV;
+  Int_t   nSV;
+  std::vector<Float_t> SVMass;
   Float_t jetHFHadEF;
   Float_t jetHFEMEF;
   Int_t   jetCHHadMultiplicity;
@@ -63,6 +78,7 @@ class Jet{
   Bool_t isLooseJet_;
   Bool_t isPUJet_;
   Int_t  nVtx;
+  
   bool operator== (Jet& other_){
     return((this->p4.Pt()==other_.p4.Pt()) && (this->charge == other_.charge));
   }
@@ -72,6 +88,15 @@ class Jet{
     jetHOEF=0.;
     nJets = 0;
     nVtx  = 0;
+    
+    SDPx.clear();
+    SDPy.clear();
+    SDPz.clear();
+    SDEn.clear();
+    SDCSV.clear();
+    doubleSV=0.;
+    nSV=0;
+    SVMass.clear();
     ispT30_         =   false   ;
     ispT50_         =   false   ;
     ispT80_         =   false   ;
