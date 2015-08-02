@@ -56,6 +56,7 @@ template <class U1, class U2>
       resonanceMETCandidate.ResonancemetProp = ResonanceMETProperties(j1[i].ResonanceProp.p4, j2);
       resonanceMETCandidate.objMet1          = ResonanceMETProperties(j1[i].jet1.p4, j2);
       resonanceMETCandidate.objMet2          = ResonanceMETProperties(j1[i].jet2.p4, j2);
+      resonanceMETCandidate.DPHI_MET_J       = TMath::Min(resonanceMETCandidate.objMet1.DeltaPhi, resonanceMETCandidate.objMet2.DeltaPhi);
       resonancemetvec.push_back(resonanceMETCandidate);
     }
   }

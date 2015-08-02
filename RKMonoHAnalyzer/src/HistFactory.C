@@ -47,29 +47,36 @@ void HistFactory::Fill(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > objec
 	  nbits++;
 	}
       }
+
+      
+      Float_t mcweight_  = 1.;
+      if(objectCollection.size() >0) mcweight_ = objectCollection[0].jet1.jet1.event.mcweight ;
+      
       if(nbits==(int)istatus.size()){
-	h_nMuons[i]->Fill(objectCollection[i].muons.size());
-	h_nElectrons[i]->Fill(objectCollection[i].electrons.size());
-	if(objectCollection[i].jets.size() >= 2) h_nJets[i]->Fill(objectCollection[i].jets.size()-2); //  -2 is required to get the additional jets.
-	h_Q1Q2[i]->Fill(objectCollection[i].jet1.jet1.charge * objectCollection[i].jet1.jet2.charge);
-	h_MET[i]->Fill(objectCollection[i].jet2.RawPt);
-	h_Mjj[i]->Fill(objectCollection[i].jet1.ResonanceProp.InvMass);
-	h_pTjj[i]->Fill(objectCollection[i].jet1.ResonanceProp.p4.Pt());
+	h_nMuons[i]->Fill(objectCollection[i].muons.size()             , mcweight_  );
+	h_nElectrons[i]->Fill(objectCollection[i].electrons.size()     , mcweight_  );
+	if(objectCollection[i].jets.size() >= 2) h_nJets[i]->Fill(objectCollection[i].jets.size()-2     , mcweight_  ); //  -2 is required to get the additional jets.
+	h_Q1Q2[i]->Fill(objectCollection[i].jet1.jet1.charge * objectCollection[i].jet1.jet2.charge      , mcweight_   );
+	h_MET[i]->Fill(objectCollection[i].jet2.RawPt                  , mcweight_  );
+	h_Mjj[i]->Fill(objectCollection[i].jet1.ResonanceProp.InvMass  , mcweight_  );
+	h_pTjj[i]->Fill(objectCollection[i].jet1.ResonanceProp.p4.Pt() , mcweight_  );
 	
 	float csv1=objectCollection[i].jet1.jet1.B_CISVV2;
 	float csv2=objectCollection[i].jet1.jet2.B_CISVV2;
 	
-	h_CSVMax[i]->Fill(TMath::Max(csv1,csv2));
-	h_CSVMin[i]->Fill(TMath::Min(csv1,csv2));
-	h_CSVSum[i]->Fill(csv1+csv2);
+	h_CSVMax[i]->Fill(TMath::Max(csv1,csv2)                        , mcweight_  );
+	h_CSVMin[i]->Fill(TMath::Min(csv1,csv2)                        , mcweight_  );
+	h_CSVSum[i]->Fill((csv1+csv2)                                  , mcweight_  );
 	
 	float dphi1 = objectCollection[i].objMet1.DeltaPhi;
 	float dphi2 = objectCollection[i].objMet2.DeltaPhi;
-	h_dPhi_MET_J[i]->Fill(TMath::Min(dphi1,dphi2));
+	h_dPhi_MET_J[i]->Fill(TMath::Min(dphi1,dphi2)                  , mcweight_  );
 	
-	h_MT_bb_MET[i]->Fill(objectCollection[i].ResonancemetProp.TransMass);
-	h_dPhi_bb_MET[i]->Fill(objectCollection[i].ResonancemetProp.DeltaPhi);
-	h_M_vs_MET[i]->Fill(objectCollection[i].jet1.ResonanceProp.InvMass, objectCollection[i].jet2.RawPt);
+	h_MT_bb_MET[i]->Fill(objectCollection[i].ResonancemetProp.TransMass  , mcweight_ );
+	h_dPhi_bb_MET[i]->Fill(objectCollection[i].ResonancemetProp.DeltaPhi , mcweight_ );
+
+	// 2D histograms 
+	h_M_vs_MET[i]->Fill(objectCollection[i].jet1.ResonanceProp.InvMass, objectCollection[i].jet2.RawPt );
 	h_MET_vs_Q1Q2[i]->Fill(objectCollection[i].jet2.RawPt, (objectCollection[i].jet1.jet1.charge * objectCollection[i].jet1.jet2.charge));
 	h_M_vs_Q1Q2[i]->Fill(objectCollection[i].jet1.ResonanceProp.InvMass, (objectCollection[i].jet1.jet1.charge * objectCollection[i].jet1.jet2.charge));
 	

@@ -60,12 +60,15 @@ void ObjectMETValidator<T>::Fill(std::vector<T> objectcollection){
   
   // Fill properties of first di-jet combination made from 
   // selected leading jet and selected sub-leading jet. 
-  
+
+  Float_t mcweight_  = 1.;
+  if(objectcollection.size() >0) mcweight_ = objectcollection[0].jet1.event.mcweight ;
+
   // 1D Histograms 
   for( int i=0; i<(int)objectcollection.size();i++){
     if(i<2){
-      h_DeltaPhi[i]     ->Fill(objectcollection[i].TransverseObjProp.DeltaPhi);
-      h_TransMass[i]      ->Fill(objectcollection[i].TransverseObjProp.TransMass);
+      h_DeltaPhi[i]     ->Fill(objectcollection[i].TransverseObjProp.DeltaPhi    , mcweight_);
+      h_TransMass[i]      ->Fill(objectcollection[i].TransverseObjProp.TransMass , mcweight_);
       
       // 2D Histograms
       if(false) std::cout<<" filling 2d "<<std::endl;
@@ -91,11 +94,14 @@ void ObjectMETValidator<T>::Fill(std::vector<T> objectcollection, Int_t howManyO
   // Fill properties of first di-jet combination made from 
   // selected leading jet and selected sub-leading jet. 
   
+  Float_t mcweight_  = 1.;
+  if(objectcollection.size() >0) mcweight_ = objectcollection[0].jet1.jet1.event.mcweight ;
+  
   // 1D Histograms 
   for( int i=0; i<(int)objectcollection.size();i++){
     if(i<howManyObj){
-      h_DeltaPhi[i]     ->Fill(objectcollection[i].ResonancemetProp.DeltaPhi);
-      h_TransMass[i]      ->Fill(objectcollection[i].ResonancemetProp.TransMass);
+      h_DeltaPhi[i]     ->Fill(objectcollection[i].ResonancemetProp.DeltaPhi    , mcweight_);
+      h_TransMass[i]      ->Fill(objectcollection[i].ResonancemetProp.TransMass , mcweight_);
       // 2D Histograms
       if(false) std::cout<<" filling 2d "<<std::endl;
       h_DeltaPhi_vs_TransMass[i]   ->Fill(objectcollection[i].ResonancemetProp.DeltaPhi,objectcollection[0].ResonancemetProp.TransMass);

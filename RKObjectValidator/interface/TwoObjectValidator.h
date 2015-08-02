@@ -64,6 +64,9 @@ class TwoObjectValidator {
 template <class T>
 void TwoObjectValidator<T>::Fill(std::vector<T> objectcollection){
   
+  Float_t mcweight_  = 1.;
+  if(objectcollection.size() >0) mcweight_ = objectcollection[0].jet1.event.mcweight ;
+
   if(false) std::cout<<" num of dijets = "<<objectcollection.size()<<std::endl;
   
   if(objectcollection.size()>0){
@@ -71,23 +74,23 @@ void TwoObjectValidator<T>::Fill(std::vector<T> objectcollection){
     // selected leading jet and selected sub-leading jet. 
     
     // 1D Histograms 
-    h_pt           ->Fill(objectcollection[0].ResonanceProp.p4.Pt());
-    h_eta          ->Fill(objectcollection[0].ResonanceProp.p4.Eta());
-    h_phi          ->Fill(objectcollection[0].ResonanceProp.p4.Phi());
-    h_energy       ->Fill(objectcollection[0].ResonanceProp.p4.Energy());
-    h_DeltaR       ->Fill(objectcollection[0].ResonanceProp.DeltaR);
-    h_DeltaPhi     ->Fill(objectcollection[0].ResonanceProp.DeltaPhi);
-    h_DeltaEta     ->Fill(objectcollection[0].ResonanceProp.DeltaEta);
-    h_InvMass      ->Fill(objectcollection[0].ResonanceProp.InvMass);
-    h_Pt2OverPt1   ->Fill(1.0/objectcollection[0].ResonanceProp.Pt1OverPt2);
-    h_PtOverPt1Pt2 ->Fill(objectcollection[0].ResonanceProp.PtOverPt1Pt2);
-    h_PtOverMass_1 ->Fill(objectcollection[0].ResonanceProp.PtOverMass_1);
-    h_PtOverMass_2 ->Fill(objectcollection[0].ResonanceProp.PtOverMass_2);
-    //h_CSVSum       ->Fill(objectcollection[0].jet1.B_CISVV2 + objectcollection[0].jet2.B_CISVV2);
+    h_pt           ->Fill(objectcollection[0].ResonanceProp.p4.Pt()                              ,  mcweight_    );
+    h_eta          ->Fill(objectcollection[0].ResonanceProp.p4.Eta()                             ,  mcweight_    );
+    h_phi          ->Fill(objectcollection[0].ResonanceProp.p4.Phi()                             ,  mcweight_    );
+    h_energy       ->Fill(objectcollection[0].ResonanceProp.p4.Energy()                          ,  mcweight_    );
+    h_DeltaR       ->Fill(objectcollection[0].ResonanceProp.DeltaR                               ,  mcweight_    );
+    h_DeltaPhi     ->Fill(objectcollection[0].ResonanceProp.DeltaPhi                             ,  mcweight_    );
+    h_DeltaEta     ->Fill(objectcollection[0].ResonanceProp.DeltaEta                             ,  mcweight_    );
+    h_InvMass      ->Fill(objectcollection[0].ResonanceProp.InvMass                              ,  mcweight_    );
+    h_Pt2OverPt1   ->Fill(1.0/objectcollection[0].ResonanceProp.Pt1OverPt2                       ,  mcweight_    );
+    h_PtOverPt1Pt2 ->Fill(objectcollection[0].ResonanceProp.PtOverPt1Pt2                         ,  mcweight_    );
+    h_PtOverMass_1 ->Fill(objectcollection[0].ResonanceProp.PtOverMass_1                         ,  mcweight_    );
+    h_PtOverMass_2 ->Fill(objectcollection[0].ResonanceProp.PtOverMass_2                         ,  mcweight_    );
+    h_CSVSum       ->Fill(objectcollection[0].jet1.B_CISVV2 + objectcollection[0].jet2.B_CISVV2  ,  mcweight_    );
     // 2D Histograms
-    h_DeltaR_vs_InvMass->Fill(objectcollection[0].ResonanceProp.DeltaR, objectcollection[0].ResonanceProp.InvMass);
-    h_DeltaPhi_vs_InvMass->Fill(objectcollection[0].ResonanceProp.DeltaPhi,objectcollection[0].ResonanceProp.InvMass);
-    h_DeltaEta_vs_InvMass->Fill(objectcollection[0].ResonanceProp.DeltaEta,objectcollection[0].ResonanceProp.InvMass);
+    h_DeltaR_vs_InvMass->Fill(objectcollection[0].ResonanceProp.DeltaR, objectcollection[0].ResonanceProp.InvMass       );
+    h_DeltaPhi_vs_InvMass->Fill(objectcollection[0].ResonanceProp.DeltaPhi,objectcollection[0].ResonanceProp.InvMass    );
+    h_DeltaEta_vs_InvMass->Fill(objectcollection[0].ResonanceProp.DeltaEta,objectcollection[0].ResonanceProp.InvMass    );
     
   }
   

@@ -27,26 +27,24 @@ std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > SelectionBitsProducer::Selec
       // 
       
       
-      if(objectCollection[i].jet1.jet1.p4.Pt() > tmp_cutValueMap["leadingjetpt"] && 
-	 TMath::Abs(objectCollection[i].jet1.jet1.p4.Eta()) < tmp_cutValueMap["jeteta"] )                 StatusOfCuts[cuts.cutsMap["aleadingpteta"]] = 1;
-      if(objectCollection[i].jet1.jet2.p4.Pt() > tmp_cutValueMap["subleadingjetpt"] && 
-	 TMath::Abs(objectCollection[i].jet1.jet2.p4.Eta()) < tmp_cutValueMap["jeteta"] )                 StatusOfCuts[cuts.cutsMap["bsubleadingpteta"]] = 1;
-      if(objectCollection[i].jet1.jet1.B_CISVV2 > tmp_cutValueMap["leadingcsv"] )                         StatusOfCuts[cuts.cutsMap["cleadingcsv"]] = 1;
-      if(objectCollection[i].jet1.jet2.B_CISVV2 > tmp_cutValueMap["subleadingcsv"] )                      StatusOfCuts[cuts.cutsMap["dsubleadingcsv"]] = 1;
-      //if(objectCollection[i].jet1.jet1.charge * objectCollection[i].jet1.jet2.charge == -1)             StatusOfCuts[4] = 1;
+      StatusOfCuts[cuts.cutsMap["aleadingpteta"]]     = (objectCollection[i].jet1.jet1.p4.Pt() > tmp_cutValueMap["leadingjetpt"] && 
+						       TMath::Abs(objectCollection[i].jet1.jet1.p4.Eta()) < tmp_cutValueMap["jeteta"] )   ;            
+      StatusOfCuts[cuts.cutsMap["bsubleadingpteta"]]  = (objectCollection[i].jet1.jet2.p4.Pt() > tmp_cutValueMap["subleadingjetpt"] && 
+							 TMath::Abs(objectCollection[i].jet1.jet2.p4.Eta()) < tmp_cutValueMap["jeteta"] ) ;         
+      StatusOfCuts[cuts.cutsMap["cleadingcsv"]]       = (objectCollection[i].jet1.jet1.B_CISVV2 > tmp_cutValueMap["leadingcsv"] )         ;  
+      StatusOfCuts[cuts.cutsMap["dsubleadingcsv"]]    = (objectCollection[i].jet1.jet2.B_CISVV2 > tmp_cutValueMap["subleadingcsv"] )      ; 
+            
+      StatusOfCuts[cuts.cutsMap["eDPHIDijetMet"]]     = (TMath::Abs(objectCollection[i].ResonancemetProp.DeltaPhi) > tmp_cutValueMap["dphiDiJetMet"] );    
+      StatusOfCuts[cuts.cutsMap["fMDijet"]]           = (objectCollection[i].jet1.ResonanceProp.InvMass > tmp_cutValueMap["MDiJetLow"]  &&         
+							 objectCollection[i].jet1.ResonanceProp.InvMass < tmp_cutValueMap["MDiJetHigh"] )  ;
+      StatusOfCuts[cuts.cutsMap["gmetpt"]]            = (objectCollection[i].jet2.RawPt > tmp_cutValueMap["metpt"] )                        ;
       
-      if(objectCollection[i].jet2.RawPt > tmp_cutValueMap["metpt"] )                                      StatusOfCuts[cuts.cutsMap["emetpt"]] = 1;
-      if(TMath::Abs(objectCollection[i].ResonancemetProp.DeltaPhi) > tmp_cutValueMap["dphiDiJetMet"] )    StatusOfCuts[cuts.cutsMap["fDPHIDijetMet"]] = 1;
+      // e, mu, tau information is associated to only first element.
+      StatusOfCuts[cuts.cutsMap["hNele"]]             = (objectCollection[0].electrons.size() == tmp_cutValueMap["Nele"]);
+      StatusOfCuts[cuts.cutsMap["iNmu"]]              = (objectCollection[0].muons.size()  == tmp_cutValueMap["Nmu"]);
+      StatusOfCuts[cuts.cutsMap["jNjet"]]             = (objectCollection[0].jets.size() == tmp_cutValueMap["njet"]);
       
-      if(objectCollection[i].ResonancemetProp.TransMass > tmp_cutValueMap["MTDiJet"] )                    StatusOfCuts[cuts.cutsMap["gMTDijet"]] = 1;
-      
-      if(objectCollection[i].jet1.ResonanceProp.InvMass > tmp_cutValueMap["MDiJetLow"]  &&         
-	 objectCollection[i].jet1.ResonanceProp.InvMass < tmp_cutValueMap["MDiJetHigh"] )                 StatusOfCuts[cuts.cutsMap["hMDijet"]] = 1;
-      
-      if(TMath::Abs(objectCollection[i].objMet1.DeltaPhi) > tmp_cutValueMap["DPHIJet1MET"] )              StatusOfCuts[cuts.cutsMap["iDPHIJet1Met"]] = 1;
-      if(TMath::Abs(objectCollection[i].objMet2.DeltaPhi) > tmp_cutValueMap["DPHIJet2MET"] )              StatusOfCuts[cuts.cutsMap["jDPHIJet2Met"]] = 1;
-      if(objectCollection[i].objMet1.TransMass > tmp_cutValueMap["MTJet1"] )                              StatusOfCuts[cuts.cutsMap["kMTJet1"]] = 1;
-      if(objectCollection[i].objMet2.TransMass > tmp_cutValueMap["MTJet2"] )                              StatusOfCuts[cuts.cutsMap["lMTJet2"]] = 1;
+      StatusOfCuts[cuts.cutsMap["kDPHIMETClosestJ"]]  = (TMath::Abs(objectCollection[i].DPHI_MET_J) > tmp_cutValueMap["DPHIMETClosedJ"]);
       
       //std::map<TString, bitset<16> >::iterator mapiter;
       

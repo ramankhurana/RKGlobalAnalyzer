@@ -15,20 +15,22 @@ class MonoHiggsCuts {
     // they are named like this so that they remain sorted in the map.
     // saved in alphabatical order in the cuts name map.
     cutsMap.clear();
+    // preselection
     cutsMap["aleadingpteta"]       = 0  ;
     cutsMap["bsubleadingpteta"]    = 1  ;
     cutsMap["cleadingcsv"]         = 2  ;
     cutsMap["dsubleadingcsv"]      = 3  ;
 
-    cutsMap["emetpt"]              = 4  ;
-    cutsMap["fDPHIDijetMet"]       = 5  ;
-    cutsMap["gMTDijet"]            = 6  ;
-    cutsMap["hMDijet"]             = 7  ;
-
-    cutsMap["iDPHIJet1Met"]        = 8  ;
-    cutsMap["jDPHIJet2Met"]        = 9  ;
-    cutsMap["kMTJet1"]             = 10 ;
-    cutsMap["lMTJet2"]             = 11 ;
+    cutsMap["eDPHIDijetMet"]       = 4  ;
+    cutsMap["fMDijet"]             = 5  ;
+    cutsMap["gmetpt"]              = 6  ;
+    
+    // full selection
+    cutsMap["hNele"]               = 7  ;
+    cutsMap["iNmu"]                = 8  ;
+    cutsMap["jNjet"]               = 9  ;
+    cutsMap["kDPHIMETClosestJ"]    =10  ;
+    
     //  0000 1111 1111 1111
 
     
@@ -37,11 +39,9 @@ class MonoHiggsCuts {
     cutValueMap["leadingjetpt"]=80.;
     cutValueMap["subleadingjetpt"]=30;
     cutValueMap["jeteta"]=2.5;
-    cutValueMap["leadingcsv"]=0.432;
-    cutValueMap["subleadingcsv"]=0.432;
-    cutValueMap["csvVLoose"]=0.25;
-    cutValueMap["csvTight"]=0.732;
-    cutValueMap["metpt"]=200;
+    cutValueMap["leadingcsv"]=0.605;
+    cutValueMap["subleadingcsv"]=0.605;
+    cutValueMap["metpt"]=150.;
     cutValueMap["dphiDiJetMet"]=2.5;
     cutValueMap["MTDiJet"]=400;
     cutValueMap["MDiJetLow"]=90.;
@@ -50,6 +50,11 @@ class MonoHiggsCuts {
     cutValueMap["DPHIJet2MET"]=2.;
     cutValueMap["MTJet1"]=300.;
     cutValueMap["MTJet2"]=200.;
+    cutValueMap["Nele"]=0;
+    cutValueMap["Nmu"]=0;
+    cutValueMap["Ntau"]=0;
+    cutValueMap["njet"]=0;
+    cutValueMap["DPHIMETClosedJ"]=0.5;
 
 
 

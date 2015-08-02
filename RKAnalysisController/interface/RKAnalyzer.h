@@ -67,6 +67,8 @@ class RKAnalyzer {
   bool triggerstatus;
   // Main Program Histograms
   TH1F* nEvents;
+  TH1F* nEvents_weight;
+  
   //   TString inputfilename;
    //TString outputfilename;
    
@@ -116,6 +118,7 @@ class RKAnalyzer {
    METValidator metvalidator;
    // DiJet   
    TwoObjectValidator<Resonance<Jet,Jet> > diJetValidator;
+   TwoObjectValidator<Resonance<Jet,Jet> > diJetValidator_selected;
    // DiJet   
    TwoObjectValidator<Resonance<Electron,Electron> > diElectronValidator;
    TwoObjectValidator<Resonance<Electron,Electron> > diElectronValidatorIso;
@@ -126,6 +129,8 @@ class RKAnalyzer {
    // Mono-H Histograms
    HistFactory histfac;
    HistFactory histfacJetPreSel;
+   HistFactory histfacJetHardPreSel;
+   HistFactory histfacFullSel;
    // Mono-H ABCD method 
    ABCDMethod abcd;
    // Mono-H cuts maps and vectos
@@ -222,6 +227,12 @@ class RKAnalyzer {
    vector<bool>    *isGlobalMuon;
    vector<bool>    *isTrackerMuon;
    vector<bool>    *isPFMuon;
+   vector<bool>    *isTightMuon_;
+   vector<bool>    *isLooseMuon_;
+   vector<bool>    *isMediumMuon_;
+   vector<bool>    *isSoftMuon_;
+   vector<bool>    *isHighPtMuon_;
+   vector<bool>    *isCustomTrackerMuon_;
    vector<int>     *muITrkID;
    vector<int>     *muSegID;
    vector<int>     *muNSegs;
@@ -573,6 +584,12 @@ class RKAnalyzer {
    TBranch        *b_isGlobalMuon;   //!
    TBranch        *b_isTrackerMuon;   //!
    TBranch        *b_isPFMuon;   //!
+   TBranch        *b_isTightMuon_;   //!
+   TBranch        *b_isLooseMuon_;   //!
+   TBranch        *b_isMediumMuon_;   //!
+   TBranch        *b_isSoftMuon_;   //!
+   TBranch        *b_isHighPtMuon_;   //!
+   TBranch        *b_isCustomTrackerMuon_;   //!
    TBranch        *b_muITrkID;   //!
    TBranch        *b_muSegID;   //!
    TBranch        *b_muNSegs;   //!
@@ -901,6 +918,7 @@ class RKAnalyzer {
    void MuonProducer();
    void PhotonProducer();
    void TauProducer();
+   void EventProducer();
 
 };
 
@@ -918,7 +936,7 @@ class RKAnalyzer {
   //TString filename="/hdfs/store/user/khurana/SingleElectron/crab_SingleElectron_Run2015B-PromptReco-v1/150713_071520/0000/NCUGlobalTuples_89.root";
   //TString filename="/hdfs/store/user/khurana/SingleElectron/crab_SingleElectron_Run2015B-PromptReco-v1/150713_071520/0000/NCUGlobalTuples_108.root";
   //TString filename="/hdfs/store/user/khurana/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/crab_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_HLT/150713_072349/0000/NCUGlobalTuples_1.root";
-  TString filename="/hdfs/store/user/khurana/SingleElectron/crab_SingleElectron_Run2015B-PromptReco-v1_JSON/150720_204200/0000/NCUGlobalTuples_10.root";
+  TString filename="/hdfs/store/user/khurana/MET/crab_MET-Run2015B-PromptReco-v1_PR/150730_111504/0000/NCUGlobalTuples_10.root";
 
    if (tree == 0) {
      //f = (TFile*)gROOT->GetListOfFiles()->FindObject("InputRootFile/NCUGlobalTuples_10.root");
@@ -1001,6 +1019,12 @@ void RKAnalyzer::Init(TTree *tree)
    isGlobalMuon = 0;
    isTrackerMuon = 0;
    isPFMuon = 0;
+   isTightMuon_ = 0;
+   isLooseMuon_ = 0;
+   isMediumMuon_ = 0;
+   isSoftMuon_ = 0;
+   isHighPtMuon_ = 0;
+   isCustomTrackerMuon_ = 0;
    muITrkID = 0;
    muSegID = 0;
    muNSegs = 0;
@@ -1321,6 +1345,12 @@ void RKAnalyzer::Init(TTree *tree)
    fChain->SetBranchAddress("isGlobalMuon", &isGlobalMuon, &b_isGlobalMuon);
    fChain->SetBranchAddress("isTrackerMuon", &isTrackerMuon, &b_isTrackerMuon);
    fChain->SetBranchAddress("isPFMuon", &isPFMuon, &b_isPFMuon);
+   fChain->SetBranchAddress("isTightMuon_", &isTightMuon_, &b_isTightMuon_);
+   fChain->SetBranchAddress("isLooseMuon_", &isLooseMuon_, &b_isLooseMuon_);
+   fChain->SetBranchAddress("isMediumMuon_", &isMediumMuon_, &b_isMediumMuon_);
+   fChain->SetBranchAddress("isSoftMuon_", &isSoftMuon_, &b_isSoftMuon_);
+   fChain->SetBranchAddress("isHighPtMuon_", &isHighPtMuon_, &b_isHighPtMuon_);
+   fChain->SetBranchAddress("isCustomTrackerMuon_", &isCustomTrackerMuon_, &b_isCustomTrackerMuon_);
    fChain->SetBranchAddress("muITrkID", &muITrkID, &b_muITrkID);
    fChain->SetBranchAddress("muSegID", &muSegID, &b_muSegID);
    fChain->SetBranchAddress("muNSegs", &muNSegs, &b_muNSegs);

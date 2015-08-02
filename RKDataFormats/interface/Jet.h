@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <TLorentzVector.h>
-
+#include "Event.h"
 using namespace std;
 
 class Jet{
@@ -78,7 +78,7 @@ class Jet{
   Bool_t isLooseJet_;
   Bool_t isPUJet_;
   Int_t  nVtx;
-  
+  Event event;
   bool operator== (Jet& other_){
     return((this->p4.Pt()==other_.p4.Pt()) && (this->charge == other_.charge));
   }

@@ -29,6 +29,7 @@ class ResonanceMET{
   T1 jet1;
   T2 jet2;
   Int_t index_j1;
+  Float_t DPHI_MET_J;
   std::bitset<16> cutsStatus;
   std::vector<Jet> jets;
   MET met;

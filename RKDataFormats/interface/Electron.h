@@ -8,6 +8,7 @@
 #include <iostream>
 #include <TLorentzVector.h>
 #include <bitset>
+#include "Event.h"
 class Electron {
  public:
   // Variables for corrected Electron
@@ -64,6 +65,10 @@ class Electron {
   std::bitset<16> cutsStatusM;
   std::bitset<16> cutsStatusT;
   Int_t nVtx;
+  
+  // For Jet compatibility 
+  Float_t B_CISVV2;
+  Event event;
   bool operator== (Electron& other_){
     return((this->p4.Pt()==other_.p4.Pt()) && (this->charge == other_.charge));
   }
@@ -114,7 +119,7 @@ class Electron {
      endcap= 0;
      trigger=false;
      nVtx=0;
-
+     B_CISVV2=0.;
 
      
 

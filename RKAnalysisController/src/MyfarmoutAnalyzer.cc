@@ -34,22 +34,20 @@ int main(){
   /// Loop through lines in file (paths to .root files)
       // and add to TChain
       TString infileName = ""; 
-      TFile* f;
-      TH1F* h_ntotal;
-  while( !inputList.eof() ) { 
-    infileName="";
-    inputList >> infileName;
-    
-    std::cout << " Input File Name: "  << infileName <<  std::endl;
-    theChain->Add( infileName );
-    infileName_dump.push_back(infileName);
-    //f = TFile::Open(infileName);
-    //f->cd();
-    //if( !f || !f->IsOpen() ) h_ntotal = dynamic_cast<TH1F*> (f->Get("allEventsCounter/totalEvents"));
-  }
- 
-  
-  RKAnalyzer analyzer;
+      while( !inputList.eof() ) { 
+	infileName="";
+	inputList >> infileName;
+	
+	std::cout << " Input File Name: "  << infileName <<  std::endl;
+	theChain->Add( infileName );
+	infileName_dump.push_back(infileName);
+	//f = TFile::Open(infileName);
+	//f->cd();
+	//if( !f || !f->IsOpen() ) h_ntotal = dynamic_cast<TH1F*> (f->Get("allEventsCounter/totalEvents"));
+      }
+      
+      
+      RKAnalyzer analyzer;
   // Initialize and run analyzer on TChain
   analyzer.Init(theChain);
   analyzer.Loop(outfileName);
