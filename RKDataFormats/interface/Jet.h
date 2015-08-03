@@ -9,6 +9,8 @@ using namespace std;
 class Jet{
  public:
   
+  Float_t weight;
+  Bool_t isdata;  
   Int_t nJets;
   TLorentzVector p4;
   Int_t charge;
@@ -69,6 +71,8 @@ class Jet{
     jetHOEnergy=0.;
     jetHOEF=0.;
     nJets = 0;
+    isdata=0;
+    weight = 1;
     
     ispT30_         =   false   ;
     ispT50_         =   false   ;

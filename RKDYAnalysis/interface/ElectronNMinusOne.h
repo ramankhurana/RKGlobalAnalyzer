@@ -37,7 +37,7 @@ class ElectronNMinusOne {
   TString prefix;
   TFile* file;
   // Histograms CutFlow 
-
+  Float_t mcweight_;
   TH1F*  h_IdEtaIn[RKVARS];
   TH1F*  h_IdPhiIn[RKVARS];
   TH1F*  h_Idfull5x5_sigmaIetaIeta[RKVARS];

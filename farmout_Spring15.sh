@@ -21,8 +21,17 @@
 
 
 ### Monika Files
-farmoutAnalysisJobs DYanalysis22_July/SingleElectron --input-dir=root://cmsxrootd.hep.wisc.edu//store/user/khurana/SingleElectron/crab_SingleElectron_Run2015B-PromptReco-v1_JSON_50p0pbInv /afs/hep.wisc.edu/cms/khurana/Monika/CMSSW_7_4_5/ /afs/hep.wisc.edu/cms/khurana/Monika/CMSSW
-_7_4_5/src/RKGlobalAnalyzer/runallAnalysis.exe --fwklite --input-files-per-job=5
+#farmoutAnalysisJobs DYanalysis22_July/SingleElectron --input-dir=root://cmsxrootd.hep.wisc.edu//store/user/khurana/SingleElectron/crab_SingleElectron_Run2015B-PromptReco-v1_JSON_50p0pbInv /afs/hep.wisc.edu/cms/khurana/Monika/CMSSW_7_4_5/ /afs/hep.wisc.edu/cms/khurana/Monika/CMSSW_7_4_5/src/RKGlobalAnalyzer/runallAnalysis.exe --fwklite --input-files-per-job=5
+
+###farmoutAnalysisJobs DYanalysis22_July/DoubleElectron --input-dir=root://cmsxrootd.hep.wisc.edu//store/user/khurana/DoubleEG/crab_DoubleEG_Run2015B-PromptReco-v1_JSON_50p0pbInv /afs/hep.wisc.edu/cms/khurana/Monika/CMSSW_7_4_5/ /afs/hep.wisc.edu/cms/khurana/Monika/CMSSW_7_4_5/src/RKGlobalAnalyzer/runallAnalysis.exe --fwklite --input-files-per-job=5
+
+
+farmoutAnalysisJobs DYanalysis28_July/DYJetsToLL_M-50 --input-dir=root://cmsxrootd.hep.wisc.edu//store/user/khurana/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/crab_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_ForEiko /afs/hep.wisc.edu/cms/khurana/Monika/CMSSW_7_4_5/ /afs/hep.wisc.edu/cms/khurana/Monika/CMSSW_7_4_5/src/RKGlobalAnalyzer/runallAnalysis.exe --fwklite --input-files-per-job=5
+
+farmoutAnalysisJobs DYanalysis28_July/DYJetsToLL_M-10 --input-dir=root://cmsxrootd.hep.wisc.edu//store/user/khurana/DYJetsToLL_M-10to50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/crab_DYJetsToLL_M-10to50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_ForMonika /afs/hep.wisc.edu/cms/khurana/Monika/CMSSW_7_4_5/ /afs/hep.wisc.edu/cms/khurana/Monika/CMSSW_7_4_5/src/RKGlobalAnalyzer/runallAnalysis.exe --fwklite --input-files-per-job=5
+
+
+
 
 
 #farmoutAnalysisJobs DMHistosRun2015B_19July_JSON_1/SingleElectron --input-dir=root://cmsxrootd.hep.wisc.edu//store/user/khurana/SingleElectron/crab_SingleElectron_Run2015B-PromptReco-v1_JSON/ /afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/ /afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/runallAnalysis.exe --fwklite --input-files-per-job=5

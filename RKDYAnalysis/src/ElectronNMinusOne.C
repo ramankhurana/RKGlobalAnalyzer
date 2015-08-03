@@ -5,6 +5,8 @@
 void  ElectronNMinusOne::Fill(std::vector<Electron> objectCollection){
   std::cout<<" inside N-1 Filler "<<std::endl;
   if(objectCollection.size()>0){
+    if(objectCollection[0].isdata==1) mcweight_=1;
+    if(objectCollection[0].isdata==0) mcweight_= objectCollection[0].weight;
     std::cout<<" size of objectcoll "<<objectCollection.size()<<std::endl;
     for(int i=0; i<(int)objectCollection.size();i++){
       if(true/*i<2*/) { // i = 0, i = 1 ; save only two combinations not more than that. 
@@ -23,16 +25,16 @@ void  ElectronNMinusOne::Fill(std::vector<Electron> objectCollection){
 	    // this is what we need for N-1 plots
 	    // Fix me ? 	   
 	    
-            h_IdEtaIn[icut]->Fill(objectCollection[i].dEtaIn); 
-            h_IdPhiIn[icut]->Fill(objectCollection[i].dPhiIn);
-            h_Idfull5x5_sigmaIetaIeta[icut]->Fill(objectCollection[i].full5x5_sigmaIetaIeta);
-            h_IdhOverE[icut]->Fill(objectCollection[i].hOverE);
-            h_Idd0[icut]->Fill(objectCollection[i].d0);
-            h_Iddz[icut]->Fill(objectCollection[i].dz); 
-            h_IdeoverPInv[icut]->Fill(objectCollection[i].eoverPInv);
-            h_IdisoRho[icut]->Fill(objectCollection[i].isoRho);
-            h_IdexpectedMissingInnerHits[icut]->Fill(objectCollection[i].expectedMissingInnerHits);
-            h_IdpassConversionVeto[icut]->Fill(objectCollection[i].passConversionVeto);
+            h_IdEtaIn[icut]->Fill(objectCollection[i].dEtaIn,mcweight_); 
+            h_IdPhiIn[icut]->Fill(objectCollection[i].dPhiIn,mcweight_);
+            h_Idfull5x5_sigmaIetaIeta[icut]->Fill(objectCollection[i].full5x5_sigmaIetaIeta,mcweight_);
+            h_IdhOverE[icut]->Fill(objectCollection[i].hOverE,mcweight_);
+            h_Idd0[icut]->Fill(objectCollection[i].d0,mcweight_);
+            h_Iddz[icut]->Fill(objectCollection[i].dz,mcweight_); 
+            h_IdeoverPInv[icut]->Fill(objectCollection[i].eoverPInv,mcweight_);
+            h_IdisoRho[icut]->Fill(objectCollection[i].isoRho,mcweight_);
+            h_IdexpectedMissingInnerHits[icut]->Fill(objectCollection[i].expectedMissingInnerHits,mcweight_);
+            h_IdpassConversionVeto[icut]->Fill(objectCollection[i].passConversionVeto,mcweight_);
 	    // h_Id[icut]->Fill(objectCollection[i].); 
 
 

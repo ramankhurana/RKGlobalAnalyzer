@@ -42,12 +42,14 @@ class ElectronValidator {
   TProfile *h_vtxmissinghits;
   TProfile *h_vtxconversionveto; 
  
- 
+  Float_t mcweight_;
  
  
 
   // 1D Histograms 
-  TH1F*     h_nVtx;
+  TH1F*     h_nVtx; 
+  TH1F*     h_nPUVert;
+  TH1F*     h_nTrueInt;
   TH1F*     h_pt[nELECTRONS];                    
   TH1F*     h_eta[nELECTRONS];   
   

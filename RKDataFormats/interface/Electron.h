@@ -46,6 +46,7 @@ class Electron {
   Float_t  dPhiWidth;
 
 
+
   Float_t  isoChargedHadrons;
   Float_t  isoNeutralHadrons;
   Float_t  isoPhotons;
@@ -60,10 +61,18 @@ class Electron {
   Bool_t   barrel; 
   Bool_t   endcap; 
   Bool_t   trigger;
+  Bool_t   pt20_;
+  Bool_t   pt15_;
+  Bool_t   isdata;
   std::bitset<16> cutsStatusL;
   std::bitset<16> cutsStatusM;
   std::bitset<16> cutsStatusT;
   Int_t nVtx;
+  Float_t         nTrueInt;
+  Int_t           nPUVert;
+
+  
+  Float_t weight;
   bool operator== (Electron& other_){
     return((this->p4.Pt()==other_.p4.Pt()) && (this->charge == other_.charge));
   }
@@ -114,7 +123,13 @@ class Electron {
      endcap= 0;
      trigger=false;
      nVtx=0;
+     weight=0.;
+     pt20_=false;
+     pt15_=false;
+     isdata=false;
 
+     nTrueInt=0;
+     nPUVert=0;
 
      
 

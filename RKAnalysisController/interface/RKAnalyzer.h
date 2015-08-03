@@ -64,6 +64,8 @@ class RKAnalyzer {
   bool triggerstatus;
   // Main Program Histograms
   TH1F* nEvents;
+  TH1F* nEvents_weight;
+  Float_t mcw;
   //   TString inputfilename;
    //TString outputfilename;
    
@@ -160,8 +162,8 @@ class RKAnalyzer {
    
    
    // Declaration of leaf types
-   //   Float_t         pu_nTrueInt;
-   //   Int_t           pu_nPUVert;
+   Float_t         pu_nTrueInt;
+   Int_t           pu_nPUVert;
    
    Int_t           isData;
    Int_t           eventId;
@@ -553,8 +555,8 @@ class RKAnalyzer {
    vector<string>  *hlt_trigName;
    
    // List of branches
-   //   TBranch        *b_pu_nTrueInt;   //!
-   //TBranch        *b_pu_nPUVert;   //!
+   TBranch        *b_pu_nTrueInt;   //!
+   TBranch        *b_pu_nPUVert;   //!
    TBranch        *b_isData;   //!
    TBranch        *b_eventId;   //!
    TBranch        *b_runId;   //!
@@ -977,7 +979,9 @@ class RKAnalyzer {
   //TString filename="/hdfs/store/user/khurana/SingleElectron/crab_SingleElectron_Run2015B-PromptReco-v1/150713_071520/0000/NCUGlobalTuples_89.root";
   //TString filename="/hdfs/store/user/khurana/SingleElectron/crab_SingleElectron_Run2015B-PromptReco-v1/150713_071520/0000/NCUGlobalTuples_108.root";
   //TString filename="/hdfs/store/user/khurana/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/crab_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_HLT/150713_072349/0000/NCUGlobalTuples_1.root";
-  TString filename="/hdfs/store/user/khurana/SingleElectron/crab_SingleElectron_Run2015B-PromptReco-v1_JSON/150720_204200/0000/NCUGlobalTuples_212.root";
+  //TString filename="/hdfs/store/user/khurana/SingleElectron/crab_SingleElectron_Run2015B-PromptReco-v1_JSON/150720_204200/0000/NCUGlobalTuples_212.root";
+  TString filename ="/hdfs/store/user/khurana/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/crab_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_ForEiko/150720_182440/0000/NCUGlobalTuples_90.root";
+
    if (tree == 0) {
      //f = (TFile*)gROOT->GetListOfFiles()->FindObject("InputRootFile/NCUGlobalTuples_10.root");
      
@@ -1378,6 +1382,9 @@ void RKAnalyzer::Init(TTree *tree)
    ADDsubjetSDCSV = 0;
    hlt_trigResult = 0;
    hlt_trigName = 0;
+  
+   pu_nTrueInt =0;
+   pu_nPUVert=0;
 
    // Set branch addresses and branch pointers
    if (!tree) return;
@@ -1385,8 +1392,8 @@ void RKAnalyzer::Init(TTree *tree)
    fCurrent = -1;
    fChain->SetMakeClass(1);
    
-   //   fChain->SetBranchAddress("pu_nTrueInt", &pu_nTrueInt, &b_pu_nTrueInt);
-   //   fChain->SetBranchAddress("pu_nPUVert", &pu_nPUVert, &b_pu_nPUVert);
+   fChain->SetBranchAddress("pu_nTrueInt", &pu_nTrueInt, &b_pu_nTrueInt);
+   fChain->SetBranchAddress("pu_nPUVert", &pu_nPUVert, &b_pu_nPUVert);
    fChain->SetBranchAddress("isData", &isData, &b_isData);
    fChain->SetBranchAddress("eventId", &eventId, &b_eventId);
    fChain->SetBranchAddress("runId", &runId, &b_runId);
