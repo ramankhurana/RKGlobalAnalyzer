@@ -227,12 +227,12 @@ class RKAnalyzer {
    vector<bool>    *isGlobalMuon;
    vector<bool>    *isTrackerMuon;
    vector<bool>    *isPFMuon;
-   vector<bool>    *isTightMuon_;
-   vector<bool>    *isLooseMuon_;
-   vector<bool>    *isMediumMuon_;
-   vector<bool>    *isSoftMuon_;
-   vector<bool>    *isHighPtMuon_;
-   vector<bool>    *isCustomTrackerMuon_;
+   vector<bool>    *isTightMuon;
+   vector<bool>    *isLooseMuon;
+   vector<bool>    *isMediumMuon;
+   vector<bool>    *isSoftMuon;
+   vector<bool>    *isHighPtMuon;
+   vector<bool>    *isCustomTrackerMuon;
    vector<int>     *muITrkID;
    vector<int>     *muSegID;
    vector<int>     *muNSegs;
@@ -250,10 +250,10 @@ class RKAnalyzer {
    vector<int>     *muTrkLayers;
    vector<int>     *muPixelLayers;
    vector<int>     *muPixelHits;
-   vector<float>   *muTrkQuality_;
+   vector<float>   *muTrkQuality;
    vector<int>     *muHits;
    vector<float>   *muChi2NDF;
-   vector<float>   *muInnervalidFraction_;
+   vector<float>   *muInnervalidFraction;
    vector<int>     *muMatches;
    vector<float>   *muTrkIso;
    vector<float>   *muHcalIso;
@@ -584,12 +584,12 @@ class RKAnalyzer {
    TBranch        *b_isGlobalMuon;   //!
    TBranch        *b_isTrackerMuon;   //!
    TBranch        *b_isPFMuon;   //!
-   TBranch        *b_isTightMuon_;   //!
-   TBranch        *b_isLooseMuon_;   //!
-   TBranch        *b_isMediumMuon_;   //!
-   TBranch        *b_isSoftMuon_;   //!
-   TBranch        *b_isHighPtMuon_;   //!
-   TBranch        *b_isCustomTrackerMuon_;   //!
+   TBranch        *b_isTightMuon;   //!
+   TBranch        *b_isLooseMuon;   //!
+   TBranch        *b_isMediumMuon;   //!
+   TBranch        *b_isSoftMuon;   //!
+   TBranch        *b_isHighPtMuon;   //!
+   TBranch        *b_isCustomTrackerMuon;   //!
    TBranch        *b_muITrkID;   //!
    TBranch        *b_muSegID;   //!
    TBranch        *b_muNSegs;   //!
@@ -607,10 +607,10 @@ class RKAnalyzer {
    TBranch        *b_muTrkLayers;   //!
    TBranch        *b_muPixelLayers;   //!
    TBranch        *b_muPixelHits;   //!
-   TBranch        *b_muTrkQuality_;   //!
+   TBranch        *b_muTrkQuality;   //!
    TBranch        *b_muHits;   //!
    TBranch        *b_muChi2NDF;   //!
-   TBranch        *b_muInnervalidFraction_;   //!
+   TBranch        *b_muInnervalidFraction;   //!
    TBranch        *b_muMatches;   //!
    TBranch        *b_muTrkIso;   //!
    TBranch        *b_muHcalIso;   //!
@@ -936,7 +936,7 @@ class RKAnalyzer {
   //TString filename="/hdfs/store/user/khurana/SingleElectron/crab_SingleElectron_Run2015B-PromptReco-v1/150713_071520/0000/NCUGlobalTuples_89.root";
   //TString filename="/hdfs/store/user/khurana/SingleElectron/crab_SingleElectron_Run2015B-PromptReco-v1/150713_071520/0000/NCUGlobalTuples_108.root";
   //TString filename="/hdfs/store/user/khurana/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/crab_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_HLT/150713_072349/0000/NCUGlobalTuples_1.root";
-  TString filename="/hdfs/store/user/khurana/MET/crab_MET-Run2015B-PromptReco-v1_PR/150730_111504/0000/NCUGlobalTuples_10.root";
+  TString filename="/hdfs/store/user/khurana//MET/crab_MET-Run2015B-PromptReco-v1TotalV3/150803_172741/0000/NCUGlobalTuples_166.root";
 
    if (tree == 0) {
      //f = (TFile*)gROOT->GetListOfFiles()->FindObject("InputRootFile/NCUGlobalTuples_10.root");
@@ -1019,12 +1019,12 @@ void RKAnalyzer::Init(TTree *tree)
    isGlobalMuon = 0;
    isTrackerMuon = 0;
    isPFMuon = 0;
-   isTightMuon_ = 0;
-   isLooseMuon_ = 0;
-   isMediumMuon_ = 0;
-   isSoftMuon_ = 0;
-   isHighPtMuon_ = 0;
-   isCustomTrackerMuon_ = 0;
+   isTightMuon = 0;
+   isLooseMuon = 0;
+   isMediumMuon = 0;
+   isSoftMuon = 0;
+   isHighPtMuon = 0;
+   isCustomTrackerMuon = 0;
    muITrkID = 0;
    muSegID = 0;
    muNSegs = 0;
@@ -1042,10 +1042,10 @@ void RKAnalyzer::Init(TTree *tree)
    muTrkLayers = 0;
    muPixelLayers = 0;
    muPixelHits = 0;
-   muTrkQuality_ = 0;
+   muTrkQuality = 0;
    muHits = 0;
    muChi2NDF = 0;
-   muInnervalidFraction_ = 0;
+   muInnervalidFraction = 0;
    muMatches = 0;
    muTrkIso = 0;
    muHcalIso = 0;
@@ -1345,12 +1345,12 @@ void RKAnalyzer::Init(TTree *tree)
    fChain->SetBranchAddress("isGlobalMuon", &isGlobalMuon, &b_isGlobalMuon);
    fChain->SetBranchAddress("isTrackerMuon", &isTrackerMuon, &b_isTrackerMuon);
    fChain->SetBranchAddress("isPFMuon", &isPFMuon, &b_isPFMuon);
-   fChain->SetBranchAddress("isTightMuon_", &isTightMuon_, &b_isTightMuon_);
-   fChain->SetBranchAddress("isLooseMuon_", &isLooseMuon_, &b_isLooseMuon_);
-   fChain->SetBranchAddress("isMediumMuon_", &isMediumMuon_, &b_isMediumMuon_);
-   fChain->SetBranchAddress("isSoftMuon_", &isSoftMuon_, &b_isSoftMuon_);
-   fChain->SetBranchAddress("isHighPtMuon_", &isHighPtMuon_, &b_isHighPtMuon_);
-   fChain->SetBranchAddress("isCustomTrackerMuon_", &isCustomTrackerMuon_, &b_isCustomTrackerMuon_);
+   fChain->SetBranchAddress("isTightMuon", &isTightMuon, &b_isTightMuon);
+   fChain->SetBranchAddress("isLooseMuon", &isLooseMuon, &b_isLooseMuon);
+   fChain->SetBranchAddress("isMediumMuon", &isMediumMuon, &b_isMediumMuon);
+   fChain->SetBranchAddress("isSoftMuon", &isSoftMuon, &b_isSoftMuon);
+   fChain->SetBranchAddress("isHighPtMuon", &isHighPtMuon, &b_isHighPtMuon);
+   fChain->SetBranchAddress("isCustomTrackerMuon", &isCustomTrackerMuon, &b_isCustomTrackerMuon);
    fChain->SetBranchAddress("muITrkID", &muITrkID, &b_muITrkID);
    fChain->SetBranchAddress("muSegID", &muSegID, &b_muSegID);
    fChain->SetBranchAddress("muNSegs", &muNSegs, &b_muNSegs);
@@ -1368,10 +1368,10 @@ void RKAnalyzer::Init(TTree *tree)
    fChain->SetBranchAddress("muTrkLayers", &muTrkLayers, &b_muTrkLayers);
    fChain->SetBranchAddress("muPixelLayers", &muPixelLayers, &b_muPixelLayers);
    fChain->SetBranchAddress("muPixelHits", &muPixelHits, &b_muPixelHits);
-   fChain->SetBranchAddress("muTrkQuality_", &muTrkQuality_, &b_muTrkQuality_);
+   fChain->SetBranchAddress("muTrkQuality", &muTrkQuality, &b_muTrkQuality);
    fChain->SetBranchAddress("muHits", &muHits, &b_muHits);
    fChain->SetBranchAddress("muChi2NDF", &muChi2NDF, &b_muChi2NDF);
-   fChain->SetBranchAddress("muInnervalidFraction_", &muInnervalidFraction_, &b_muInnervalidFraction_);
+   fChain->SetBranchAddress("muInnervalidFraction", &muInnervalidFraction, &b_muInnervalidFraction);
    fChain->SetBranchAddress("muMatches", &muMatches, &b_muMatches);
    fChain->SetBranchAddress("muTrkIso", &muTrkIso, &b_muTrkIso);
    fChain->SetBranchAddress("muHcalIso", &muHcalIso, &b_muHcalIso);

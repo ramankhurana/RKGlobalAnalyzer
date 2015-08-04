@@ -67,6 +67,40 @@ def Normalize(n,xs,tot):
     yield_ = n*xs*1./tot
     return yield_
 
+
+## map of placeholder
+nameinnumber=['QCD',
+              'TT',
+              'DIBOSON',
+              'ZH',
+              'DYJET',
+              'WJETS',
+              'DATA']
+
+## create the names of place holders
+placeholder = [x + "RATE" for x in nameinnumber]
+print placeholder
+
+
+## valuemap
+valuemap = {
+    "default" : 0.0
+    }
+
+## Read the signal background numbers from rootfile.
+numbers = open('sigbkg.txt','r')
+for iline in numbers:
+    a,b = iline.split()
+    for iname in range(len(nameinnumber)):
+        if a==nameinnumber[iname]:
+            stringtoprint = nameinnumber[iname]+" value is "+b
+            print stringtoprint
+            ratename = nameinnumber[iname]+"RATE"
+            valuemap[ratename]=b
+
+print valuemap
+
+
 sigTFile = ROOT.TFile('Merged_DMHistosSpring15_1/main-NCUGlobalTuples_M1500.root','READ')
 sigEvent  = sigTFile.Get('CutFlowAndEachCut/h_cutflow_0')
 sigTEvent = sigTFile.Get('nEvents')
@@ -77,7 +111,8 @@ datacard = open('DataCard_MXXXGeV.txt','r')
 os.system('rm DataCard_M600GeV.txt')
 datacard600 = open('DataCard_M600GeV.txt','w')
 for line in datacard:
-    line = line.replace('SIGNALRATE',str(scaledsig))
+    #line = line.replace('SIGNALRATE',str(scaledsig))
+    line = line.replace(placeholder[0],valuemap[placeholder[0]])
     datacard600.write(line)
 
 datacard600.close()

@@ -485,8 +485,11 @@ void RKAnalyzer::MuonProducer(){
     muons.Clear();
     TLorentzVector*  fourmom = (TLorentzVector*) muP4->At(i);
     muons.p4      = *fourmom ;
+    std::cout<<" p4 filled "<<std::endl;
     muons.charge  = (*muCharge)[i] ;
-    bool isloose =  (*isLooseMuon_)[i];;
+    std::cout<<" charge filled "<<std::endl;
+    bool isloose =  (*isLooseMuon)[i];;
+    std::cout<<" looseid filled "<<std::endl;
     if(fourmom->Pt() > 10 && fabs(fourmom->Eta())<2.4 && isloose ) RKMuonCollection.push_back(muons);
   }
 }

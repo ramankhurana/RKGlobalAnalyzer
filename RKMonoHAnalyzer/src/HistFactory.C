@@ -27,8 +27,8 @@ void HistFactory::DefineHistograms(){
     h_CSVMax[i]     = new TH1F("h_CSVMax"+postfix,"",20,0,1);
     h_CSVMin[i]     = new TH1F("h_CSVMin"+postfix,"",20,0,1);
     h_CSVSum[i]     = new TH1F("h_CSVSum"+postfix,"",40,0,2);
-    h_dPhi_MET_J[i] = new TH1F("h_dPhi_MET_J"+postfix,"",70,-3.5,3.5);
-    h_MT_bb_MET[i]  = new TH1F("h_MT_bb_MET"+postfix,"",100,0,500.);
+    h_dPhi_MET_J[i] = new TH1F("h_dPhi_MET_J"+postfix,"",70,0.,3.5);
+    h_MT_bb_MET[i]  = new TH1F("h_MT_bb_MET"+postfix,"",1000,0,5000.);
     h_dPhi_bb_MET[i]= new TH1F("h_dPhi_bb_MET"+postfix,"",70,-3.5,3.5);
     // 2D Histograms
     h_M_vs_MET[i]   = new TH2F("h_MET_vs_M"+postfix,"h_MET_vs_M",100,0.,200.,200,0.,1000.);
@@ -70,7 +70,7 @@ void HistFactory::Fill(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > objec
 	
 	float dphi1 = objectCollection[i].objMet1.DeltaPhi;
 	float dphi2 = objectCollection[i].objMet2.DeltaPhi;
-	h_dPhi_MET_J[i]->Fill(TMath::Min(dphi1,dphi2)                  , mcweight_  );
+	h_dPhi_MET_J[i]->Fill(TMath::Abs(TMath::Min(dphi1,dphi2))      , mcweight_  );
 	
 	h_MT_bb_MET[i]->Fill(objectCollection[i].ResonancemetProp.TransMass  , mcweight_ );
 	h_dPhi_bb_MET[i]->Fill(objectCollection[i].ResonancemetProp.DeltaPhi , mcweight_ );

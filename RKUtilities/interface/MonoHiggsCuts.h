@@ -53,7 +53,7 @@ class MonoHiggsCuts {
     cutValueMap["Nele"]=0;
     cutValueMap["Nmu"]=0;
     cutValueMap["Ntau"]=0;
-    cutValueMap["njet"]=0;
+    cutValueMap["njet"]=2;// atleast 2 jets
     cutValueMap["DPHIMETClosedJ"]=0.5;
 
 
