@@ -936,7 +936,7 @@ class RKAnalyzer {
   //TString filename="/hdfs/store/user/khurana/SingleElectron/crab_SingleElectron_Run2015B-PromptReco-v1/150713_071520/0000/NCUGlobalTuples_89.root";
   //TString filename="/hdfs/store/user/khurana/SingleElectron/crab_SingleElectron_Run2015B-PromptReco-v1/150713_071520/0000/NCUGlobalTuples_108.root";
   //TString filename="/hdfs/store/user/khurana/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/crab_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_HLT/150713_072349/0000/NCUGlobalTuples_1.root";
-  TString filename="/hdfs/store/user/khurana//MET/crab_MET-Run2015B-PromptReco-v1TotalV3/150803_172741/0000/NCUGlobalTuples_166.root";
+  TString filename="/hdfs/store/user/khurana/ZZ_TuneCUETP8M1_13TeV-pythia8//crab_ZZ_TuneCUETP8M1_13TeV-pythia8_0803/150803_175912/0000/NCUGlobalTuples_15.root";
 
    if (tree == 0) {
      //f = (TFile*)gROOT->GetListOfFiles()->FindObject("InputRootFile/NCUGlobalTuples_10.root");

@@ -18,7 +18,7 @@ kmax    *       number of nuisance parameters (sources of systematical uncertain
 
 -------------------------------------------------------------------------------------------------
 bin                      MONOHBB
-observation              0
+observation              DATARATE
 
 -------------------------------------------------------------------------------------------------
 
@@ -29,7 +29,7 @@ process                  Sig       DYJets      WJets      ZH          TT        
 
 process                  0                1          2             3          4         5  
 
-rate                SIGNALRATE       DYJetsRATE    WJetsRATE    ZHRATE      TTRATE    QCDRATE 
+rate                SIGNALRATE       DYJETSRATE    WJETSRATE    ZHRATE      TTRATE    QCDRATE 
 
 -------------------------------------------------------------------------------------------------
 
@@ -73,9 +73,17 @@ nameinnumber=['QCD',
               'TT',
               'DIBOSON',
               'ZH',
-              'DYJET',
+              'DYJETS',
               'WJETS',
               'DATA']
+
+signalnameinnumber=['M600',
+                    'M700',
+                    'M800',
+                    'M900',
+                    'M1000',
+                    'M1200',
+                    'M1500']
 
 ## create the names of place holders
 placeholder = [x + "RATE" for x in nameinnumber]
@@ -87,7 +95,13 @@ valuemap = {
     "default" : 0.0
     }
 
+signalvaluemap = {
+    "default" : 0.0
+    }
+
 ## Read the signal background numbers from rootfile.
+## this value map is used later to get the datacard by replacing the
+## place holders with values stored in this map.
 numbers = open('sigbkg.txt','r')
 for iline in numbers:
     a,b = iline.split()
@@ -97,27 +111,52 @@ for iline in numbers:
             print stringtoprint
             ratename = nameinnumber[iname]+"RATE"
             valuemap[ratename]=b
+    ### Following lines fill the 
+    ### value map for signal points
+    for isigname in range(len(signalnameinnumber)):
+        if a==signalnameinnumber[isigname]:
+            stringtoprint = signalnameinnumber[isigname]+" value is "+b
+            print stringtoprint
+            ratename = signalnameinnumber[isigname]+"RATE"
+            signalvaluemap[ratename]=b
 
 print valuemap
+print signalvaluemap
 
-
+## Method to access the rootfiles
+## Use it to clone and then 
 sigTFile = ROOT.TFile('Merged_DMHistosSpring15_1/main-NCUGlobalTuples_M1500.root','READ')
 sigEvent  = sigTFile.Get('CutFlowAndEachCut/h_cutflow_0')
 sigTEvent = sigTFile.Get('nEvents')
 print sigEvent.GetBinContent(7)
 scaledsig = Normalize(sigEvent.GetBinContent(7), SignalXS['M1500'],sigTEvent.GetEntries())
 print scaledsig
-datacard = open('DataCard_MXXXGeV.txt','r')
-os.system('rm DataCard_M600GeV.txt')
-datacard600 = open('DataCard_M600GeV.txt','w')
-for line in datacard:
-    #line = line.replace('SIGNALRATE',str(scaledsig))
-    line = line.replace(placeholder[0],valuemap[placeholder[0]])
-    datacard600.write(line)
 
-datacard600.close()
+
+def MakeDataCard(masspoint):
+    datacard = open('DataCard_MXXXGeV.txt','r')
+    newdatacardname = 'DataCard_'+masspoint+'GeV_MonoHbb_13TeV.txt'
+    os.system('rm '+newdatacardname)
+    datacard600 = open(newdatacardname,'w')
     
+    for line in datacard:
+        ## replace the background values.
+        for ival in range(len(placeholder)):
+            line = line.replace(placeholder[ival],valuemap[placeholder[ival]])
+        
+        ## replace the signal values
+        masspointrate = masspoint + "RATE"
+        line = line.replace('SIGNALRATE', signalvaluemap[masspointrate])
+        datacard600.write(line)
+    datacard600.close()
 
+
+
+for imasspoint in range(len(signalnameinnumber)):
+    MakeDataCard(signalnameinnumber[imasspoint])
+
+
+print "datacards produced"
 
 
 

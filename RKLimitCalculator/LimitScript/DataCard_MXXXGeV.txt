@@ -9,7 +9,7 @@ kmax    *       number of nuisance parameters (sources of systematical uncertain
 
 -------------------------------------------------------------------------------------------------
 bin                      MONOHBB
-observation              0
+observation              DATARATE
 
 -------------------------------------------------------------------------------------------------
 
@@ -20,7 +20,7 @@ process                  Sig       DYJets      WJets      ZH          TT        
 
 process                  0                1          2             3          4         5  
 
-rate                SIGNALRATE       DYJetsRATE    WJetsRATE    ZHRATE      TTRATE    QCDRATE 
+rate                SIGNALRATE       DYJETSRATE    WJETSRATE    ZHRATE      TTRATE    QCDRATE 
 
 -------------------------------------------------------------------------------------------------
 
