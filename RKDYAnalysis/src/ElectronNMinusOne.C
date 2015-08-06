@@ -4,9 +4,12 @@
 
 void  ElectronNMinusOne::Fill(std::vector<Electron> objectCollection){
   std::cout<<" inside N-1 Filler "<<std::endl;
+  mcweight_ = 1.0;
   if(objectCollection.size()>0){
     if(objectCollection[0].isdata==1) mcweight_=1;
     if(objectCollection[0].isdata==0) mcweight_= objectCollection[0].weight;
+    std::cout<<" mcweight_ = "<<mcweight_<<std::endl;
+    
     std::cout<<" size of objectcoll "<<objectCollection.size()<<std::endl;
     for(int i=0; i<(int)objectCollection.size();i++){
       if(true/*i<2*/) { // i = 0, i = 1 ; save only two combinations not more than that. 

@@ -7,11 +7,11 @@ all: runallAnalysis.exe
 runallAnalysis.exe: bin/Main.o bin/RKAnalyzer.o bin/JetValidator.o bin/ElectronValidator.o bin/METValidator.o bin/SelectionBitsProducer.o bin/CutFlowAndEachCut.o bin/NMinusOne.o bin/HistFactory.o bin/ABCDMethod.o bin/ElectronSelectionBitsProducer.o bin/ElectronNMinusOne.o 
 	$(CC) bin/Main.o bin/RKAnalyzer.o bin/JetValidator.o bin/ElectronValidator.o bin/METValidator.o bin/SelectionBitsProducer.o bin/CutFlowAndEachCut.o bin/NMinusOne.o bin/HistFactory.o bin/ABCDMethod.o bin/ElectronSelectionBitsProducer.o bin/ElectronNMinusOne.o  -o runallAnalysis.exe  `root-config --libs`
 
-bin/Main.o: RKAnalysisController/src/MyfarmoutAnalyzer.cc
-	$(CC) $(CFLAGS)  RKAnalysisController/src/MyfarmoutAnalyzer.cc -o bin/Main.o
+#bin/Main.o: RKAnalysisController/src/MyfarmoutAnalyzer.cc
+#	$(CC) $(CFLAGS)  RKAnalysisController/src/MyfarmoutAnalyzer.cc -o bin/Main.o
 
-#bin/Main.o: RKAnalysisController/src/Main.C
-#	$(CC) $(CFLAGS)  RKAnalysisController/src/Main.C -o bin/Main.o
+bin/Main.o: RKAnalysisController/src/Main.C
+	$(CC) $(CFLAGS)  RKAnalysisController/src/Main.C -o bin/Main.o
 
 bin/RKAnalyzer.o: RKAnalysisController/src/RKAnalyzer.C
 	$(CC) $(CFLAGS)  RKAnalysisController/src/RKAnalyzer.C -o bin/RKAnalyzer.o 

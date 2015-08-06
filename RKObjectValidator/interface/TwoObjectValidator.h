@@ -70,10 +70,13 @@ void TwoObjectValidator<T>::Fill(std::vector<T> objectcollection){
   std::cout<<" num of dijets = "<<objectcollection.size()<<std::endl;
   
   if(objectcollection.size()>0){
-    mcweight_=1;   
+    mcweight_=1.;   
       if(objectcollection[0].jet1.isdata==1) mcweight_=1;
       if(objectcollection[0].jet1.isdata==0) mcweight_= objectcollection[0].jet1.weight;
-
+      
+      std::cout<<" mcweight_ in diobject = "<<mcweight_
+	       <<" isdata "<<objectcollection[0].jet1.isdata
+	       <<std::endl;
 
 
     // Fill properties of first di-jet combination made from 
