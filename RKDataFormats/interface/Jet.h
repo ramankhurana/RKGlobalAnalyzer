@@ -23,6 +23,7 @@ class Jet{
   Float_t B_JP;
   Float_t B_JBP;
 
+  
   Float_t tau1;
   Float_t tau2;
   Float_t tau3;
@@ -47,9 +48,12 @@ class Jet{
   std::vector<Float_t> SDPz;
   std::vector<Float_t> SDEn;
   std::vector<Float_t> SDCSV;
+  
+  // additional Fat Jets
   Float_t doubleSV;
   Int_t   nSV;
   std::vector<Float_t> SVMass;
+  
   Float_t jetHFHadEF;
   Float_t jetHFEMEF;
   Int_t   jetCHHadMultiplicity;

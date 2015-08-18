@@ -8,25 +8,25 @@
 #include "../../RKUtilities/interface/EAElectron.h"
 using namespace std;
 void RKAnalyzer::Loop(TString output){
-  bool debug=false;
+  debug=false;
   if(false) std::cout<<" output = "<<output<<std::endl;
   nEvents = new TH1F("nEvents","",2,0,2);
   nEvents_weight = new TH1F("nEvents_weight","",3,-1,2);
   
-  if(debug) std::cout<<" creating output file"<<std::endl;
+  if(true) std::cout<<" creating output file"<<std::endl;
   fout = new TFile(output,"RECREATE");
-
-
-
-  // eaConstantsFile("EgammaAnalysis/ElectronTools/data/PHYS14/effAreaElectrons_cone03_pfNeuHadronsAndPhotons.txt");
-  
-  
+  std::cout<<" after file "<<std::endl;
+    
   jetvalidator.GetInputs(fout,"Jet_NoCut_");
+  std::cout<<" jet 1 done"<<std::endl;
   jetvalidator_selected.GetInputs(fout,"Jet_PtEtaBTag_");
+  
+  std::cout<<" jet done"<<std::endl;
   
   fatjetvalidator.GetInputs(fout,"FatJets");
   addjetvalidator.GetInputs(fout,"ADDJets");
   
+  std::cout<<"fatjet done"<<std::endl;
   elenminusoneobjB.GetInputs(fout,"ElectronNMinus1B");
   elenminusoneobjE.GetInputs(fout,"ElectronNMinus1E");
   
@@ -34,25 +34,31 @@ void RKAnalyzer::Loop(TString output){
   electronvalidator_barrel.GetInputs(fout,"Electron_NoCut_Barrel_");
   electronvalidator_endcap.GetInputs(fout,"Electron_NoCut_Endcap_");
   
+  std::cout<<"ele done"<<std::endl;
   metvalidator.GetInputs(fout,"MET_NoCut_");
+  std::cout<<"met done"<<std::endl;
   diJetValidator.GetInputs(fout,"DiJetNotCut");
   diJetValidator_selected.GetInputs(fout,"DiJetSelected");
-  
+  std::cout<<"dijet done"<<std::endl;
+
   diElectronValidator.GetInputs(fout,"DiElectronMediumID");
   diElectronValidatorIso.GetInputs(fout,"DiElectronMediumIDIso");
-  
+  std::cout<<"diele done"<<std::endl;
+
   jetmetValidator.GetInputs(fout,"JetMETNoCuts");
   dijetmetValidator.GetInputs(fout,"DiJetMETNoCuts");
   cutflowobj.GetInputs(fout,"CutFlowAndEachCut");
   nminusobj.GetInputs(fout,"NMinusOne");
+  std::cout<<"jet-met done"<<std::endl;
   histfac.GetInputs(fout,"MonoHNoCut");
   histfacJetPreSel.GetInputs(fout,"MonoHSoftSel");
   histfacJetHardPreSel.GetInputs(fout,"MonoHPreSel");
   histfacFullSel.GetInputs(fout,"MonoHFullSelection");
+  std::cout<<"histfac done"<<std::endl;
   //syncmonoh.GetInputs(fout,"syncSig");
   //abcd.GetInputs(fout,"ABCD");
   
-  if(debug) std::cout<<" Sending information to JetValidator "<<std::endl;
+  if(true) std::cout<<" Sending information to JetValidator "<<std::endl;
   if (fChain == 0) return;
   
   Long64_t nentries = fChain->GetEntriesFast();
@@ -81,7 +87,7 @@ void RKAnalyzer::Loop(TString output){
      
      // Produce jet collection for analysis and validation of object variables.
      JetProducer();
-     //FATJetProducer();
+     FATJetProducer();
      //ADDJetProducer();
      
      // Produce MET collection for analysis and validation of object.
@@ -90,131 +96,7 @@ void RKAnalyzer::Loop(TString output){
      MuonProducer();
      ElectronProducer();
      
-     // N-1 For Electron ID
-     if(false) std::cout<<" N-1 for barrel with size "<<RKElectronCollection_barrel.size()<<std::endl;
-     if(RKElectronCollection_barrel.size()>0) elenminusoneobjB.Fill(RKElectronCollection_barrel);
-     if(false) std::cout<<" N-1 for endcap with size "<<RKElectronCollection_endcap.size()<<std::endl;
-     if(RKElectronCollection_endcap.size()>0) elenminusoneobjE.Fill(RKElectronCollection_endcap);
      
-     // Fill Validation Histograms for Jets
-
-     if(false) std::cout<<" Jet Validator no sel"<<std::endl;
-     if(RKJetCollection.size()>0) jetvalidator.Fill(RKJetCollection);
-     if(false) std::cout<<" Jet Validator with sel"<<std::endl;
-     if (RKJetCollection_selected.size()>0) jetvalidator_selected.Fill(RKJetCollection_selected);
-     if (MH_FATJetCollection.size() > 0 ) fatjetvalidator.Fill(MH_FATJetCollection);
-     if (MH_ADDJetCollection.size() > 0 ) addjetvalidator.Fill(MH_ADDJetCollection);
-     
-     
-     if(false) std::cout<<" electron Validator no sel"<<std::endl;
-     // Fill the electron validation histograms 
-     if(RKElectronCollection.size()>0) electronvalidator.Fill(RKElectronCollection);
-     if(false) std::cout<<" electron Validator no sel barrel with size "<<RKElectronCollection_barrel.size()<<std::endl;
-     if(RKElectronCollection_barrel.size()>0) electronvalidator_barrel.Fill(RKElectronCollection_barrel);
-     if(false) std::cout<<" electron Validator no sel endcap"<<RKElectronCollection_endcap.size()<<std::endl;
-     if(RKElectronCollection_endcap.size()>0) electronvalidator_endcap.Fill(RKElectronCollection_endcap);
-     // Fill Validation histograms for MET
-     if(false) std::cout<<" MET Validator"<<std::endl;
-     metvalidator.Fill(met);
-     
-     // Dijet 
-     // for validation 
-     if(RKJetCollection_selected.size()>0) RKdiJetCollection_selected = dijet_selected.ReconstructDiObject(RKJetCollection_selected);
-     if(false) std::cout<<" made dijet selected "<<std::endl;
-     // For further processing 
-
-     if(RKJetCollection.size()>0) RKdiJetCollection = dijet.ReconstructDiObject(RKJetCollection);
-     //RKdiJetCollection = RKdiJetCollection_selected;
-     if(false) std::cout<< " dijet collection size = ========== "<<RKdiJetCollection.size()<<std::endl;
-
-
-     // DiElectron 
-     if(RKElectronCollection_allCutM.size()>0) RKdiElectronCollection = dielectron.ReconstructDiObject(RKElectronCollection_allCutM);
-     if(RKElectronCollection_allCutMIso.size()>0) RKdiElectronCollectionIso = dielectron.ReconstructDiObject(RKElectronCollection_allCutMIso);
-
-     // DiJet Validation
-     if(RKdiJetCollection.size()>0) diJetValidator.Fill(RKdiJetCollection);
-     if(RKdiJetCollection_selected.size() > 0) diJetValidator_selected.Fill(RKdiJetCollection_selected);
-     
-     
-     // DiElectron Validation
-     if(RKdiElectronCollection.size()>0)     diElectronValidator.Fill(RKdiElectronCollection);
-     if(RKdiElectronCollectionIso.size()>0)  diElectronValidatorIso.Fill(RKdiElectronCollectionIso);
-     
-     // Dijet Vector Sorting wrt pT of diJet candidate 
-     std::sort(RKdiJetCollection.begin(), RKdiJetCollection.end(), DiJetpTSorting() );
-     if(debug) std::cout<<" after sorting "<<std::endl;
-      
-     
-     // Jet-MET
-     if(RKJetCollection_selected.size()>0) RKjetMETCollection = jet_met.ReconstructDiObject(RKJetCollection_selected,met);
-     if(RKjetMETCollection.size()>0) std::cout<<" transverse mass = "<<RKjetMETCollection[0].TransverseObjProp.TransMass <<std::endl;
-     if(RKjetMETCollection.size()>0) jetmetValidator.Fill(RKjetMETCollection);
-     
-     //DiJet-MET
-     if(RKdiJetCollection.size()>0) RKDiJetMETCollection = dijet_met.ReconstructDiObject(RKdiJetCollection,met);
-     if(false) std::cout<<" size of DIJETMET collection is = "<<RKDiJetMETCollection.size()<<std::endl;
-     
-     // add electron to RKDiJetMETCollectionWithStatus
-     if(RKDiJetMETCollection.size()>0) RKDiJetMETCollection[0].electrons = RKElectronCollection ;
-     if(RKDiJetMETCollection.size()>0) RKDiJetMETCollection[0].events = events ;
-     // add muon to RKDiJetMETCollectionWithStatus
-     if(RKDiJetMETCollection.size()>0) RKDiJetMETCollection[0].muons = RKMuonCollection ;
-     //if(RKDiJetMETCollection.size()>0) std::cout<<" ----------------- muon size = "<<RKDiJetMETCollection[0].muons.size()<<std::endl;
-     
-     // add jets to the RKDiJetMETCollectionWithStatus
-     // add with CSv Cuts
-     if(RKDiJetMETCollection.size()>0) RKDiJetMETCollection[0].jets  = RKJetCollection_selected ;
-     
-     if(false) std::cout<<" objects added "<<std::endl;
-     // add selection bits for baseline Analysis.
-     if(RKDiJetMETCollection.size()>0)RKDiJetMETCollectionWithStatus = selectionbits.SelectionBitsSaver(RKDiJetMETCollection, cuts.cutValueMap);
-     
-     if(false) std::cout<<" added bits "<<std::endl;
-     // add selection bits for ttbar control region 
-     //if(RKDiJetMETCollection.size()>0) RKDiJetMETCollectionTTBar = selectionbits.SelectionBitsSaver(RKDiJetMETCollection,cuts.cutValueMapTTBar);
-     
-     
-     // --------------------------------//
-     // ---------- Histograms -----------//
-     // --------------------------------//
-     // fill histograms for di-jet + met vaiables. very basic and common variables.
-     if(RKDiJetMETCollectionWithStatus.size()>0) dijetmetValidator.Fill(RKDiJetMETCollectionWithStatus,1); // Fill only one dijet+Met combo
-     if(false) std::cout<<" dijetmet validator "<<std::endl;
-     // fill histograms for di-jet + met vaiables. Mono-H Specific histograms. 
-     std::vector<int> bitVec; bitVec.clear();
-     if(RKDiJetMETCollectionWithStatus.size()>0) histfac.Fill(RKDiJetMETCollectionWithStatus,1, bitVec); // empty vector for no cuts
-     if(false) std::cout<<" histfac 1"<<std::endl;
-     // Following is pT,  Eta and CSV Loose
-     bitVec.push_back(0); bitVec.push_back(1); bitVec.push_back(2); bitVec.push_back(3);
-     if(RKDiJetMETCollectionWithStatus.size()>0) histfacJetPreSel.Fill(RKDiJetMETCollectionWithStatus,1, bitVec);
-     if(false) std::cout<<" histfac 1"<<std::endl;
-     bitVec.clear();
-     // Call again with different bit pattern to measure efficiency. 
-     bitVec.push_back(0); bitVec.push_back(1); bitVec.push_back(2); 
-     bitVec.push_back(3); bitVec.push_back(4); bitVec.push_back(5); 
-     bitVec.push_back(6);  // upto Mbb cut
-     if(RKDiJetMETCollectionWithStatus.size()>0) histfacJetHardPreSel.Fill(RKDiJetMETCollectionWithStatus,1, bitVec);
-     if(false) std::cout<<" histfac 1"<<std::endl;
-     bitVec.clear();
-     
-     // Full Selection 
-     bitVec.push_back(0); bitVec.push_back(1); bitVec.push_back(2); 
-     bitVec.push_back(3); bitVec.push_back(4); bitVec.push_back(5); 
-     bitVec.push_back(6); bitVec.push_back(7); bitVec.push_back(8);
-     bitVec.push_back(9); bitVec.push_back(10);// upto Mbb cut
-     if(RKDiJetMETCollectionWithStatus.size()>0) histfacFullSel.Fill(RKDiJetMETCollectionWithStatus,1, bitVec);
-     if(false) std::cout<<" histfac 1"<<std::endl;
-     bitVec.clear();
-     
-     //if( RKDiJetMETCollectionWithStatus.size()>0)     std::cout<<" cut status main = "<<RKDiJetMETCollectionWithStatus[0].cutsStatus<<std::endl;
-     
-
-     if(false) std::cout<<" calling cutFlow "<<std::endl;
-     if(RKDiJetMETCollectionWithStatus.size()>0) cutflowobj.CutFlow(RKDiJetMETCollectionWithStatus);
-     
-     if(false) std::cout<<" calling nminus one"<<std::endl;
-     if(RKDiJetMETCollectionWithStatus.size()>0) nminusobj.Fill(RKDiJetMETCollectionWithStatus);
      
      //std::cout<<" calling ABCD method "<<std::endl;
      //if(RKDiJetMETCollectionWithStatus.size()>0) abcd.Fill(RKDiJetMETCollectionWithStatus);
@@ -239,6 +121,8 @@ void RKAnalyzer::Loop(TString output){
    // Write Histograms ;
    jetvalidator.Write();
    jetvalidator_selected.Write();
+   
+   fatjetvalidator.Write();
    
    elenminusoneobjE.Write();
    elenminusoneobjB.Write();
@@ -383,13 +267,13 @@ void RKAnalyzer::FATJetProducer(){
     fatjets.tau4                           = (*FATjetTau4)[i];
 
     fatjets.nsubJets                       = (*FATnSubSDJet)[i];
-
-
-    fatjets.SDPx                           = (*FATsubjetSDPx)[i];
+    
+    fatjets.SDPx                          = (*FATsubjetSDPx)[i];
     fatjets.SDPy                           = (*FATsubjetSDPy)[i];
     fatjets.SDPz                           = (*FATsubjetSDPz)[i];
     fatjets.SDEn                           = (*FATsubjetSDCE)[i];
     fatjets.SDCSV                          = (*FATsubjetSDCSV)[i];
+    
     
     fatjets.isLooseJet_     =  (*FATjetPassIDLoose)[i];
     fatjets.isPUJet_        = (*FATPUJetID)[i] > -0.63  ;
@@ -691,10 +575,142 @@ void RKAnalyzer::EventProducer(){
   events.run      = runId;
   events.lumi     = lumiSection;
   events.event    = eventId;
-  if(isData)        events.mcweight = 1.0 ;
-  if(!isData) {
-    if(mcWeight<0)   events.mcweight = -1.0;
-    if(mcWeight>0)   events.mcweight =  1.0;
+  if(isData==1)        events.mcweight =  1.0 ;
+  if(isData==0) {
+    if(mcWeight<0)   events.mcweight =  -1.0;
+    if(mcWeight>0)   events.mcweight =   1.0;
   }
   events.nvtx            = nVtx;
+}
+
+
+
+void RKAnalyzer::MonoHiggsAnalyzer(){
+  // N-1 For Electron ID
+  if(false) std::cout<<" N-1 for barrel with size "<<RKElectronCollection_barrel.size()<<std::endl;
+  if(RKElectronCollection_barrel.size()>0) elenminusoneobjB.Fill(RKElectronCollection_barrel);
+  if(false) std::cout<<" N-1 for endcap with size "<<RKElectronCollection_endcap.size()<<std::endl;
+  if(RKElectronCollection_endcap.size()>0) elenminusoneobjE.Fill(RKElectronCollection_endcap);
+  
+  // Fill Validation Histograms for Jets
+  
+  if(false) std::cout<<" Jet Validator no sel"<<std::endl;
+  if(RKJetCollection.size()>0) jetvalidator.Fill(RKJetCollection);
+  if(false) std::cout<<" Jet Validator with sel"<<std::endl;
+  if (RKJetCollection_selected.size()>0) jetvalidator_selected.Fill(RKJetCollection_selected);
+  if (MH_FATJetCollection.size() > 0 ) fatjetvalidator.Fill(MH_FATJetCollection);
+  if (MH_ADDJetCollection.size() > 0 ) addjetvalidator.Fill(MH_ADDJetCollection);
+  
+  
+  if(false) std::cout<<" electron Validator no sel"<<std::endl;
+  // Fill the electron validation histograms 
+  if(RKElectronCollection.size()>0) electronvalidator.Fill(RKElectronCollection);
+  if(false) std::cout<<" electron Validator no sel barrel with size "<<RKElectronCollection_barrel.size()<<std::endl;
+  if(RKElectronCollection_barrel.size()>0) electronvalidator_barrel.Fill(RKElectronCollection_barrel);
+  if(false) std::cout<<" electron Validator no sel endcap"<<RKElectronCollection_endcap.size()<<std::endl;
+  if(RKElectronCollection_endcap.size()>0) electronvalidator_endcap.Fill(RKElectronCollection_endcap);
+  // Fill Validation histograms for MET
+  if(false) std::cout<<" MET Validator"<<std::endl;
+  metvalidator.Fill(met);
+  
+  // Dijet 
+  // for validation 
+  if(RKJetCollection_selected.size()>0) RKdiJetCollection_selected = dijet_selected.ReconstructDiObject(RKJetCollection_selected);
+  if(false) std::cout<<" made dijet selected "<<std::endl;
+  // For further processing 
+  
+  if(RKJetCollection.size()>0) RKdiJetCollection = dijet.ReconstructDiObject(RKJetCollection);
+  //RKdiJetCollection = RKdiJetCollection_selected;
+  if(false) std::cout<< " dijet collection size = ========== "<<RKdiJetCollection.size()<<std::endl;
+  
+  
+     // DiElectron 
+  if(RKElectronCollection_allCutM.size()>0) RKdiElectronCollection = dielectron.ReconstructDiObject(RKElectronCollection_allCutM);
+  if(RKElectronCollection_allCutMIso.size()>0) RKdiElectronCollectionIso = dielectron.ReconstructDiObject(RKElectronCollection_allCutMIso);
+  
+  // DiJet Validation
+  if(RKdiJetCollection.size()>0) diJetValidator.Fill(RKdiJetCollection);
+  if(RKdiJetCollection_selected.size() > 0) diJetValidator_selected.Fill(RKdiJetCollection_selected);
+  
+  
+  // DiElectron Validation
+  if(RKdiElectronCollection.size()>0)     diElectronValidator.Fill(RKdiElectronCollection);
+  if(RKdiElectronCollectionIso.size()>0)  diElectronValidatorIso.Fill(RKdiElectronCollectionIso);
+  
+  // Dijet Vector Sorting wrt pT of diJet candidate 
+  std::sort(RKdiJetCollection.begin(), RKdiJetCollection.end(), DiJetpTSorting() );
+  if(debug) std::cout<<" after sorting "<<std::endl;
+  
+  
+  // Jet-MET
+  if(RKJetCollection_selected.size()>0) RKjetMETCollection = jet_met.ReconstructDiObject(RKJetCollection_selected,met);
+  if(RKjetMETCollection.size()>0) std::cout<<" transverse mass = "<<RKjetMETCollection[0].TransverseObjProp.TransMass <<std::endl;
+  if(RKjetMETCollection.size()>0) jetmetValidator.Fill(RKjetMETCollection);
+  
+  //DiJet-MET
+  if(RKdiJetCollection.size()>0) RKDiJetMETCollection = dijet_met.ReconstructDiObject(RKdiJetCollection,met);
+  if(false) std::cout<<" size of DIJETMET collection is = "<<RKDiJetMETCollection.size()<<std::endl;
+  
+  // add electron to RKDiJetMETCollectionWithStatus
+  if(RKDiJetMETCollection.size()>0) RKDiJetMETCollection[0].electrons = RKElectronCollection ;
+  if(RKDiJetMETCollection.size()>0) RKDiJetMETCollection[0].events = events ;
+     // add muon to RKDiJetMETCollectionWithStatus
+  if(RKDiJetMETCollection.size()>0) RKDiJetMETCollection[0].muons = RKMuonCollection ;
+  //if(RKDiJetMETCollection.size()>0) std::cout<<" ----------------- muon size = "<<RKDiJetMETCollection[0].muons.size()<<std::endl;
+  
+  // add jets to the RKDiJetMETCollectionWithStatus
+  // add with CSv Cuts
+  if(RKDiJetMETCollection.size()>0) RKDiJetMETCollection[0].jets  = RKJetCollection_selected ;
+  
+  if(false) std::cout<<" objects added "<<std::endl;
+  // add selection bits for baseline Analysis.
+  if(RKDiJetMETCollection.size()>0)RKDiJetMETCollectionWithStatus = selectionbits.SelectionBitsSaver(RKDiJetMETCollection, cuts.cutValueMap);
+  
+  if(false) std::cout<<" added bits "<<std::endl;
+  // add selection bits for ttbar control region 
+  //if(RKDiJetMETCollection.size()>0) RKDiJetMETCollectionTTBar = selectionbits.SelectionBitsSaver(RKDiJetMETCollection,cuts.cutValueMapTTBar);
+  
+  
+  // --------------------------------//
+  // ---------- Histograms -----------//
+  // --------------------------------//
+     // fill histograms for di-jet + met vaiables. very basic and common variables.
+  if(RKDiJetMETCollectionWithStatus.size()>0) dijetmetValidator.Fill(RKDiJetMETCollectionWithStatus,1); // Fill only one dijet+Met combo
+  if(false) std::cout<<" dijetmet validator "<<std::endl;
+  // fill histograms for di-jet + met vaiables. Mono-H Specific histograms. 
+  std::vector<int> bitVec; bitVec.clear();
+  if(RKDiJetMETCollectionWithStatus.size()>0) histfac.Fill(RKDiJetMETCollectionWithStatus,1, bitVec); // empty vector for no cuts
+  if(false) std::cout<<" histfac 1"<<std::endl;
+  // Following is pT,  Eta and CSV Loose
+  bitVec.push_back(0); bitVec.push_back(1); bitVec.push_back(2); bitVec.push_back(3);
+  if(RKDiJetMETCollectionWithStatus.size()>0) histfacJetPreSel.Fill(RKDiJetMETCollectionWithStatus,1, bitVec);
+  if(false) std::cout<<" histfac 1"<<std::endl;
+  bitVec.clear();
+  // Call again with different bit pattern to measure efficiency. 
+  bitVec.push_back(0); bitVec.push_back(1); bitVec.push_back(2); 
+  bitVec.push_back(3); bitVec.push_back(4); bitVec.push_back(5); 
+  bitVec.push_back(6);  // upto Mbb cut
+  if(RKDiJetMETCollectionWithStatus.size()>0) histfacJetHardPreSel.Fill(RKDiJetMETCollectionWithStatus,1, bitVec);
+  if(false) std::cout<<" histfac 1"<<std::endl;
+  bitVec.clear();
+  
+  // Full Selection 
+  bitVec.push_back(0); bitVec.push_back(1); bitVec.push_back(2); 
+  bitVec.push_back(3); bitVec.push_back(4); bitVec.push_back(5); 
+  bitVec.push_back(6); bitVec.push_back(7); bitVec.push_back(8);
+  bitVec.push_back(9); bitVec.push_back(10);// upto Mbb cut
+  if(RKDiJetMETCollectionWithStatus.size()>0) histfacFullSel.Fill(RKDiJetMETCollectionWithStatus,1, bitVec);
+  if(false) std::cout<<" histfac 1"<<std::endl;
+  bitVec.clear();
+  
+  //if( RKDiJetMETCollectionWithStatus.size()>0)     std::cout<<" cut status main = "<<RKDiJetMETCollectionWithStatus[0].cutsStatus<<std::endl;
+  
+  
+  if(false) std::cout<<" calling cutFlow "<<std::endl;
+  if(RKDiJetMETCollectionWithStatus.size()>0) cutflowobj.CutFlow(RKDiJetMETCollectionWithStatus);
+  
+  if(false) std::cout<<" calling nminus one"<<std::endl;
+  if(RKDiJetMETCollectionWithStatus.size()>0) nminusobj.Fill(RKDiJetMETCollectionWithStatus);
+  
+  
 }

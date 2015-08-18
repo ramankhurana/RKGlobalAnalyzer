@@ -4,33 +4,6 @@ void JetValidator::Fill(std::vector<Jet> jetcollection){
   
   if(false) std::cout<<" num of jets = "<<jetcollection.size()<<std::endl;
   
-  // Construct variables for two jets 
-  // you don't need to loop over jets for this
-  // take first two jets in the collection
-  if(jetcollection.size()>=2){
-    TLorentzVector j1P4     = jetcollection[0].p4;
-    TLorentzVector j2P4     = jetcollection[1].p4;
-    TLorentzVector diJetp4  = j1P4 + j2P4 ;
-    
-    Float_t deltaR          = j1P4.DeltaR(j2P4);
-    Float_t deltaPhi        = j1P4.DeltaPhi(j2P4);
-    Float_t deltaEta        = j1P4.Eta() - j2P4.Eta();
-    Float_t InvMass         = diJetp4.Mag();
-    Float_t pT              = diJetp4.Pt();
-    Float_t eta             = diJetp4.Eta();
-    Float_t phi             = diJetp4.Phi();
-    if(false) std::cout<<"    deltaR = "<<deltaR
-	     <<"    deltaPhi = "<<deltaPhi
-	     <<"    deltaEta = "<<deltaEta
-	     <<"    InvMass = "<<InvMass
-	     <<"    pT = "<<pT
-	     <<"    eta = "<<eta
-	     <<"    phi = "<<phi
-	     <<std::endl;
-    
-    
-  }//if(jetcollection.size()>=2){
-
   Float_t mcweight_  = 1.;
 
   if(jetcollection.size() >0) mcweight_ = jetcollection[0].event.mcweight ;
@@ -46,43 +19,39 @@ void JetValidator::Fill(std::vector<Jet> jetcollection){
       h_phi_vec[i]                  ->Fill(jetcollection[i].p4.Phi()                  , mcweight_          );
       h_charge_vec[i]               ->Fill(jetcollection[i].charge                    , mcweight_          );
       h_partonFlavor_vec[i]         ->Fill(jetcollection[i].partonFlavor              , mcweight_          );
-      h_B_SSV_vec[i]                ->Fill(jetcollection[i].B_SSV                     , mcweight_          );
-      h_B_CSV_vec[i]                ->Fill(jetcollection[i].B_CSV                     , mcweight_          );
-      h_B_SSVHE_vec[i]              ->Fill(jetcollection[i].B_SSVHE                   , mcweight_          );
       h_B_CISVV2_vec[i]             ->Fill(jetcollection[i].B_CISVV2                  , mcweight_          );
-      h_B_TCHP_vec[i]               ->Fill(jetcollection[i].B_TCHP                    , mcweight_          );
-      h_B_TCHE_vec[i]               ->Fill(jetcollection[i].B_TCHE                    , mcweight_          );
-      h_B_JP_vec[i]                 ->Fill(jetcollection[i].B_JP                      , mcweight_          );
-      h_B_JBP_vec[i]                ->Fill(jetcollection[i].B_JBP                     , mcweight_          );
+      
       h_tau1_vec[i]                 ->Fill(jetcollection[i].tau1                      , mcweight_          );
       h_tau2_vec[i]                 ->Fill(jetcollection[i].tau2                      , mcweight_          );
       h_tau3_vec[i]                 ->Fill(jetcollection[i].tau3                      , mcweight_          );
-      h_jetMuEF_vec[i]              ->Fill(jetcollection[i].jetMuEF                   , mcweight_          );
-      h_jetPhoEF_vec[i]             ->Fill(jetcollection[i].jetPhoEF                  , mcweight_          );
-      h_jetCEmEF_vec[i]             ->Fill(jetcollection[i].jetCEmEF                  , mcweight_          );
-      h_jetCHadEF_vec[i]            ->Fill(jetcollection[i].jetCHadEF                 , mcweight_          );
-      h_jetNEmEF_vec[i]             ->Fill(jetcollection[i].jetNEmEF                  , mcweight_          );
-      h_jetNHadEF_vec[i]            ->Fill(jetcollection[i].jetNHadEF                 , mcweight_          );
-      h_jetCMulti_vec[i]            ->Fill(jetcollection[i].jetCMulti                 , mcweight_          );
-      h_jetHFHadEF_vec[i]           ->Fill(jetcollection[i].jetHFHadEF                , mcweight_          );
-      h_jetHFEMEF_vec[i]            ->Fill(jetcollection[i].jetHFEMEF                 , mcweight_          );
-      h_jetCHHadMultiplicity_vec[i] ->Fill(jetcollection[i].jetCHHadMultiplicity      , mcweight_          );
-      h_jetNHadMulplicity_vec[i]    ->Fill(jetcollection[i].jetNHadMulplicity         , mcweight_          );
-      h_jetPhMultiplicity_vec[i]    ->Fill(jetcollection[i].jetPhMultiplicity         , mcweight_          );
-      h_jetEleMultiplicity_vec[i]   ->Fill(jetcollection[i].jetEleMultiplicity        , mcweight_          );
-      h_jetHFHadMultiplicity_vec[i] ->Fill(jetcollection[i].jetHFHadMultiplicity      , mcweight_          );
-      h_jetHFEMMultiplicity_vec[i]  ->Fill(jetcollection[i].jetHFEMMultiplicity       , mcweight_          );
-      h_jetChMuEF_vec[i]            ->Fill(jetcollection[i].jetChMuEF                 , mcweight_          );
-      h_jetNMultiplicity_vec[i]     ->Fill(jetcollection[i].jetNMultiplicity          , mcweight_          );
-      h_jetHOEnergy_vec[i]          ->Fill(jetcollection[i].jetHOEnergy               , mcweight_          );
-      h_jetHOEF_vec[i]              ->Fill(jetcollection[i].jetHOEF                   , mcweight_          );
+      
       h_tau21_vec[i]                ->Fill(jetcollection[i].tau2/jetcollection[i].tau1, mcweight_           );
+
+      
+      // Fat Jet variables :: for the first 4 fat jet
+      h_DMmass  [i]             ->Fill(jetcollection[i].DMmass,mcweight_);
+      h_TRmass  [i]             ->Fill(jetcollection[i].TRmass,mcweight_);
+      h_PRmass  [i]             ->Fill(jetcollection[i].PRmass,mcweight_);
+      h_Fimass  [i]             ->Fill(jetcollection[i].Fimass,mcweight_);
+      h_nsubJets[i]             ->Fill(jetcollection[i].nsubJets,mcweight_);
+      
+      for(int j =0; i<jetcollection[i].nsubJets; j++){
+	// Sub-jet variables ::  for the first 4 fat jet
+	if(j>2) continue;
+	subjetp4.SetPxPyPzE(jetcollection[i].SDPx[j],
+					   jetcollection[i].SDPy[j],
+					   jetcollection[i].SDPz[j],
+					   jetcollection[i].SDEn[j]);
+	
+	h_SJ_pt[i][j]                ->Fill(subjetp4.Pt(),mcweight_);
+	h_SJ_eta[i][j]               ->Fill(subjetp4.Eta(),mcweight_);
+	h_SJ_phi[i][j]               ->Fill(subjetp4.Phi(),mcweight_);
+	h_SJ_csv[i][j]               ->Fill(jetcollection[i].SDCSV[j],mcweight_);
+      }
+      
       
     }// if(i<4)
     
-    
-    
-
     // Fill properties of all jets together in same histograms. 
     h_nJets                ->Fill(jetcollection[i].nJets                     , mcweight_        );
     h_pt                   ->Fill(jetcollection[i].p4.Pt()                   , mcweight_        );
@@ -90,38 +59,12 @@ void JetValidator::Fill(std::vector<Jet> jetcollection){
     h_phi                  ->Fill(jetcollection[i].p4.Phi()                  , mcweight_        );
     h_charge               ->Fill(jetcollection[i].charge                    , mcweight_        );
     h_partonFlavor         ->Fill(jetcollection[i].partonFlavor              , mcweight_        );
-    h_B_SSV                ->Fill(jetcollection[i].B_SSV                     , mcweight_        );
-    h_B_CSV                ->Fill(jetcollection[i].B_CSV                     , mcweight_        );
-    h_B_SSVHE              ->Fill(jetcollection[i].B_SSVHE                   , mcweight_        );
     h_B_CISVV2             ->Fill(jetcollection[i].B_CISVV2                  , mcweight_        );
-    h_B_TCHP               ->Fill(jetcollection[i].B_TCHP                    , mcweight_        );
-    h_B_TCHE               ->Fill(jetcollection[i].B_TCHE                    , mcweight_        );
-    h_B_JP                 ->Fill(jetcollection[i].B_JP                      , mcweight_        );
-    h_B_JBP                ->Fill(jetcollection[i].B_JBP                     , mcweight_        );
     h_tau1                 ->Fill(jetcollection[i].tau1                      , mcweight_        );
     h_tau2                 ->Fill(jetcollection[i].tau2                      , mcweight_        );
     h_tau3                 ->Fill(jetcollection[i].tau3                      , mcweight_        );
-    h_jetMuEF              ->Fill(jetcollection[i].jetMuEF                   , mcweight_        );
-    h_jetPhoEF             ->Fill(jetcollection[i].jetPhoEF                  , mcweight_        );
-    h_jetCEmEF             ->Fill(jetcollection[i].jetCEmEF                  , mcweight_        );
-    h_jetCHadEF            ->Fill(jetcollection[i].jetCHadEF                 , mcweight_        );
-    h_jetNEmEF             ->Fill(jetcollection[i].jetNEmEF                  , mcweight_        );
-    h_jetNHadEF            ->Fill(jetcollection[i].jetNHadEF                 , mcweight_        );
-    h_jetCMulti            ->Fill(jetcollection[i].jetCMulti                 , mcweight_        );
-    h_jetHFHadEF           ->Fill(jetcollection[i].jetHFHadEF                , mcweight_        );
-    h_jetHFEMEF            ->Fill(jetcollection[i].jetHFEMEF                 , mcweight_        );
-    h_jetCHHadMultiplicity ->Fill(jetcollection[i].jetCHHadMultiplicity      , mcweight_        );
-    h_jetNHadMulplicity    ->Fill(jetcollection[i].jetNHadMulplicity         , mcweight_        );
-    h_jetPhMultiplicity    ->Fill(jetcollection[i].jetPhMultiplicity         , mcweight_        );
-    h_jetEleMultiplicity   ->Fill(jetcollection[i].jetEleMultiplicity        , mcweight_        );
-    h_jetHFHadMultiplicity ->Fill(jetcollection[i].jetHFHadMultiplicity      , mcweight_        );
-    h_jetHFEMMultiplicity  ->Fill(jetcollection[i].jetHFEMMultiplicity       , mcweight_        );
-    h_jetChMuEF            ->Fill(jetcollection[i].jetChMuEF                 , mcweight_        );
-    h_jetNMultiplicity     ->Fill(jetcollection[i].jetNMultiplicity          , mcweight_        );
-    h_jetHOEnergy          ->Fill(jetcollection[i].jetHOEnergy               , mcweight_        );
-    h_jetHOEF              ->Fill(jetcollection[i].jetHOEF                   , mcweight_        );
-    			
     h_tau21                ->Fill(jetcollection[i].tau2/jetcollection[i].tau1, mcweight_        );
+
     
   }
   
@@ -131,9 +74,9 @@ void JetValidator::Fill(std::vector<Jet> jetcollection){
 void JetValidator::GetInputs(TFile* f, TString prefix_){
   prefix = prefix_;
   file = f;
-  if(false) std::cout<<" calling define histograms for Jets "<<std::endl;
+  if(true) std::cout<<" calling define histograms for Jets "<<std::endl;
   DefineHistograms();
-  if(false) std::cout<<" Jets histo defined "<<std::endl;
+  if(true) std::cout<<" Jets histo defined "<<std::endl;
 }
 
 
@@ -179,8 +122,24 @@ void JetValidator::DefineHistograms(){
     h_jetHOEF_vec[i]               = new TH1F("h_jetHOEF_vec_"+postfix,"h_jetHOEF_vec_"+postfix,100,-50,50);
     
     h_tau21_vec[i]                 = new TH1F("h_tau21_vec_"+postfix,"h_tau21_vec_"+postfix,100,-50,50);
-    
+
+    // Fat Jets
+    h_DMmass[i]                     = new TH1F("h_DMmass"+postfix,"h_DMmass"+postfix,3000,0,3000);
+    h_TRmass[i]                     = new TH1F("h_TRmass"+postfix,"h_TRmass"+postfix,3000,0,3000);
+    h_PRmass[i]                     = new TH1F("h_PRmass"+postfix,"h_PRmass"+postfix,3000,0,3000);
+    h_Fimass[i]                     = new TH1F("h_Fimass"+postfix,"h_Fimass"+postfix,3000,0,3000);
+    h_nsubJets[i]                   = new TH1F("h_nsubJets"+postfix,"h_nsubJets"+postfix,10,0,10);
+    for(int j=0; j<2;j++){
+      TString postfix0;
+      postfix0.Form("%d",j); // subjet index
+      TString postfix1=postfix+postfix0;
+      h_SJ_pt[i][j]                     = new TH1F("h_SJ_pt"+postfix1,"h_SJ_pt"+postfix1,3000,0,3000);
+      h_SJ_csv[i][j]                     = new TH1F("h_SJ_csv"+postfix1,"h_SJ_csv"+postfix1,20,0,1.);
+      h_SJ_eta[i][j]                     = new TH1F("h_SJ_eta"+postfix1,"h_SJ_eta"+postfix1,60,-3.,3.);
+      h_SJ_phi[i][j]                     = new TH1F("h_SJ_phi"+postfix1,"h_SJ_phi"+postfix1,60,-3.0,3.0);
+    }
   }
+  
   if(false) std::cout<<" vector histo defined "<<std::endl;
   h_nJets                 = new TH1F("h_nJets","h_nJets",25,0,25);
   h_pt                    = new TH1F("h_pt","h_pt",100,0,500);

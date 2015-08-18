@@ -6,6 +6,7 @@
 #define JetValidator_h_
 
 #define NJETS  4
+#define NSJ    2
 #include "../../RKDataFormats/interface/Jet.h"
 #include <vector>
 #include <iostream>
@@ -28,7 +29,7 @@ class JetValidator {
   void DefineHistograms();
   void GetInputs(TFile* f, TString prefix_);
   void Write();
-  
+  TLorentzVector subjetp4;
   // 1D Histograms 
   TH1F*    h_nJets                 ;
   TH1F*    h_pt                    ;
@@ -68,6 +69,19 @@ class JetValidator {
   TH1F*    h_jetHOEF               ;
   
   TH1F*    h_tau21                 ;
+
+  TH1F* h_DMmass[NJETS];
+  TH1F* h_TRmass[NJETS];
+  TH1F* h_PRmass[NJETS];
+  TH1F* h_Fimass[NJETS];
+  TH1F* h_nsubJets[NJETS];
+
+  
+  TH1F*  h_SJ_pt [NJETS][NSJ] ;
+  TH1F*  h_SJ_csv[NJETS][NSJ] ;
+  TH1F*  h_SJ_eta[NJETS][NSJ] ;
+  TH1F*  h_SJ_phi[NJETS][NSJ] ;
+  
   
   TH1F*    h_pt_vec[NJETS]                    ;
   TH1F*    h_eta_vec[NJETS]                   ;

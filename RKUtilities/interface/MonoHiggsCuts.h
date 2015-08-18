@@ -39,9 +39,11 @@ class MonoHiggsCuts {
     cutValueMap["leadingjetpt"]=80.;
     cutValueMap["subleadingjetpt"]=30;
     cutValueMap["jeteta"]=2.5;
+    //cutValueMap["leadingcsv"]=0.432;
+    //cutValueMap["subleadingcsv"]=0.432;
     cutValueMap["leadingcsv"]=0.605;
     cutValueMap["subleadingcsv"]=0.605;
-    cutValueMap["metpt"]=150.;
+    cutValueMap["metpt"]=200.;
     cutValueMap["dphiDiJetMet"]=2.5;
     cutValueMap["MTDiJet"]=400;
     cutValueMap["MDiJetLow"]=90.;
