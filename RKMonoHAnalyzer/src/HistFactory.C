@@ -90,6 +90,46 @@ void HistFactory::Fill(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > objec
 
 
 
+// Following histograms will be filled when you have fat-jet-MET combination 
+void HistFactory::Fill(std::vector<ResonanceWithMET<Jet,MET > > objectCollection, Int_t howManyObjs, std::vector<int> istatus){
+  if(objectCollection.size()>0){
+    for(size_t i=0; i< TMath::Min(objectCollection.size(),(size_t)nobjectmet);i++){
+      Int_t nbits = 0;
+      for (size_t ibit=0; ibit<istatus.size(); ibit++){
+	if ( objectCollection[i].cutsStatus[istatus[ibit]]) {
+	  nbits++;
+	}
+      }
+
+      
+      Float_t mcweight_  = 1.;
+      if(objectCollection.size() >0) mcweight_ = objectCollection[0].events.mcweight ;
+
+      if(nbits==(int)istatus.size()){
+	std::cout<<" filling FATJETMET "<<std::endl;
+	h_nMuons[i]->Fill(objectCollection[i].muons.size()             , mcweight_  );
+	h_nElectrons[i]->Fill(objectCollection[i].electrons.size()     , mcweight_  );
+	if(objectCollection[i].jets.size() >= 2) h_nJets[i]->Fill(objectCollection[i].jets.size()-2     , mcweight_  ); //  -2 is required to get the additional jets.
+	
+	h_MET[i]->Fill(objectCollection[i].jet2.RawPt                  , mcweight_  );
+	h_Mjj[i]->Fill(objectCollection[i].jet1.SDmass                 , mcweight_  );
+	h_pTjj[i]->Fill(objectCollection[i].jet1.p4.Pt() , mcweight_  );
+	
+	
+	h_MT_bb_MET[i]->Fill(objectCollection[i].TransverseObjProp.TransMass  , mcweight_ );
+	h_dPhi_bb_MET[i]->Fill(objectCollection[i].TransverseObjProp.DeltaPhi , mcweight_ );
+	
+	// 2D histograms 
+	h_M_vs_MET[i]->Fill(objectCollection[i].jet1.SDmass, objectCollection[i].jet2.RawPt );
+	
+      }// if(nbits==istatus.size()){ 
+    }//for(int i=0; i<(int)objectCollection.size();i++){
+  }// if(objectCollection.size()>0){
+
+}
+
+
+
 void HistFactory::Write(){
   file->cd();
   file->mkdir(prefix);

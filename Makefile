@@ -4,8 +4,8 @@ CFLAGS=-c -Wall
 
 all: runallAnalysis.exe
 
-runallAnalysis.exe: bin/Main.o bin/RKAnalyzer.o bin/JetValidator.o bin/ElectronValidator.o bin/METValidator.o bin/SelectionBitsProducer.o bin/CutFlowAndEachCut.o bin/NMinusOne.o bin/HistFactory.o bin/ABCDMethod.o bin/ElectronSelectionBitsProducer.o bin/ElectronNMinusOne.o bin/Synchronization.o
-	$(CC) bin/Main.o bin/RKAnalyzer.o bin/JetValidator.o bin/ElectronValidator.o bin/METValidator.o bin/SelectionBitsProducer.o bin/CutFlowAndEachCut.o bin/NMinusOne.o bin/HistFactory.o bin/ABCDMethod.o bin/ElectronSelectionBitsProducer.o bin/ElectronNMinusOne.o  bin/Synchronization.o -o runallAnalysis.exe  `root-config --libs`
+runallAnalysis.exe: bin/Main.o bin/RKAnalyzer.o bin/JetValidator.o bin/ElectronValidator.o bin/METValidator.o bin/SelectionBitsProducer.o bin/CutFlowAndEachCut.o bin/NMinusOne.o bin/HistFactory.o bin/ABCDMethod.o bin/ElectronSelectionBitsProducer.o bin/ElectronNMinusOne.o bin/Synchronization.o bin/ISRAndJetVetoStudy.o
+	$(CC) bin/Main.o bin/RKAnalyzer.o bin/JetValidator.o bin/ElectronValidator.o bin/METValidator.o bin/SelectionBitsProducer.o bin/CutFlowAndEachCut.o bin/NMinusOne.o bin/HistFactory.o bin/ABCDMethod.o bin/ElectronSelectionBitsProducer.o bin/ElectronNMinusOne.o  bin/Synchronization.o bin/ISRAndJetVetoStudy.o  -o runallAnalysis.exe  `root-config --libs`
 
 #bin/Main.o: RKAnalysisController/src/MyfarmoutAnalyzer.cc
 #	$(CC) $(CFLAGS)  RKAnalysisController/src/MyfarmoutAnalyzer.cc -o bin/Main.o
@@ -36,6 +36,9 @@ bin/NMinusOne.o: RKMonoHAnalyzer/src/NMinusOne.C
 
 bin/HistFactory.o: RKMonoHAnalyzer/src/HistFactory.C
 	$(CC) $(CFLAGS)   RKMonoHAnalyzer/src/HistFactory.C  -o bin/HistFactory.o 
+
+bin/ISRAndJetVetoStudy.o: RKMonoHAnalyzer/src/ISRAndJetVetoStudy.C
+	$(CC) $(CFLAGS)   RKMonoHAnalyzer/src/ISRAndJetVetoStudy.C  -o bin/ISRAndJetVetoStudy.o
 
 bin/ABCDMethod.o: RKMonoHAnalyzer/src/ABCDMethod.C
 	$(CC) $(CFLAGS)   RKMonoHAnalyzer/src/ABCDMethod.C  -o bin/ABCDMethod.o

@@ -13,6 +13,7 @@
 #include "../../RKDataFormats/interface/MET.h"
 #include "../../RKDataFormats/interface/Resonance.h"
 #include "../../RKDataFormats/interface/ResonanceMET.h"
+#include "../../RKDataFormats/interface/ResonanceWithMET.h"
 #include "../../RKUtilities/interface/MonoHiggsCuts.h"
 #include "TH1F.h"
 #include "TH2F.h"
@@ -26,6 +27,7 @@ class HistFactory {
   HistFactory(){};
   ~HistFactory(){};
   void Fill(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > objectCollection, Int_t howManyObjs, std::vector<int> bitVec);
+    void Fill(std::vector<ResonanceWithMET<Jet,MET > > objectCollection, Int_t howManyObjs, std::vector<int> bitVec);
   void DefineHistograms();
   void GetInputs(TFile* f, TString prefix_);
   void Write();

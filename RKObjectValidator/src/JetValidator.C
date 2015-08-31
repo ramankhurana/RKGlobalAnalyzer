@@ -2,7 +2,7 @@
 #include "../interface/JetValidator.h"
 void JetValidator::Fill(std::vector<Jet> jetcollection){
   
-  if(false) std::cout<<" num of jets = "<<jetcollection.size()<<std::endl;
+  if(true) std::cout<<" num of jets = "<<jetcollection.size()<<std::endl;
   
   Float_t mcweight_  = 1.;
 
@@ -29,13 +29,13 @@ void JetValidator::Fill(std::vector<Jet> jetcollection){
 
       
       // Fat Jet variables :: for the first 4 fat jet
-      h_DMmass  [i]             ->Fill(jetcollection[i].DMmass,mcweight_);
+      h_SDmass  [i]             ->Fill(jetcollection[i].SDmass,mcweight_);
       h_TRmass  [i]             ->Fill(jetcollection[i].TRmass,mcweight_);
       h_PRmass  [i]             ->Fill(jetcollection[i].PRmass,mcweight_);
       h_Fimass  [i]             ->Fill(jetcollection[i].Fimass,mcweight_);
       h_nsubJets[i]             ->Fill(jetcollection[i].nsubJets,mcweight_);
       
-      for(int j =0; i<jetcollection[i].nsubJets; j++){
+      for(int j =0; j<jetcollection[i].nsubJets; j++){
 	// Sub-jet variables ::  for the first 4 fat jet
 	if(j>2) continue;
 	subjetp4.SetPxPyPzE(jetcollection[i].SDPx[j],
@@ -124,7 +124,7 @@ void JetValidator::DefineHistograms(){
     h_tau21_vec[i]                 = new TH1F("h_tau21_vec_"+postfix,"h_tau21_vec_"+postfix,100,-50,50);
 
     // Fat Jets
-    h_DMmass[i]                     = new TH1F("h_DMmass"+postfix,"h_DMmass"+postfix,3000,0,3000);
+    h_SDmass[i]                     = new TH1F("h_SDmass"+postfix,"h_SDmass"+postfix,3000,0,3000);
     h_TRmass[i]                     = new TH1F("h_TRmass"+postfix,"h_TRmass"+postfix,3000,0,3000);
     h_PRmass[i]                     = new TH1F("h_PRmass"+postfix,"h_PRmass"+postfix,3000,0,3000);
     h_Fimass[i]                     = new TH1F("h_Fimass"+postfix,"h_Fimass"+postfix,3000,0,3000);

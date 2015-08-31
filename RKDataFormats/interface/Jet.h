@@ -37,7 +37,7 @@ class Jet{
   Float_t jetMuEF;
   
   // sub-jet variable information 
-  Float_t DMmass;
+  Float_t SDmass;
   Float_t TRmass;
   Float_t PRmass;
   Float_t Fimass;

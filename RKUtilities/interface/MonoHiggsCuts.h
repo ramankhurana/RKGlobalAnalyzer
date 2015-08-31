@@ -32,7 +32,43 @@ class MonoHiggsCuts {
     cutsMap["kDPHIMETClosestJ"]    =10  ;
     
     //  0000 1111 1111 1111
+    
+    // When using Fat-Jet with MET
+    cutsMapFatJet.clear();
+    cutsMapFatJet["apteta"]             = 0;
+    cutsMapFatJet["bcsv"]               = 1;
+    cutsMapFatJet["cDPHIJetMet"]        = 2;
+    cutsMapFatJet["dMjet"]              = 3;
+    cutsMapFatJet["emetpt"]             = 4;
+    cutsMapFatJet["fNele"]              = 5;
+    cutsMapFatJet["gNmu"]               = 6;
+    cutsMapFatJet["hNjet"]              = 7;
+    cutsMapFatJet["iNtau"]              = 8;
 
+
+    // cutValueMap
+    cutValueMapFatJet.clear();
+    cutValueMapFatJet["leadingjetpt"]=200.;
+    cutValueMapFatJet["jeteta"]=2.5;
+    cutValueMapFatJet["leadingcsv"]=0.605;
+    cutValueMapFatJet["metpt"]=200.;
+    cutValueMapFatJet["dphiDiJetMet"]=2.5;
+    cutValueMapFatJet["MTDiJet"]=400;
+    cutValueMapFatJet["MDiJetLow"]=90.;
+    cutValueMapFatJet["MDiJetHigh"]=150.;
+    cutValueMapFatJet["DPHIJet1MET"]=2.;
+    cutValueMapFatJet["DPHIJet2MET"]=2.;
+    cutValueMapFatJet["MTJet1"]=300.;
+    cutValueMapFatJet["MTJet2"]=200.;
+    cutValueMapFatJet["Nele"]=0;
+    cutValueMapFatJet["Nmu"]=0;
+    cutValueMapFatJet["Ntau"]=0;
+    cutValueMapFatJet["njet"]=2;// atleast 2 jets
+    cutValueMapFatJet["DPHIMETClosedJ"]=0.5;
+
+
+    
+    
     
     // cutValueMap
     cutValueMap.clear();
@@ -58,7 +94,8 @@ class MonoHiggsCuts {
     cutValueMap["njet"]=2;// atleast 2 jets
     cutValueMap["DPHIMETClosedJ"]=0.5;
 
-
+    
+    
 
     // cutValueMapTTBar
     cutValueMapTTBar.clear();
@@ -82,7 +119,10 @@ class MonoHiggsCuts {
   };
   ~MonoHiggsCuts(){};
   std::map<std::string, int> cutsMap;
+  std::map<std::string, int> cutsMapFatJet;
+  
   std::map<std::string, float> cutValueMap;
+  std::map<std::string, float> cutValueMapFatJet;
   std::map<std::string, float> cutValueMapTTBar;
     enum cuts  {
       dijetmass    = 0b0000000000000001,

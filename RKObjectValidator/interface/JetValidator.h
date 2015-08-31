@@ -70,7 +70,7 @@ class JetValidator {
   
   TH1F*    h_tau21                 ;
 
-  TH1F* h_DMmass[NJETS];
+  TH1F* h_SDmass[NJETS];
   TH1F* h_TRmass[NJETS];
   TH1F* h_PRmass[NJETS];
   TH1F* h_Fimass[NJETS];

@@ -37,6 +37,7 @@
 #include "../../RKMonoHAnalyzer/interface/CutFlowAndEachCut.h"
 #include "../../RKMonoHAnalyzer/interface/NMinusOne.h"
 #include "../../RKMonoHAnalyzer/interface/HistFactory.h"
+#include "../../RKMonoHAnalyzer/interface/ISRAndJetVetoStudy.h"
 #include "../../RKMonoHAnalyzer/interface/ABCDMethod.h"
 #include "../../RKUtilities/interface/MonoHiggsCuts.h" 
 #include "../../RKUtilities/interface/DYAnalysisCuts.h" 
@@ -45,6 +46,7 @@
 #include "../../RKMonoHAnalyzer/interface/Synchronization.h" 
 
 using namespace std;
+
 //class Electron;
 // Fixed size dimensions of array or collections stored in the TTree if any.
 const Int_t kMaxmuInnerdxy = 1;
@@ -101,6 +103,9 @@ class RKAnalyzer {
    //DiObject-MET
    TwoObjectMETCombination< Resonance<Jet,Jet>,MET > dijet_met;
 
+   // FatJet-MET
+   ObjectMETCombination<Jet,MET> fatjet_met;
+   
    // Synchronize
    Synchronization syncmonoh;
 
@@ -132,6 +137,11 @@ class RKAnalyzer {
    HistFactory histfacJetPreSel;
    HistFactory histfacJetHardPreSel;
    HistFactory histfacFullSel;
+   
+   
+   HistFactory histfacFatJetPreSel;
+   // Mono-H ISR Study 
+   ISRAndJetVetoStudy mh_isrstudy;
    // Mono-H ABCD method 
    ABCDMethod abcd;
    // Mono-H cuts maps and vectos
@@ -165,6 +175,10 @@ class RKAnalyzer {
    
    // Jet-MET
    std::vector<ResonanceWithMET<Jet,MET> > RKjetMETCollection;
+   
+   // FatJet-Met Collection 
+   std::vector<ResonanceWithMET<Jet,MET> > RKFatJetMETCollection;
+   std::vector<ResonanceWithMET<Jet,MET> > RKFatJetMETCollectionWithStatus;
    //DiJet-MET
    std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > RKDiJetMETCollection;
    std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > RKDiJetMETCollectionWithStatus;
@@ -935,9 +949,8 @@ class RKAnalyzer {
 // used to generate this class and read the Tree.
 
 
-  //TString filename="/hdfs/store/user/khurana/SingleElectron/crab_SingleElectron_Run2015B-PromptReco-v1/150713_071520/0000/NCUGlobalTuples_89.root";
-  //TString filename="/hdfs/store/user/khurana/SingleElectron/crab_SingleElectron_Run2015B-PromptReco-v1/150713_071520/0000/NCUGlobalTuples_108.root";
-  //TString filename="/hdfs/store/user/khurana/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/crab_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_HLT/150713_072349/0000/NCUGlobalTuples_1.root";
+  ///hdfs/store/user/khurana/ZprimeToZhToZinvhbb_narrow_M-1800_13TeV-madgraph/crab_ZprimeToZhToZinvhbb_narrow_M-1800_13TeV-madgraph_0826/150826_085911/0000/NCUGlobalTuples_1.root
+//TString filename="/hdfs/store/user/khurana/DYJetsToLL_M-50_HT-100to200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/crab_DYJetsToLL_M-50_HT-100to200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_0826/150826_144459/0000/NCUGlobalTuples_77.root";
   TString filename="/hdfs/store/user/khurana/SignalFiles_0804/NCUGlobalTuples_M1500GeV.root";
 
    if (tree == 0) {

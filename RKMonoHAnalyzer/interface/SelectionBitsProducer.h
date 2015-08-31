@@ -22,13 +22,18 @@
 #include "../../RKDataFormats/interface/MET.h"
 #include "../../RKDataFormats/interface/Resonance.h"
 #include "../../RKDataFormats/interface/ResonanceMET.h"
+#include "../../RKDataFormats/interface/ResonanceWithMET.h"
 #include "../../RKUtilities/interface/MonoHiggsCuts.h"
 #include <map>
 class SelectionBitsProducer {
  public:
   SelectionBitsProducer(){};
   ~SelectionBitsProducer(){};
-  std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > >   SelectionBitsSaver(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > objectCollection, std::map<std::string, float> tmp_cutValueMap);
+  std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > >   SelectionBitsSaver(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > objectCollection, 
+									   std::map<std::string, float> tmp_cutValueMap);
+
+  std::vector<ResonanceWithMET<Jet,MET > >   SelectionBitsSaver(std::vector<ResonanceWithMET<Jet,MET > > objectCollection, 
+									   std::map<std::string, float> tmp_cutValueMap);
   MonoHiggsCuts cuts;
 
 

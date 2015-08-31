@@ -7,7 +7,7 @@
 
 #ifndef NMinusOne_h_
 #define NMinusOne_h_
-#define RKTS 4
+#define RKTS 10
 
 #include <TFile.h>
 #include <TTree.h>
@@ -21,6 +21,7 @@
 #include "../../RKDataFormats/interface/MET.h"
 #include "../../RKDataFormats/interface/Resonance.h"
 #include "../../RKDataFormats/interface/ResonanceMET.h"
+#include "../../RKDataFormats/interface/ResonanceWithMET.h"
 #include "../../RKUtilities/interface/MonoHiggsCuts.h"
 
 class NMinusOne {
@@ -28,10 +29,17 @@ class NMinusOne {
   NMinusOne(){};
   ~NMinusOne(){};
   void  Fill(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > objectCollection);
+  
+  void  Fill(std::vector<ResonanceWithMET<Jet,MET > > objectCollection, 
+	     std::vector<int> bitVector);
+  bool CheckBitPattern(std::vector<ResonanceWithMET<Jet,MET > > objectCollection,
+		       std::vector<int> bitVector);
   void GetInputs(TFile* f, TString prefix_);
   void DefineHistograms();
   void Write();
   
+  MonoHiggsCuts cuts_;
+  int nHistWrite;
   TString prefix;
   TFile* file;
   // Histograms CutFlow 
@@ -39,6 +47,13 @@ class NMinusOne {
   TH1F* h_DeltaEtaJets[RKTS];
   TH1F* h_DeltaPhiJets[RKTS];
   TH1F* h_PtOverPt1Pt2[RKTS];
+  
+  TH1F* h_FatJetpT[RKTS];
+  TH1F* h_FatJetCSV[RKTS];
+  TH1F* h_DPhiFatJetMET[RKTS];
+  TH1F* h_MSoftDrop[RKTS];
+  TH1F* h_MET[RKTS];
+
   std::map <TString, bitset<16> > cutsMap; 
   
   protected:

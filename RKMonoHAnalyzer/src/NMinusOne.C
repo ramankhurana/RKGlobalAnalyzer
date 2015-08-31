@@ -32,7 +32,35 @@ void  NMinusOne::Fill(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > object
       }// if(i<2) {
       //}//for(int i=0; i<(int)objectCollection.size();i++){
   }// if(objectCollection.size()>0){
+}
 
+
+
+void  NMinusOne::Fill(std::vector<ResonanceWithMET<Jet,MET > > objectCollection,
+		      std::vector<int> bitVector){
+  nHistWrite = bitVector.size();
+  for(size_t i=0; i<bitVector.size(); i++){
+    std::vector<int> UsedBitVector;
+    UsedBitVector.clear();
+    for(size_t j=0; j<bitVector.size(); j++){
+      if(i==j) continue;
+      UsedBitVector.push_back(j);
+    }
+    std::cout<<" i = "<<i<<" bitvec "<<objectCollection[0].cutsStatus<<std::endl;
+    if(CheckBitPattern(objectCollection,UsedBitVector)){
+      std::cout<<" filling histograms for i = "<<i<<std::endl;
+      // if these cuts are passes then fill the variable histogram which cut is not applied. 
+      // Since it is not known in the loop which cut is not applied we are filling all the histograms. 
+      h_FatJetpT[i]->Fill(objectCollection[0].jet1.p4.Pt());
+      h_FatJetCSV[i]->Fill(objectCollection[0].jet1.B_CISVV2);
+      h_DPhiFatJetMET[i]->Fill(TMath::Abs(objectCollection[0].TransverseObjProp.DeltaPhi));
+      h_MSoftDrop[i]->Fill(objectCollection[0].jet1.SDmass);
+      h_MET[i]->Fill(objectCollection[0].jet2.RawPt);
+      
+    }
+    
+  }
+  
 }
 
 void NMinusOne::GetInputs(TFile* f, TString prefix_){
@@ -44,8 +72,10 @@ void NMinusOne::GetInputs(TFile* f, TString prefix_){
   cutsMap["detaJets"]       = 0b0000000000001101;
   cutsMap["dphiJets"]       = 0b0000000000001011;
   cutsMap["ptOverpt1pt1"]   = 0b0000000000000111;
+  
+  
   DefineHistograms();
-
+  
 }
 
 
@@ -54,7 +84,8 @@ void NMinusOne::GetInputs(TFile* f, TString prefix_){
 void NMinusOne::DefineHistograms(){
   std::vector<TString> postfix;
   postfix.clear();
-  for(std::map<TString,bitset<16> >::iterator  mapiter=cutsMap.begin(); mapiter != cutsMap.end(); ++mapiter){
+  std::map<std::string,int> cutsFatJet = cuts_.cutsMapFatJet;
+  for(std::map<std::string,int >::iterator  mapiter=cutsFatJet.begin(); mapiter != cutsFatJet.end(); ++mapiter){
     postfix.push_back(mapiter->first);
   }
   for(int i=0;i<RKTS;i++){
@@ -62,6 +93,14 @@ void NMinusOne::DefineHistograms(){
     h_DeltaEtaJets[i] = new TH1F("h_DeltaEtaJets_"+postfix[i],"h_DeltaEtaJets_"+postfix[i],50,-5,5);
     h_DeltaPhiJets[i] = new TH1F("h_DeltaPhiJets_"+postfix[i],"h_DeltaPhiJets_"+postfix[i],70,-3.5,3.5);
     h_PtOverPt1Pt2[i] = new TH1F("h_PtOverPt1Pt2_"+postfix[i],"h_PtOverPt1Pt2_"+postfix[i],50,0.,1.);
+    
+    
+    // FatJet Variables 
+    h_FatJetpT[i]        = new TH1F("h_FatJetpT"+postfix[i],"",1000,0,2500.);
+    h_FatJetCSV[i]       = new TH1F("h_FatJetCSV"+postfix[i],"",100,0,1.);
+    h_DPhiFatJetMET[i]   = new TH1F("h_DPhiFatJetMET"+postfix[i],"",70,0,3.5);
+    h_MSoftDrop[i]       = new TH1F("h_MSoftDrop"+postfix[i],"",200,0,200);
+    h_MET[i]             = new TH1F("h_MET"+postfix[i],"",1000,0,2500);
   }
 }
 
@@ -75,6 +114,32 @@ void NMinusOne::Write(){
     h_DeltaEtaJets[i]->Write();
     h_DeltaPhiJets[i]->Write();
     h_PtOverPt1Pt2[i]->Write();
-  }
     
+    h_FatJetpT[i]->Write();
+    h_FatJetCSV[i]->Write();
+    h_DPhiFatJetMET[i]->Write();
+    h_MSoftDrop[i]->Write();
+    h_MET[i]->Write();
+    
+  }
+  
 }
+
+
+
+bool NMinusOne::CheckBitPattern(std::vector<ResonanceWithMET<Jet,MET > > objectCollection, std::vector<int> bitVector){
+  std::cout<<" SIZE = "<<bitVector.size();
+  bool decision=false;
+  size_t nbit=0;
+  for(int ibit=0;ibit<(int)bitVector.size();ibit++){
+    std::cout<<" ibit = "<<bitVector[ibit]
+	     <<" value  = "<<objectCollection[0].cutsStatus[ibit]<<std::endl;
+    // bitVector has the integer which values are to be cut on.
+    // so bitVector[ibit] is the bit number NOT ibit itself
+    if(objectCollection[0].cutsStatus[bitVector[ibit]]==1) nbit++;
+  }
+  if(nbit==bitVector.size()) decision=true;
+  return decision;
+  
+}
+

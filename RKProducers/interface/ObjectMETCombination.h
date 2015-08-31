@@ -21,7 +21,10 @@ class ObjectMETCombination {
   ObjectMETCombination(){};
   ~ObjectMETCombination(){};
   ObjectMET ResonanceProperties(TLorentzVector obj1, U2 obj2);
+  
+  // Function to reconstruct
   std::vector<ResonanceWithMET <U1,U2> > ReconstructDiObject(std::vector<U1> j1, U2 j2);
+  std::vector<ResonanceWithMET <U1,U2> > ReconstructDiObject(std::vector<U1> j1, U2 j2, std::string jettype);
   void Clear();
   
 
@@ -51,6 +54,27 @@ template <class U1, class U2>
       resonanceWithMETCandidate.jet2 = j2; // this is MET always 
       resonanceWithMETCandidate.index_j1 = i;
       resonanceWithMETCandidate.TransverseObjProp = ResonanceProperties(j1[i].p4, j2);
+      resonancevec.push_back(resonanceWithMETCandidate);
+    }
+  }
+  return resonancevec;
+}
+
+
+// For Fat Jets
+template <class U1, class U2>
+  std::vector<ResonanceWithMET <U1,U2> > ObjectMETCombination<U1,U2>::ReconstructDiObject(std::vector<U1> j1, U2 j2, std::string jettype){
+  // Clean the vector before filling with desired values. 
+  Clear();
+  if(j1.size()>=1){
+    for(int i=0;i<(int)j1.size();i++){
+      resonanceWithMETCandidate.jet1 = j1[i];
+      resonanceWithMETCandidate.jet2 = j2; // this is MET always 
+      resonanceWithMETCandidate.index_j1 = i;
+      resonanceWithMETCandidate.TransverseObjProp = ResonanceProperties(j1[i].p4, j2);
+      if(jettype=="FATJET"){
+	std::cout<<" fill this up "<<std::endl;
+      }
       resonancevec.push_back(resonanceWithMETCandidate);
     }
   }
