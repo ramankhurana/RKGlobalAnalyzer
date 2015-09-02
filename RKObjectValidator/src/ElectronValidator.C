@@ -1,21 +1,21 @@
 #define ElectronValidator_cxx
 #include "../interface/ElectronValidator.h"
 void ElectronValidator::Fill(std::vector<Electron> electroncollection){
-  std::cout<<" Filling Electron Validator"<<std::endl;
+  if(false) std::cout<<" Filling Electron Validator"<<std::endl;
   
   mcweight_=1.0;
-  if(electroncollection[0].isdata==1) mcweight_=1;
-  if(electroncollection[0].isdata==0) mcweight_= electroncollection[0].weight;
+  if(electroncollection[0].isdata)  mcweight_=1;
+  if(!electroncollection[0].isdata) mcweight_= electroncollection[0].weight;
 
   h_nElectron->Fill(electroncollection.size(), mcweight_);
-  std::cout<<" size filled "<<std::endl;
+  if(false) std::cout<<" size filled "<<std::endl;
   if(electroncollection.size()>0){ h_nVtx->Fill(electroncollection[0].nVtx, mcweight_);
     h_nTrueInt->Fill(electroncollection[0].nTrueInt, mcweight_);
     h_nPUVert->Fill(electroncollection[0].nPUVert, mcweight_);
-    std::cout<<" n Vtx "<<std::endl;}
+    if(false) std::cout<<" n Vtx "<<std::endl;}
   for (size_t i=0; i <  electroncollection.size(); i++){
     
-    std::cout<<"inside ele loop "<<std::endl;
+    if(false) std::cout<<"inside ele loop "<<std::endl;
     h_vtxdetaIn         ->Fill(electroncollection[i].nVtx,electroncollection[i].dEtaIn);
     h_vtxdphiIn         ->Fill(electroncollection[i].nVtx,electroncollection[i].dPhiIn);
     h_vtxhoverE         ->Fill(electroncollection[i].nVtx,electroncollection[i].hOverE);
@@ -27,7 +27,7 @@ void ElectronValidator::Fill(std::vector<Electron> electroncollection){
     h_vtxmissinghits    ->Fill(electroncollection[i].nVtx,electroncollection[i].expectedMissingInnerHits);
     h_vtxconversionveto ->Fill(electroncollection[i].nVtx,electroncollection[i].passConversionVeto); 
     
-    std::cout<<" profile filled "<<std::endl;
+    if(false) std::cout<<" profile filled "<<std::endl;
     h_pt[4]->Fill(electroncollection[i].p4.Pt() ,mcweight_);
     h_eta[4]->Fill(electroncollection[i].p4.Eta() ,mcweight_);
     h_phi[4]->Fill(electroncollection[i].p4.Phi() ,mcweight_);
@@ -42,7 +42,7 @@ void ElectronValidator::Fill(std::vector<Electron> electroncollection){
     h_MVANonTrig[4]->Fill(electroncollection[i].MVANonTrig ,mcweight_);
     h_charge[4]->Fill(electroncollection[i].charge ,mcweight_);
     h_r9[4]->Fill(electroncollection[i].r9 ,mcweight_);
-    std::cout<<" filed upto r9"<<std::endl;
+    if(false) std::cout<<" filed upto r9"<<std::endl;
     h_etSC[4]->Fill(electroncollection[i].etSC ,mcweight_);
     h_etaSC[4]->Fill(electroncollection[i].etaSC ,mcweight_);
     h_energySC[4]->Fill(electroncollection[i].energySC ,mcweight_);
@@ -69,13 +69,13 @@ void ElectronValidator::Fill(std::vector<Electron> electroncollection){
     h_passConversionVeto[4]->Fill(electroncollection[i].passConversionVeto ,mcweight_);
     h_barrel[4]->Fill(electroncollection[i].barrel ,mcweight_);
     h_endcap[4]->Fill(electroncollection[i].endcap ,mcweight_);
-    std::cout<<" filled to endcap"<<std::endl;
+    if(false) std::cout<<" filled to endcap"<<std::endl;
     
     
     
     // Fill First Four Electron Properties 
     if(i<4){
-      std::cout<<" for less than 4"<<std::endl;
+      if(false) std::cout<<" for less than 4"<<std::endl;
       h_pt[i]->Fill(electroncollection[i].p4.Pt() ,mcweight_);
       h_eta[i]->Fill(electroncollection[i].p4.Eta() ,mcweight_);   
       h_phi[i]->Fill(electroncollection[i].p4.Phi() ,mcweight_);  
@@ -128,9 +128,9 @@ void ElectronValidator::Fill(std::vector<Electron> electroncollection){
 void ElectronValidator::GetInputs(TFile* f, TString prefix_){
   prefix = prefix_;
   file = f;
-  std::cout<<" calling define histograms for Electron "<<std::endl;
+  if(false) std::cout<<" calling define histograms for Electron "<<std::endl;
   DefineHistograms();
-  std::cout<<" Electrons histo defined "<<std::endl;
+  if(false) std::cout<<" Electrons histo defined "<<std::endl;
 }
 
 
@@ -216,7 +216,7 @@ void ElectronValidator::Write(){
   h_nTrueInt->Write();
   h_nPUVert->Write();
    for(int i=0; i<5;i++){
-    std::cout<<" i"<<std::endl;
+    if(false) std::cout<<" i"<<std::endl;
     h_pt[i]                         ->Write();   
     h_eta[i]                        ->Write();
     h_phi[i]                        ->Write();
@@ -229,7 +229,7 @@ void ElectronValidator::Write(){
     h_IsMVANonTrig[i]               ->Write();
     h_MVATrig[i]                    ->Write();
     h_MVANonTrig[i]                 ->Write();
-    std::cout<<" writing charge"<<std::endl;
+    if(false) std::cout<<" writing charge"<<std::endl;
     h_charge[i]                     ->Write();
     h_r9[i]                         ->Write();
     h_etSC[i]                       ->Write();

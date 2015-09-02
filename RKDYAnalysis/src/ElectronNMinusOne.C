@@ -3,21 +3,21 @@
 //#include "../../RKUtilities/interface/RKDebugger.h"
 
 void  ElectronNMinusOne::Fill(std::vector<Electron> objectCollection){
-  std::cout<<" inside N-1 Filler "<<std::endl;
+  if(false) std::cout<<" inside N-1 Filler "<<std::endl;
   mcweight_ = 1.0;
   if(objectCollection.size()>0){
-    if(objectCollection[0].isdata==1) mcweight_=1;
-    if(objectCollection[0].isdata==0) mcweight_= objectCollection[0].weight;
-    std::cout<<" mcweight_ = "<<mcweight_<<std::endl;
+    if(objectCollection[0].isdata) mcweight_=1;
+    if(!objectCollection[0].isdata) mcweight_= objectCollection[0].weight;
+    if(false) std::cout<<" mcweight_ = "<<mcweight_<<std::endl;
     
-    std::cout<<" size of objectcoll "<<objectCollection.size()<<std::endl;
+    if(false) std::cout<<" size of objectcoll "<<objectCollection.size()<<std::endl;
     for(int i=0; i<(int)objectCollection.size();i++){
       if(true/*i<2*/) { // i = 0, i = 1 ; save only two combinations not more than that. 
 	std::map<TString, bitset<16> >::iterator mapiter;
 	int icut=0;
 	for(mapiter=ElectroncutsMap.begin(); mapiter != ElectroncutsMap.end(); ++mapiter){
-	  //std::cout<<mapiter->first<<"  "<<mapiter->second<<std::endl;
-	  std::cout<<" status= "<<objectCollection[i].cutsStatusM
+	  //if(false) std::cout<<mapiter->first<<"  "<<mapiter->second<<std::endl;
+	  if(false) std::cout<<" status= "<<objectCollection[i].cutsStatusM
 		   <<" map = "<<mapiter->second
 		   <<std::endl;
 	  if(objectCollection[i].cutsStatusM == mapiter->second || objectCollection[i].cutsStatusM == 0b0000001111111111) {
@@ -42,7 +42,7 @@ void  ElectronNMinusOne::Fill(std::vector<Electron> objectCollection){
 
 
 
-	    std::cout<<" matched "<<objectCollection[i].dEtaIn<<std::endl;
+	    if(false) std::cout<<" matched "<<objectCollection[i].dEtaIn<<std::endl;
 	  }
 	  icut++;
 	}
@@ -56,8 +56,8 @@ void  ElectronNMinusOne::Fill(std::vector<Electron> objectCollection){
 void ElectronNMinusOne::GetInputs(TFile* f, TString prefix_){
   prefix = prefix_;
   file = f;
-  std::cout<<" calling define histograms for MET "<<std::endl;
-  std::cout<<" MET histo defined "<<std::endl;
+  if(false) std::cout<<" calling define histograms for MET "<<std::endl;
+  if(false) std::cout<<" MET histo defined "<<std::endl;
   ElectroncutsMap["aDEtaIn"]      = 0b0000001111111110;
   ElectroncutsMap["bDPhiIn"]      = 0b0000001111111101;
   ElectroncutsMap["cSigmaIetaIetaFull"]      = 0b0000001111111011;

@@ -12,9 +12,9 @@
 void ABCDMethod::GetInputs(TFile* f, TString prefix_){
   prefix = prefix_;
   file = f;
-  std::cout<<" calling define histograms for Mono-H "<<std::endl;
+  if(false) std::cout<<" calling define histograms for Mono-H "<<std::endl;
   DefineHistograms();
-  std::cout<<" Mono-H histo defined "<<std::endl;
+  if(false) std::cout<<" Mono-H histo defined "<<std::endl;
 }
 
 void ABCDMethod::DefineHistograms(){
@@ -26,14 +26,14 @@ void ABCDMethod::Fill(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > object
   if(objectCollection.size()>0){
     for(size_t i=0; i< TMath::Min(objectCollection.size(),(size_t)nobjectMet);i++){
       //for(size_t i=0; i< objectCollection.size();i++){
-      std::cout<<" cutsStatus = "<<objectCollection[i].cutsStatus<<std::endl;
+      if(false) std::cout<<" cutsStatus = "<<objectCollection[i].cutsStatus<<std::endl;
       if(!( (objectCollection[i].cutsStatus == 0b0000111101101111) || (objectCollection[i].cutsStatus == 0b0000111111111111)) ) continue;
     
       // Region A
       if(objectCollection[i].jet2.RawPt > 200.0  
 	 && (objectCollection[i].jet1.ResonanceProp.InvMass < 100.
 	     || objectCollection[i].jet1.ResonanceProp.InvMass > 150.) ) {
-	std::cout<<" inside A"<<std::endl;
+	if(false) std::cout<<" inside A"<<std::endl;
 	h_Region->Fill(1,2);
       }
 

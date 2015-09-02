@@ -42,7 +42,7 @@ class ElectronValidator {
   TProfile *h_vtxmissinghits;
   TProfile *h_vtxconversionveto; 
  
-  Float_t mcweight_;
+  Float_t mcweight_ ;
  
  
 

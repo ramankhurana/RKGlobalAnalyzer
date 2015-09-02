@@ -71,6 +71,11 @@ class Electron {
   Float_t         nTrueInt;
   Int_t           nPUVert;
 
+  Float_t RE25E55;
+  Bool_t EcalDrivenSeed;
+  Float_t Dr03TkSumPt; 
+  Float_t MiniIso;
+
   
   Float_t weight;
   bool operator== (Electron& other_){
@@ -130,6 +135,11 @@ class Electron {
 
      nTrueInt=0;
      nPUVert=0;
+     
+ RE25E55 =0;
+ EcalDrivenSeed=0;
+ Dr03TkSumPt=0; 
+ MiniIso=0;
 
      
 

@@ -7,7 +7,6 @@
 
 #ifndef RKAnalyzer_h
 #define RKAnalyzer_h
-
 #include <TROOT.h>
 #include <TChain.h>
 #include <TFile.h>
@@ -65,7 +64,9 @@ class RKAnalyzer {
   // Main Program Histograms
   TH1F* nEvents;
   TH1F* nEvents_weight;
-  Float_t mcw;
+  TH1F* h_CutFlow;
+ 
+  Float_t mcw =1.;
   //   TString inputfilename;
    //TString outputfilename;
    
@@ -84,6 +85,12 @@ class RKAnalyzer {
    
    // DiElectron 
    TwoObjectCombination<Electron,Electron> dielectron;
+   TwoObjectCombination<Electron,Electron> dielectron_Nele;
+   TwoObjectCombination<Electron,Electron> dielectron_Trig;
+   TwoObjectCombination<Electron,Electron> dielectron_Kin;
+   TwoObjectCombination<Electron,Electron> dielectron_MID;
+   TwoObjectCombination<Electron,Electron> dielectron_Charge;
+
    // Jet-MET
    ObjectMETCombination<Jet,MET> jet_met;
    //DiObject-MET
@@ -105,6 +112,13 @@ class RKAnalyzer {
 
    // DiJet   
    TwoObjectValidator<Resonance<Electron,Electron> > diElectronValidator;
+
+   TwoObjectValidator<Resonance<Electron,Electron> > Tmp_diElectronValidator_NEle;
+   TwoObjectValidator<Resonance<Electron,Electron> > Tmp_diElectronValidator_Trig;
+   TwoObjectValidator<Resonance<Electron,Electron> > Tmp_diElectronValidator_Kin;
+   TwoObjectValidator<Resonance<Electron,Electron> > Tmp_diElectronValidator_MID;
+   TwoObjectValidator<Resonance<Electron,Electron> > Tmp_diElectronValidator_Charge;
+   
    TwoObjectValidator<Resonance<Electron,Electron> > diElectronValidatorIso;
    // Jet-MET
    ObjectMETValidator<ResonanceWithMET<Jet,MET> > jetmetValidator;
@@ -129,17 +143,23 @@ class RKAnalyzer {
    std::vector<Electron> RKElectronCollection;
    std::vector<Electron> RKElectronCollection_barrel;
    std::vector<Electron> RKElectronCollection_endcap;
-   std::vector<Electron> RKElectronCollection_allCutM;
-   std::vector<Electron> RKElectronCollection_allCutMIso;
-   
+
+   std::vector<Electron> TmpElectronCollection_NEle;
+   std::vector<Electron> TmpElectronCollection_NTrig;
+   std::vector<Electron> TmpElectronCollection_NKin;
+
+
    // DiJet
    std::vector<Resonance<Jet,Jet> > RKdiJetCollection;
    std::vector<Resonance<Jet,Jet> > RKdiJetCollection_selected;
    
    // DiElectron 
    std::vector<Resonance<Electron,Electron> > RKdiElectronCollection;
-   std::vector<Resonance<Electron,Electron> > RKdiElectronCollectionIso;
-   
+   std::vector<Resonance<Electron,Electron> > TmpdiElectronCollection_nEle;
+   std::vector<Resonance<Electron,Electron> > TmpdiElectronCollection_Trig;
+   std::vector<Resonance<Electron,Electron> > TmpdiElectronCollection_Kin;
+   std::vector<Resonance<Electron,Electron> > TmpdiElectronCollection_MID;
+   std::vector<Resonance<Electron,Electron> > TmpdiElectronCollection_Charge;
    // Jet-MET
    std::vector<ResonanceWithMET<Jet,MET> > RKjetMETCollection;
    //DiJet-MET
@@ -165,7 +185,7 @@ class RKAnalyzer {
    Float_t         pu_nTrueInt;
    Int_t           pu_nPUVert;
    
-   Int_t           isData;
+   Bool_t          isData;
    Int_t           eventId;
    Int_t           runId;
    Int_t           lumiSection;
@@ -197,6 +217,16 @@ class RKAnalyzer {
    vector<float>   *genJetPhi;
    vector<float>   *genJetEM;
    vector<float>   *genJetHAD;
+
+
+   vector<vector<float> > *hlt_TrigObjPt;
+   vector<vector<float> > *hlt_TrigObjEta;
+   vector<vector<float> > *hlt_TrigObjPhi;
+   Int_t           hlt_nfilters;
+   vector<bool>    *hlt_filterResult;
+   Bool_t          hlt_hbhet;
+   vector<string>  *hlt_filterName;
+
    
    Int_t           nMu;
    TClonesArray    *muP4;
@@ -348,7 +378,7 @@ class RKAnalyzer {
    vector<float>   *eleGamIso;
    vector<float>   *elePUPt;
    vector<float>   *eleMiniIso;
-   vector<float>   *eleEcalDrivenSeed;
+   vector<bool>    *eleEcalDrivenSeed;
    vector<float>   *eleDr03EcalRecHitSumEt;
    vector<float>   *eleDr03HcalDepth1TowerSumEt;
    vector<float>   *eleDr03HcalDepth2TowerSumEt;
@@ -818,7 +848,7 @@ class RKAnalyzer {
    TBranch        *b_FATjetPrunedPhi;   //!
    TBranch        *b_FATjetPrunedMass;   //!
    TBranch        *b_FATjetPrunedEn;   //!
-   TBranch        *b_FATjetPrunedCorrUncUp;   //!
+  TBranch        *b_FATjetPrunedCorrUncUp;   //!
    TBranch        *b_FATjetPrunedCorrUncDown;   //!
    TBranch        *b_FATjetPrunedCharge;   //!
    TBranch        *b_FATjetPrunedPartonFlavor;   //!
@@ -941,6 +971,13 @@ class RKAnalyzer {
    TBranch        *b_hlt_nTrigs;   //!
    TBranch        *b_hlt_trigResult;   //!
    TBranch        *b_hlt_trigName;   //!
+   TBranch        *b_hlt_TrigObjPt;   //!                                                                                                      
+   TBranch        *b_hlt_TrigObjEta;   //!
+   TBranch        *b_hlt_TrigObjPhi;
+   TBranch        *b_hlt_nfilters;   //!
+   TBranch        *b_hlt_filterResult;   //! 
+   TBranch        *b_hlt_hbhet;   //! 
+   TBranch        *b_hlt_filterName;
    
    RKAnalyzer(TTree *tree=0);
    virtual ~RKAnalyzer();
@@ -954,6 +991,11 @@ class RKAnalyzer {
    void TotalEvent(std::vector<TString> filelist);
    void TotalEvent(TH1F* h);
    bool TriggerStatus(std::string TRIGNAME);
+   Double_t deltaEta(Double_t eta1, Double_t eta2);
+   Double_t deltaPhi(Double_t phi1, Double_t phi2);  
+   Double_t deltaR(Double_t eta1, Double_t phi1, Double_t eta2, Double_t phi2);
+
+
    // User Functions 
    // Clear all the collections for each event.
    void ClearCollections();
@@ -980,8 +1022,8 @@ class RKAnalyzer {
   //TString filename="/hdfs/store/user/khurana/SingleElectron/crab_SingleElectron_Run2015B-PromptReco-v1/150713_071520/0000/NCUGlobalTuples_108.root";
   //TString filename="/hdfs/store/user/khurana/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/crab_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_HLT/150713_072349/0000/NCUGlobalTuples_1.root";
   //TString filename="/hdfs/store/user/khurana/SingleElectron/crab_SingleElectron_Run2015B-PromptReco-v1_JSON/150720_204200/0000/NCUGlobalTuples_212.root";
-  TString filename ="/hdfs/store/user/khurana/DYTesting/NCUGlobalTuples_90.root";
-
+  //  TString filename ="/hdfs/store/user/khurana/DYTesting/NCUGlobalTuples_90.root";
+  TString filename = "/hdfs/store/user/khurana/SingleElectron/crab_SingleElectron_Run2015B-PromptReco-v1_40p6pb_TM/150813_213229/0000/NCUGlobalTuples_218.root";
    if (tree == 0) {
      //f = (TFile*)gROOT->GetListOfFiles()->FindObject("InputRootFile/NCUGlobalTuples_10.root");
      
@@ -1386,6 +1428,13 @@ void RKAnalyzer::Init(TTree *tree)
    pu_nTrueInt =0;
    pu_nPUVert=0;
 
+   hlt_TrigObjPt = 0;
+   hlt_TrigObjEta = 0;
+   hlt_TrigObjPhi = 0;
+   hlt_filterResult = 0;
+   hlt_filterName = 0;
+ 
+
    // Set branch addresses and branch pointers
    if (!tree) return;
    fChain = tree;
@@ -1770,6 +1819,13 @@ void RKAnalyzer::Init(TTree *tree)
    fChain->SetBranchAddress("hlt_nTrigs", &hlt_nTrigs, &b_hlt_nTrigs);
    fChain->SetBranchAddress("hlt_trigResult", &hlt_trigResult, &b_hlt_trigResult);
    fChain->SetBranchAddress("hlt_trigName", &hlt_trigName, &b_hlt_trigName);
+   fChain->SetBranchAddress("hlt_TrigObjPt", &hlt_TrigObjPt, &b_hlt_TrigObjPt);
+   fChain->SetBranchAddress("hlt_TrigObjEta", &hlt_TrigObjEta, &b_hlt_TrigObjEta);
+   fChain->SetBranchAddress("hlt_TrigObjPhi", &hlt_TrigObjPhi, &b_hlt_TrigObjPhi);
+   fChain->SetBranchAddress("hlt_nfilters", &hlt_nfilters, &b_hlt_nfilters);
+   fChain->SetBranchAddress("hlt_filterResult", &hlt_filterResult, &b_hlt_filterResult);
+
+
    // we may need this later
    /*
    fChain->SetBranchAddress("HPSTau_n", &HPSTau_n, &b_HPSTau_n);

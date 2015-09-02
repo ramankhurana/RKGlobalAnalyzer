@@ -55,7 +55,7 @@ class ObjectMETValidator {
 template <class T>
 void ObjectMETValidator<T>::Fill(std::vector<T> objectcollection){
   
-  std::cout<<" num of jet-met pairs = "<<objectcollection.size()<<std::endl;
+  if(false) std::cout<<" num of jet-met pairs = "<<objectcollection.size()<<std::endl;
   
   
   // Fill properties of first di-jet combination made from 
@@ -68,7 +68,7 @@ void ObjectMETValidator<T>::Fill(std::vector<T> objectcollection){
       h_TransMass[i]      ->Fill(objectcollection[i].TransverseObjProp.TransMass);
       
       // 2D Histograms
-      std::cout<<" filling 2d "<<std::endl;
+      if(false) std::cout<<" filling 2d "<<std::endl;
       h_DeltaPhi_vs_TransMass[i]   ->Fill(objectcollection[i].TransverseObjProp.DeltaPhi,objectcollection[0].TransverseObjProp.TransMass);
     }
   }
@@ -85,7 +85,7 @@ void ObjectMETValidator<T>::Fill(std::vector<T> objectcollection){
 template <class T>
 void ObjectMETValidator<T>::Fill(std::vector<T> objectcollection, Int_t howManyObj){
   
-  std::cout<<" num of djet-met pairs = "<<objectcollection.size()<<std::endl;
+  if(false) std::cout<<" num of djet-met pairs = "<<objectcollection.size()<<std::endl;
   
   
   // Fill properties of first di-jet combination made from 
@@ -97,7 +97,7 @@ void ObjectMETValidator<T>::Fill(std::vector<T> objectcollection, Int_t howManyO
       h_DeltaPhi[i]     ->Fill(objectcollection[i].ResonancemetProp.DeltaPhi);
       h_TransMass[i]      ->Fill(objectcollection[i].ResonancemetProp.TransMass);
       // 2D Histograms
-      std::cout<<" filling 2d "<<std::endl;
+      if(false) std::cout<<" filling 2d "<<std::endl;
       h_DeltaPhi_vs_TransMass[i]   ->Fill(objectcollection[i].ResonancemetProp.DeltaPhi,objectcollection[0].ResonancemetProp.TransMass);
     }
   }
@@ -109,9 +109,9 @@ template <class T>
 void ObjectMETValidator<T>::GetInputs(TFile* f, TString prefix_){
   prefix = prefix_;
   file = f;
-  std::cout<<" calling define histograms for Jets-MET "<<std::endl;
+  if(false) std::cout<<" calling define histograms for Jets-MET "<<std::endl;
   DefineHistograms();
-  std::cout<<" Jets-MET histo defined "<<std::endl;
+  if(false) std::cout<<" Jets-MET histo defined "<<std::endl;
 }
 
 template <class T>
@@ -119,7 +119,7 @@ void ObjectMETValidator<T>::DefineHistograms(){
   TString postfix;
   for(int i =0; i<2; i++){
     postfix.Form("%d",i);
-    std::cout<<" ObjectMETValidator = "<<postfix<<std::endl;
+    if(false) std::cout<<" ObjectMETValidator = "<<postfix<<std::endl;
     // 1D Histograms 
     h_DeltaPhi[i]                 = new TH1F("h_DeltaPhi"+postfix,"h_DeltaPhi"+postfix,70,-3.5,3.5);
     h_TransMass[i]                = new TH1F("h_TransMass"+postfix,"h_TransMass"+postfix,300,0,3000);

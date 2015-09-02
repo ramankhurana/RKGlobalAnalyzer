@@ -26,9 +26,9 @@ void METValidator::Fill(MET metcollection){
 void METValidator::GetInputs(TFile* f, TString prefix_){
   prefix = prefix_;
   file = f;
-  std::cout<<" calling define histograms for MET "<<std::endl;
+  if(false) std::cout <<" calling define histograms for MET "<<std::endl;
   DefineHistograms();
-  std::cout<<" MET histo defined "<<std::endl;
+  if (false) std::cout <<" MET histo defined "<<std::endl;
 }
 
 

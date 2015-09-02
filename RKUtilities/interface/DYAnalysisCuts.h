@@ -29,8 +29,29 @@ class DYAnalysisCuts {
     
     DYcutsMap["iExpMissingHits"]            = 8  ;
     DYcutsMap["jConversionVeto"]            = 9  ;
-    //  DYcutsMap["kMTJet1"]             = 10 ;
-    //DYcutsMap["lMTJet2"]             = 11 ;
+
+
+    /*
+    DMcutsMap.clear();
+    DMcutsMap["aDEtaIn"]                    = 0  ;
+    DMcutsMap["bDPhiIn"]                    = 1  ;
+    DMcutsMap["cSigmaIetaIetaFull"]         = 2  ;
+
+    DMcutsMap["dHOverE"]                    = 3  ;
+    DMcutsMap["eD0"]                        = 4  ;
+    DMcutsMap["fE25E55"]                    = 5  ;
+    DMcutsMap["gTrkPt"]                     = 6  ;
+    DMcutsMap["hIsolation"]                 = 7  ;
+
+    DMcutsMap["iMissingHits"]               = 8  ;
+    DMcutsMap["jEcalDriven"]                = 9  ;
+    DMcutsMap["kET"]                        = 10  ;
+ 
+
+
+    */
+    //  DMcutsMap["kMTJet1"]             = 10 ;
+    //DMcutsMap["lMTJet2"]             = 11 ;
     //  0000 1111 1111 1111
 
     
@@ -120,6 +141,36 @@ class DYAnalysisCuts {
     TightDYcutValueMapEndcap["VExpMissingHits"]    =1;
     TightDYcutValueMapEndcap["VConversionVeto"]    =1;
 
+    /*
+    //Heep ID
+    HeepcutValueMapBarrel.clear();
+    HeepcutValueMapBarrel["VdEtaIn"]            =0.004 ;
+    HeepcutValueMapBarrel["VdPhiIn"]            =0.06 ;
+    HeepcutValueMapBarrel["VsigmaIetaIetaFull"] =100;
+    HeepcutValueMapBarrel["VhOverE"]            =+0.05;
+    HeepcutValueMapBarrel["VD0"]                =0.02;
+    HeepcutValueMapBarrel["VE25E55"]            =0.94;
+    HeepcutValueMapBarrel["VTrkPt"]             =5 ;
+    HeepcutValueMapBarrel["VIsolation"]         =0.10;
+    HeepcutValueMapBarrel["VMissingHits"]       =1;
+    HeepcutValueMapBarrel["VEcalDriven"]        =1;
+    HeepcutValueMapBarrel["VET"]                =35 ;    
+
+   HeepcutValueMapEndcap.clear();
+    HeepcutValueMapEndcap["VdEtaIn"]            =0.006 ;
+    HeepcutValueMapEndcap["VdPhiIn"]            =0.06 ;
+    HeepcutValueMapEndcap["VsigmaIetaIetaFull"] =0.03;
+    HeepcutValueMapEndcap["VhOverE"]            =0.05;
+    HeepcutValueMapEndcap["VD0"]                =0.05;
+    HeepcutValueMapEndcap["VE25E55"]            =0.;
+    HeepcutValueMapEndcap["VTrkPt"]             = 5;
+    HeepcutValueMapEndcap["VIsolation"]         =0.10;
+    HeepcutValueMapEndcap["VMissingHits"]       =1;
+    HeepcutValueMapEndcap["VEcalDriven"]        =1;
+    HeepcutValueMapEndcap["VET"]                =35 ;    
+
+    */
+
 
 
   };
@@ -127,12 +178,16 @@ class DYAnalysisCuts {
   ~DYAnalysisCuts(){};
  public:
   std::map<std::string, int>   DYcutsMap;
+  std::map<std::string, int>   DMcutsMap;
   std::map<std::string, float> TightDYcutValueMapEndcap;
   std::map<std::string, float> TightDYcutValueMapBarrel;
   std::map<std::string, float> MediumDYcutValueMapEndcap;
   std::map<std::string, float> MediumDYcutValueMapBarrel;
   std::map<std::string, float> LooseDYcutValueMapEndcap;
   std::map<std::string, float> LooseDYcutValueMapBarrel;
+  std::map<std::string, float> HeepcutValueMapEndcap;
+  std::map<std::string, float> HeepcutValueMapBarrel;
+
   
  protected:
  private:

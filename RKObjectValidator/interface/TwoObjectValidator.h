@@ -67,22 +67,25 @@ class TwoObjectValidator {
 template <class T>
 void TwoObjectValidator<T>::Fill(std::vector<T> objectcollection){
   
-  std::cout<<" num of dijets = "<<objectcollection.size()<<std::endl;
+  if(false) std::cout<<" num of dijets = "<<objectcollection.size()<<std::endl;
   
   if(objectcollection.size()>0){
-    mcweight_=1.;   
-      if(objectcollection[0].jet1.isdata==1) mcweight_=1;
-      if(objectcollection[0].jet1.isdata==0) mcweight_= objectcollection[0].jet1.weight;
+
+    //    if( (objectcollection[0].jet1.charge * objectcollection[0].jet2.charge) == -1) {
       
-      std::cout<<" mcweight_ in diobject = "<<mcweight_
+      mcweight_=1.;   
+      if(objectcollection[0].jet1.isdata) mcweight_=1;
+      if(!objectcollection[0].jet1.isdata) mcweight_= objectcollection[0].jet1.weight;
+      
+      if(false) std::cout<<" mcweight_ in diobject = "<<mcweight_
 	       <<" isdata "<<objectcollection[0].jet1.isdata
 	       <<std::endl;
-
-
-    // Fill properties of first di-jet combination made from 
-    // selected leading jet and selected sub-leading jet. 
-    
-    // 1D Histograms 
+      if(false) std::cout <<" okay after weight declaration"<<std::endl;
+      
+      // Fill properties of first di-jet combination made from 
+      // selected leading jet and selected sub-leading jet. 
+      
+      // 1D Histograms 
       h_pt           ->Fill(objectcollection[0].ResonanceProp.p4.Pt(),mcweight_);
       h_eta          ->Fill(objectcollection[0].ResonanceProp.p4.Eta(),mcweight_);
       h_phi          ->Fill(objectcollection[0].ResonanceProp.p4.Phi(),mcweight_);
@@ -101,8 +104,12 @@ void TwoObjectValidator<T>::Fill(std::vector<T> objectcollection){
     h_DeltaR_vs_InvMass->Fill(objectcollection[0].ResonanceProp.DeltaR, objectcollection[0].ResonanceProp.InvMass);
     h_DeltaPhi_vs_InvMass->Fill(objectcollection[0].ResonanceProp.DeltaPhi,objectcollection[0].ResonanceProp.InvMass);
     h_DeltaEta_vs_InvMass->Fill(objectcollection[0].ResonanceProp.DeltaEta,objectcollection[0].ResonanceProp.InvMass);
+
+    if(false) std::cout<<" okay after filling in Two Obleject validatior"<<std::endl;
     
-  }
+    
+    }
+  //  }
   
 }
 
@@ -110,9 +117,9 @@ template <class T>
 void TwoObjectValidator<T>::GetInputs(TFile* f, TString prefix_){
   prefix = prefix_;
   file = f;
-  std::cout<<" calling define histograms for diJets "<<std::endl;
+  if(false) std::cout<<" calling define histograms for diJets "<<std::endl;
   DefineHistograms();
-  std::cout<<" diJets histo defined "<<std::endl;
+  if(false) std::cout<<" diJets histo defined "<<std::endl;
 }
 
 template <class T>
@@ -126,7 +133,7 @@ void TwoObjectValidator<T>::DefineHistograms(){
   h_DeltaR                = new TH1F("h_DeltaR","h_DeltaR",50,0.,5);
   h_DeltaPhi              = new TH1F("h_DeltaPhi","h_DeltaPhi",70,-3.5,3.5);
   h_DeltaEta              = new TH1F("h_DeltaEta","h_DeltaEta",50,-5,5);
-  h_InvMass               = new TH1F("h_InvMass","h_InvMass",3000,0,3000);
+  h_InvMass               = new TH1F("h_InvMass","h_InvMass",5000,0,5000);
   h_Pt2OverPt1            = new TH1F("h_Pt2OverPt1","h_Pt2OverPt1",50,0,1.);
   h_PtOverPt1Pt2          = new TH1F("h_PtOverPt1Pt2","h_PtOverPt1Pt2",50,0.,1.0);
   h_PtOverMass_1          = new TH1F("h_PtOverMass_1","h_PtOverMass_1",50,0,5.);

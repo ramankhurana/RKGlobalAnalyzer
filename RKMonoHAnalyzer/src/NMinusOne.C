@@ -10,9 +10,7 @@ void  NMinusOne::Fill(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > object
 	int icut=0;
 	for(mapiter=cutsMap.begin(); mapiter != cutsMap.end(); ++mapiter){
 	  //std::cout<<mapiter->first<<"  "<<mapiter->second<<std::endl;
-	  std::cout<<" status= "<<objectCollection[0].cutsStatus
-		   <<" map = "<<mapiter->second
-		   <<std::endl;
+	  
 	  if(objectCollection[0].cutsStatus == mapiter->second || objectCollection[0].cutsStatus == 0b0000000000001111) {
 	    // Fill the histograms when 
 	    // all cuts are satisfied OR

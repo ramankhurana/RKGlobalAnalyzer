@@ -73,8 +73,7 @@ void HistFactory::Fill(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > objec
 	h_MET_vs_Q1Q2[i]->Fill(objectCollection[i].jet2.RawPt, (objectCollection[i].jet1.jet1.charge * objectCollection[i].jet1.jet2.charge));
 	h_M_vs_Q1Q2[i]->Fill(objectCollection[i].jet1.ResonanceProp.InvMass, (objectCollection[i].jet1.jet1.charge * objectCollection[i].jet1.jet2.charge));
 	
-	std::cout<<" charge = "<<objectCollection[i].jet1.jet1.charge
-		 <<" : "<<objectCollection[i].jet1.jet2.charge<<std::endl;
+	
       }// if(nbits==istatus.size()){ 
     }//for(int i=0; i<(int)objectCollection.size();i++){
   }// if(objectCollection.size()>0){
