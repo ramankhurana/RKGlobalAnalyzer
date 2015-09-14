@@ -13,6 +13,7 @@ void RKAnalyzer::Loop(TString output){
   nEvents = new TH1F("nEvents","",2,0,2);
   nEvents_weight = new TH1F("nEvents_weight","",2,0,2);
   h_CutFlow      = new TH1F("h_CutFlow","",8,0,8);
+  numberofVtx    = new TH1F("numberofVtx"," ", 60,0,60); 
   
   //nEvents = dynamic_cast<TH1F*> (f->Get("allEventsCounter/totalEvents"));
   
@@ -33,7 +34,7 @@ void RKAnalyzer::Loop(TString output){
   
   metvalidator.GetInputs(fout,"MET_NoCut_");
   diJetValidator.GetInputs(fout,"DiJetNotCut");
-  
+ 
   diElectronValidator.GetInputs(fout,"DiElectronMediumID");
 
   Tmp_diElectronValidator_NEle.GetInputs(fout,"NEle");
@@ -61,6 +62,10 @@ void RKAnalyzer::Loop(TString output){
   // nentries = 100;
   Long64_t nbytes = 0, nb = 0;
    for (Long64_t jentry=0; jentry<nentries;jentry++) {
+     Long64_t ientry = LoadTree(jentry);
+     if (ientry < 0) break;
+     nb = fChain->GetEntry(jentry);   nbytes += nb;
+
      if(isData){mcw =1 ;}
      if(!isData){
      if(mcWeight < 0) mcw=-1;
@@ -68,18 +73,18 @@ void RKAnalyzer::Loop(TString output){
      
      nEvents->Fill(1);
      nEvents_weight->Fill(1,mcw);
-
+     numberofVtx->Fill(nVtx);
+   
      
-     Long64_t ientry = LoadTree(jentry);
-     if (ientry < 0) break;
-     nb = fChain->GetEntry(jentry);   nbytes += nb;
-     
-          
+     if (nVtx < 1) continue;
      std::cout<<" ------------------- event number -----------------: = "<<jentry<<std::endl;
      // Clear all the collections
      ClearCollections();
 
+
      //double electron trigger 
+     //     triggerstatus = true;
+     //triggerstatus = TriggerStatus("HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_");
      // triggerstatus = TriggerStatus("HLT_Ele17_Ele12_CaloIdL_TrackIdL_IsoVL"); 
      // Single electron trigger
      if(isData){ 
@@ -307,6 +312,7 @@ void RKAnalyzer::Loop(TString output){
    nEvents->Write();
    nEvents_weight->Write();
    h_CutFlow->Write();
+   numberofVtx->Write();
      
 
 }
@@ -552,7 +558,7 @@ void RKAnalyzer::ElectronProducer(){
     // 10-60
     if(nEle >=2 && triggerstatus && electrons.etSC > 25. && fabs(electrons.etaSC) < 2.5 && !(fabs(electrons.etaSC) > 1.4442 && fabs(electrons.etaSC) < 1.566 ) && (*eleIsPassMedium)[i]==1 && electrons.EcalDrivenSeed ) TmpElectronCollection_NEle.push_back(electrons);
     //60-120 
-    if(nEle >=2 && triggerstatus && electrons.etSC > 25. && fabs(electrons.etaSC) < 2.5 && !(fabs(electrons.etaSC) > 1.4442 && fabs(electrons.etaSC) < 1.566 ) && (*eleIsPassMedium)[i]==1 && electrons.EcalDrivenSeed ) TmpElectronCollection_NTrig.push_back(electrons);
+    if(nEle >=2 && triggerstatus && electrons.etSC > 25. && fabs(electrons.etaSC) < 2.5 && !(fabs(electrons.etaSC) > 1.4442 && fabs(electrons.eaSC) < 1.566 ) && (*eleIsPassMedium)[i]==1 && electrons.EcalDrivenSeed ) TmpElectronCollection_NTrig.push_back(electrons);
     //120-300 
     if(nEle >=2 && triggerstatus && electrons.etSC > 25. && fabs(electrons.etaSC) < 2.5 && !(fabs(electrons.etaSC) > 1.4442 && fabs(electrons.etaSC) < 1.566 ) && (*eleIsPassMedium)[i]==1 && electrons.EcalDrivenSeed ) TmpElectronCollection_NKin.push_back(electrons);
     */    
@@ -568,9 +574,12 @@ void RKAnalyzer::ElectronProducer(){
   if(!electrons.isdata) mCFweight=mcw;
   
   h_CutFlow->Fill(1,mCFweight);
+  std::cout<<" passed nocut "<<mCFweight<<std::endl;
   if(nEle >= 2){
        h_CutFlow->Fill(2,mCFweight);
+       std::cout<<" passed twoele "<<mCFweight<<std::endl;
        if(triggerstatus){
+	 std::cout<<" passed triggerstatus "<<std::endl;
          h_CutFlow->Fill(3,mCFweight);
          if(kinematic >= 2){
             h_CutFlow->Fill(4,mCFweight);
@@ -581,7 +590,7 @@ void RKAnalyzer::ElectronProducer(){
                  if(masscut){
                    h_CutFlow->Fill(7,mCFweight);
 
-		   std::cout << "run:lumi:event " << runId << ":"<<lumiSection<<":"<<eventId
+		   /*std::cout << "run:lumi:event " << runId << ":"<<lumiSection<<":"<<eventId
 		             <<" "<<dielectronmass
 		             <<" "<<dielectronpt
 		             <<" "<<dielectronrapidity
@@ -592,7 +601,7 @@ void RKAnalyzer::ElectronProducer(){
 		             <<" "<<subleadeleeta
 		             <<" "<<leadelecphi
 		             <<" "<<subleadelecphi
-		             <<std::endl;   
+		             <<std::endl;   */
 		 }   
 	      }             
 	    }

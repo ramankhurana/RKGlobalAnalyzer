@@ -65,6 +65,7 @@ class RKAnalyzer {
   TH1F* nEvents;
   TH1F* nEvents_weight;
   TH1F* h_CutFlow;
+  TH1F* numberofVtx;
  
   Float_t mcw =1.;
   //   TString inputfilename;
@@ -1023,7 +1024,10 @@ class RKAnalyzer {
   //TString filename="/hdfs/store/user/khurana/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/crab_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_HLT/150713_072349/0000/NCUGlobalTuples_1.root";
   //TString filename="/hdfs/store/user/khurana/SingleElectron/crab_SingleElectron_Run2015B-PromptReco-v1_JSON/150720_204200/0000/NCUGlobalTuples_212.root";
   //  TString filename ="/hdfs/store/user/khurana/DYTesting/NCUGlobalTuples_90.root";
-  TString filename = "/hdfs/store/user/khurana/SingleElectron/crab_SingleElectron_Run2015B-PromptReco-v1_40p6pb_TM/150813_213229/0000/NCUGlobalTuples_218.root";
+  //  TString filename = "/hdfs/store/user/khurana/SingleElectron/crab_SingleElectron_Run2015B-PromptReco-v1_40p6pb_TM/150813_213229/0000/NCUGlobalTuples_218.root";
+  //TString filename = "/hdfs/store/user/khurana/DoubleEG/crab_DoubleEG_Run2015B-PromptReco-v1_TriggerChanged_07092015/150907_154332/0000/NCUGlobalTuples_419.root";
+
+TString filename = "/afs/hep.wisc.edu/cms/khurana/DMRunII/ForData2/CMSSW_7_4_7/src/DelPanj/TreeMaker/NCUGlobalTuples.root";
    if (tree == 0) {
      //f = (TFile*)gROOT->GetListOfFiles()->FindObject("InputRootFile/NCUGlobalTuples_10.root");
      
