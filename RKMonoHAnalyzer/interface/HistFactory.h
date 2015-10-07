@@ -15,6 +15,7 @@
 #include "../../RKDataFormats/interface/ResonanceMET.h"
 #include "../../RKDataFormats/interface/ResonanceWithMET.h"
 #include "../../RKUtilities/interface/MonoHiggsCuts.h"
+#include "../../RKUtilities/interface/RKMath.h"
 #include "TH1F.h"
 #include "TH2F.h"
 #include "TFile.h"
@@ -35,12 +36,18 @@ class HistFactory {
   TString prefix;
   TFile* file;
   TH1F*    h_nMuons[nobjectmet];
+  TH1F*    h_nTaus[nobjectmet];
   TH1F*    h_nElectrons[nobjectmet];
   TH1F*    h_nJets[nobjectmet];
+  TH1F*    h_nFJets[nobjectmet];
+  TH1F*    h_DRSJ[nobjectmet];
   TH1F*    h_Q1Q2[nobjectmet];
   TH1F*    h_MET[nobjectmet];
   TH1F*    h_Mjj[nobjectmet];
   TH1F*    h_pTjj[nobjectmet];
+  TH1F*    h_etajj[nobjectmet];
+  TH1F*    h_phijj[nobjectmet];
+  TH1F*    h_Tau21jj[nobjectmet];
   TH1F*    h_CSVMax[nobjectmet];
   TH1F*    h_CSVMin[nobjectmet];
   TH1F*    h_CSVSum[nobjectmet];

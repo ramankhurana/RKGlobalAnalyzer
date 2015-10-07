@@ -2,7 +2,7 @@
 // This class has been automatically generated on
 // Sat Apr 25 23:21:07 2015 by ROOT version 5.34/22
 // from TTree tree/tree
-// found on file: RKGlobalTuples.root
+// found on file: RKGlobalTuples
 //////////////////////////////////////////////////////////
 
 #ifndef RKAnalyzer_h
@@ -44,6 +44,7 @@
 #include "../../RKDYAnalysis/interface/ElectronSelectionBitsProducer.h"
 #include "../../RKDYAnalysis/interface/ElectronNMinusOne.h"
 #include "../../RKMonoHAnalyzer/interface/Synchronization.h" 
+#include "../../RKUtilities/interface/PileUpWeights.h"
 
 using namespace std;
 
@@ -90,6 +91,8 @@ class RKAnalyzer {
    Electron electrons;
    //Photons
    Muon photons;
+   // Taus
+   Muon taus;
    //Event
    Event events;
    // Dijets
@@ -140,6 +143,11 @@ class RKAnalyzer {
    
    
    HistFactory histfacFatJetPreSel;
+   HistFactory histfacFatJetPreSel_2subj;
+   HistFactory histfacFatJetPreSel_1subj;
+   HistFactory histfacFatJetPreSel_DRsubj;
+   HistFactory histfacFatJetPreSel_DROnesubj;
+   
    // Mono-H ISR Study 
    ISRAndJetVetoStudy mh_isrstudy;
    // Mono-H ABCD method 
@@ -152,12 +160,15 @@ class RKAnalyzer {
    // Jets
    std::vector<Jet> RKJetCollection;
    std::vector<Jet> RKJetCollection_selected;
+   
    std::vector<Jet> MH_FATJetCollection;
+   
    std::vector<Jet> MH_ADDJetCollection;
    //Muons
    std::vector<Muon> RKMuonCollection;
    //Photon
    std::vector<Muon> RKPhotonCollection; // Using Muon for photon
+   std::vector<Muon> RKTauCollection; // Using Muon for photon
    //Electron
    std::vector<Electron> RKElectronCollection;
    std::vector<Electron> RKElectronCollection_barrel;
@@ -190,7 +201,18 @@ class RKAnalyzer {
    // --- Set the bits 
    SelectionBitsProducer selectionbits;
    CutFlowAndEachCut cutflowobj;
+   
+   CutFlowAndEachCut cutflowFatJetobj;
+   CutFlowAndEachCut cutflowFatJetobj_2subj;
+   CutFlowAndEachCut cutflowFatJetobj_1subj;
+   CutFlowAndEachCut cutflowFatJetobj_DRsubj;
+   CutFlowAndEachCut cutflowFatJetobj_DROnesubj;
+   
    NMinusOne nminusobj;
+   NMinusOne nminusobj_2subj;
+   NMinusOne nminusobj_1subj;
+   NMinusOne nminusobj_DRsubj;
+   NMinusOne nminusobj_DROnesubj;
    ElectronNMinusOne elenminusoneobjB;
    ElectronNMinusOne elenminusoneobjE;
    //// Use the bits to fill N-1 Histograms
@@ -402,6 +424,12 @@ class RKAnalyzer {
    vector<bool>    *eleIsPassMedium;
    vector<bool>    *eleIsPassTight;
    vector<bool>    *eleIsPassHEEP;
+   vector<bool>    *eleIsPassVetoNoIso;
+   vector<bool>    *eleIsPassLooseNoIso;
+   vector<bool>    *eleIsPassMediumNoIso;
+   vector<bool>    *eleIsPassTightNoIso;
+   vector<bool>    *eleIsPassHEEPNoIso;
+
    vector<bool>    *eleIsPassMVAMedium;
    vector<bool>    *eleIsPassMVATight;
    vector<float>   *eleMVAValue;
@@ -471,6 +499,7 @@ class RKAnalyzer {
    vector<vector<float> > *FATsubjetSDPy;
    vector<vector<float> > *FATsubjetSDPz;
    vector<vector<float> > *FATsubjetSDCE;
+   vector<vector<float> > *FATsubjetSDE;
    vector<vector<float> > *FATsubjetSDCSV;
    Int_t           ADDnJet;
    TClonesArray    *ADDgenjetP4;
@@ -514,6 +543,7 @@ class RKAnalyzer {
    vector<vector<float> > *ADDsubjetSDPy;
    vector<vector<float> > *ADDsubjetSDPz;
    vector<vector<float> > *ADDsubjetSDCE;
+   vector<vector<float> > *ADDsubjetSDE;
    vector<vector<float> > *ADDsubjetSDCSV;
    
    Int_t           THINnJet;
@@ -554,6 +584,12 @@ class RKAnalyzer {
    Int_t           hlt_nTrigs;
    vector<bool>     *hlt_trigResult;
    vector<string>  *hlt_trigName;
+   
+   vector<int>     *hlt_trigPrescale;
+   Int_t           hlt_nfilters;
+   vector<bool>    *hlt_filterResult;
+   Bool_t          hlt_hbhet;
+   vector<string>  *hlt_filterName;
 
    
    // List of branches
@@ -760,6 +796,12 @@ class RKAnalyzer {
    TBranch        *b_eleIsPassMedium;   //!
    TBranch        *b_eleIsPassTight;   //!
    TBranch        *b_eleIsPassHEEP;   //!
+   TBranch        *b_eleIsPassVetoNoIso;   //!
+   TBranch        *b_eleIsPassLooseNoIso;   //!
+   TBranch        *b_eleIsPassMediumNoIso;   //!
+   TBranch        *b_eleIsPassTightNoIso;   //!
+   TBranch        *b_eleIsPassHEEPNoIso;   //!
+
    TBranch        *b_eleIsPassMVAMedium;   //!
    TBranch        *b_eleIsPassMVATight;   //!
    TBranch        *b_eleMVAValue;   //!
@@ -823,6 +865,7 @@ class RKAnalyzer {
    TBranch        *b_FATsubjetSDPy;   //!
    TBranch        *b_FATsubjetSDPz;   //!
    TBranch        *b_FATsubjetSDCE;   //!
+   TBranch        *b_FATsubjetSDE;   //!
    TBranch        *b_FATsubjetSDCSV;   //!
    TBranch        *b_ADDnJet;   //!
    TBranch        *b_ADDgenjetP4;   //!
@@ -866,6 +909,7 @@ class RKAnalyzer {
    TBranch        *b_ADDsubjetSDPy;   //!
    TBranch        *b_ADDsubjetSDPz;   //!
    TBranch        *b_ADDsubjetSDCE;   //!
+   TBranch        *b_ADDsubjetSDE;   //!
    TBranch        *b_ADDsubjetSDCSV;   //!
    
    TBranch        *b_THINnJet;   //!
@@ -905,6 +949,12 @@ class RKAnalyzer {
    TBranch        *b_hlt_nTrigs;   //!
    TBranch        *b_hlt_trigResult;   //!
    TBranch        *b_hlt_trigName;   //!
+   
+   TBranch        *b_hlt_trigPrescale;   //!
+   TBranch        *b_hlt_nfilters;   //!
+   TBranch        *b_hlt_filterResult;   //!
+   TBranch        *b_hlt_hbhet;   //!
+   TBranch        *b_hlt_filterName;   //!
    
    RKAnalyzer(TTree *tree=0);
    virtual ~RKAnalyzer();
@@ -951,8 +1001,14 @@ class RKAnalyzer {
 
   ///hdfs/store/user/khurana/ZprimeToZhToZinvhbb_narrow_M-1800_13TeV-madgraph/crab_ZprimeToZhToZinvhbb_narrow_M-1800_13TeV-madgraph_0826/150826_085911/0000/NCUGlobalTuples_1.root
 //TString filename="/hdfs/store/user/khurana/DYJetsToLL_M-50_HT-100to200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/crab_DYJetsToLL_M-50_HT-100to200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_0826/150826_144459/0000/NCUGlobalTuples_77.root";
-  TString filename="/hdfs/store/user/khurana/SignalFiles_0804/NCUGlobalTuples_M1500GeV.root";
-
+  //TString filename="/hdfs/store/user/khurana/SignalFiles_0804/NCUGlobalTuples_M1500GeV.root";
+  TString filename="/hdfs/store/user/khurana/MonoHSignalTreesMerged_20150919/Merged_crab_MonoHToBBarMZp-600GeV_MA0-300GeVTreeMaker_0919.root";
+  
+  //TString filename="/hdfs/store/user/khurana/ZprimeToZhToZinvhbb_narrow_M-2000_13TeV-madgraph/crab_ZprimeToZhToZinvhbb_narrow_M-2000_13TeV-madgraph_0826/150826_090147/0000/NCUGlobalTuples_6.root";
+  
+  //TString filename="/hdfs/store/user/khurana/DYJetsToLL_M-50_HT-400to600_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/crab_DYJetsToLL_M-50_HT-400to600_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_0826/150826_144628/0000/NCUGlobalTuples_10.root";
+  //TString filename="/hdfs/store/user/khurana/DoubleEG/DoubleEG_Run2015C-PromptReco-v1/0000/NCUGlobalTuples_1.root";
+  
    if (tree == 0) {
      //f = (TFile*)gROOT->GetListOfFiles()->FindObject("InputRootFile/NCUGlobalTuples_10.root");
      
@@ -1190,6 +1246,12 @@ void RKAnalyzer::Init(TTree *tree)
    eleIsPassMedium = 0;
    eleIsPassTight = 0;
    eleIsPassHEEP = 0;
+   eleIsPassVetoNoIso = 0;
+   eleIsPassLooseNoIso = 0;
+   eleIsPassMediumNoIso = 0;
+   eleIsPassTightNoIso = 0;
+   eleIsPassHEEPNoIso = 0;
+
    eleIsPassMVAMedium = 0;
    eleIsPassMVATight = 0;
    eleMVAValue = 0;
@@ -1237,6 +1299,7 @@ void RKAnalyzer::Init(TTree *tree)
    FATsubjetSDPy = 0;
    FATsubjetSDPz = 0;
    FATsubjetSDCE = 0;
+   FATsubjetSDE = 0;
    FATsubjetSDCSV = 0;
    ADDgenjetP4 = 0;
    ADDgenjetEM = 0;
@@ -1279,6 +1342,7 @@ void RKAnalyzer::Init(TTree *tree)
    ADDsubjetSDPy = 0;
    ADDsubjetSDPz = 0;
    ADDsubjetSDCE = 0;
+   ADDsubjetSDE = 0;
    ADDsubjetSDCSV = 0;
    
    THINgenjetP4 = 0;
@@ -1315,8 +1379,11 @@ void RKAnalyzer::Init(TTree *tree)
    THINjetJBP = 0;
    
    hlt_trigResult = 0;
-
+   
    hlt_trigName = 0;
+   hlt_trigPrescale = 0;
+   hlt_filterResult = 0;
+   hlt_filterName = 0;
 
 
    // Set branch addresses and branch pointers
@@ -1520,6 +1587,12 @@ void RKAnalyzer::Init(TTree *tree)
    fChain->SetBranchAddress("eleIsPassMedium", &eleIsPassMedium, &b_eleIsPassMedium);
    fChain->SetBranchAddress("eleIsPassTight", &eleIsPassTight, &b_eleIsPassTight);
    fChain->SetBranchAddress("eleIsPassHEEP", &eleIsPassHEEP, &b_eleIsPassHEEP);
+   fChain->SetBranchAddress("eleIsPassVetoNoIso", &eleIsPassVetoNoIso, &b_eleIsPassVetoNoIso);
+   fChain->SetBranchAddress("eleIsPassLooseNoIso", &eleIsPassLooseNoIso, &b_eleIsPassLooseNoIso);
+   fChain->SetBranchAddress("eleIsPassMediumNoIso", &eleIsPassMediumNoIso, &b_eleIsPassMediumNoIso);
+   fChain->SetBranchAddress("eleIsPassTightNoIso", &eleIsPassTightNoIso, &b_eleIsPassTightNoIso);
+   fChain->SetBranchAddress("eleIsPassHEEPNoIso", &eleIsPassHEEPNoIso, &b_eleIsPassHEEPNoIso);
+
    fChain->SetBranchAddress("eleIsPassMVAMedium", &eleIsPassMVAMedium, &b_eleIsPassMVAMedium);
    fChain->SetBranchAddress("eleIsPassMVATight", &eleIsPassMVATight, &b_eleIsPassMVATight);
    fChain->SetBranchAddress("eleMVAValue", &eleMVAValue, &b_eleMVAValue);
@@ -1583,6 +1656,7 @@ void RKAnalyzer::Init(TTree *tree)
    fChain->SetBranchAddress("FATsubjetSDPy", &FATsubjetSDPy, &b_FATsubjetSDPy);
    fChain->SetBranchAddress("FATsubjetSDPz", &FATsubjetSDPz, &b_FATsubjetSDPz);
    fChain->SetBranchAddress("FATsubjetSDCE", &FATsubjetSDCE, &b_FATsubjetSDCE);
+   fChain->SetBranchAddress("FATsubjetSDE", &FATsubjetSDE, &b_FATsubjetSDE);
    fChain->SetBranchAddress("FATsubjetSDCSV", &FATsubjetSDCSV, &b_FATsubjetSDCSV);
    fChain->SetBranchAddress("ADDnJet", &ADDnJet, &b_ADDnJet);
    fChain->SetBranchAddress("ADDgenjetP4", &ADDgenjetP4, &b_ADDgenjetP4);
@@ -1626,6 +1700,7 @@ void RKAnalyzer::Init(TTree *tree)
    fChain->SetBranchAddress("ADDsubjetSDPy", &ADDsubjetSDPy, &b_ADDsubjetSDPy);
    fChain->SetBranchAddress("ADDsubjetSDPz", &ADDsubjetSDPz, &b_ADDsubjetSDPz);
    fChain->SetBranchAddress("ADDsubjetSDCE", &ADDsubjetSDCE, &b_ADDsubjetSDCE);
+   fChain->SetBranchAddress("ADDsubjetSDE", &ADDsubjetSDE, &b_ADDsubjetSDE);
    fChain->SetBranchAddress("ADDsubjetSDCSV", &ADDsubjetSDCSV, &b_ADDsubjetSDCSV);
    
    fChain->SetBranchAddress("THINnJet", &THINnJet, &b_THINnJet);
@@ -1665,6 +1740,12 @@ void RKAnalyzer::Init(TTree *tree)
    fChain->SetBranchAddress("hlt_nTrigs", &hlt_nTrigs, &b_hlt_nTrigs);
    fChain->SetBranchAddress("hlt_trigResult", &hlt_trigResult, &b_hlt_trigResult);
    fChain->SetBranchAddress("hlt_trigName", &hlt_trigName, &b_hlt_trigName);
+   fChain->SetBranchAddress("hlt_trigPrescale", &hlt_trigPrescale, &b_hlt_trigPrescale);
+   fChain->SetBranchAddress("hlt_nfilters", &hlt_nfilters, &b_hlt_nfilters);
+   fChain->SetBranchAddress("hlt_filterResult", &hlt_filterResult, &b_hlt_filterResult);
+   fChain->SetBranchAddress("hlt_hbhet", &hlt_hbhet, &b_hlt_hbhet);
+   fChain->SetBranchAddress("hlt_filterName", &hlt_filterName, &b_hlt_filterName);
+
 
 
    Notify();

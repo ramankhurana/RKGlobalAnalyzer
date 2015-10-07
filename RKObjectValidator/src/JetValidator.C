@@ -8,6 +8,8 @@ void JetValidator::Fill(std::vector<Jet> jetcollection){
 
   if(jetcollection.size() >0) mcweight_ = jetcollection[0].event.mcweight ;
   
+  if(jetcollection.size()>0) h_nVtx->Fill(jetcollection[0].nVtx);
+
   for (int i=0; i< (int) jetcollection.size(); i++){
     
     
@@ -35,6 +37,7 @@ void JetValidator::Fill(std::vector<Jet> jetcollection){
       h_Fimass  [i]             ->Fill(jetcollection[i].Fimass,mcweight_);
       h_nsubJets[i]             ->Fill(jetcollection[i].nsubJets,mcweight_);
       
+
       for(int j =0; j<jetcollection[i].nsubJets; j++){
 	// Sub-jet variables ::  for the first 4 fat jet
 	if(j>2) continue;
@@ -65,7 +68,73 @@ void JetValidator::Fill(std::vector<Jet> jetcollection){
     h_tau3                 ->Fill(jetcollection[i].tau3                      , mcweight_        );
     h_tau21                ->Fill(jetcollection[i].tau2/jetcollection[i].tau1, mcweight_        );
 
+    std::cout<<" filled before vertex "<<jetcollection[i].nVtx<<std::endl;
+    // TProfiles for Jet variables 
+    int nVtx_ = jetcollection[i].nVtx;
+    p_Nvtx_jetCEmEF  ->  Fill(nVtx_, jetcollection[i].jetCEmEF                     ) ;
+    p_Nvtx_jetCHadEF ->  Fill(nVtx_, jetcollection[i].jetCHadEF                    ) ;
+    p_Nvtx_jetPhoEF  ->  Fill(nVtx_, jetcollection[i].jetPhoEF                     ) ;
+    p_Nvtx_jetNEmEF  ->  Fill(nVtx_, jetcollection[i].jetNEmEF                     ) ;
+    p_Nvtx_jetNHadEF ->  Fill(nVtx_, jetcollection[i].jetNHadEF                    ) ;
+    p_Nvtx_jetMuEF   ->  Fill(nVtx_, jetcollection[i].jetMuEF                      ) ;
+    p_Nvtx_jetCMulti ->  Fill(nVtx_, jetcollection[i].jetCMulti                    ) ;
+    p_Nvtx_B_CISVV2  ->  Fill(nVtx_, jetcollection[i].B_CISVV2                     ) ;
+    p_Nvtx_SDmass    ->  Fill(nVtx_, jetcollection[i].SDmass                       ) ;
+    p_Nvtx_TRmass    ->  Fill(nVtx_, jetcollection[i].TRmass                       ) ;
+    p_Nvtx_PRmass    ->  Fill(nVtx_, jetcollection[i].PRmass                       ) ;
+    p_Nvtx_Fimass    ->  Fill(nVtx_, jetcollection[i].Fimass                       ) ;
+    p_Nvtx_tau21     ->  Fill(nVtx_, jetcollection[i].tau2/jetcollection[i].tau1   ) ;
     
+    
+    float pt_ = jetcollection[i].p4.Pt();
+
+    p_pT_jetCEmEF    ->  Fill(pt_, jetcollection[i].jetCEmEF                     ) ;
+    p_pT_jetCHadEF   ->  Fill(pt_, jetcollection[i].jetCHadEF                    ) ;
+    p_pT_jetPhoEF    ->  Fill(pt_, jetcollection[i].jetPhoEF                     ) ;
+    p_pT_jetNEmEF    ->  Fill(pt_, jetcollection[i].jetNEmEF                     ) ;
+    p_pT_jetNHadEF   ->  Fill(pt_, jetcollection[i].jetNHadEF                    ) ;
+    p_pT_jetMuEF     ->  Fill(pt_, jetcollection[i].jetMuEF                      ) ;
+    p_pT_jetCMulti   ->  Fill(pt_, jetcollection[i].jetCMulti                    ) ;
+    p_pT_B_CISVV2    ->  Fill(pt_, jetcollection[i].B_CISVV2                     ) ;
+    p_pT_SDmass      ->  Fill(pt_, jetcollection[i].SDmass                       ) ;
+    p_pT_TRmass      ->  Fill(pt_, jetcollection[i].TRmass                       ) ;
+    p_pT_PRmass      ->  Fill(pt_, jetcollection[i].PRmass                       ) ;
+    p_pT_Fimass      ->  Fill(pt_, jetcollection[i].Fimass                       ) ;
+    p_pT_tau21       ->  Fill(pt_, jetcollection[i].tau2/jetcollection[i].tau1   ) ;
+    
+    
+    float eta_ = jetcollection[i].p4.Eta();
+
+    p_Eta_jetCEmEF    ->  Fill(eta_, jetcollection[i].jetCEmEF                     ) ;
+    p_Eta_jetCHadEF   ->  Fill(eta_, jetcollection[i].jetCHadEF                    ) ;
+    p_Eta_jetPhoEF    ->  Fill(eta_, jetcollection[i].jetPhoEF                     ) ;
+    p_Eta_jetNEmEF    ->  Fill(eta_, jetcollection[i].jetNEmEF                     ) ;
+    p_Eta_jetNHadEF   ->  Fill(eta_, jetcollection[i].jetNHadEF                    ) ;
+    p_Eta_jetMuEF     ->  Fill(eta_, jetcollection[i].jetMuEF                      ) ;
+    p_Eta_jetCMulti   ->  Fill(eta_, jetcollection[i].jetCMulti                    ) ;
+    p_Eta_B_CISVV2    ->  Fill(eta_, jetcollection[i].B_CISVV2                     ) ;
+    p_Eta_SDmass      ->  Fill(eta_, jetcollection[i].SDmass                       ) ;
+    p_Eta_TRmass      ->  Fill(eta_, jetcollection[i].TRmass                       ) ;
+    p_Eta_PRmass      ->  Fill(eta_, jetcollection[i].PRmass                       ) ;
+    p_Eta_Fimass      ->  Fill(eta_, jetcollection[i].Fimass                       ) ;
+    p_Eta_tau21       ->  Fill(eta_, jetcollection[i].tau2/jetcollection[i].tau1   ) ;
+
+    float phi_ = jetcollection[i].p4.Phi();
+    p_Phi_jetCEmEF    ->  Fill(phi_, jetcollection[i].jetCEmEF                     ) ;
+    p_Phi_jetCHadEF   ->  Fill(phi_, jetcollection[i].jetCHadEF                    ) ;
+    p_Phi_jetPhoEF    ->  Fill(phi_, jetcollection[i].jetPhoEF                     ) ;
+    p_Phi_jetNEmEF    ->  Fill(phi_, jetcollection[i].jetNEmEF                     ) ;
+    p_Phi_jetNHadEF   ->  Fill(phi_, jetcollection[i].jetNHadEF                    ) ;
+    p_Phi_jetMuEF     ->  Fill(phi_, jetcollection[i].jetMuEF                      ) ;
+    p_Phi_jetCMulti   ->  Fill(phi_, jetcollection[i].jetCMulti                    ) ;
+    p_Phi_B_CISVV2    ->  Fill(phi_, jetcollection[i].B_CISVV2                     ) ;
+    p_Phi_SDmass      ->  Fill(phi_, jetcollection[i].SDmass                       ) ;
+    p_Phi_TRmass      ->  Fill(phi_, jetcollection[i].TRmass                       ) ;
+    p_Phi_PRmass      ->  Fill(phi_, jetcollection[i].PRmass                       ) ;
+    p_Phi_Fimass      ->  Fill(phi_, jetcollection[i].Fimass                       ) ;
+    p_Phi_tau21       ->  Fill(phi_, jetcollection[i].tau2/jetcollection[i].tau1   ) ;
+
+
   }
   
 }
@@ -141,6 +210,8 @@ void JetValidator::DefineHistograms(){
   }
   
   if(false) std::cout<<" vector histo defined "<<std::endl;
+  
+  h_nVtx                  = new TH1F("h_nVtx","h_nVtx",50,0,50);
   h_nJets                 = new TH1F("h_nJets","h_nJets",25,0,25);
   h_pt                    = new TH1F("h_pt","h_pt",100,0,500);
   h_eta                   = new TH1F("h_eta","h_eta",100,-5.0,5.0);
@@ -179,7 +250,68 @@ void JetValidator::DefineHistograms(){
   h_jetHOEF               = new TH1F("h_jetHOEF","h_jetHOEF",100,-50,50);
   
   h_tau21                 = new TH1F("h_tau21","h_tau21",100,-50,50);
+  
+  
+  // TProfiles for Jet variables 
+  p_Nvtx_jetCEmEF  = new TProfile("p_Nvtx_jetCEmEF", "",  50,0,50,0,1   ) ;
+  p_Nvtx_jetCHadEF = new TProfile("p_Nvtx_jetCHadEF", "", 50,0,50,0,1   ) ;
+  p_Nvtx_jetPhoEF  = new TProfile("p_Nvtx_jetPhoEF", "",  50,0,50,0,1   ) ;
+  p_Nvtx_jetNEmEF  = new TProfile("p_Nvtx_jetNEmEF", "",  50,0,50,0,1   ) ;
+  p_Nvtx_jetNHadEF = new TProfile("p_Nvtx_jetNHadEF", "", 50,0,50,0,10  ) ;
+  p_Nvtx_jetMuEF   = new TProfile("p_Nvtx_jetMuEF", "",   50,0,50,0,1   ) ;
+  p_Nvtx_jetCMulti = new TProfile("p_Nvtx_jetCMulti", "", 50,0,50,0,20  ) ;
+  p_Nvtx_B_CISVV2  = new TProfile("p_Nvtx_B_CISVV2", "",  50,0,50,0,1   ) ;
+  p_Nvtx_SDmass    = new TProfile("p_Nvtx_SDmass", "",    50,0,50,0,200 ) ;
+  p_Nvtx_TRmass    = new TProfile("p_Nvtx_TRmass", "",    50,0,50,0,200 ) ;
+  p_Nvtx_PRmass    = new TProfile("p_Nvtx_PRmass", "",    50,0,50,0,200 ) ;
+  p_Nvtx_Fimass    = new TProfile("p_Nvtx_Fimass", "",    50,0,50,0,200 ) ;
+  p_Nvtx_tau21     = new TProfile("p_Nvtx_tau21", "",     50,0,50,0,1   ) ;
 
+  p_pT_jetCEmEF  = new TProfile("p_pT_jetCEmEF", "",  50, 0, 1500,0,1   ) ;
+  p_pT_jetCHadEF = new TProfile("p_pT_jetCHadEF", "", 50, 0, 1500,0,1   ) ;
+  p_pT_jetPhoEF  = new TProfile("p_pT_jetPhoEF", "",  50, 0, 1500,0,1   ) ;
+  p_pT_jetNEmEF  = new TProfile("p_pT_jetNEmEF", "",  50, 0, 1500,0,1   ) ;
+  p_pT_jetNHadEF = new TProfile("p_pT_jetNHadEF", "", 50, 0, 1500,0,1  ) ;
+  p_pT_jetMuEF   = new TProfile("p_pT_jetMuEF", "",   50, 0, 1500,0,1   ) ;
+  p_pT_jetCMulti = new TProfile("p_pT_jetCMulti", "", 50, 0, 1500,0,40  ) ;
+  p_pT_B_CISVV2  = new TProfile("p_pT_B_CISVV2", "",  50, 0, 1500,0,1   ) ;
+  p_pT_SDmass    = new TProfile("p_pT_SDmass", "",    50, 0, 1500,0,200 ) ;
+  p_pT_TRmass    = new TProfile("p_pT_TRmass", "",    50, 0, 1500,0,200 ) ;
+  p_pT_PRmass    = new TProfile("p_pT_PRmass", "",    50, 0, 1500,0,200 ) ;
+  p_pT_Fimass    = new TProfile("p_pT_Fimass", "",    50, 0, 1500,0,200 ) ;
+  p_pT_tau21     = new TProfile("p_pT_tau21", "",     50, 0, 1500,0,1   ); 
+
+  p_Eta_jetCEmEF  = new TProfile("p_Eta_jetCEmEF", "",  50, -2.5,2.5,0,1   ) ;
+  p_Eta_jetCHadEF = new TProfile("p_Eta_jetCHadEF", "", 50, -2.5,2.5,0,1   ) ;
+  p_Eta_jetPhoEF  = new TProfile("p_Eta_jetPhoEF", "",  50, -2.5,2.5,0,1   ) ;
+  p_Eta_jetNEmEF  = new TProfile("p_Eta_jetNEmEF", "",  50, -2.5,2.5,0,1   ) ;
+  p_Eta_jetNHadEF = new TProfile("p_Eta_jetNHadEF", "", 50, -2.5,2.5,0,1  ) ;
+  p_Eta_jetMuEF   = new TProfile("p_Eta_jetMuEF", "",   50, -2.5,2.5,0,1   ) ;
+  p_Eta_jetCMulti = new TProfile("p_Eta_jetCMulti", "", 50, -2.5,2.5,0,40  ) ;
+  p_Eta_B_CISVV2  = new TProfile("p_Eta_B_CISVV2", "",  50, -2.5,2.5,0,1   ) ;
+  p_Eta_SDmass    = new TProfile("p_Eta_SDmass", "",    50, -2.5,2.5,0,200 ) ;
+  p_Eta_TRmass    = new TProfile("p_Eta_TRmass", "",    50, -2.5,2.5,0,200 ) ;
+  p_Eta_PRmass    = new TProfile("p_Eta_PRmass", "",    50, -2.5,2.5,0,200 ) ;
+  p_Eta_Fimass    = new TProfile("p_Eta_Fimass", "",    50, -2.5,2.5,0,200 ) ;
+  p_Eta_tau21     = new TProfile("p_Eta_tau21", "",     50, -2.5,2.5,0,1   ) ;
+
+  p_Phi_jetCEmEF  = new TProfile("p_Phi_jetCEmEF", "",  70, -3.5, 3.5,0,1   ) ;
+  p_Phi_jetCHadEF = new TProfile("p_Phi_jetCHadEF", "", 70, -3.5, 3.5,0,1   ) ;
+  p_Phi_jetPhoEF  = new TProfile("p_Phi_jetPhoEF", "",  70, -3.5, 3.5,0,1   ) ;
+  p_Phi_jetNEmEF  = new TProfile("p_Phi_jetNEmEF", "",  70, -3.5, 3.5,0,1   ) ;
+  p_Phi_jetNHadEF = new TProfile("p_Phi_jetNHadEF", "", 70, -3.5, 3.5,0,1  ) ;
+  p_Phi_jetMuEF   = new TProfile("p_Phi_jetMuEF", "",   70, -3.5, 3.5,0,1   ) ;
+  p_Phi_jetCMulti = new TProfile("p_Phi_jetCMulti", "", 70, -3.5, 3.5,0,40  ) ;
+  p_Phi_B_CISVV2  = new TProfile("p_Phi_B_CISVV2", "",  70, -3.5, 3.5,0,1   ) ;
+  p_Phi_SDmass    = new TProfile("p_Phi_SDmass", "",    70, -3.5, 3.5,0,200 ) ;
+  p_Phi_TRmass    = new TProfile("p_Phi_TRmass", "",    70, -3.5, 3.5,0,200 ) ;
+  p_Phi_PRmass    = new TProfile("p_Phi_PRmass", "",    70, -3.5, 3.5,0,200 ) ;
+  p_Phi_Fimass    = new TProfile("p_Phi_Fimass", "",    70, -3.5, 3.5,0,200 ) ;
+  p_Phi_tau21     = new TProfile("p_Phi_tau21", "",     70, -3.5, 3.5,0,1   ) ;
+  
+  
+  
+  
 
 }
 
@@ -189,6 +321,7 @@ void JetValidator::Write(){
   file->mkdir(prefix);
   file->cd(prefix);
   
+  h_nVtx->Write();
   for(int i=0; i<4;i++){
     h_pt_vec[i]                    ->Write()   ;
     h_eta_vec[i]                   ->Write()   ;
@@ -268,6 +401,65 @@ void JetValidator::Write(){
   h_jetHOEF              ->Write();
   			   
   h_tau21                ->Write();
+
   
+  // Write TProfiles to RootFiles
+
+  p_Nvtx_jetCEmEF->Write();
+  p_Nvtx_jetCHadEF->Write();
+  p_Nvtx_jetPhoEF->Write();
+  p_Nvtx_jetNEmEF->Write();
+  p_Nvtx_jetNHadEF->Write();
+  p_Nvtx_jetMuEF->Write();
+  p_Nvtx_jetCMulti->Write();
+  p_Nvtx_B_CISVV2->Write();
+  p_Nvtx_SDmass->Write();
+  p_Nvtx_TRmass->Write();
+  p_Nvtx_PRmass->Write();
+  p_Nvtx_Fimass->Write();
+  p_Nvtx_tau21->Write();
+  
+  p_pT_jetCEmEF->Write();
+  p_pT_jetCHadEF->Write();
+  p_pT_jetPhoEF->Write();
+  p_pT_jetNEmEF->Write();
+  p_pT_jetNHadEF->Write();
+  p_pT_jetMuEF->Write();
+  p_pT_jetCMulti->Write();
+  p_pT_B_CISVV2->Write();
+  p_pT_SDmass->Write();
+  p_pT_TRmass->Write();
+  p_pT_PRmass->Write();
+  p_pT_Fimass->Write();
+  p_pT_tau21->Write();
+  
+  p_Eta_jetCEmEF->Write();
+  p_Eta_jetCHadEF->Write();
+  p_Eta_jetPhoEF->Write();
+  p_Eta_jetNEmEF->Write();
+  p_Eta_jetNHadEF->Write();
+  p_Eta_jetMuEF->Write();
+  p_Eta_jetCMulti->Write();
+  p_Eta_B_CISVV2->Write();
+  p_Eta_SDmass->Write();
+  p_Eta_TRmass->Write();
+  p_Eta_PRmass->Write();
+  p_Eta_Fimass->Write();
+  p_Eta_tau21->Write();
+  
+  p_Phi_jetCEmEF->Write();
+  p_Phi_jetCHadEF->Write();
+  p_Phi_jetPhoEF->Write();
+  p_Phi_jetNEmEF->Write();
+  p_Phi_jetNHadEF->Write();
+  p_Phi_jetMuEF->Write();
+  p_Phi_jetCMulti->Write();
+  p_Phi_B_CISVV2->Write();
+  p_Phi_SDmass->Write();
+  p_Phi_TRmass->Write();
+  p_Phi_PRmass->Write();
+  p_Phi_Fimass->Write();
+  p_Phi_tau21->Write();
+
   
 }

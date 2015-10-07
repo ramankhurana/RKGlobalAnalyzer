@@ -36,14 +36,20 @@ class MonoHiggsCuts {
     // When using Fat-Jet with MET
     cutsMapFatJet.clear();
     cutsMapFatJet["apteta"]             = 0;
+
     cutsMapFatJet["bcsv"]               = 1;
-    cutsMapFatJet["cDPHIJetMet"]        = 2;
-    cutsMapFatJet["dMjet"]              = 3;
-    cutsMapFatJet["emetpt"]             = 4;
-    cutsMapFatJet["fNele"]              = 5;
-    cutsMapFatJet["gNmu"]               = 6;
-    cutsMapFatJet["hNjet"]              = 7;
-    cutsMapFatJet["iNtau"]              = 8;
+    cutsMapFatJet["c2subjet"]           = 2;
+    cutsMapFatJet["d1subjet"]           = 3;
+    cutsMapFatJet["edeltaRsubjet"]      = 4;
+    cutsMapFatJet["fdeltaRAtLeastOneSubjet"] = 6;
+    
+    cutsMapFatJet["gDPHIJetMet"]        = 5;
+    cutsMapFatJet["hMjet"]              = 6;
+    cutsMapFatJet["imetpt"]             = 7;
+    cutsMapFatJet["jNele"]              = 8;
+    cutsMapFatJet["kNmu"]               = 9;
+    cutsMapFatJet["lNjet"]              = 10;
+    cutsMapFatJet["mNtau"]              = 11;
 
 
     // cutValueMap
@@ -54,7 +60,7 @@ class MonoHiggsCuts {
     cutValueMapFatJet["metpt"]=200.;
     cutValueMapFatJet["dphiDiJetMet"]=2.5;
     cutValueMapFatJet["MTDiJet"]=400;
-    cutValueMapFatJet["MDiJetLow"]=90.;
+    cutValueMapFatJet["MDiJetLow"]=100.;
     cutValueMapFatJet["MDiJetHigh"]=150.;
     cutValueMapFatJet["DPHIJet1MET"]=2.;
     cutValueMapFatJet["DPHIJet2MET"]=2.;

@@ -121,6 +121,63 @@ class JetValidator {
   
   TH1F*    h_tau21_vec[NJETS]                 ;
   
+  // TProfiles For Jet Variables 
+  TProfile* p_Nvtx_jetCEmEF;
+  TProfile* p_Nvtx_jetCHadEF;
+  TProfile* p_Nvtx_jetPhoEF;
+  TProfile* p_Nvtx_jetNEmEF;
+  TProfile* p_Nvtx_jetNHadEF;
+  TProfile* p_Nvtx_jetMuEF;
+  TProfile* p_Nvtx_jetCMulti;
+  TProfile* p_Nvtx_B_CISVV2;
+  TProfile* p_Nvtx_SDmass;
+  TProfile* p_Nvtx_TRmass;
+  TProfile* p_Nvtx_PRmass;
+  TProfile* p_Nvtx_Fimass;
+  TProfile* p_Nvtx_tau21;
+  
+  TProfile* p_pT_jetCEmEF;
+  TProfile* p_pT_jetCHadEF;
+  TProfile* p_pT_jetPhoEF;
+  TProfile* p_pT_jetNEmEF;
+  TProfile* p_pT_jetNHadEF;
+  TProfile* p_pT_jetMuEF;
+  TProfile* p_pT_jetCMulti;
+  TProfile* p_pT_B_CISVV2;
+  TProfile* p_pT_SDmass;
+  TProfile* p_pT_TRmass;
+  TProfile* p_pT_PRmass;
+  TProfile* p_pT_Fimass;
+  TProfile* p_pT_tau21;
+  
+  TProfile* p_Eta_jetCEmEF;
+  TProfile* p_Eta_jetCHadEF;
+  TProfile* p_Eta_jetPhoEF;
+  TProfile* p_Eta_jetNEmEF;
+  TProfile* p_Eta_jetNHadEF;
+  TProfile* p_Eta_jetMuEF;
+  TProfile* p_Eta_jetCMulti;
+  TProfile* p_Eta_B_CISVV2;
+  TProfile* p_Eta_SDmass;
+  TProfile* p_Eta_TRmass;
+  TProfile* p_Eta_PRmass;
+  TProfile* p_Eta_Fimass;
+  TProfile* p_Eta_tau21;
+  
+  TProfile* p_Phi_jetCEmEF;
+  TProfile* p_Phi_jetCHadEF;
+  TProfile* p_Phi_jetPhoEF;
+  TProfile* p_Phi_jetNEmEF;
+  TProfile* p_Phi_jetNHadEF;
+  TProfile* p_Phi_jetMuEF;
+  TProfile* p_Phi_jetCMulti;
+  TProfile* p_Phi_B_CISVV2;
+  TProfile* p_Phi_SDmass;
+  TProfile* p_Phi_TRmass;
+  TProfile* p_Phi_PRmass;
+  TProfile* p_Phi_Fimass;
+  TProfile* p_Phi_tau21;
+  TH1F* h_nVtx;
     // 2D Histograms
 
   // 

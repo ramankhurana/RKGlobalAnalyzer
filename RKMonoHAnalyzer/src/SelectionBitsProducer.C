@@ -74,8 +74,7 @@ std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > SelectionBitsProducer::Selec
 
 
 // This is for Fat-jet + MET
-std::vector<ResonanceWithMET<Jet,MET> > SelectionBitsProducer::SelectionBitsSaver(std::vector<ResonanceWithMET<Jet,MET > > objectCollection, 
-									      std::map<std::string, float> tmp_cutValueMap){
+std::vector<ResonanceWithMET<Jet,MET> > SelectionBitsProducer::SelectionBitsSaver(std::vector<ResonanceWithMET<Jet,MET > > objectCollection, std::map<std::string, float> tmp_cutValueMap){
   
   //std::map<std::string, float> tmp_cutValueMap = cuts.cutValueMap;
   std::vector<ResonanceWithMET<Jet,MET > > outputvec;
@@ -89,16 +88,62 @@ std::vector<ResonanceWithMET<Jet,MET> > SelectionBitsProducer::SelectionBitsSave
       std::cout<<" FATJET pt = "<<objectCollection[i].jet1.p4.Pt()<<std::endl;
       StatusOfCuts[cuts.cutsMapFatJet["apteta"]]            = (objectCollection[i].jet1.p4.Pt() > tmp_cutValueMap["leadingjetpt"] && 
 							       TMath::Abs(objectCollection[i].jet1.p4.Eta()) < tmp_cutValueMap["jeteta"] )   ;            
+      // for fat-jet CSV
       StatusOfCuts[cuts.cutsMapFatJet["bcsv"]]              = (objectCollection[i].jet1.B_CISVV2 > tmp_cutValueMap["leadingcsv"] )         ;  
-      StatusOfCuts[cuts.cutsMapFatJet["cDPHIJetMet"]]       = (TMath::Abs(objectCollection[i].TransverseObjProp.DeltaPhi) > tmp_cutValueMap["dphiDiJetMet"] );    
-      StatusOfCuts[cuts.cutsMapFatJet["dMjet"]]             = (objectCollection[i].jet1.SDmass > tmp_cutValueMap["MDiJetLow"]  &&         
+      
+      if (objectCollection[i].jet1.nsubJets >1 ) {
+	// for two sub-jets csv
+	StatusOfCuts[cuts.cutsMapFatJet["c2subjet"]]        = (objectCollection[i].jet1.SDCSV[0] > tmp_cutValueMap["leadingcsv"]
+							       && objectCollection[i].jet1.SDCSV[1] > tmp_cutValueMap["leadingcsv"] )         ;  
+	
+	bool a = objectCollection[i].jet1.SDCSV[0] > tmp_cutValueMap["leadingcsv"];
+	bool b = objectCollection[i].jet1.SDCSV[1] > tmp_cutValueMap["leadingcsv"];
+	bool first = a && !b;
+	bool second = !a && b;
+	// XOR will give exactly one of them passing the CSV
+	StatusOfCuts[cuts.cutsMapFatJet["d1subjet"]]        = (first || second);
+	
+	TLorentzVector p41;
+	p41.SetPxPyPzE(objectCollection[i].jet1.SDPx[0],
+		       objectCollection[i].jet1.SDPy[0],
+		       objectCollection[i].jet1.SDPz[0],
+		       objectCollection[i].jet1.SDEn[0]);
+	TLorentzVector p42;
+	p42.SetPxPyPzE(objectCollection[i].jet1.SDPx[1],
+		       objectCollection[i].jet1.SDPy[1],
+		       objectCollection[i].jet1.SDPz[1],
+		       objectCollection[i].jet1.SDEn[1]);
+
+	float dr = p41.DeltaR(p42);
+	std::cout<<" a = "<<a<<" b = "<<b<<" first = "<<first<<" second = "<<second
+		 <<" (a && b) = "<<(a && b) << "(first || second)"<<(first || second)
+		 <<std::endl;
+	
+	// When one sub-jet below 0.3 and 2 subjet above 0.3
+	if(dr>0.3) StatusOfCuts[cuts.cutsMapFatJet["edeltaRsubjet"]]    =  (a && b);
+	if(dr<0.3) StatusOfCuts[cuts.cutsMapFatJet["edeltaRsubjet"]]    =  (first || second);
+	
+	// When ATLEAST 1 subjet below 0.3 and two subjets above 0.3
+	if(dr>0.3) StatusOfCuts[cuts.cutsMapFatJet["fdeltaRAtLeastOneSubjet"]]   = (a && b); // both sub-jets pass csv
+	if(dr<0.3) StatusOfCuts[cuts.cutsMapFatJet["fdeltaRAtLeastOneSubjet"]]   =  (first || second) || (a && b) ; // atleast one subjet pass csv. 
+      }
+      else {
+	StatusOfCuts[cuts.cutsMapFatJet["c2subjet"]]         = false;
+	StatusOfCuts[cuts.cutsMapFatJet["d1subjet"]]         = false;
+	StatusOfCuts[cuts.cutsMapFatJet["edeltaRsubjet"]]    = false;
+	StatusOfCuts[cuts.cutsMapFatJet["fdeltaRAtLeastOneSubjet"]]   =  false;
+      }
+      // for 1 subjet csv 
+      
+      StatusOfCuts[cuts.cutsMapFatJet["gDPHIJetMet"]]       = (TMath::Abs(objectCollection[i].TransverseObjProp.DeltaPhi) > tmp_cutValueMap["dphiDiJetMet"] );    
+      StatusOfCuts[cuts.cutsMapFatJet["hMjet"]]             = (objectCollection[i].jet1.SDmass > tmp_cutValueMap["MDiJetLow"]  &&         
 							       objectCollection[i].jet1.SDmass < tmp_cutValueMap["MDiJetHigh"] )  ;
-      StatusOfCuts[cuts.cutsMapFatJet["emetpt"]]            = (objectCollection[i].jet2.RawPt > tmp_cutValueMap["metpt"] )                        ;
+      StatusOfCuts[cuts.cutsMapFatJet["imetpt"]]            = (objectCollection[i].jet2.RawPt > tmp_cutValueMap["metpt"] )                        ;
       
       // e, mu, tau information is associated to only first element.
-      StatusOfCuts[cuts.cutsMapFatJet["fNele"]]             = (objectCollection[0].electrons.size() == tmp_cutValueMap["Nele"]);
-      StatusOfCuts[cuts.cutsMapFatJet["gNmu"]]              = (objectCollection[0].muons.size()  == tmp_cutValueMap["Nmu"]);
-      StatusOfCuts[cuts.cutsMapFatJet["hNjet"]]             = (objectCollection[0].jets.size() == tmp_cutValueMap["njet"]);
+      StatusOfCuts[cuts.cutsMapFatJet["jNele"]]             = (objectCollection[0].electrons.size() == tmp_cutValueMap["Nele"]);
+      StatusOfCuts[cuts.cutsMapFatJet["kNmu"]]              = (objectCollection[0].muons.size()  == tmp_cutValueMap["Nmu"]);
+      StatusOfCuts[cuts.cutsMapFatJet["lNjet"]]             = (objectCollection[0].jets.size() == tmp_cutValueMap["njet"]);
       
       objectCollection[i].cutsStatus = StatusOfCuts;
       std::cout<<" cut status selectionbits FATJETMET = "<<StatusOfCuts<<std::endl;

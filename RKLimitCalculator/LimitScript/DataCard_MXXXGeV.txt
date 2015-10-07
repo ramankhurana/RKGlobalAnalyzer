@@ -14,7 +14,7 @@ observation              DATARATE
 -------------------------------------------------------------------------------------------------
 
 bin                      MONOHBB   MONOHBB    MONOHBB    MONOHBB    MONOHBB    MONOHBB
-process                  Sig       DYJets      WJets      ZH          TT        QCD 
+process                  Sig       DYJets      WJets      ZH          TT        DIBOSON 
 
 -------------------------------------------------------------------------------------------------
 
@@ -31,7 +31,7 @@ CMS_xs_DYJets          lnN            -      1.10   -       -       -        -
 CMS_xs_WJets           lnN            -      -      1.10    -       -        -
 CMS_xs_ZH              lnN            -      -      -       1.10    -        -
 CMS_xs_TT              lnN            -      -      -       -       1.10     -
-CMS_xs_QCD             lnN            -      -      -       -       -        1.10
+CMS_xs_DIBOSON         lnN            -      -      -       -       -        1.10
 
 
 CMS_trigg              lnN            1.05  1.05   1.05    1.05    1.05     1.05
@@ -41,5 +41,5 @@ CMS_DYJets             lnN            -      1.10   -       -       -        -
 CMS_WJets              lnN            -      -      1.10    -       -        -
 CMS_ZH                 lnN            -      -      -       1.10    -        -
 CMS_TT                 lnN            -      -      -       -       1.10     -
-CMS_QCD                lnN            -      -      -       -       -        1.10
+CMS_DIBOSON            lnN            -      -      -       -       -        1.10
 

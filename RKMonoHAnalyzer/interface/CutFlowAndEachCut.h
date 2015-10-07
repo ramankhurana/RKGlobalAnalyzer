@@ -21,6 +21,7 @@
 #include "../../RKDataFormats/interface/MET.h"
 #include "../../RKDataFormats/interface/Resonance.h"
 #include "../../RKDataFormats/interface/ResonanceMET.h"
+#include "../../RKDataFormats/interface/ResonanceWithMET.h"
 #include "../../RKUtilities/interface/MonoHiggsCuts.h"
 
 class CutFlowAndEachCut {
@@ -28,6 +29,8 @@ class CutFlowAndEachCut {
   CutFlowAndEachCut(){};
   ~CutFlowAndEachCut(){};
   void  CutFlow(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > objectCollection);
+  void  CutFlow(std::vector<ResonanceWithMET<Jet,MET > >  objectCollection);
+  void  CutFlow(std::vector<ResonanceWithMET<Jet,MET > >  objectCollection, std::vector<int> statusbitVector);
   void GetInputs(TFile* f, TString prefix_);
   void DefineHistograms();
   void Write();
@@ -37,6 +40,8 @@ class CutFlowAndEachCut {
   // Histograms CutFlow 
   TH1F* h_cutflow[NOBJECTS];
   TH1F* h_eachcut[NOBJECTS];
+  TH1F* h_cutflow_f[NOBJECTS];
+  TH1F* h_eachcut_f[NOBJECTS];
 
   protected:
 

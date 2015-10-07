@@ -1,0 +1,7 @@
+runallAnalysis-NCUGlobalTuples_M1000GeV.root
+runallAnalysis-NCUGlobalTuples_M1200GeV.root
+runallAnalysis-NCUGlobalTuples_M1500GeV.root
+runallAnalysis-NCUGlobalTuples_M600GeV.root
+runallAnalysis-NCUGlobalTuples_M700GeV.root
+runallAnalysis-NCUGlobalTuples_M800GeV.root
+runallAnalysis-NCUGlobalTuples_M900GeV.root

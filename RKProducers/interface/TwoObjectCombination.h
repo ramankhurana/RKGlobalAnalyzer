@@ -49,12 +49,14 @@ template <class U1, class U2>
       for(int j=i+1;j<(int)j1.size();j++){
 	//if(j1[i]==j1[j]) std::cout<<" they are same ==================== One should skip this "<<std::endl;
 	if(j1[i]==j1[j]) continue; 
-	resonanceCandidate.jet1 = j1[i];
-	resonanceCandidate.jet2 = j1[j];
-	resonanceCandidate.index_j1 = i;
-	resonanceCandidate.index_j2 = j;
-	resonanceCandidate.ResonanceProp = ResonanceProperties(j1[i].p4, j1[j].p4);
-	resonancevec.push_back(resonanceCandidate);
+	//if(j1[i].charge * j1[j].charge > 0) continue;
+	  resonanceCandidate.jet1 = j1[i];
+	  resonanceCandidate.jet2 = j1[j];
+	  resonanceCandidate.index_j1 = i;
+	  resonanceCandidate.index_j2 = j;
+	  resonanceCandidate.ResonanceProp = ResonanceProperties(j1[i].p4, j1[j].p4);
+	  resonancevec.push_back(resonanceCandidate);
+	  //}// if(j1[i].charge * j1[j].charge < 0) {
       }
     }
   }
