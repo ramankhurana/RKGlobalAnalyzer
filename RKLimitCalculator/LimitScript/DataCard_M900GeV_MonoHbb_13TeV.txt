@@ -1,0 +1,45 @@
+
+imax    1       number of channels
+jmax    *       number of backgrounds
+kmax    *       number of nuisance parameters (sources of systematical uncertainties)
+
+-------------------------------------------------------------------------------------------------
+
+--shapes *     MONOHBB  ROOTFILENAME $PROCESS $PROCESS_$SYSTEMATIC
+
+-------------------------------------------------------------------------------------------------
+bin                      MONOHBB
+observation              0
+
+-------------------------------------------------------------------------------------------------
+
+bin                      MONOHBB   MONOHBB    MONOHBB    MONOHBB    MONOHBB    MONOHBB
+process                  Sig       DYJets      WJets      ZH          TT        QCD 
+
+-------------------------------------------------------------------------------------------------
+
+process                  0                1          2             3          4         5  
+
+rate                1.3624       0.0490202    2.80438    0.556492      1.74608    0.119206 
+
+-------------------------------------------------------------------------------------------------
+
+lumi_13TeV             lnN            1.1    1.1    1.1     1.1     1.1      1.1  
+
+CMS_xs_Sig             lnN            1.20   -      -       -       -        -
+CMS_xs_DYJets          lnN            -      1.10   -       -       -        -
+CMS_xs_WJets           lnN            -      -      1.10    -       -        -
+CMS_xs_ZH              lnN            -      -      -       1.10    -        -
+CMS_xs_TT              lnN            -      -      -       -       1.10     -
+CMS_xs_QCD             lnN            -      -      -       -       -        1.10
+
+
+CMS_trigg              lnN            1.05  1.05   1.05    1.05    1.05     1.05
+CMS_JES                lnN            1.05  1.05   1.05    1.05    1.05     1.05
+CMS_Sig                lnN            1.10   -      -       -       -        -
+CMS_DYJets             lnN            -      1.10   -       -       -        -
+CMS_WJets              lnN            -      -      1.10    -       -        -
+CMS_ZH                 lnN            -      -      -       1.10    -        -
+CMS_TT                 lnN            -      -      -       -       1.10     -
+CMS_QCD                lnN            -      -      -       -       -        1.10
+
