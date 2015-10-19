@@ -140,6 +140,8 @@ void HistFactory::Fill(std::vector<ResonanceWithMET<Jet,MET > > objectCollection
 				     objectCollection[0].jet1.p4.Eta(),
 				     objectCollection[0].jet1.p4.Phi());
 	  if(dr_ < 0.8 )  continue;
+	  float dphi_ = RKMath::DeltaPhi(objectCollection[0].jets[ij].p4.Phi(), objectCollection[0].jet1.p4.Phi() );
+	  if( dphi_ < 2.0 ) continue;
 	  naddjet++;
 	}
 	h_nJets[i]->Fill(naddjet   , mcweight_  ); 

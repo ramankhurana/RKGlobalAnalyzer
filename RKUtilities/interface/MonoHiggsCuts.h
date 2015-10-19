@@ -41,16 +41,17 @@ class MonoHiggsCuts {
     cutsMapFatJet["c2subjet"]           = 2;
     cutsMapFatJet["d1subjet"]           = 3;
     cutsMapFatJet["edeltaRsubjet"]      = 4;
-    cutsMapFatJet["fdeltaRAtLeastOneSubjet"] = 6;
+    cutsMapFatJet["fdeltaRAtLeastOneSubjet"] = 5;
     
-    cutsMapFatJet["gDPHIJetMet"]        = 5;
-    cutsMapFatJet["hMjet"]              = 6;
-    cutsMapFatJet["imetpt"]             = 7;
-    cutsMapFatJet["jNele"]              = 8;
-    cutsMapFatJet["kNmu"]               = 9;
-    cutsMapFatJet["lNjet"]              = 10;
-    cutsMapFatJet["mNtau"]              = 11;
-
+    cutsMapFatJet["gDPHIJetMet"]        = 6;
+    cutsMapFatJet["hMjet"]              = 7;
+    cutsMapFatJet["imetpt"]             = 8;
+    cutsMapFatJet["jNele"]              = 9;
+    cutsMapFatJet["kNmu"]               = 10;
+    cutsMapFatJet["lNjet"]              = 11;
+    cutsMapFatJet["mNtau"]              = 12;
+    // Specific for control Region
+    cutsMapFatJet["nMjetVeto"]           =13;
 
     // cutValueMap
     cutValueMapFatJet.clear();
@@ -69,7 +70,7 @@ class MonoHiggsCuts {
     cutValueMapFatJet["Nele"]=0;
     cutValueMapFatJet["Nmu"]=0;
     cutValueMapFatJet["Ntau"]=0;
-    cutValueMapFatJet["njet"]=2;// atleast 2 jets
+    cutValueMapFatJet["Njet"]=2;// atleast 2 jets
     cutValueMapFatJet["DPHIMETClosedJ"]=0.5;
 
 
@@ -105,23 +106,26 @@ class MonoHiggsCuts {
 
     // cutValueMapTTBar
     cutValueMapTTBar.clear();
-    cutValueMapTTBar["leadingjetpt"]=80.;
-    cutValueMapTTBar["subleadingjetpt"]=30;
+    cutValueMapTTBar["leadingjetpt"]=200.;
     cutValueMapTTBar["jeteta"]=2.5;
-    cutValueMapTTBar["leadingcsv"]=0.432;
-    cutValueMapTTBar["subleadingcsv"]=0.432;
-    cutValueMapTTBar["csvVLoose"]=0.25;
-    cutValueMapTTBar["csvTight"]=0.732;
-    cutValueMapTTBar["metpt"]=200;
+    cutValueMapTTBar["leadingcsv"]=0.605;
+    cutValueMapTTBar["metpt"]=200.;
     cutValueMapTTBar["dphiDiJetMet"]=2.5;
     cutValueMapTTBar["MTDiJet"]=400;
-    cutValueMapTTBar["MDiJetLow"]=90.;
-    cutValueMapTTBar["MDiJetHigh"]=150.;
+    cutValueMapTTBar["MDiJetLow"]=150.; //  make sure this cut is 
+    cutValueMapTTBar["MDiJetHigh"]=100.; // applied correctly.
     cutValueMapTTBar["DPHIJet1MET"]=2.;
     cutValueMapTTBar["DPHIJet2MET"]=2.;
     cutValueMapTTBar["MTJet1"]=300.;
     cutValueMapTTBar["MTJet2"]=200.;
+    cutValueMapTTBar["Nele"]=0;
+    cutValueMapTTBar["Nmu"]=0;
+    cutValueMapTTBar["Ntau"]=0;
+    cutValueMapTTBar["Njet"]=2;// atleast 2 jets
+    cutValueMapTTBar["DPHIMETClosedJ"]=0.5;
 
+
+    
   };
   ~MonoHiggsCuts(){};
   std::map<std::string, int> cutsMap;

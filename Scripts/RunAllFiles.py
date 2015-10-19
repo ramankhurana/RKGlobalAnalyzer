@@ -26,7 +26,7 @@ import os
 ## For now edit in the py file, if it works and useful then i will make is configurable. 
 
 inputfilepath='/hdfs/store/user/khurana/Raman/MonoHFatJetAnalysis_AllMCWithPU_V3/SignalFiles_0804-runallAnalysis/'
-outputfilepath='trial'
+outputfilepath='trial/'
 macroname='RootMacro'  ## don't give .C in the name
 
 
@@ -38,8 +38,8 @@ os.system('mkdir '+outputfilepath)
 
 ## list file name in text file
 ## add protection here
-os.system('ls -1 '+inputfilepath+' >& files.txt')
-
+#os.system('ls -1 '+inputfilepath+' >& files.txt')
+os.system('find '+inputfilepath+' -name \'*.root\' >& files.txt')
 filelist = open('files.txt','r')
 OutputMacro = open('run.C','w')
 OutputMacro.write('void run(){ \n')
@@ -48,8 +48,9 @@ OutputMacro.write(' \n')
 i = 0
 for ifile in filelist:
     filename =  ifile.rstrip()
-    inputfilename = inputfilepath+'/'+filename
-    outputfilename = outputfilepath+'/'+filename
+    inputfilename =  filename  #inputfilepath+'/'+filename
+    filename = filename.replace(inputfilepath,outputfilepath)
+    outputfilename = filename ##x outputfilepath+'/'+filename
     OutputMacro.write(macroname+'(\"'+inputfilename+'\",\"'+outputfilename+'\"); \n')
     i=i+1
 

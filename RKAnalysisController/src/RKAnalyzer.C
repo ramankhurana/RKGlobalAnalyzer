@@ -711,15 +711,18 @@ void RKAnalyzer::MonoHiggsAnalyzer(){
   // Jet-MET
   if(RKJetCollection_selected.size()>0) RKjetMETCollection = jet_met.ReconstructDiObject(RKJetCollection_selected,met);
   
+  
+  // Fat Jet Analysis starts here. 
   std::cout<<" fat jet met starts here "<<std::endl;
   // FatJet-MET
   if(MH_FATJetCollection.size()>0) RKFatJetMETCollection = fatjet_met.ReconstructDiObject(MH_FATJetCollection,met);
   if(RKFatJetMETCollection.size()>0) RKFatJetMETCollectionWithStatus  = selectionbits.SelectionBitsSaver(RKFatJetMETCollection, cuts.cutValueMapFatJet);
-  if( RKFatJetMETCollectionWithStatus.size()>0) RKFatJetMETCollectionWithStatus[0].electrons = RKElectronCollection;
+    if( RKFatJetMETCollectionWithStatus.size()>0) RKFatJetMETCollectionWithStatus[0].electrons = RKElectronCollection;
   if( RKFatJetMETCollectionWithStatus.size()>0) RKFatJetMETCollectionWithStatus[0].events = events;
   if( RKFatJetMETCollectionWithStatus.size()>0) RKFatJetMETCollectionWithStatus[0].muons  = RKMuonCollection;
   if( RKFatJetMETCollectionWithStatus.size()>0) RKFatJetMETCollectionWithStatus[0].jets   = RKJetCollection_selected;
   if(RKFatJetMETCollectionWithStatus.size()>0) RKFatJetMETCollectionWithStatus[0].taus = RKTauCollection;
+  
   
   //--------------------------------------------------------
   // Fat Jet CSV
@@ -768,6 +771,20 @@ void RKAnalyzer::MonoHiggsAnalyzer(){
   if(RKFatJetMETCollectionWithStatus.size()>0) nminusobj_DROnesubj.Fill(RKFatJetMETCollectionWithStatus,fatjetbitVec);
   if(RKFatJetMETCollectionWithStatus.size()>0) cutflowFatJetobj_DROnesubj.CutFlow(RKFatJetMETCollectionWithStatus, fatjetbitVec);
   std::cout<<" fat jet met ends here "<<std::endl;
+  
+  
+  //--------------------------------------------------------
+  // Fat-Jet Base Analysis ends here
+  //--------------------------------------------------------
+  
+  //--------------------------------------------------------
+  // Control Region for TTBar
+  //--------------------------------------------------------
+  // Replace the baseline analysis status bits by ttbar status bit
+  if(RKFatJetMETCollection.size()>0) RKFatJetMETCollectionWithStatus  = selectionbits.SelectionBitsSaver(RKFatJetMETCollectionWithStatus, cuts.cutValueMapTTBar);
+  fatjetbitVec = {0, 2, 8, 6, 13, 7};
+  if(RKFatJetMETCollectionWithStatus.size()>0) histfacFatJet_TTBar.Fill(RKFatJetMETCollectionWithStatus,1,fatjetbitVec);
+
   
   
   //--------------------------------------------------------
