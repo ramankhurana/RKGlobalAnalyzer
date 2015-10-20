@@ -117,8 +117,8 @@ class RKAnalyzer {
    // jet 
    JetValidator jetvalidator;
    JetValidator jetvalidator_selected;
-   JetValidator fatjetvalidator;;
-   JetValidator addjetvalidator;;
+   JetValidator fatjetvalidator;
+   JetValidator addjetvalidator;
    // Electron 
    ElectronValidator electronvalidator;
    ElectronValidator electronvalidator_barrel;
@@ -147,6 +147,8 @@ class RKAnalyzer {
    HistFactory histfacFatJetPreSel_1subj;
    HistFactory histfacFatJetPreSel_DRsubj;
    HistFactory histfacFatJetPreSel_DROnesubj;
+   
+   HistFactory histfacFatJet_TTBar;
    
    // Mono-H ISR Study 
    ISRAndJetVetoStudy mh_isrstudy;

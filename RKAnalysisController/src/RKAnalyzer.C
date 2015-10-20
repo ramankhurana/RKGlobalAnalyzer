@@ -68,6 +68,8 @@ void RKAnalyzer::Loop(TString output){
   histfacFatJetPreSel_DRsubj.GetInputs(fout,"MonoHFatJetsPreselection_DRsubj");
   histfacFatJetPreSel_DROnesubj.GetInputs(fout,"MonoHFatJetsPreselection_DROnesubj");
   
+  histfacFatJet_TTBar.GetInputs(fout,"histfacFatJet_TTBar");
+  
   cutflowFatJetobj.GetInputs(fout,"CutFlowAndEachCutFatJet");
   cutflowFatJetobj_2subj.GetInputs(fout,"CutFlowAndEachCutFatJet_2subj");
   cutflowFatJetobj_1subj.GetInputs(fout,"CutFlowAndEachCutFatJet_1subj");
@@ -188,6 +190,9 @@ void RKAnalyzer::Loop(TString output){
    histfacFatJetPreSel_1subj.Write();
    histfacFatJetPreSel_DRsubj.Write();
    histfacFatJetPreSel_DROnesubj.Write();
+
+   histfacFatJet_TTBar.Write();
+   
    
    mh_isrstudy.Write();
    //syncmonoh.Write();
