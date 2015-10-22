@@ -38,6 +38,20 @@ void HistFactory::DefineHistograms(){
     h_dPhi_MET_J[i] = new TH1F("h_dPhi_MET_J"+postfix,"",70,0.,3.5);
     h_MT_bb_MET[i]  = new TH1F("h_MT_bb_MET"+postfix,"",1000,0,5000.);
     h_dPhi_bb_MET[i]= new TH1F("h_dPhi_bb_MET"+postfix,"",100,0,3.5);
+
+    h_MET_Over_SumET[i]    = new TH1F("h_MET_Over_SumET"+postfix,"",20,0,1.);
+    h_MET_Over_pTFatJet[i] = new TH1F("h_MET_Over_pTFatJet"+postfix,"",100,0,5);
+    h_CEmEF[i]             = new TH1F("h_CEmEF"+postfix,"",20,0,1);
+    h_CHadEF[i]            = new TH1F("h_CHadEF"+postfix,"",20,0,1);
+    h_PhoEF[i]             = new TH1F("h_PhoEF"+postfix,"",20,0,1);
+    h_NEmEF[i]             = new TH1F("h_NEmEF"+postfix,"",20,0,1);
+    h_NHadEF[i]            = new TH1F("h_NHadEF"+postfix,"",20,0,1);
+    h_MuEF[i]              = new TH1F("h_MuEF"+postfix,"",20,0,1);
+    h_CMulti[i]            = new TH1F("h_CMulti"+postfix,"",20,0,1);
+    
+    //[i]= new TH1F(""+postfix,"",100,0,1);
+    //[i]= new TH1F(""+postfix,"",100,0,1);
+    
     // 2D Histograms
     h_M_vs_MET[i]   = new TH2F("h_MET_vs_M"+postfix,"h_MET_vs_M",100,0.,200.,200,0.,1000.);
     h_MET_vs_Q1Q2[i]= new TH2F("h_MET_vs_Q1Q2"+postfix,"h_MET_vs_Q1Q2",200,0,1000,21,-10,10);
@@ -147,6 +161,7 @@ void HistFactory::Fill(std::vector<ResonanceWithMET<Jet,MET > > objectCollection
 	h_nJets[i]->Fill(naddjet   , mcweight_  ); 
 	
 	if(objectCollection.size()>0) h_nFJets[i]->Fill(objectCollection.size()-1 , mcweight_);
+	
 	//h_nJets[i]->Fill(objectCollection[i].jets.size()     , mcweight_  ); //  -2 is not required when looking at fat-jets
 	
 	
@@ -188,6 +203,17 @@ void HistFactory::Fill(std::vector<ResonanceWithMET<Jet,MET > > objectCollection
 	h_MT_bb_MET[i]->Fill(objectCollection[i].TransverseObjProp.TransMass  , mcweight_ );
 	h_dPhi_bb_MET[i]->Fill(TMath::Abs(objectCollection[i].TransverseObjProp.DeltaPhi) , mcweight_ );
 	h_Tau21jj[i]->Fill(objectCollection[i].jet1.tau2/objectCollection[i].jet1.tau1, mcweight_);
+
+	
+	h_MET_Over_SumET[i]->Fill(objectCollection[i].jet2.RawPt / objectCollection[i].jet2.RawSumEt  ,mcweight_);
+	h_MET_Over_pTFatJet[i]->Fill(objectCollection[i].jet2.RawPt / objectCollection[i].jet1.p4.Pt()  ,mcweight_);
+	h_CEmEF[i]->Fill(objectCollection[i].jet1.jetCEmEF  ,mcweight_);
+	h_CHadEF[i]->Fill(objectCollection[i].jet1.jetCHadEF  ,mcweight_);
+	h_PhoEF[i]->Fill(objectCollection[i].jet1.jetPhoEF  ,mcweight_);
+	h_NEmEF[i]->Fill(objectCollection[i].jet1.jetNEmEF  ,mcweight_);
+	h_NHadEF[i]->Fill(objectCollection[i].jet1.jetNHadEF  ,mcweight_);
+	h_MuEF[i]->Fill(objectCollection[i].jet1.jetMuEF  ,mcweight_);
+	h_CMulti[i]->Fill(objectCollection[i].jet1.jetCMulti  ,mcweight_);
 	// 2D histograms 
 	h_M_vs_MET[i]->Fill(objectCollection[i].jet1.SDmass, objectCollection[i].jet2.RawPt );
 	
@@ -225,6 +251,17 @@ void HistFactory::Write(){
     h_dPhi_MET_J[i]   ->Write();
     h_MT_bb_MET[i]    ->Write();
     h_dPhi_bb_MET[i]  ->Write();
+
+    h_MET_Over_SumET[i]      ->Write();
+    h_MET_Over_pTFatJet[i]   ->Write();
+    h_CEmEF[i]               ->Write();
+    h_CHadEF[i]              ->Write();
+    h_PhoEF[i]               ->Write();
+    h_NEmEF[i]               ->Write();
+    h_NHadEF[i]              ->Write();
+    h_MuEF[i]                ->Write();
+    h_CMulti[i]              ->Write();
+    
     // 2D Histograms
     h_M_vs_MET[i]   ->Write();
     h_MET_vs_Q1Q2[i]->Write();

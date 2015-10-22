@@ -32,7 +32,7 @@ class ResonanceWithMET{
   
   Int_t index_j1;
 
-  std::bitset<16> cutsStatus;
+  std::bitset<26> cutsStatus;
   std::vector<Jet> jets;
   MET met;
   std::vector<Muon> muons;

@@ -69,6 +69,10 @@ void RKAnalyzer::Loop(TString output){
   histfacFatJetPreSel_DROnesubj.GetInputs(fout,"MonoHFatJetsPreselection_DROnesubj");
   
   histfacFatJet_TTBar.GetInputs(fout,"histfacFatJet_TTBar");
+  histfacFatJet_ZLight.GetInputs(fout,"histfacFatJet_ZLight");
+  histfacFatJet_ZHeavy.GetInputs(fout,"histfacFatJet_ZHeavy");
+  histfacFatJet_WLight.GetInputs(fout,"histfacFatJet_WLight");
+  histfacFatJet_WHeavy.GetInputs(fout,"histfacFatJet_WHeavy");
   
   cutflowFatJetobj.GetInputs(fout,"CutFlowAndEachCutFatJet");
   cutflowFatJetobj_2subj.GetInputs(fout,"CutFlowAndEachCutFatJet_2subj");
@@ -192,6 +196,10 @@ void RKAnalyzer::Loop(TString output){
    histfacFatJetPreSel_DROnesubj.Write();
 
    histfacFatJet_TTBar.Write();
+   histfacFatJet_ZLight.Write();
+   histfacFatJet_ZHeavy.Write();
+   histfacFatJet_WLight.Write();
+   histfacFatJet_WHeavy.Write();
    
    
    mh_isrstudy.Write();
@@ -327,7 +335,7 @@ void RKAnalyzer::FATJetProducer(){
     fatjets.isLooseJet_     =  (*FATjetPassIDLoose)[i];
     fatjets.isPUJet_        = (*FATPUJetID)[i] > -0.63  ;
     fatjets.nVtx            = nVtx;
-    if(fourmom->Pt()>200.0 && triggerstatus && hlt_hbhet && nVtx > 0 ) MH_FATJetCollection.push_back(fatjets);
+    if(fourmom->Pt()>200.0 && triggerstatus && hlt_hbhet && fatjets.isLooseJet_ && nVtx > 0 ) MH_FATJetCollection.push_back(fatjets);
   }
 }
 
@@ -787,15 +795,44 @@ void RKAnalyzer::MonoHiggsAnalyzer(){
   //--------------------------------------------------------
   // Replace the baseline analysis status bits by ttbar status bit
   if(RKFatJetMETCollection.size()>0) RKFatJetMETCollectionWithStatus  = selectionbits.SelectionBitsSaver(RKFatJetMETCollectionWithStatus, cuts.cutValueMapTTBar);
-  fatjetbitVec = {0, 2, 8, 6, 13, 7};
+  fatjetbitVec = {0, 2, 6, 8, 15, 11, 13};
   if(RKFatJetMETCollectionWithStatus.size()>0) histfacFatJet_TTBar.Fill(RKFatJetMETCollectionWithStatus,1,fatjetbitVec);
 
+  //--------------------------------------------------------
+  // Control Region for DY+LightJets
+  //--------------------------------------------------------
+  // Replace the baseline analysis status bits by ttbar status bit
+  if(RKFatJetMETCollection.size()>0) RKFatJetMETCollectionWithStatus  = selectionbits.SelectionBitsSaver(RKFatJetMETCollectionWithStatus, cuts.cutValueMapZLight);
+  fatjetbitVec = {0, 16, 6, 8, 15, 14, 13};
+  if(RKFatJetMETCollectionWithStatus.size()>0) histfacFatJet_ZLight.Fill(RKFatJetMETCollectionWithStatus,1,fatjetbitVec);
   
+  //--------------------------------------------------------
+  // Control Region for DY+Heavy Jets
+  //--------------------------------------------------------
+  // Replace the baseline analysis status bits by ttbar status bit
+  if(RKFatJetMETCollection.size()>0) RKFatJetMETCollectionWithStatus  = selectionbits.SelectionBitsSaver(RKFatJetMETCollectionWithStatus, cuts.cutValueMapZHeavy);
+    fatjetbitVec = {0, 17, 6, 8, 15, 14, 13};
+  if(RKFatJetMETCollectionWithStatus.size()>0) histfacFatJet_ZHeavy.Fill(RKFatJetMETCollectionWithStatus,1,fatjetbitVec);
+  
+  //--------------------------------------------------------
+  // Control Region for W+Light Jets
+  //--------------------------------------------------------
+  // Replace the baseline analysis status bits by ttbar status bit
+  if(RKFatJetMETCollection.size()>0) RKFatJetMETCollectionWithStatus  = selectionbits.SelectionBitsSaver(RKFatJetMETCollectionWithStatus, cuts.cutValueMapWLight);
+  fatjetbitVec = {0, 16, 6, 8, 15, 14, 13};
+  if(RKFatJetMETCollectionWithStatus.size()>0) histfacFatJet_WLight.Fill(RKFatJetMETCollectionWithStatus,1,fatjetbitVec);
+  
+  //--------------------------------------------------------
+  // Control Region for W+Heavy Jets
+  //--------------------------------------------------------
+  // Replace the baseline analysis status bits by ttbar status bit
+  if(RKFatJetMETCollection.size()>0) RKFatJetMETCollectionWithStatus  = selectionbits.SelectionBitsSaver(RKFatJetMETCollectionWithStatus, cuts.cutValueMapWHeavy);
+  fatjetbitVec = {0, 17, 6, 8, 15, 14, 13};
+  if(RKFatJetMETCollectionWithStatus.size()>0) histfacFatJet_WHeavy.Fill(RKFatJetMETCollectionWithStatus,1,fatjetbitVec);
   
   //--------------------------------------------------------
   // Fat-Jet Part Ending here
   //--------------------------------------------------------
-  
 
   
   if(RKjetMETCollection.size()>0) std::cout<<" transverse mass = "<<RKjetMETCollection[0].TransverseObjProp.TransMass <<std::endl;

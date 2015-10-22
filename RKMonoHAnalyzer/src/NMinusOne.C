@@ -6,14 +6,14 @@ void  NMinusOne::Fill(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > object
   if(objectCollection.size()>0){
     //for(int i=0; i<(int)objectCollection.size();i++){
     if(true/*i<2*/) { // i = 0, i = 1 ; save only two combinations not more than that. 
-	std::map<TString, bitset<16> >::iterator mapiter;
+	std::map<TString, bitset<26> >::iterator mapiter;
 	int icut=0;
 	for(mapiter=cutsMap.begin(); mapiter != cutsMap.end(); ++mapiter){
 	  //std::cout<<mapiter->first<<"  "<<mapiter->second<<std::endl;
 	  if(false) std::cout<<" status= "<<objectCollection[0].cutsStatus
 		   <<" map = "<<mapiter->second
 		   <<std::endl;
-	  if(objectCollection[0].cutsStatus == mapiter->second || objectCollection[0].cutsStatus == 0b0000000000001111) {
+	  if(objectCollection[0].cutsStatus == mapiter->second || objectCollection[0].cutsStatus == 0b00000000000000000000001111) {
 	    // Fill the histograms when 
 	    // all cuts are satisfied OR
 	    // cuts from map is satisfied 
@@ -68,10 +68,10 @@ void NMinusOne::GetInputs(TFile* f, TString prefix_){
   file = f;
   if(false) std::cout<<" calling define histograms for MET "<<std::endl;
   if(false) std::cout<<" MET histo defined "<<std::endl;
-  cutsMap["dijetmass"]      = 0b0000000000001110;
-  cutsMap["detaJets"]       = 0b0000000000001101;
-  cutsMap["dphiJets"]       = 0b0000000000001011;
-  cutsMap["ptOverpt1pt1"]   = 0b0000000000000111;
+  cutsMap["dijetmass"]      = 0b00000000000000000000001110;
+  cutsMap["detaJets"]       = 0b00000000000000000000001101;
+  cutsMap["dphiJets"]       = 0b00000000000000000000001011;
+  cutsMap["ptOverpt1pt1"]   = 0b00000000000000000000000111;
   
   
   DefineHistograms();

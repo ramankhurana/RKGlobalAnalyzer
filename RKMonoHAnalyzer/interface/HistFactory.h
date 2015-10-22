@@ -55,6 +55,16 @@ class HistFactory {
   TH1F*    h_MT_bb_MET[nobjectmet];
   TH1F*    h_dPhi_bb_MET[nobjectmet];
   
+  TH1F*    h_MET_Over_SumET[nobjectmet];
+  TH1F*    h_MET_Over_pTFatJet[nobjectmet];
+  TH1F*    h_CEmEF[nobjectmet];
+  TH1F*    h_CHadEF[nobjectmet];
+  TH1F*    h_PhoEF[nobjectmet];
+  TH1F*    h_NEmEF[nobjectmet];
+  TH1F*    h_NHadEF[nobjectmet];
+  TH1F*    h_MuEF[nobjectmet];
+  TH1F*    h_CMulti[nobjectmet];
+  
   TH2F*    h_M_vs_MET[nobjectmet];
   TH2F*    h_MET_vs_Q1Q2[nobjectmet];
   TH2F*    h_M_vs_Q1Q2[nobjectmet];

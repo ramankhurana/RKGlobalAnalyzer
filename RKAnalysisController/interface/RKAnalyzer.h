@@ -149,6 +149,10 @@ class RKAnalyzer {
    HistFactory histfacFatJetPreSel_DROnesubj;
    
    HistFactory histfacFatJet_TTBar;
+   HistFactory histfacFatJet_ZLight;
+   HistFactory histfacFatJet_ZHeavy;
+   HistFactory histfacFatJet_WLight;
+   HistFactory histfacFatJet_WHeavy;
    
    // Mono-H ISR Study 
    ISRAndJetVetoStudy mh_isrstudy;
@@ -1004,7 +1008,8 @@ class RKAnalyzer {
   ///hdfs/store/user/khurana/ZprimeToZhToZinvhbb_narrow_M-1800_13TeV-madgraph/crab_ZprimeToZhToZinvhbb_narrow_M-1800_13TeV-madgraph_0826/150826_085911/0000/NCUGlobalTuples_1.root
 //TString filename="/hdfs/store/user/khurana/DYJetsToLL_M-50_HT-100to200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/crab_DYJetsToLL_M-50_HT-100to200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_0826/150826_144459/0000/NCUGlobalTuples_77.root";
   //TString filename="/hdfs/store/user/khurana/SignalFiles_0804/NCUGlobalTuples_M1500GeV.root";
-  TString filename="/hdfs/store/user/khurana/MonoHSignalTreesMerged_20150919/Merged_crab_MonoHToBBarMZp-600GeV_MA0-300GeVTreeMaker_0919.root";
+  //TString filename="/hdfs/store/user/khurana/MonoHSignalTreesMerged_20150919/Merged_crab_MonoHToBBarMZp-600GeV_MA0-300GeVTreeMaker_0919.root";
+  TString filename="/hdfs/store/user/khurana/MET/crab_MET-Run2015D-PromptReco-V4_20151019/151019_195552/0000/NCUGlobalTuples_1.root";
   
   //TString filename="/hdfs/store/user/khurana/ZprimeToZhToZinvhbb_narrow_M-2000_13TeV-madgraph/crab_ZprimeToZhToZinvhbb_narrow_M-2000_13TeV-madgraph_0826/150826_090147/0000/NCUGlobalTuples_6.root";
   

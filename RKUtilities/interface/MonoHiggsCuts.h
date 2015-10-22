@@ -51,13 +51,28 @@ class MonoHiggsCuts {
     cutsMapFatJet["lNjet"]              = 11;
     cutsMapFatJet["mNtau"]              = 12;
     // Specific for control Region
-    cutsMapFatJet["nMjetVeto"]           =13;
+    cutsMapFatJet["nMjetVeto"]          = 13;
+    cutsMapFatJet["oNjetless"]          = 14;
+    cutsMapFatJet["pNLepton"]           = 15;
+    cutsMapFatJet["qZLightBJet"]        = 16;
+    cutsMapFatJet["rZHeavyBJet"]        = 17;
+    cutsMapFatJet["s"]                  = 18;
+    cutsMapFatJet["t"]                  = 19;
+    cutsMapFatJet["u"]                  = 20;
+    cutsMapFatJet["v"]                  = 21;
+    cutsMapFatJet["w"]                  = 22;
+    cutsMapFatJet["x"]                  = 23;
+    cutsMapFatJet["y"]                  = 24;
+    cutsMapFatJet["z"]                  = 25;
+    
 
     // cutValueMap
     cutValueMapFatJet.clear();
     cutValueMapFatJet["leadingjetpt"]=200.;
     cutValueMapFatJet["jeteta"]=2.5;
     cutValueMapFatJet["leadingcsv"]=0.605;
+    cutValueMapZLight["csvlow"]=0.3;
+    cutValueMapZLight["csvhigh"]=0.6;
     cutValueMapFatJet["metpt"]=200.;
     cutValueMapFatJet["dphiDiJetMet"]=2.5;
     cutValueMapFatJet["MTDiJet"]=400;
@@ -71,6 +86,7 @@ class MonoHiggsCuts {
     cutValueMapFatJet["Nmu"]=0;
     cutValueMapFatJet["Ntau"]=0;
     cutValueMapFatJet["Njet"]=2;// atleast 2 jets
+    cutValueMapFatJet["NLepton"]=0;
     cutValueMapFatJet["DPHIMETClosedJ"]=0.5;
 
 
@@ -109,6 +125,8 @@ class MonoHiggsCuts {
     cutValueMapTTBar["leadingjetpt"]=200.;
     cutValueMapTTBar["jeteta"]=2.5;
     cutValueMapTTBar["leadingcsv"]=0.605;
+    cutValueMapZLight["csvlow"]=0.3;
+    cutValueMapZLight["csvhigh"]=0.6;
     cutValueMapTTBar["metpt"]=200.;
     cutValueMapTTBar["dphiDiJetMet"]=2.5;
     cutValueMapTTBar["MTDiJet"]=400;
@@ -118,14 +136,114 @@ class MonoHiggsCuts {
     cutValueMapTTBar["DPHIJet2MET"]=2.;
     cutValueMapTTBar["MTJet1"]=300.;
     cutValueMapTTBar["MTJet2"]=200.;
-    cutValueMapTTBar["Nele"]=0;
-    cutValueMapTTBar["Nmu"]=0;
-    cutValueMapTTBar["Ntau"]=0;
-    cutValueMapTTBar["Njet"]=2;// atleast 2 jets
+    cutValueMapTTBar["Nele"]=1;
+    cutValueMapTTBar["Nmu"]=1;
+    cutValueMapTTBar["Ntau"]=1;
+    cutValueMapTTBar["Njet"]=1;// atleast 1 jets
+    cutValueMapTTBar["NLepton"]=1;
     cutValueMapTTBar["DPHIMETClosedJ"]=0.5;
 
 
-    
+    // cutValueMapZLight
+    cutValueMapZLight.clear();
+    cutValueMapZLight["leadingjetpt"]=200.;
+    cutValueMapZLight["jeteta"]=2.5;
+    cutValueMapZLight["leadingcsv"]=0.605;
+    cutValueMapZLight["csvlow"]=0.3;
+    cutValueMapZLight["csvhigh"]=0.6;
+    cutValueMapZLight["metpt"]=200.;
+    cutValueMapZLight["dphiDiJetMet"]=2.5;
+    cutValueMapZLight["MTDiJet"]=400;
+    cutValueMapZLight["MDiJetLow"]=30.; //  make sure this cut is 
+    cutValueMapZLight["MDiJetHigh"]=250.; // applied correctly.
+    cutValueMapZLight["DPHIJet1MET"]=2.;
+    cutValueMapZLight["DPHIJet2MET"]=2.;
+    cutValueMapZLight["MTJet1"]=300.;
+    cutValueMapZLight["MTJet2"]=200.;
+    cutValueMapZLight["Nele"]=0;
+    cutValueMapZLight["Nmu"]=0;
+    cutValueMapZLight["Ntau"]=0;
+    cutValueMapZLight["NLepton"]=0;
+    cutValueMapZLight["Njet"]=2;// atleast 2 jets
+    cutValueMapZLight["DPHIMETClosedJ"]=0.5;
+
+
+
+    // cutValueMapZHeavy
+    cutValueMapZHeavy.clear();
+    cutValueMapZHeavy["leadingjetpt"]=200.;
+    cutValueMapZHeavy["jeteta"]=2.5;
+    cutValueMapZHeavy["leadingcsv"]=0.605;
+    cutValueMapZHeavy["csvlow"]=0.3;
+    cutValueMapZHeavy["csvhigh"]=0.6;
+    cutValueMapZHeavy["metpt"]=200.;
+    cutValueMapZHeavy["dphiDiJetMet"]=2.5;
+    cutValueMapZHeavy["MTDiJet"]=400;
+    cutValueMapZHeavy["MDiJetLow"]=150.; //  make sure this cut is 
+    cutValueMapZHeavy["MDiJetHigh"]=100.; // applied correctly.
+    cutValueMapZHeavy["DPHIJet1MET"]=2.;
+    cutValueMapZHeavy["DPHIJet2MET"]=2.;
+    cutValueMapZHeavy["MTJet1"]=300.;
+    cutValueMapZHeavy["MTJet2"]=200.;
+    cutValueMapZHeavy["Nele"]=0;
+    cutValueMapZHeavy["Nmu"]=0;
+    cutValueMapZHeavy["Ntau"]=0;
+    cutValueMapZHeavy["Njet"]=2;
+    cutValueMapZHeavy["NLepton"]=0;
+    cutValueMapZHeavy["DPHIMETClosedJ"]=0.5;
+
+
+
+    // cutValueMapWLight
+    cutValueMapWLight.clear();
+    cutValueMapWLight["leadingjetpt"]=200.;
+    cutValueMapWLight["jeteta"]=2.5;
+    cutValueMapWLight["leadingcsv"]=0.605;
+    cutValueMapWLight["csvlow"]=0.3;
+    cutValueMapWLight["csvhigh"]=0.6;
+    cutValueMapWLight["metpt"]=200.;
+    cutValueMapWLight["dphiDiJetMet"]=2.5;
+    cutValueMapWLight["MTDiJet"]=400;
+    cutValueMapWLight["MDiJetLow"]=30.; //  make sure this cut is 
+    cutValueMapWLight["MDiJetHigh"]=250.; // applied correctly.
+    cutValueMapWLight["DPHIJet1MET"]=2.;
+    cutValueMapWLight["DPHIJet2MET"]=2.;
+    cutValueMapWLight["MTJet1"]=300.;
+    cutValueMapWLight["MTJet2"]=200.;
+    cutValueMapWLight["Nele"]=1;
+    cutValueMapWLight["Nmu"]=1;
+    cutValueMapWLight["Ntau"]=1;
+    cutValueMapWLight["Njet"]=1;
+    cutValueMapWLight["NLepton"]=1;
+    cutValueMapWLight["DPHIMETClosedJ"]=0.5;
+
+
+
+    // cutValueMapWHeavy
+    cutValueMapWHeavy.clear();
+    cutValueMapWHeavy["leadingjetpt"]=200.;
+    cutValueMapWHeavy["jeteta"]=2.5;
+    cutValueMapWHeavy["leadingcsv"]=0.605;
+    cutValueMapWHeavy["csvlow"]=0.3;
+    cutValueMapWHeavy["csvhigh"]=0.6;
+    cutValueMapWHeavy["metpt"]=200.;
+    cutValueMapWHeavy["dphiDiJetMet"]=2.5;
+    cutValueMapWHeavy["MTDiJet"]=400;
+    cutValueMapWHeavy["MDiJetLow"]=150.; //  make sure this cut is 
+    cutValueMapWHeavy["MDiJetHigh"]=100.; // applied correctly.
+    cutValueMapWHeavy["DPHIJet1MET"]=2.;
+    cutValueMapWHeavy["DPHIJet2MET"]=2.;
+    cutValueMapWHeavy["MTJet1"]=300.;
+    cutValueMapWHeavy["MTJet2"]=200.;
+    cutValueMapWHeavy["Nele"]=1;
+    cutValueMapWHeavy["Nmu"]=1;
+    cutValueMapWHeavy["Ntau"]=1;
+    cutValueMapWHeavy["Njet"]=1;
+    cutValueMapWHeavy["NLepton"]=1;
+    cutValueMapWHeavy["DPHIMETClosedJ"]=0.5;
+
+
+
   };
   ~MonoHiggsCuts(){};
   std::map<std::string, int> cutsMap;
@@ -134,6 +252,12 @@ class MonoHiggsCuts {
   std::map<std::string, float> cutValueMap;
   std::map<std::string, float> cutValueMapFatJet;
   std::map<std::string, float> cutValueMapTTBar;
+  std::map<std::string, float> cutValueMapZLight;
+  std::map<std::string, float> cutValueMapZHeavy;
+  std::map<std::string, float> cutValueMapWLight;
+  std::map<std::string, float> cutValueMapWHeavy;
+  
+  
     enum cuts  {
       dijetmass    = 0b0000000000000001,
       detaJets     = 0b0000000000000011,

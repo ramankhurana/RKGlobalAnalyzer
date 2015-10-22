@@ -54,7 +54,7 @@ class NMinusOne {
   TH1F* h_MSoftDrop[RKTS];
   TH1F* h_MET[RKTS];
 
-  std::map <TString, bitset<16> > cutsMap; 
+  std::map <TString, bitset<26> > cutsMap; 
   
   protected:
 
