@@ -147,9 +147,21 @@ std::vector<ResonanceWithMET<Jet,MET> > SelectionBitsProducer::SelectionBitsSave
       StatusOfCuts[cuts.cutsMapFatJet["imetpt"]]            = (objectCollection[i].jet2.RawPt > tmp_cutValueMap["metpt"] )                        ;
       
       // e, mu, tau information is associated to only first element.
+      
+      // Jets less than this number
+      int njets=objectCollection[0].jets.size();
+      int naddjet = 0;
+      for(int ij=0;ij<njets;ij++){
+	float dr_ = RKMath::DeltaR(objectCollection[0].jets[ij].p4.Eta() ,
+				   objectCollection[0].jets[ij].p4.Phi() ,
+				   objectCollection[0].jet1.p4.Eta(),
+				   objectCollection[0].jet1.p4.Phi());
+	if(dr_ < 0.8 )  continue;
+	naddjet++;
+      }
       StatusOfCuts[cuts.cutsMapFatJet["jNele"]]             = (objectCollection[0].electrons.size() == tmp_cutValueMap["Nele"]);
       StatusOfCuts[cuts.cutsMapFatJet["kNmu"]]              = (objectCollection[0].muons.size()  == tmp_cutValueMap["Nmu"]);
-      StatusOfCuts[cuts.cutsMapFatJet["lNjet"]]             = (objectCollection[0].jets.size() >= tmp_cutValueMap["Njet"]);
+      StatusOfCuts[cuts.cutsMapFatJet["lNjet"]]             = (naddjet >= tmp_cutValueMap["Njet"]);
       StatusOfCuts[cuts.cutsMapFatJet["mNtau"]]             = (objectCollection[0].taus.size() == tmp_cutValueMap["Ntau"]);
       
       
@@ -160,8 +172,9 @@ std::vector<ResonanceWithMET<Jet,MET> > SelectionBitsProducer::SelectionBitsSave
 								 objectCollection[i].jet1.SDmass < tmp_cutValueMap["MDiJetHigh"] ) )  ;
       
       
-      // Jets less than this number
-      StatusOfCuts[cuts.cutsMapFatJet["oNjetless"]]             = (objectCollection[0].jets.size() < tmp_cutValueMap["Njet"]);
+
+
+      StatusOfCuts[cuts.cutsMapFatJet["oNjetless"]]             = (naddjet < tmp_cutValueMap["Njet"]);
       
       // exactly Zero leptons
       StatusOfCuts[cuts.cutsMapFatJet["pNLepton"]]              = (objectCollection[0].muons.size() +  objectCollection[0].electrons.size() +

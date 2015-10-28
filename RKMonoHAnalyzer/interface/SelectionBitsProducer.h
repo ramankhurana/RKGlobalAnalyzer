@@ -24,6 +24,7 @@
 #include "../../RKDataFormats/interface/ResonanceMET.h"
 #include "../../RKDataFormats/interface/ResonanceWithMET.h"
 #include "../../RKUtilities/interface/MonoHiggsCuts.h"
+#include "../../RKUtilities/interface/RKMath.h"
 #include <map>
 class SelectionBitsProducer {
  public:

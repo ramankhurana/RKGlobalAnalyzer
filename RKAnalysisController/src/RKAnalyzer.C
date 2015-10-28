@@ -8,7 +8,7 @@
 #include "../../RKUtilities/interface/EAElectron.h"
 using namespace std;
 void RKAnalyzer::Loop(TString output){
-  std::cout<<PileUpWeights::PUWEIGHT(1)<<"  "<<PileUpWeights::PUWEIGHT(2)<<"  "<<PileUpWeights::PUWEIGHT(3)<<std::endl;
+  if(false) std::cout<<PileUpWeights::PUWEIGHT(1)<<"  "<<PileUpWeights::PUWEIGHT(2)<<"  "<<PileUpWeights::PUWEIGHT(3)<<std::endl;
   debug=false;
   if(false) std::cout<<" output = "<<output<<std::endl;
   nEvents = new TH1F("nEvents","",2,0,2);
@@ -16,18 +16,18 @@ void RKAnalyzer::Loop(TString output){
   
   if(true) std::cout<<" creating output file"<<std::endl;
   fout = new TFile(output,"RECREATE");
-  std::cout<<" after file "<<std::endl;
+  if(false) std::cout<<" after file "<<std::endl;
     
   jetvalidator.GetInputs(fout,"Jet_NoCut_");
-  std::cout<<" jet 1 done"<<std::endl;
+  if(false) std::cout<<" jet 1 done"<<std::endl;
   jetvalidator_selected.GetInputs(fout,"Jet_PtEtaBTag_");
   
-  std::cout<<" jet done"<<std::endl;
+  if(false) std::cout<<" jet done"<<std::endl;
   
   fatjetvalidator.GetInputs(fout,"FatJets");
   addjetvalidator.GetInputs(fout,"ADDJets");
   
-  std::cout<<"fatjet done"<<std::endl;
+  if(false) std::cout<<"fatjet done"<<std::endl;
   elenminusoneobjB.GetInputs(fout,"ElectronNMinus1B");
   elenminusoneobjE.GetInputs(fout,"ElectronNMinus1E");
   
@@ -35,16 +35,16 @@ void RKAnalyzer::Loop(TString output){
   electronvalidator_barrel.GetInputs(fout,"Electron_NoCut_Barrel_");
   electronvalidator_endcap.GetInputs(fout,"Electron_NoCut_Endcap_");
   
-  std::cout<<"ele done"<<std::endl;
+  if(false) std::cout<<"ele done"<<std::endl;
   metvalidator.GetInputs(fout,"MET_NoCut_");
-  std::cout<<"met done"<<std::endl;
+  if(false) std::cout<<"met done"<<std::endl;
   diJetValidator.GetInputs(fout,"DiJetNotCut");
   diJetValidator_selected.GetInputs(fout,"DiJetSelected");
-  std::cout<<"dijet done"<<std::endl;
+  if(false) std::cout<<"dijet done"<<std::endl;
 
   diElectronValidator.GetInputs(fout,"DiElectronMediumID");
   diElectronValidatorIso.GetInputs(fout,"DiElectronMediumIDIso");
-  std::cout<<"diele done"<<std::endl;
+  if(false) std::cout<<"diele done"<<std::endl;
 
   jetmetValidator.GetInputs(fout,"JetMETNoCuts");
   dijetmetValidator.GetInputs(fout,"DiJetMETNoCuts");
@@ -56,7 +56,7 @@ void RKAnalyzer::Loop(TString output){
   nminusobj_DRsubj.GetInputs(fout,"NMinusOne_DRsubj");
   nminusobj_DROnesubj.GetInputs(fout,"NMinusOne_DROnesubj");
   
-  std::cout<<"jet-met done"<<std::endl;
+  if(false) std::cout<<"jet-met done"<<std::endl;
   histfac.GetInputs(fout,"MonoHNoCut");
   histfacJetPreSel.GetInputs(fout,"MonoHSoftSel");
   histfacJetHardPreSel.GetInputs(fout,"MonoHHardPreSel");
@@ -102,9 +102,14 @@ void RKAnalyzer::Loop(TString output){
      
      bool met120 = TriggerStatus("HLT_PFMET120_PFMHT120_IDLoose_v");
      bool met170 = TriggerStatus("HLT_PFMET170_NoiseCleaned_v");
+     bool csct   = FilterStatus("Flag_CSCTightHaloFilter");
+     bool eeBadSC   = FilterStatus("Flag_eeBadScFilter");
+     
      triggerstatus = met120 || met170 ;
      
-     std::cout<<" ---------- trigger done ---------"<<std::endl;
+     if(isData==1)  filterstatus = eeBadSC && csct && hlt_hbhet;
+     if(isData==0)  filterstatus = false;
+     if(false) std::cout<<" ---------- trigger done ---------"<<std::endl;
      // Clear all the collections
      ClearCollections();
      
@@ -113,14 +118,14 @@ void RKAnalyzer::Loop(TString output){
      EventProducer();
      nEvents_weight->Fill(1, events.mcweight);
      
-     std::cout<<" calling jet producer"<<std::endl;
+     if(false) std::cout<<" calling jet producer"<<std::endl;
      // Produce jet collection for analysis and validation of object variables.
      JetProducer();
-     std::cout<<" calling FatJetProducer "<<std::endl;
+     if(false) std::cout<<" calling FatJetProducer "<<std::endl;
      FATJetProducer();
      //ADDJetProducer();
      
-     std::cout<<" met producer "<<std::endl;
+     if(false) std::cout<<" met producer "<<std::endl;
      // Produce MET collection for analysis and validation of object.
      // this contain all raw PFMET, corrected PFMET and MVA PFMET.
      METProducer();
@@ -277,7 +282,8 @@ void RKAnalyzer::JetProducer(){
        //jets.B_CISVV2 > 0.4 && 
        fourmom->Pt() > 10. && 
        (*THINjetPassIDLoose)[i] && 
-       (*THINPUJetID)[i] > -0.63 
+       //(*THINPUJetID)[i] > -0.63 
+       jets.B_CISVV2 > 0.605
        //triggerstatus
        ) RKJetCollection_selected.push_back(jets);
  
@@ -335,7 +341,7 @@ void RKAnalyzer::FATJetProducer(){
     fatjets.isLooseJet_     =  (*FATjetPassIDLoose)[i];
     fatjets.isPUJet_        = (*FATPUJetID)[i] > -0.63  ;
     fatjets.nVtx            = nVtx;
-    if(fourmom->Pt()>200.0 && triggerstatus && hlt_hbhet && fatjets.isLooseJet_ && nVtx > 0 ) MH_FATJetCollection.push_back(fatjets);
+    if(fourmom->Pt()>200.0 && triggerstatus && filterstatus && fatjets.isLooseJet_ && nVtx > 0 ) MH_FATJetCollection.push_back(fatjets);
   }
 }
 
@@ -447,14 +453,14 @@ void RKAnalyzer::PhotonProducer(){
 
 
 void RKAnalyzer::TauProducer(){
-  std::cout<<" inside tau producer "<<std::endl;
+  if(false) std::cout<<" inside tau producer "<<std::endl;
   for(size_t i=0; i<(size_t)HPSTau_n; i++){
-    std::cout<<" inside tau loop "<<i<<std::endl;
+    if(false) std::cout<<" inside tau loop "<<i<<std::endl;
     taus.Clear();
     TLorentzVector*  fourmom = (TLorentzVector*) HPSTau_4Momentum->At(i);
-    std::cout<<" after fourmom "<<std::endl;
+    if(false) std::cout<<" after fourmom "<<std::endl;
     taus.p4      = *fourmom ;
-    std::cout<<" after p4 "<<std::endl;
+    if(false) std::cout<<" after p4 "<<std::endl;
     if(fourmom->Pt() > 20. 
        && fabs(fourmom->Eta())<2.5
        && (*disc_decayModeFinding)[i] == 1  
@@ -462,7 +468,7 @@ void RKAnalyzer::TauProducer(){
        ) 
       RKTauCollection.push_back(taus);
   }
-  std::cout<<" tau loop finish"<<std::endl;
+  if(false) std::cout<<" tau loop finish"<<std::endl;
 }
 
 
@@ -636,12 +642,31 @@ bool RKAnalyzer::TriggerStatus(std::string TRIGNAME){
   if(false) std::cout<<" number of triggers = "<<(*hlt_trigResult).size()<<std::endl;
   for(size_t i =0; i < (*hlt_trigResult).size() ; i++) {
     std::string trigname = (*hlt_trigName)[i];
+    if(false) std::cout<<" trigge number "<<i <<" is "<<trigname<<std::endl;
     size_t foundEle00=trigname.find(TRIGNAME);//HLT_DoubleEle33
     if ( foundEle00==std::string::npos) continue;
     
     if(false) std::cout<<"trigger name = "<<trigname
              <<" status = "<<(*hlt_trigResult)[i]<<std::endl;
     triggerstat=(*hlt_trigResult)[i];
+  }
+  return triggerstat;
+}
+
+
+bool RKAnalyzer::FilterStatus(std::string TRIGNAME){
+
+  bool triggerstat=false;
+  if(false) std::cout<<" number of triggers = "<<(*hlt_filterResult).size()<<std::endl;
+  for(size_t i =0; i < (*hlt_filterResult).size() ; i++) {
+    std::string trigname = (*hlt_filterName)[i];
+    if(false) std::cout<<" trigge number "<<i <<" is "<<trigname<<std::endl;
+    size_t foundEle00=trigname.find(TRIGNAME);//HLT_DoubleEle33
+    if ( foundEle00==std::string::npos) continue;
+    
+    if(false) std::cout<<"trigger name = "<<trigname
+             <<" status = "<<(*hlt_filterResult)[i]<<std::endl;
+    triggerstat=(*hlt_filterResult)[i];
   }
   return triggerstat;
 }
@@ -673,9 +698,9 @@ void RKAnalyzer::MonoHiggsAnalyzer(){
   
   // Fill Validation Histograms for Jets
   
-  if(true) std::cout<<" Jet Validator no sel"<<std::endl;
+  if(false) std::cout<<" Jet Validator no sel"<<std::endl;
   if(RKJetCollection.size()>0) jetvalidator.Fill(RKJetCollection);
-  if(true) std::cout<<" Jet Validator with sel"<<std::endl;
+  if(false) std::cout<<" Jet Validator with sel"<<std::endl;
   if (RKJetCollection_selected.size()>0) jetvalidator_selected.Fill(RKJetCollection_selected);
   if (MH_FATJetCollection.size() > 0 ) fatjetvalidator.Fill(MH_FATJetCollection);
   //if (MH_ADDJetCollection.size() > 0 ) addjetvalidator.Fill(MH_ADDJetCollection);
@@ -726,7 +751,7 @@ void RKAnalyzer::MonoHiggsAnalyzer(){
   
   
   // Fat Jet Analysis starts here. 
-  std::cout<<" fat jet met starts here "<<std::endl;
+  if(false) std::cout<<" fat jet met starts here "<<std::endl;
   // FatJet-MET
   if(MH_FATJetCollection.size()>0) RKFatJetMETCollection = fatjet_met.ReconstructDiObject(MH_FATJetCollection,met);
   if(RKFatJetMETCollection.size()>0) RKFatJetMETCollectionWithStatus  = selectionbits.SelectionBitsSaver(RKFatJetMETCollection, cuts.cutValueMapFatJet);
@@ -742,7 +767,7 @@ void RKAnalyzer::MonoHiggsAnalyzer(){
   //--------------------------------------------------------
   std::vector<int> fatjetbitVec ;
   fatjetbitVec.clear();
-  fatjetbitVec = {0, 1, 5, 6, 7};
+  fatjetbitVec = {0, 1, 6, 7, 8};
   if(RKFatJetMETCollectionWithStatus.size()>0) histfacFatJetPreSel.Fill(RKFatJetMETCollectionWithStatus,1,fatjetbitVec);
   if(RKFatJetMETCollectionWithStatus.size()>0) nminusobj.Fill(RKFatJetMETCollectionWithStatus,fatjetbitVec);
   if(RKFatJetMETCollectionWithStatus.size()>0) cutflowFatJetobj.CutFlow(RKFatJetMETCollectionWithStatus, fatjetbitVec);
@@ -751,7 +776,7 @@ void RKAnalyzer::MonoHiggsAnalyzer(){
   // Two Sub Jet CSV
   //--------------------------------------------------------
   fatjetbitVec.clear();
-  fatjetbitVec = {0, 2, 5, 6, 7};
+  fatjetbitVec = {0, 2, 6, 7, 8};
   if(RKFatJetMETCollectionWithStatus.size()>0) histfacFatJetPreSel_2subj.Fill(RKFatJetMETCollectionWithStatus,1,fatjetbitVec);
   if(RKFatJetMETCollectionWithStatus.size()>0) nminusobj_2subj.Fill(RKFatJetMETCollectionWithStatus,fatjetbitVec);
   if(RKFatJetMETCollectionWithStatus.size()>0) cutflowFatJetobj_2subj.CutFlow(RKFatJetMETCollectionWithStatus, fatjetbitVec);
@@ -760,7 +785,7 @@ void RKAnalyzer::MonoHiggsAnalyzer(){
   // Exactly Sub Jet CSV
   //--------------------------------------------------------
   fatjetbitVec.clear();
-  fatjetbitVec = {0, 3, 5, 6, 7};
+  fatjetbitVec = {0, 3, 6, 7, 8};
   if(RKFatJetMETCollectionWithStatus.size()>0) histfacFatJetPreSel_1subj.Fill(RKFatJetMETCollectionWithStatus,1,fatjetbitVec);
   if(RKFatJetMETCollectionWithStatus.size()>0) nminusobj_1subj.Fill(RKFatJetMETCollectionWithStatus,fatjetbitVec);
   if(RKFatJetMETCollectionWithStatus.size()>0) cutflowFatJetobj_1subj.CutFlow(RKFatJetMETCollectionWithStatus, fatjetbitVec);
@@ -769,21 +794,21 @@ void RKAnalyzer::MonoHiggsAnalyzer(){
   // Delta R based Sub Jet CSV
   //--------------------------------------------------------
   fatjetbitVec.clear();
-  fatjetbitVec = {0, 4, 5, 6, 7};
+  fatjetbitVec = {0, 4, 6, 7, 8};
   if(RKFatJetMETCollectionWithStatus.size()>0) histfacFatJetPreSel_DRsubj.Fill(RKFatJetMETCollectionWithStatus,1,fatjetbitVec);
   if(RKFatJetMETCollectionWithStatus.size()>0) nminusobj_DRsubj.Fill(RKFatJetMETCollectionWithStatus,fatjetbitVec);
   if(RKFatJetMETCollectionWithStatus.size()>0) cutflowFatJetobj_DRsubj.CutFlow(RKFatJetMETCollectionWithStatus, fatjetbitVec);
-  std::cout<<" fat jet met ends here "<<std::endl;
+  if(false) std::cout<<" fat jet met ends here "<<std::endl;
 
   //--------------------------------------------------------
   // Delta R based Sub Jet CSV :: ATLEAST 1 sub-jet
   //--------------------------------------------------------
   fatjetbitVec.clear();
-  fatjetbitVec = {0, 4, 5, 6, 7};
+  fatjetbitVec = {0, 5, 6, 7, 8};
   if(RKFatJetMETCollectionWithStatus.size()>0) histfacFatJetPreSel_DROnesubj.Fill(RKFatJetMETCollectionWithStatus,1,fatjetbitVec);
   if(RKFatJetMETCollectionWithStatus.size()>0) nminusobj_DROnesubj.Fill(RKFatJetMETCollectionWithStatus,fatjetbitVec);
   if(RKFatJetMETCollectionWithStatus.size()>0) cutflowFatJetobj_DROnesubj.CutFlow(RKFatJetMETCollectionWithStatus, fatjetbitVec);
-  std::cout<<" fat jet met ends here "<<std::endl;
+  if(false) std::cout<<" fat jet met ends here "<<std::endl;
   
   
   //--------------------------------------------------------
@@ -871,16 +896,16 @@ void RKAnalyzer::MonoHiggsAnalyzer(){
   // fill histograms for di-jet + met vaiables. Mono-H Specific histograms. 
   std::vector<int> bitVec; bitVec.clear();
   
-  if(true) std::cout<<" histfac 1"<<std::endl;
+  if(false) std::cout<<" histfac 1"<<std::endl;
   if(RKDiJetMETCollectionWithStatus.size()>0) histfac.Fill(RKDiJetMETCollectionWithStatus,1, bitVec); // empty vector for no cuts
   
-  if(true) std::cout<<" histfac 2"<<std::endl;
+  if(false) std::cout<<" histfac 2"<<std::endl;
   // Following is pT,  Eta and CSV Loose
   bitVec.push_back(0); bitVec.push_back(1); bitVec.push_back(2); bitVec.push_back(3);
   if(RKDiJetMETCollectionWithStatus.size()>0) histfacJetPreSel.Fill(RKDiJetMETCollectionWithStatus,1, bitVec);
   bitVec.clear();
   
-  if(true) std::cout<<" histfac 3"<<std::endl;
+  if(false) std::cout<<" histfac 3"<<std::endl;
   // Call again with different bit pattern to measure efficiency. 
   // pre-selection
   bitVec.push_back(0); bitVec.push_back(1); bitVec.push_back(2); 
@@ -890,7 +915,7 @@ void RKAnalyzer::MonoHiggsAnalyzer(){
   
   // For ISR Study Using Thin Jets 
   // Using pre-selection
-  std::cout<<" calling isr "<<std::endl;
+  if(false) std::cout<<" calling isr "<<std::endl;
   mh_isrstudy.Fill(RKDiJetMETCollectionWithStatus,1,bitVec);
   
   if(false) std::cout<<" histfac 1"<<std::endl;

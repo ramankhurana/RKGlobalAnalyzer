@@ -69,6 +69,7 @@ class RKAnalyzer {
   bool debug;
   
   bool triggerstatus;
+  bool filterstatus;
   // Main Program Histograms
   TH1F* nEvents;
   TH1F* nEvents_weight;
@@ -974,6 +975,7 @@ class RKAnalyzer {
    void TotalEvent(std::vector<TString> filelist);
    void TotalEvent(TH1F* h);
    bool TriggerStatus(std::string TRIGNAME);
+   bool FilterStatus(std::string TRIGNAME);
    // User Functions 
    // Clear all the collections for each event.
    void ClearCollections();
@@ -1009,7 +1011,9 @@ class RKAnalyzer {
 //TString filename="/hdfs/store/user/khurana/DYJetsToLL_M-50_HT-100to200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/crab_DYJetsToLL_M-50_HT-100to200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_0826/150826_144459/0000/NCUGlobalTuples_77.root";
   //TString filename="/hdfs/store/user/khurana/SignalFiles_0804/NCUGlobalTuples_M1500GeV.root";
   //TString filename="/hdfs/store/user/khurana/MonoHSignalTreesMerged_20150919/Merged_crab_MonoHToBBarMZp-600GeV_MA0-300GeVTreeMaker_0919.root";
-  TString filename="/hdfs/store/user/khurana/MET/crab_MET-Run2015D-PromptReco-V4_20151019/151019_195552/0000/NCUGlobalTuples_1.root";
+  //TString filename="/hdfs/store/user/khurana/MET/crab_MET-Run2015D-PromptReco-V4_20151019/151019_195552/0000/NCUGlobalTuples_1.root";
+  //TString filename="/hdfs/store/user/khurana/MonoHSignalTrees_20151012/crab_MonoHToBBarMZp-1400GeV_MA0-300GeVTreeMaker_20151012/treeMaker_Spring15_Nocleaning_cfg-step3_miniAOD_1.root";
+  TString filename="/hdfs/store/user/khurana/MET/crab_MET-Run2015D-PromptReco-V420151027_1p2fb/151027_163331/0000/NCUGlobalTuples_144.root";
   
   //TString filename="/hdfs/store/user/khurana/ZprimeToZhToZinvhbb_narrow_M-2000_13TeV-madgraph/crab_ZprimeToZhToZinvhbb_narrow_M-2000_13TeV-madgraph_0826/150826_090147/0000/NCUGlobalTuples_6.root";
   

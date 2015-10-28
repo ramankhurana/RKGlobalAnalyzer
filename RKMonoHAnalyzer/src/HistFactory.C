@@ -61,7 +61,7 @@ void HistFactory::DefineHistograms(){
 }
 
 void HistFactory::Fill(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > objectCollection, Int_t howManyObjs, std::vector<int> istatus){
-  std::cout<<" inside the Histfac fill "<<objectCollection.size()<<std::endl;
+  if(false) std::cout<<" inside the Histfac fill "<<objectCollection.size()<<std::endl;
   if(objectCollection.size()>0){
     for(size_t i=0; i< TMath::Min(objectCollection.size(),(size_t)nobjectmet);i++){
       Int_t nbits = 0;
@@ -72,26 +72,26 @@ void HistFactory::Fill(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > objec
       }
 
       
-      std::cout<<" loop over bits done "<<nbits<<std::endl;
+      if(false) std::cout<<" loop over bits done "<<nbits<<std::endl;
       Float_t mcweight_  = 1.;
       if(objectCollection.size() >0) mcweight_ = objectCollection[0].jet1.jet1.event.mcweight ;
       
       if(nbits==(int)istatus.size()){
-	std::cout<<" before N muons "<<objectCollection[0].muons.size()<<std::endl;
+	if(false)std::cout<<" before N muons "<<objectCollection[0].muons.size()<<std::endl;
 	h_nMuons[i]->Fill(objectCollection[0].muons.size()             , mcweight_  );
-	std::cout<<" after muons "<<std::endl;
+	if(false)std::cout<<" after muons "<<std::endl;
 	h_nElectrons[i]->Fill(objectCollection[0].electrons.size()     , mcweight_  );
-	std::cout<<" after Neles "<<std::endl;
+	if(false)std::cout<<" after Neles "<<std::endl;
 	
 	if(objectCollection[i].jets.size() >= 2) h_nJets[i]->Fill(objectCollection[0].jets.size()-2     , mcweight_  ); //  -2 is required to get the additional jets.
-	std::cout<<" after NJets "<<std::endl;
+	if(false)std::cout<<" after NJets "<<std::endl;
 
 	h_Q1Q2[i]->Fill(objectCollection[i].jet1.jet1.charge * objectCollection[i].jet1.jet2.charge      , mcweight_   );
-	std::cout<<" after charge "<<std::endl;
+	if(false)std::cout<<" after charge "<<std::endl;
 
 	h_MET[i]->Fill(objectCollection[i].jet2.RawPt                  , mcweight_  );
 	h_Mjj[i]->Fill(objectCollection[i].jet1.ResonanceProp.InvMass  , mcweight_  );
-	std::cout<<" after Invmass "<<std::endl;
+	if(false)std::cout<<" after Invmass "<<std::endl;
 	h_pTjj[i]->Fill(objectCollection[i].jet1.ResonanceProp.p4.Pt() , mcweight_  );
 	
 	float csv1=objectCollection[i].jet1.jet1.B_CISVV2;
@@ -100,7 +100,7 @@ void HistFactory::Fill(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > objec
 	h_CSVMax[i]->Fill(TMath::Max(csv1,csv2)                        , mcweight_  );
 	h_CSVMin[i]->Fill(TMath::Min(csv1,csv2)                        , mcweight_  );
 	h_CSVSum[i]->Fill((csv1+csv2)                     		  , mcweight_  );
-	std::cout<<" after csv "<<std::endl;
+	if(false)std::cout<<" after csv "<<std::endl;
 	float dphi1 = objectCollection[i].objMet1.DeltaPhi;
 	float dphi2 = objectCollection[i].objMet2.DeltaPhi;
 	h_dPhi_MET_J[i]->Fill(TMath::Abs(TMath::Min(dphi1,dphi2))      , mcweight_  );
@@ -108,7 +108,7 @@ void HistFactory::Fill(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > objec
 	h_MT_bb_MET[i]->Fill(objectCollection[i].ResonancemetProp.TransMass  , mcweight_ );
 	h_dPhi_bb_MET[i]->Fill(objectCollection[i].ResonancemetProp.DeltaPhi , mcweight_ );
 
-	std::cout<<" after all 1d "<<std::endl;
+	if(false)	std::cout<<" after all 1d "<<std::endl;
 	// 2D histograms 
 	h_M_vs_MET[i]->Fill(objectCollection[i].jet1.ResonanceProp.InvMass, objectCollection[i].jet2.RawPt );
 	h_MET_vs_Q1Q2[i]->Fill(objectCollection[i].jet2.RawPt, (objectCollection[i].jet1.jet1.charge * objectCollection[i].jet1.jet2.charge));
@@ -139,10 +139,11 @@ void HistFactory::Fill(std::vector<ResonanceWithMET<Jet,MET > > objectCollection
 
     
       Float_t mcweight_  = 1.;
-      if(objectCollection.size() >0) mcweight_ = objectCollection[0].events.allmcweight ;
+      //if(objectCollection.size() >0) mcweight_ = objectCollection[0].events.allmcweight ;
+      if(objectCollection.size() >0) mcweight_ = objectCollection[0].events.mcweight ;
       
       if(nbits==(int)istatus.size()){
-	std::cout<<" filling FATJETMET "<<std::endl;
+	if(false)	std::cout<<" filling FATJETMET "<<std::endl;
 	h_nMuons[i]->Fill(objectCollection[0].muons.size()             , mcweight_  );
 	h_nElectrons[i]->Fill(objectCollection[0].electrons.size()     , mcweight_  );
         h_nTaus[i]->Fill(objectCollection[0].taus.size()               , mcweight_  );
@@ -154,8 +155,8 @@ void HistFactory::Fill(std::vector<ResonanceWithMET<Jet,MET > > objectCollection
 				     objectCollection[0].jet1.p4.Eta(),
 				     objectCollection[0].jet1.p4.Phi());
 	  if(dr_ < 0.8 )  continue;
-	  float dphi_ = RKMath::DeltaPhi(objectCollection[0].jets[ij].p4.Phi(), objectCollection[0].jet1.p4.Phi() );
-	  if( dphi_ < 2.0 ) continue;
+	  //float dphi_ = RKMath::DeltaPhi(objectCollection[0].jets[ij].p4.Phi(), objectCollection[0].jet1.p4.Phi() );
+	  //if( dphi_ < 2.0 ) continue;
 	  naddjet++;
 	}
 	h_nJets[i]->Fill(naddjet   , mcweight_  ); 

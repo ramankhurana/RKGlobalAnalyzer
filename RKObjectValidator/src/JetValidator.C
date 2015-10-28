@@ -2,7 +2,7 @@
 #include "../interface/JetValidator.h"
 void JetValidator::Fill(std::vector<Jet> jetcollection){
   
-  if(true) std::cout<<" num of jets = "<<jetcollection.size()<<std::endl;
+  if(false) std::cout<<" num of jets = "<<jetcollection.size()<<std::endl;
   
   Float_t mcweight_  = 1.;
 
@@ -68,7 +68,7 @@ void JetValidator::Fill(std::vector<Jet> jetcollection){
     h_tau3                 ->Fill(jetcollection[i].tau3                      , mcweight_        );
     h_tau21                ->Fill(jetcollection[i].tau2/jetcollection[i].tau1, mcweight_        );
 
-    std::cout<<" filled before vertex "<<jetcollection[i].nVtx<<std::endl;
+    if(false) std::cout<<" filled before vertex "<<jetcollection[i].nVtx<<std::endl;
     // TProfiles for Jet variables 
     int nVtx_ = jetcollection[i].nVtx;
     p_Nvtx_jetCEmEF  ->  Fill(nVtx_, jetcollection[i].jetCEmEF                     ) ;
@@ -143,9 +143,9 @@ void JetValidator::Fill(std::vector<Jet> jetcollection){
 void JetValidator::GetInputs(TFile* f, TString prefix_){
   prefix = prefix_;
   file = f;
-  if(true) std::cout<<" calling define histograms for Jets "<<std::endl;
+  if(false) std::cout<<" calling define histograms for Jets "<<std::endl;
   DefineHistograms();
-  if(true) std::cout<<" Jets histo defined "<<std::endl;
+  if(false) std::cout<<" Jets histo defined "<<std::endl;
 }
 
 
