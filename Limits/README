@@ -1,0 +1,8 @@
+To prepare datacards for one particular text file use : 
+-- python MakeDataCards.py text_file_name dir_name_to_save_datacards
+
+To prepare datacards for optimization of a particular cut based on expected limits first test the MakeDataCards.py using one text file and if it works fine then use following : 
+-- python MakeDataCardsForOptimization.py dir_name_where_all_text_files_are_kept.txt
+where, dir_name_where_all_text_files_are_kept.txt is the directory in which you will kep all the text files. This script will take one textfile at one time and produce datacards 
+for all mass points and then move them into a directory ''dir_name_where_all_text_files_are_kept'' and finallay all these datacards directories are then moved to a new directory 
+''Datacards_dir_name_to_save_datacards'' where dir_name_to_save_datacards is the name you provided. 
