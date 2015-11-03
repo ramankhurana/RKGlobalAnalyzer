@@ -157,6 +157,8 @@ std::vector<ResonanceWithMET<Jet,MET> > SelectionBitsProducer::SelectionBitsSave
 				   objectCollection[0].jet1.p4.Eta(),
 				   objectCollection[0].jet1.p4.Phi());
 	if(dr_ < 0.8 )  continue;
+	//float dphi_ = RKMath::DeltaPhi(objectCollection[0].jets[ij].p4.Phi(), objectCollection[0].jet1.p4.Phi() );                                                                  
+	//if( TMath::Abs(dphi_) < 2.0 ) continue;                                                                      
 	naddjet++;
       }
       StatusOfCuts[cuts.cutsMapFatJet["jNele"]]             = (objectCollection[0].electrons.size() == tmp_cutValueMap["Nele"]);
@@ -173,7 +175,7 @@ std::vector<ResonanceWithMET<Jet,MET> > SelectionBitsProducer::SelectionBitsSave
       
       
 
-
+      
       StatusOfCuts[cuts.cutsMapFatJet["oNjetless"]]             = (naddjet < tmp_cutValueMap["Njet"]);
       
       // exactly Zero leptons

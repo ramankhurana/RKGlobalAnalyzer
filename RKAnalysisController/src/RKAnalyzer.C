@@ -108,7 +108,7 @@ void RKAnalyzer::Loop(TString output){
      triggerstatus = met120 || met170 ;
      
      if(isData==1)  filterstatus = eeBadSC && csct && hlt_hbhet;
-     if(isData==0)  filterstatus = false;
+     if(isData==0)  filterstatus = true;
      if(false) std::cout<<" ---------- trigger done ---------"<<std::endl;
      // Clear all the collections
      ClearCollections();
@@ -820,7 +820,8 @@ void RKAnalyzer::MonoHiggsAnalyzer(){
   //--------------------------------------------------------
   // Replace the baseline analysis status bits by ttbar status bit
   if(RKFatJetMETCollection.size()>0) RKFatJetMETCollectionWithStatus  = selectionbits.SelectionBitsSaver(RKFatJetMETCollectionWithStatus, cuts.cutValueMapTTBar);
-  fatjetbitVec = {0, 2, 6, 8, 15, 11, 13};
+  //fatjetbitVec = {0, 2, 6, 8, 15, 11, 13};
+  fatjetbitVec = {0, 6, 8, 15, 11, 13}; // relaxed sub-jet btag for ttbar for now
   if(RKFatJetMETCollectionWithStatus.size()>0) histfacFatJet_TTBar.Fill(RKFatJetMETCollectionWithStatus,1,fatjetbitVec);
 
   //--------------------------------------------------------

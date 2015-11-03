@@ -139,7 +139,7 @@ class MonoHiggsCuts {
     cutValueMapTTBar["Nele"]=1;
     cutValueMapTTBar["Nmu"]=1;
     cutValueMapTTBar["Ntau"]=1;
-    cutValueMapTTBar["Njet"]=1;// atleast 1 jets
+    cutValueMapTTBar["Njet"]=2;// atleast 1 jets
     cutValueMapTTBar["NLepton"]=1;
     cutValueMapTTBar["DPHIMETClosedJ"]=0.5;
 
