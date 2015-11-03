@@ -1,0 +1,743 @@
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  6104  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_WJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  61500  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_WW_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  118.7  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_WZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  66.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_ZZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  15.4  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_TT_TuneCUETP8M1_13TeV-powheg-pythia8-runallAnalysis.root  &  831.76  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_QCD_Pt-15TTo7000_TuneZ2star-Flat_13TeV_pythia6-runallAnalysis.root  &  8.9731e+10  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_ZH_HToBB_ZToNuNu_M120_13TeV_amcatnloFXFX_madspin_pythia8-runallAnalysis.root  &  0.9696  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M600GeV.root  &  0.202  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M700GeV.root  &  0.16  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M800GeV.root  &  0.12498  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M900GeV.root  &  0.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M1000GeV.root  &  0.065056  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M1200GeV.root  &  0.03437  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M1500GeV.root  &  0.015  &  
+CutFlowAndEachCutFatJet_h_cutflow_0_f
+ DATA 94
+ DYJETS 1.71814
+ DIBOSON 2.11188
+ TT 36.9067
+ WJETS 45.7635
+ ZH 0.605618
+ M600 0.0295752
+ M700 0.206929
+ M800 1.16094
+ M900 1.59345
+ M1000 1.26788
+ M1200 0.833105
+ M1500 0.370056
+ QCD 4.06506e+10
+======================================================
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  6104  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_WJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  61500  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_WW_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  118.7  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_WZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  66.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_ZZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  15.4  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_TT_TuneCUETP8M1_13TeV-powheg-pythia8-runallAnalysis.root  &  831.76  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_QCD_Pt-15TTo7000_TuneZ2star-Flat_13TeV_pythia6-runallAnalysis.root  &  8.9731e+10  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_ZH_HToBB_ZToNuNu_M120_13TeV_amcatnloFXFX_madspin_pythia8-runallAnalysis.root  &  0.9696  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M600GeV.root  &  0.202  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M700GeV.root  &  0.16  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M800GeV.root  &  0.12498  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M900GeV.root  &  0.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M1000GeV.root  &  0.065056  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M1200GeV.root  &  0.03437  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M1500GeV.root  &  0.015  &  
+CutFlowAndEachCutFatJet_h_cutflow_0_f
+ DATA 94
+ DYJETS 1.71814
+ DIBOSON 2.11188
+ TT 36.9067
+ WJETS 45.7635
+ ZH 0.605618
+ M600 0.0295752
+ M700 0.206929
+ M800 1.16094
+ M900 1.59345
+ M1000 1.26788
+ M1200 0.833105
+ M1500 0.370056
+ QCD 4.06506e+10
+======================================================
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  6104  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_WJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  61500  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_WW_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  118.7  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_WZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  66.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_ZZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  15.4  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_TT_TuneCUETP8M1_13TeV-powheg-pythia8-runallAnalysis.root  &  831.76  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_QCD_Pt-15TTo7000_TuneZ2star-Flat_13TeV_pythia6-runallAnalysis.root  &  8.9731e+10  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_ZH_HToBB_ZToNuNu_M120_13TeV_amcatnloFXFX_madspin_pythia8-runallAnalysis.root  &  0.9696  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M600GeV.root  &  0.202  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M700GeV.root  &  0.16  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M800GeV.root  &  0.12498  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M900GeV.root  &  0.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M1000GeV.root  &  0.065056  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M1200GeV.root  &  0.03437  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M1500GeV.root  &  0.015  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  6104  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_WJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  61500  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_WW_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  118.7  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_WZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  66.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_ZZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  15.4  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_TT_TuneCUETP8M1_13TeV-powheg-pythia8-runallAnalysis.root  &  831.76  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_QCD_Pt-15TTo7000_TuneZ2star-Flat_13TeV_pythia6-runallAnalysis.root  &  8.9731e+10  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_ZH_HToBB_ZToNuNu_M120_13TeV_amcatnloFXFX_madspin_pythia8-runallAnalysis.root  &  0.9696  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M600GeV.root  &  0.202  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M700GeV.root  &  0.16  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M800GeV.root  &  0.12498  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M900GeV.root  &  0.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M1000GeV.root  &  0.065056  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M1200GeV.root  &  0.03437  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M1500GeV.root  &  0.015  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  6104  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_WJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  61500  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_WW_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  118.7  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_WZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  66.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_ZZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  15.4  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_TT_TuneCUETP8M1_13TeV-powheg-pythia8-runallAnalysis.root  &  831.76  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_QCD_Pt-15TTo7000_TuneZ2star-Flat_13TeV_pythia6-runallAnalysis.root  &  8.9731e+10  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_ZH_HToBB_ZToNuNu_M120_13TeV_amcatnloFXFX_madspin_pythia8-runallAnalysis.root  &  0.9696  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M600GeV.root  &  0.202  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M700GeV.root  &  0.16  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M800GeV.root  &  0.12498  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M900GeV.root  &  0.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M1000GeV.root  &  0.065056  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M1200GeV.root  &  0.03437  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M1500GeV.root  &  0.015  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  6104  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_WJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  61500  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_WW_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  118.7  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_WZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  66.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_ZZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  15.4  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_TT_TuneCUETP8M1_13TeV-powheg-pythia8-runallAnalysis.root  &  831.76  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_QCD_Pt-15TTo7000_TuneZ2star-Flat_13TeV_pythia6-runallAnalysis.root  &  8.9731e+10  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_ZH_HToBB_ZToNuNu_M120_13TeV_amcatnloFXFX_madspin_pythia8-runallAnalysis.root  &  0.9696  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M600GeV.root  &  0.202  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M700GeV.root  &  0.16  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M800GeV.root  &  0.12498  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M900GeV.root  &  0.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M1000GeV.root  &  0.065056  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M1200GeV.root  &  0.03437  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M1500GeV.root  &  0.015  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  6104  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_WJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  61500  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_WW_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  118.7  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_WZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  66.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_ZZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  15.4  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_TT_TuneCUETP8M1_13TeV-powheg-pythia8-runallAnalysis.root  &  831.76  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_QCD_Pt-15TTo7000_TuneZ2star-Flat_13TeV_pythia6-runallAnalysis.root  &  8.9731e+10  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_ZH_HToBB_ZToNuNu_M120_13TeV_amcatnloFXFX_madspin_pythia8-runallAnalysis.root  &  0.9696  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M600GeV.root  &  0.202  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M700GeV.root  &  0.16  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M800GeV.root  &  0.12498  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M900GeV.root  &  0.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M1000GeV.root  &  0.065056  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M1200GeV.root  &  0.03437  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M1500GeV.root  &  0.015  &  
+MonoHFatJetsPreselection_h_Mjj0
+ DATA 0
+ DYJETS 0
+ DIBOSON 0
+ TT 0
+ WJETS 0
+ ZH 0
+ M600 0
+ M700 0
+ M800 0
+ M900 0
+ M1000 0
+ M1200 0
+ M1500 0
+ QCD 1.65546e+10
+======================================================
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  6104  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_WJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  61500  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_WW_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  118.7  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_WZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  66.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_ZZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  15.4  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_TT_TuneCUETP8M1_13TeV-powheg-pythia8-runallAnalysis.root  &  831.76  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_QCD_Pt-15TTo7000_TuneZ2star-Flat_13TeV_pythia6-runallAnalysis.root  &  8.9731e+10  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_ZH_HToBB_ZToNuNu_M120_13TeV_amcatnloFXFX_madspin_pythia8-runallAnalysis.root  &  0.9696  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M600GeV.root  &  0.202  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M700GeV.root  &  0.16  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M800GeV.root  &  0.12498  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M900GeV.root  &  0.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M1000GeV.root  &  0.065056  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M1200GeV.root  &  0.03437  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M1500GeV.root  &  0.015  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  6104  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_WJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  61500  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_WW_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  118.7  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_WZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  66.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_ZZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  15.4  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_TT_TuneCUETP8M1_13TeV-powheg-pythia8-runallAnalysis.root  &  831.76  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_QCD_Pt-15TTo7000_TuneZ2star-Flat_13TeV_pythia6-runallAnalysis.root  &  8.9731e+10  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_ZH_HToBB_ZToNuNu_M120_13TeV_amcatnloFXFX_madspin_pythia8-runallAnalysis.root  &  0.9696  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M600GeV.root  &  0.202  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M700GeV.root  &  0.16  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M800GeV.root  &  0.12498  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M900GeV.root  &  0.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M1000GeV.root  &  0.065056  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M1200GeV.root  &  0.03437  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M1500GeV.root  &  0.015  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  6104  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_WJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  61500  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_WW_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  118.7  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_WZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  66.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_ZZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  15.4  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_TT_TuneCUETP8M1_13TeV-powheg-pythia8-runallAnalysis.root  &  831.76  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_QCD_Pt-15TTo7000_TuneZ2star-Flat_13TeV_pythia6-runallAnalysis.root  &  8.9731e+10  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_ZH_HToBB_ZToNuNu_M120_13TeV_amcatnloFXFX_madspin_pythia8-runallAnalysis.root  &  0.9696  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M600GeV.root  &  0.202  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M700GeV.root  &  0.16  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M800GeV.root  &  0.12498  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M900GeV.root  &  0.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M1000GeV.root  &  0.065056  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M1200GeV.root  &  0.03437  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M1500GeV.root  &  0.015  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  6104  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_WJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  61500  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_WW_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  118.7  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_WZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  66.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_ZZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  15.4  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_TT_TuneCUETP8M1_13TeV-powheg-pythia8-runallAnalysis.root  &  831.76  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_QCD_Pt-15TTo7000_TuneZ2star-Flat_13TeV_pythia6-runallAnalysis.root  &  8.9731e+10  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_ZH_HToBB_ZToNuNu_M120_13TeV_amcatnloFXFX_madspin_pythia8-runallAnalysis.root  &  0.9696  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M600GeV.root  &  0.202  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M700GeV.root  &  0.16  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M800GeV.root  &  0.12498  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M900GeV.root  &  0.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M1000GeV.root  &  0.065056  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M1200GeV.root  &  0.03437  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M1500GeV.root  &  0.015  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  6104  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_WJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  61500  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_WW_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  118.7  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_WZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  66.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_ZZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  15.4  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_TT_TuneCUETP8M1_13TeV-powheg-pythia8-runallAnalysis.root  &  831.76  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_QCD_Pt-15TTo7000_TuneZ2star-Flat_13TeV_pythia6-runallAnalysis.root  &  8.9731e+10  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_ZH_HToBB_ZToNuNu_M120_13TeV_amcatnloFXFX_madspin_pythia8-runallAnalysis.root  &  0.9696  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M600GeV.root  &  0.202  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M700GeV.root  &  0.16  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M800GeV.root  &  0.12498  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M900GeV.root  &  0.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M1000GeV.root  &  0.065056  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M1200GeV.root  &  0.03437  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M1500GeV.root  &  0.015  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  6104  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_WJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  61500  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_WW_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  118.7  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_WZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  66.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_ZZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  15.4  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_TT_TuneCUETP8M1_13TeV-powheg-pythia8-runallAnalysis.root  &  831.76  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_QCD_Pt-15TTo7000_TuneZ2star-Flat_13TeV_pythia6-runallAnalysis.root  &  8.9731e+10  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_ZH_HToBB_ZToNuNu_M120_13TeV_amcatnloFXFX_madspin_pythia8-runallAnalysis.root  &  0.9696  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M600GeV.root  &  0.202  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M700GeV.root  &  0.16  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M800GeV.root  &  0.12498  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M900GeV.root  &  0.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M1000GeV.root  &  0.065056  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M1200GeV.root  &  0.03437  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M1500GeV.root  &  0.015  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  6104  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_WJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  61500  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_WW_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  118.7  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_WZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  66.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_ZZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  15.4  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_TT_TuneCUETP8M1_13TeV-powheg-pythia8-runallAnalysis.root  &  831.76  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_QCD_Pt-15TTo7000_TuneZ2star-Flat_13TeV_pythia6-runallAnalysis.root  &  8.9731e+10  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_ZH_HToBB_ZToNuNu_M120_13TeV_amcatnloFXFX_madspin_pythia8-runallAnalysis.root  &  0.9696  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M600GeV.root  &  0.202  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M700GeV.root  &  0.16  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M800GeV.root  &  0.12498  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M900GeV.root  &  0.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M1000GeV.root  &  0.065056  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M1200GeV.root  &  0.03437  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M1500GeV.root  &  0.015  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  6104  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_WJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  61500  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_WW_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  118.7  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_WZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  66.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_ZZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  15.4  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_TT_TuneCUETP8M1_13TeV-powheg-pythia8-runallAnalysis.root  &  831.76  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_QCD_Pt-15TTo7000_TuneZ2star-Flat_13TeV_pythia6-runallAnalysis.root  &  8.9731e+10  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_ZH_HToBB_ZToNuNu_M120_13TeV_amcatnloFXFX_madspin_pythia8-runallAnalysis.root  &  0.9696  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M600GeV.root  &  0.202  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M700GeV.root  &  0.16  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M800GeV.root  &  0.12498  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M900GeV.root  &  0.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M1000GeV.root  &  0.065056  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M1200GeV.root  &  0.03437  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M1500GeV.root  &  0.015  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  6104  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_WJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  61500  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_WW_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  118.7  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_WZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  66.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_ZZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  15.4  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_TT_TuneCUETP8M1_13TeV-powheg-pythia8-runallAnalysis.root  &  831.76  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_QCD_Pt-15TTo7000_TuneZ2star-Flat_13TeV_pythia6-runallAnalysis.root  &  8.9731e+10  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_ZH_HToBB_ZToNuNu_M120_13TeV_amcatnloFXFX_madspin_pythia8-runallAnalysis.root  &  0.9696  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M600GeV.root  &  0.202  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M700GeV.root  &  0.16  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M800GeV.root  &  0.12498  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M900GeV.root  &  0.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M1000GeV.root  &  0.065056  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M1200GeV.root  &  0.03437  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M1500GeV.root  &  0.015  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  6104  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_WJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  61500  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_WW_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  118.7  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_WZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  66.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_ZZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  15.4  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_TT_TuneCUETP8M1_13TeV-powheg-pythia8-runallAnalysis.root  &  831.76  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_QCD_Pt-15TTo7000_TuneZ2star-Flat_13TeV_pythia6-runallAnalysis.root  &  8.9731e+10  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_ZH_HToBB_ZToNuNu_M120_13TeV_amcatnloFXFX_madspin_pythia8-runallAnalysis.root  &  0.9696  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M600GeV.root  &  0.202  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M700GeV.root  &  0.16  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M800GeV.root  &  0.12498  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M900GeV.root  &  0.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M1000GeV.root  &  0.065056  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M1200GeV.root  &  0.03437  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M1500GeV.root  &  0.015  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  6104  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_WJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  61500  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_WW_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  118.7  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_WZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  66.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_ZZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  15.4  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_TT_TuneCUETP8M1_13TeV-powheg-pythia8-runallAnalysis.root  &  831.76  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_QCD_Pt-15TTo7000_TuneZ2star-Flat_13TeV_pythia6-runallAnalysis.root  &  8.9731e+10  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_ZH_HToBB_ZToNuNu_M120_13TeV_amcatnloFXFX_madspin_pythia8-runallAnalysis.root  &  0.9696  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M600GeV.root  &  0.202  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M700GeV.root  &  0.16  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M800GeV.root  &  0.12498  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M900GeV.root  &  0.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M1000GeV.root  &  0.065056  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M1200GeV.root  &  0.03437  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M1500GeV.root  &  0.015  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  6104  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_WJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  61500  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_WW_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  118.7  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_WZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  66.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_ZZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  15.4  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_TT_TuneCUETP8M1_13TeV-powheg-pythia8-runallAnalysis.root  &  831.76  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_QCD_Pt-15TTo7000_TuneZ2star-Flat_13TeV_pythia6-runallAnalysis.root  &  8.9731e+10  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_ZH_HToBB_ZToNuNu_M120_13TeV_amcatnloFXFX_madspin_pythia8-runallAnalysis.root  &  0.9696  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M600GeV.root  &  0.202  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M700GeV.root  &  0.16  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M800GeV.root  &  0.12498  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M900GeV.root  &  0.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M1000GeV.root  &  0.065056  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M1200GeV.root  &  0.03437  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M1500GeV.root  &  0.015  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  6104  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_WJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  61500  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_WW_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  118.7  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_WZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  66.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_ZZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  15.4  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_TT_TuneCUETP8M1_13TeV-powheg-pythia8-runallAnalysis.root  &  831.76  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_QCD_Pt-15TTo7000_TuneZ2star-Flat_13TeV_pythia6-runallAnalysis.root  &  8.9731e+10  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/Merged_ZH_HToBB_ZToNuNu_M120_13TeV_amcatnloFXFX_madspin_pythia8-runallAnalysis.root  &  0.9696  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M600GeV.root  &  0.202  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M700GeV.root  &  0.16  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M800GeV.root  &  0.12498  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M900GeV.root  &  0.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M1000GeV.root  &  0.065056  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M1200GeV.root  &  0.03437  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_5/runallAnalysis-NCUGlobalTuples_M1500GeV.root  &  0.015  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  6104  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_WJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  61500  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_WW_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  118.7  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_WZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  66.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_ZZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  15.4  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_TT_TuneCUETP8M1_13TeV-powheg-pythia8-runallAnalysis.root  &  831.76  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_QCD_Pt-15TTo7000_TuneZ2star-Flat_13TeV_pythia6-runallAnalysis.root  &  8.9731e+10  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_ggZH_HToBB_ZToNuNu_M120_13TeV_powheg_pythia8-runallAnalysis.root  &  0.9696  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M600GeV.root  &  0.202  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M700GeV.root  &  0.16  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M800GeV.root  &  0.12498  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M900GeV.root  &  0.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M1000GeV.root  &  0.065056  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M1200GeV.root  &  0.03437  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M1500GeV.root  &  0.015  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-100to200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  139.4  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-200to400_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  42.75  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-400to600_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  5.497  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-600toInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  2.21  &  
+CutFlowAndEachCutFatJet_h_cutflow_0_f
+ DATA 94
+ DYJETS 0.557934
+ DIBOSON 2.06394
+ TT 36.0412
+ WJETS 19.1239
+ ZH 0.438461
+ DY high pt 0.406433
+ M600 0.0295752
+ M700 0.206929
+ M800 1.15789
+ M900 1.59345
+ M1000 1.26735
+ M1200 0.833105
+ M1500 0.370056
+ QCD 4.06506e+10
+======================================================
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  6104  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_WJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  61500  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_WW_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  118.7  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_WZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  66.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_ZZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  15.4  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_TT_TuneCUETP8M1_13TeV-powheg-pythia8-runallAnalysis.root  &  831.76  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_QCD_Pt-15TTo7000_TuneZ2star-Flat_13TeV_pythia6-runallAnalysis.root  &  8.9731e+10  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_ggZH_HToBB_ZToNuNu_M120_13TeV_powheg_pythia8-runallAnalysis.root  &  0.9696  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M600GeV.root  &  0.202  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M700GeV.root  &  0.16  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M800GeV.root  &  0.12498  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M900GeV.root  &  0.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M1000GeV.root  &  0.065056  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M1200GeV.root  &  0.03437  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M1500GeV.root  &  0.015  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-100to200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  139.4  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-200to400_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  42.75  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-400to600_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  5.497  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-600toInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  2.21  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  6104  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_WJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  61500  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_WW_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  118.7  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_WZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  66.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_ZZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  15.4  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_TT_TuneCUETP8M1_13TeV-powheg-pythia8-runallAnalysis.root  &  831.76  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_QCD_Pt-15TTo7000_TuneZ2star-Flat_13TeV_pythia6-runallAnalysis.root  &  8.9731e+10  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_ggZH_HToBB_ZToNuNu_M120_13TeV_powheg_pythia8-runallAnalysis.root  &  0.9696  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M600GeV.root  &  0.202  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M700GeV.root  &  0.16  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M800GeV.root  &  0.12498  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M900GeV.root  &  0.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M1000GeV.root  &  0.065056  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M1200GeV.root  &  0.03437  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M1500GeV.root  &  0.015  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-100to200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  139.4  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-200to400_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  42.75  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-400to600_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  5.497  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-600toInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  2.21  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  6104  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_WJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  61500  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_WW_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  118.7  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_WZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  66.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_ZZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  15.4  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_TT_TuneCUETP8M1_13TeV-powheg-pythia8-runallAnalysis.root  &  831.76  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_QCD_Pt-15TTo7000_TuneZ2star-Flat_13TeV_pythia6-runallAnalysis.root  &  8.9731e+10  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_ggZH_HToBB_ZToNuNu_M120_13TeV_powheg_pythia8-runallAnalysis.root  &  0.9696  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M600GeV.root  &  0.202  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M700GeV.root  &  0.16  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M800GeV.root  &  0.12498  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M900GeV.root  &  0.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M1000GeV.root  &  0.065056  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M1200GeV.root  &  0.03437  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M1500GeV.root  &  0.015  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-100to200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  139.4  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-200to400_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  42.75  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-400to600_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  5.497  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-600toInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  2.21  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  6104  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_WJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  61500  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_WW_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  118.7  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_WZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  66.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_ZZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  15.4  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_TT_TuneCUETP8M1_13TeV-powheg-pythia8-runallAnalysis.root  &  831.76  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_QCD_Pt-15TTo7000_TuneZ2star-Flat_13TeV_pythia6-runallAnalysis.root  &  8.9731e+10  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_ggZH_HToBB_ZToNuNu_M120_13TeV_powheg_pythia8-runallAnalysis.root  &  0.9696  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M600GeV.root  &  0.202  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M700GeV.root  &  0.16  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M800GeV.root  &  0.12498  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M900GeV.root  &  0.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M1000GeV.root  &  0.065056  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M1200GeV.root  &  0.03437  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M1500GeV.root  &  0.015  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-100to200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  139.4  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-200to400_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  42.75  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-400to600_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  5.497  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-600toInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  2.21  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  6104  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_WJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  61500  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_WW_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  118.7  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_WZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  66.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_ZZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  15.4  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_TT_TuneCUETP8M1_13TeV-powheg-pythia8-runallAnalysis.root  &  831.76  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_QCD_Pt-15TTo7000_TuneZ2star-Flat_13TeV_pythia6-runallAnalysis.root  &  8.9731e+10  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_ggZH_HToBB_ZToNuNu_M120_13TeV_powheg_pythia8-runallAnalysis.root  &  0.9696  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M600GeV.root  &  0.202  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M700GeV.root  &  0.16  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M800GeV.root  &  0.12498  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M900GeV.root  &  0.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M1000GeV.root  &  0.065056  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M1200GeV.root  &  0.03437  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M1500GeV.root  &  0.015  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-100to200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  139.4  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-200to400_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  42.75  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-400to600_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  5.497  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-600toInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  2.21  &  
+MonoHFatJetsPreselection_h_Mjj0
+ DATA 0
+ DYJETS 0
+ DIBOSON 0
+ TT 0
+ WJETS 0
+ ZH 0
+ DY high pt0
+ M600 0
+ M700 0
+ M800 0
+ M900 0
+ M1000 0
+ M1200 0
+ M1500 0
+ QCD 1.65546e+10
+======================================================
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  6104  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_WJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  61500  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_WW_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  118.7  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_WZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  66.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_ZZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  15.4  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_TT_TuneCUETP8M1_13TeV-powheg-pythia8-runallAnalysis.root  &  831.76  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_QCD_Pt-15TTo7000_TuneZ2star-Flat_13TeV_pythia6-runallAnalysis.root  &  8.9731e+10  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_ggZH_HToBB_ZToNuNu_M120_13TeV_powheg_pythia8-runallAnalysis.root  &  0.9696  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M600GeV.root  &  0.202  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M700GeV.root  &  0.16  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M800GeV.root  &  0.12498  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M900GeV.root  &  0.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M1000GeV.root  &  0.065056  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M1200GeV.root  &  0.03437  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M1500GeV.root  &  0.015  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-100to200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  139.4  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-200to400_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  42.75  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-400to600_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  5.497  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-600toInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  2.21  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  6104  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_WJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  61500  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_WW_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  118.7  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_WZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  66.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_ZZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  15.4  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_TT_TuneCUETP8M1_13TeV-powheg-pythia8-runallAnalysis.root  &  831.76  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_QCD_Pt-15TTo7000_TuneZ2star-Flat_13TeV_pythia6-runallAnalysis.root  &  8.9731e+10  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_ggZH_HToBB_ZToNuNu_M120_13TeV_powheg_pythia8-runallAnalysis.root  &  0.9696  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M600GeV.root  &  0.202  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M700GeV.root  &  0.16  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M800GeV.root  &  0.12498  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M900GeV.root  &  0.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M1000GeV.root  &  0.065056  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M1200GeV.root  &  0.03437  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M1500GeV.root  &  0.015  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-100to200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  139.4  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-200to400_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  42.75  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-400to600_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  5.497  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-600toInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  2.21  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  6104  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_WJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  61500  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_WW_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  118.7  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_WZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  66.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_ZZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  15.4  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_TT_TuneCUETP8M1_13TeV-powheg-pythia8-runallAnalysis.root  &  831.76  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_QCD_Pt-15TTo7000_TuneZ2star-Flat_13TeV_pythia6-runallAnalysis.root  &  8.9731e+10  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_ggZH_HToBB_ZToNuNu_M120_13TeV_powheg_pythia8-runallAnalysis.root  &  0.9696  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M600GeV.root  &  0.202  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M700GeV.root  &  0.16  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M800GeV.root  &  0.12498  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M900GeV.root  &  0.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M1000GeV.root  &  0.065056  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M1200GeV.root  &  0.03437  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M1500GeV.root  &  0.015  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-100to200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  139.4  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-200to400_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  42.75  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-400to600_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  5.497  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-600toInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  2.21  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  6104  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_WJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  61500  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_WW_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  118.7  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_WZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  66.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_ZZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  15.4  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_TT_TuneCUETP8M1_13TeV-powheg-pythia8-runallAnalysis.root  &  831.76  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_QCD_Pt-15TTo7000_TuneZ2star-Flat_13TeV_pythia6-runallAnalysis.root  &  8.9731e+10  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_ggZH_HToBB_ZToNuNu_M120_13TeV_powheg_pythia8-runallAnalysis.root  &  0.9696  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M600GeV.root  &  0.202  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M700GeV.root  &  0.16  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M800GeV.root  &  0.12498  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M900GeV.root  &  0.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M1000GeV.root  &  0.065056  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M1200GeV.root  &  0.03437  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M1500GeV.root  &  0.015  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-100to200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  139.4  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-200to400_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  42.75  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-400to600_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  5.497  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-600toInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  2.21  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  6104  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_WJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  61500  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_WW_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  118.7  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_WZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  66.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_ZZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  15.4  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_TT_TuneCUETP8M1_13TeV-powheg-pythia8-runallAnalysis.root  &  831.76  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_QCD_Pt-15TTo7000_TuneZ2star-Flat_13TeV_pythia6-runallAnalysis.root  &  8.9731e+10  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_ggZH_HToBB_ZToNuNu_M120_13TeV_powheg_pythia8-runallAnalysis.root  &  0.9696  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M600GeV.root  &  0.202  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M700GeV.root  &  0.16  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M800GeV.root  &  0.12498  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M900GeV.root  &  0.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M1000GeV.root  &  0.065056  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M1200GeV.root  &  0.03437  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M1500GeV.root  &  0.015  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-100to200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  139.4  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-200to400_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  42.75  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-400to600_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  5.497  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-600toInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  2.21  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  6104  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_WJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  61500  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_WW_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  118.7  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_WZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  66.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_ZZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  15.4  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_TT_TuneCUETP8M1_13TeV-powheg-pythia8-runallAnalysis.root  &  831.76  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_QCD_Pt-15TTo7000_TuneZ2star-Flat_13TeV_pythia6-runallAnalysis.root  &  8.9731e+10  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_ggZH_HToBB_ZToNuNu_M120_13TeV_powheg_pythia8-runallAnalysis.root  &  0.9696  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M600GeV.root  &  0.202  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M700GeV.root  &  0.16  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M800GeV.root  &  0.12498  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M900GeV.root  &  0.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M1000GeV.root  &  0.065056  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M1200GeV.root  &  0.03437  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M1500GeV.root  &  0.015  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-100to200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  139.4  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-200to400_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  42.75  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-400to600_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  5.497  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-600toInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  2.21  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  6104  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_WJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  61500  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_WW_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  118.7  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_WZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  66.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_ZZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  15.4  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_TT_TuneCUETP8M1_13TeV-powheg-pythia8-runallAnalysis.root  &  831.76  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_QCD_Pt-15TTo7000_TuneZ2star-Flat_13TeV_pythia6-runallAnalysis.root  &  8.9731e+10  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_ggZH_HToBB_ZToNuNu_M120_13TeV_powheg_pythia8-runallAnalysis.root  &  0.9696  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M600GeV.root  &  0.202  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M700GeV.root  &  0.16  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M800GeV.root  &  0.12498  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M900GeV.root  &  0.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M1000GeV.root  &  0.065056  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M1200GeV.root  &  0.03437  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M1500GeV.root  &  0.015  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-100to200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  139.4  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-200to400_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  42.75  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-400to600_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  5.497  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-600toInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  2.21  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  6104  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_WJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  61500  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_WW_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  118.7  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_WZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  66.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_ZZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  15.4  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_TT_TuneCUETP8M1_13TeV-powheg-pythia8-runallAnalysis.root  &  831.76  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_QCD_Pt-15TTo7000_TuneZ2star-Flat_13TeV_pythia6-runallAnalysis.root  &  8.9731e+10  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_ggZH_HToBB_ZToNuNu_M120_13TeV_powheg_pythia8-runallAnalysis.root  &  0.9696  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M600GeV.root  &  0.202  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M700GeV.root  &  0.16  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M800GeV.root  &  0.12498  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M900GeV.root  &  0.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M1000GeV.root  &  0.065056  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M1200GeV.root  &  0.03437  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M1500GeV.root  &  0.015  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-100to200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  139.4  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-200to400_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  42.75  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-400to600_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  5.497  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-600toInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  2.21  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  6104  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_WJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  61500  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_WW_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  118.7  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_WZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  66.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_ZZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  15.4  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_TT_TuneCUETP8M1_13TeV-powheg-pythia8-runallAnalysis.root  &  831.76  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_QCD_Pt-15TTo7000_TuneZ2star-Flat_13TeV_pythia6-runallAnalysis.root  &  8.9731e+10  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_ggZH_HToBB_ZToNuNu_M120_13TeV_powheg_pythia8-runallAnalysis.root  &  0.9696  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M600GeV.root  &  0.202  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M700GeV.root  &  0.16  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M800GeV.root  &  0.12498  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M900GeV.root  &  0.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M1000GeV.root  &  0.065056  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M1200GeV.root  &  0.03437  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M1500GeV.root  &  0.015  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-100to200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  139.4  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-200to400_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  42.75  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-400to600_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  5.497  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-600toInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  2.21  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  6104  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_WJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  61500  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_WW_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  118.7  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_WZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  66.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_ZZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  15.4  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_TT_TuneCUETP8M1_13TeV-powheg-pythia8-runallAnalysis.root  &  831.76  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_QCD_Pt-15TTo7000_TuneZ2star-Flat_13TeV_pythia6-runallAnalysis.root  &  8.9731e+10  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_ggZH_HToBB_ZToNuNu_M120_13TeV_powheg_pythia8-runallAnalysis.root  &  0.9696  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M600GeV.root  &  0.202  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M700GeV.root  &  0.16  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M800GeV.root  &  0.12498  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M900GeV.root  &  0.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M1000GeV.root  &  0.065056  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M1200GeV.root  &  0.03437  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M1500GeV.root  &  0.015  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-100to200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  139.4  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-200to400_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  42.75  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-400to600_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  5.497  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-600toInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  2.21  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  6104  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_WJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  61500  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_WW_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  118.7  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_WZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  66.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_ZZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  15.4  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_TT_TuneCUETP8M1_13TeV-powheg-pythia8-runallAnalysis.root  &  831.76  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_QCD_Pt-15TTo7000_TuneZ2star-Flat_13TeV_pythia6-runallAnalysis.root  &  8.9731e+10  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_ggZH_HToBB_ZToNuNu_M120_13TeV_powheg_pythia8-runallAnalysis.root  &  0.9696  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M600GeV.root  &  0.202  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M700GeV.root  &  0.16  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M800GeV.root  &  0.12498  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M900GeV.root  &  0.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M1000GeV.root  &  0.065056  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M1200GeV.root  &  0.03437  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M1500GeV.root  &  0.015  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-100to200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  139.4  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-200to400_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  42.75  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-400to600_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  5.497  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-600toInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  2.21  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  6104  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_WJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  61500  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_WW_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  118.7  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_WZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  66.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_ZZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  15.4  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_TT_TuneCUETP8M1_13TeV-powheg-pythia8-runallAnalysis.root  &  831.76  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_QCD_Pt-15TTo7000_TuneZ2star-Flat_13TeV_pythia6-runallAnalysis.root  &  8.9731e+10  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_ggZH_HToBB_ZToNuNu_M120_13TeV_powheg_pythia8-runallAnalysis.root  &  0.9696  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M600GeV.root  &  0.202  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M700GeV.root  &  0.16  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M800GeV.root  &  0.12498  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M900GeV.root  &  0.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M1000GeV.root  &  0.065056  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M1200GeV.root  &  0.03437  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M1500GeV.root  &  0.015  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-100to200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  139.4  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-200to400_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  42.75  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-400to600_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  5.497  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-600toInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  2.21  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  6104  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_WJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root  &  61500  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_WW_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  118.7  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_WZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  66.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_ZZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root  &  15.4  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_TT_TuneCUETP8M1_13TeV-powheg-pythia8-runallAnalysis.root  &  831.76  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_QCD_Pt-15TTo7000_TuneZ2star-Flat_13TeV_pythia6-runallAnalysis.root  &  8.9731e+10  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_ggZH_HToBB_ZToNuNu_M120_13TeV_powheg_pythia8-runallAnalysis.root  &  0.9696  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M600GeV.root  &  0.202  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M700GeV.root  &  0.16  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M800GeV.root  &  0.12498  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M900GeV.root  &  0.1  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M1000GeV.root  &  0.065056  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M1200GeV.root  &  0.03437  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/runallAnalysis-NCUGlobalTuples_M1500GeV.root  &  0.015  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-100to200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  139.4  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-200to400_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  42.75  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-400to600_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  5.497  &  
+/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/RootFiles/MonoHFatJet_7/Merged_DYJetsToLL_M-50_HT-600toInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8-runallAnalysis.root  &  2.21  &  

@@ -1,0 +1,10 @@
+#ifndef frclass_h
+#define ifndef_h
+
+#include "t2.h"
+
+class frclass{
+ public :
+  void printfun();
+
+};

@@ -1,0 +1,7 @@
+#include "../interface/DYAnalysis.h"
+#include "../interface/RKAnalyzer.h"
+
+void DYAnalysis::printing(){
+  
+  std::cout<<" inside DYAnalysis class -------------------"<<RKElectronCollection.size()<<std::endl;
+}

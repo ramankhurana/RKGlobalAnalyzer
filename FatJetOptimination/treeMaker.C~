@@ -1,0 +1,81 @@
+#define treeMaker_cxx
+#include "treeMaker.h"
+#include <TH2.h>
+#include <TStyle.h>
+#include <TCanvas.h>
+
+void treeMaker::Loop(){
+  if (fChain == 0) return;
+  
+  // Histograms 
+  nFatJets = new TH1F("nFatJets","nFatJets",5,0,5);
+  int nbins = 10; 
+  FJ_CSV1_CSV2 = new TH2F("FJ_CSV1_CSV2","FJ_CSV1_CSV2",nbins,0,1,nbins,0,1);
+  DR           = new TH1F("DR","DR",50,0,5);
+  DPhi         = new TH1F("DPhi","DPhi",70,-3.5,-3.5);
+  XMass        = new TH1F("XMass","XMass",225,0,4500);
+  for (int i=0; i<2; i++){
+    TString postfix;
+    postfix.Form("%d",i);
+    std::cout<<postfix<<std::endl;
+    Mass_vs_CSV[i]  = new TH2F("Mass_vs_CSV"+postfix,"Mass_vs_CSV",40,0,200,20,0,1);
+  }
+  
+  
+  
+  Long64_t nentries = fChain->GetEntriesFast();
+  
+  Long64_t nbytes = 0, nb = 0;
+  //nentries=5000;
+  for (Long64_t jentry=0; jentry<nentries;jentry++) {
+    Long64_t ientry = LoadTree(jentry);
+    if (ientry < 0) break;
+    nb = fChain->GetEntry(jentry);   nbytes += nb;
+    std::cout<<" event number = "<<jentry<<std::endl;
+    
+    nFatJets->Fill((*FATjetCISVV2).size());
+    // require atleast 2 fat-jets
+    if( (*FATjetCISVV2).size() < 2) continue ;
+    int index1, index2;
+    index1 = index2 = -1;
+    int nselJet=0;
+    for (size_t ijet=0;ijet<(*FATjetCISVV2).size();ijet++){
+      TLorentzVector* fourmom = (TLorentzVector*) FATjetP4->At(ijet);
+      if(fourmom->Pt()<300) continue;
+      if(TMath::Abs(fourmom->Eta()) > 2.5) continue;
+      nselJet++;
+      if(nselJet==1) index1=ijet;
+      if(nselJet==2){
+	index2=ijet;
+	
+	TLorentzVector* p41 = (TLorentzVector*) FATjetP4->At(index1);
+	TLorentzVector* p42 = (TLorentzVector*) FATjetP4->At(index2);
+	float csv1 = (*FATjetCISVV2)[index1];
+	float csv2 = (*FATjetCISVV2)[index2];
+	float mass1 = (*FATjetSDmass)[index1];
+	float mass2 = (*FATjetSDmass)[index2];
+	FJ_CSV1_CSV2->Fill(csv1,csv2);
+	DR->Fill(p41->DeltaR(*p42));
+	DPhi->Fill(p41->DeltaPhi(*p42));
+	Mass_vs_CSV[0]->Fill(mass1, csv1);
+	Mass_vs_CSV[1]->Fill(mass2, csv2);
+	
+	TLorentzVector Xp4 = *p41 + *p42;
+	XMass->Fill(Xp4.Mag());
+      }
+      
+    }//for (int ijet=0;ijet<(*FATjetCISVV2).size();ijet++){
+  }//nevents loop
+  
+  TFile* fout = new TFile("HHbb.root","RECREATE");
+  fout->cd();
+  nFatJets->Write();
+  FJ_CSV1_CSV2->Write();
+  DR->Write();
+  DPhi->Write();
+  XMass->Write();
+  for (int i=0; i<2; i++){
+    Mass_vs_CSV[i]->Write();
+  }
+
+}

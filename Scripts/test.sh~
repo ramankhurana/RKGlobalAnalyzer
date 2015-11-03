@@ -1,0 +1,7 @@
+root -l -b  <<EOF
+y
+y
+y
+EOF
+
+EOF

@@ -1,0 +1,25 @@
+#define t2_cxx
+#include "t2.h"
+#include <TH2.h>
+#include <TStyle.h>
+#include <TCanvas.h>
+#include <iostream>
+#include "frclass.h"
+void t2::Loop()
+{
+
+   if (fChain == 0) return;
+
+   Long64_t nentries = fChain->GetEntriesFast();
+
+   Long64_t nbytes = 0, nb = 0;
+   for (Long64_t jentry=0; jentry<nentries;jentry++) {
+      Long64_t ientry = LoadTree(jentry);
+      if (ientry < 0) break;
+      nb = fChain->GetEntry(jentry);   nbytes += nb;
+      // if (Cut(ientry) < 0) continue;
+      if(p2->size()>0) std::cout<<" p2 = "<<(*p2)[0]<<std::endl;
+      if(p2->size()>0)  p4 = (*p2)[0];
+      frobj->printfun();
+   }
+}
