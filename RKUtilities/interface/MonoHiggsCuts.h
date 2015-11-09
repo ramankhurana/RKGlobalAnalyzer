@@ -82,10 +82,10 @@ class MonoHiggsCuts {
     cutValueMapFatJet["DPHIJet2MET"]=2.;
     cutValueMapFatJet["MTJet1"]=300.;
     cutValueMapFatJet["MTJet2"]=200.;
+    cutValueMapFatJet["Njet"]=1;// atleast 2 jets
     cutValueMapFatJet["Nele"]=0;
     cutValueMapFatJet["Nmu"]=0;
     cutValueMapFatJet["Ntau"]=0;
-    cutValueMapFatJet["Njet"]=2;// atleast 2 jets
     cutValueMapFatJet["NLepton"]=0;
     cutValueMapFatJet["DPHIMETClosedJ"]=0.5;
 

@@ -87,7 +87,7 @@ std::vector<ResonanceWithMET<Jet,MET> > SelectionBitsProducer::SelectionBitsSave
       std::bitset<26> StatusOfCuts;
       objectCollection[i].cutsStatus = 0;
       StatusOfCuts = 0;
-      std::cout<<" FATJET pt = "<<objectCollection[i].jet1.p4.Pt()<<std::endl;
+      //std::cout<<" FATJET pt = "<<objectCollection[i].jet1.p4.Pt()<<std::endl;
       StatusOfCuts[cuts.cutsMapFatJet["apteta"]]            = (objectCollection[i].jet1.p4.Pt() > tmp_cutValueMap["leadingjetpt"] && 
 							       TMath::Abs(objectCollection[i].jet1.p4.Eta()) < tmp_cutValueMap["jeteta"] )   ;            
       // for fat-jet CSV
@@ -117,7 +117,7 @@ std::vector<ResonanceWithMET<Jet,MET> > SelectionBitsProducer::SelectionBitsSave
 		       objectCollection[i].jet1.SDEn[1]);
 
 	float dr = p41.DeltaR(p42);
-	std::cout<<" a = "<<a<<" b = "<<b<<" first = "<<first<<" second = "<<second
+	if(false) std::cout<<" a = "<<a<<" b = "<<b<<" first = "<<first<<" second = "<<second
 		 <<" (a && b) = "<<(a && b) << "(first || second)"<<(first || second)
 		 <<std::endl;
 	
@@ -139,7 +139,7 @@ std::vector<ResonanceWithMET<Jet,MET> > SelectionBitsProducer::SelectionBitsSave
       
       StatusOfCuts[cuts.cutsMapFatJet["gDPHIJetMet"]]       = (TMath::Abs(objectCollection[i].TransverseObjProp.DeltaPhi) > tmp_cutValueMap["dphiDiJetMet"] );    
       
-      std::cout<<" SDMASS  = "<<objectCollection[i].jet1.SDmass <<std::endl;
+      //std::cout<<" SDMASS  = "<<objectCollection[i].jet1.SDmass <<std::endl;
       StatusOfCuts[cuts.cutsMapFatJet["hMjet"]]             = (objectCollection[i].jet1.SDmass > tmp_cutValueMap["MDiJetLow"]  &&         
 							       objectCollection[i].jet1.SDmass < tmp_cutValueMap["MDiJetHigh"] )  ;
       
@@ -157,13 +157,13 @@ std::vector<ResonanceWithMET<Jet,MET> > SelectionBitsProducer::SelectionBitsSave
 				   objectCollection[0].jet1.p4.Eta(),
 				   objectCollection[0].jet1.p4.Phi());
 	if(dr_ < 0.8 )  continue;
-	//float dphi_ = RKMath::DeltaPhi(objectCollection[0].jets[ij].p4.Phi(), objectCollection[0].jet1.p4.Phi() );                                                                  
-	//if( TMath::Abs(dphi_) < 2.0 ) continue;                                                                      
+	//float dphi_ = RKMath::DeltaPhi(objectCollection[0].jets[ij].p4.Phi(), objectCollection[0].jet1.p4.Phi() );                                                                   	//if( TMath::Abs(dphi_) < 2.0 ) continue;                                                                      
 	naddjet++;
       }
       StatusOfCuts[cuts.cutsMapFatJet["jNele"]]             = (objectCollection[0].electrons.size() == tmp_cutValueMap["Nele"]);
       StatusOfCuts[cuts.cutsMapFatJet["kNmu"]]              = (objectCollection[0].muons.size()  == tmp_cutValueMap["Nmu"]);
       StatusOfCuts[cuts.cutsMapFatJet["lNjet"]]             = (naddjet >= tmp_cutValueMap["Njet"]);
+
       StatusOfCuts[cuts.cutsMapFatJet["mNtau"]]             = (objectCollection[0].taus.size() == tmp_cutValueMap["Ntau"]);
       
       
@@ -177,7 +177,10 @@ std::vector<ResonanceWithMET<Jet,MET> > SelectionBitsProducer::SelectionBitsSave
 
       
       StatusOfCuts[cuts.cutsMapFatJet["oNjetless"]]             = (naddjet < tmp_cutValueMap["Njet"]);
-      
+      std::cout<<" nadd jets = "<<naddjet
+	       <<" nadd leptons = "<<(objectCollection[0].muons.size() +  objectCollection[0].electrons.size() +
+				      objectCollection[0].taus.size())
+	       <<std::endl;
       // exactly Zero leptons
       StatusOfCuts[cuts.cutsMapFatJet["pNLepton"]]              = (objectCollection[0].muons.size() +  objectCollection[0].electrons.size() +
 								   objectCollection[0].taus.size())  == tmp_cutValueMap["NLepton"] ;
@@ -205,7 +208,7 @@ std::vector<ResonanceWithMET<Jet,MET> > SelectionBitsProducer::SelectionBitsSave
       
       
       objectCollection[i].cutsStatus = StatusOfCuts;
-      std::cout<<" cut status selectionbits FATJETMET = "<<StatusOfCuts<<std::endl;
+      //std::cout<<" cut status selectionbits FATJETMET = "<<StatusOfCuts<<std::endl;
       //std::cout<<" value 1 = "<<(bitset<26>)MonoHiggsCuts::dphiJets <<std::endl;
       outputvec.push_back(objectCollection[i]);
     }//for(int i=0; i<(int)objectCollection.size();i++){

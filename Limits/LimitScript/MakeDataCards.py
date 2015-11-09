@@ -97,13 +97,14 @@ nameinnumber=['TT',
 
 ## List of signal samples for which limit is needed. 
 ## This is analysis specific.
-signalnameinnumber=[ 'M800',
-                    'M1000',
-                    'M1200',
-                    'M1400',
-                    'M1700',
-                    'M2000',
-                    'M2500']
+signalnameinnumber=[ 'M600',
+                     'M800',
+                     'M1000',
+                     'M1200',
+                     'M1400',
+                     'M1700',
+                     'M2000',
+                     'M2500']
 
 
 ## create the names of place RATE holders

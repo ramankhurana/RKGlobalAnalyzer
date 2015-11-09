@@ -13,7 +13,7 @@
  system("mkdir -p  " + DirPreName+dirpathname +"/DYPng");
  
  ofstream mout;
- mout.open(DirPreName+dirpathname +"/"+dirpathname +"Integral.txt",std::ios::app);
+ mout.open(DirPreName+dirpathname +"/MonoHFatJetSelection_JetAndLeptonVeto"+dirpathname +"Integral.txt",std::ios::app);
 
 gROOT->ProcessLine(".L /afs/hep.wisc.edu/cms/khurana/Monika/CMSSW_7_4_5/src/RKGlobalAnalyzer/tdrstyle.C");                                     setTDRStyle();
 gStyle->SetOptStat(0);
@@ -23,11 +23,12 @@ gStyle->SetErrorX(0);
 gStyle->SetLineWidth(1);
 
 //Provide luminosity of total data
-float lumi = 1263.8; // It will print on your plots too
+//float lumi = 1263.8; // It will print on your plots too
+float lumi = 3000.; // It will print on your plots too
 
 std::vector<TString> filenameString;
 //Change here Directories of the file
-TString filenamepath("/afs/hep.wisc.edu/cms/khurana/Script/MonoHFatJetAnalysis_AllMCWithPU_V4_relax_subjetBTag/"); //_And_2AddbJetsV2
+TString filenamepath("/afs/hep.wisc.edu/cms/khurana/Script/MonoHFatJetAnalysis_ForExoWorkShopV6/"); 
 filenameString.push_back(filenamepath + "Merged_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root");
 //WJets  1
 filenameString.push_back(filenamepath + "Merged_WJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root");
@@ -38,14 +39,11 @@ filenameString.push_back(filenamepath + "Merged_WZ_TuneCUETP8M1_13TeV-pythia8-ru
 filenameString.push_back(filenamepath + "Merged_ZZ_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root");
 // TTJets 5
 filenameString.push_back(filenamepath + "Merged_TT_TuneCUETP8M1_13TeV-powheg-pythia8-runallAnalysis.root");
-//QCD jets 
-// dummy qcd
-filenameString.push_back(filenamepath + "Merged_TT_TuneCUETP8M1_13TeV-powheg-pythia8-runallAnalysis.root");
 
-//Raman ZH background 7                                                                                                                       
+//Raman ZH background 6                                                                                                                       
 filenameString.push_back(filenamepath + "Merged_ZH_HToBB_ZToNuNu_M120_13TeV_amcatnloFXFX_madspin_pythia8-runallAnalysis.root"); 
 //filenameString.push_back(filenamepath + "Merged_ggZH_HToBB_ZToNuNu_M120_13TeV_powheg_pythia8-runallAnalysis.root");
-//Raman Signal Sample 8-14
+//Raman Signal Sample 7-14
 filenameString.push_back(filenamepath + "Merged_MonoHToBBarMZp-600GeV_MA0-300GeV-runallAnalysis.root");
 filenameString.push_back(filenamepath + "Merged_MonoHToBBarMZp-800GeV_MA0-300GeV-runallAnalysis.root");  
 filenameString.push_back(filenamepath + "Merged_MonoHToBBarMZp-1000GeV_MA0-300GeV-runallAnalysis.root");  
@@ -53,6 +51,7 @@ filenameString.push_back(filenamepath + "Merged_MonoHToBBarMZp-1200GeV_MA0-300Ge
 filenameString.push_back(filenamepath + "Merged_MonoHToBBarMZp-1400GeV_MA0-300GeV-runallAnalysis.root");  
 filenameString.push_back(filenamepath + "Merged_MonoHToBBarMZp-1700GeV_MA0-300GeV-runallAnalysis.root");  
 filenameString.push_back(filenamepath + "Merged_MonoHToBBarMZp-2000GeV_MA0-300GeV-runallAnalysis.root");  
+filenameString.push_back(filenamepath + "Merged_MonoHToBBarMZp-2500GeV_MA0-300GeV-runallAnalysis.root");  
 
 
 //DYJets High pt DYSample 15,16,17,18
@@ -89,7 +88,7 @@ filenameString.push_back(filenamepath + "Merged_ST_tW_antitop_5f_inclusiveDecays
 //filenameString.push_back(filenamepath + "Merged_MET-Run2015B-PromptReco-v1TotalV3-runallAnalysis.root");
 filenameString.push_back(filenamepath + "Merged_MET.root");
 //histoname
-TString histnameString("histfacFatJet_WLight/h_MuEF0");
+TString histnameString("MonoHFatJetSelection_JetAndLeptonVeto/h_Mjj0");
 
 TFile *fIn;
 const int nfiles = (int) filenameString.size();
@@ -102,21 +101,21 @@ Xsec[2] = 118.7;
 Xsec[3] = 66.1;
 Xsec[4] = 15.4;
 Xsec[5] = 831.76;
-Xsec[6] = 89731000000;
-Xsec[7] = 0.9696*0.577; //ZH
-float scalexs=20.; 
-Xsec[8]  = scalexs * 0.202;//600
-Xsec[9]  = scalexs * 0.160;//700
-Xsec[10] = scalexs * 0.12498; //800
-Xsec[11] = scalexs * 0.100; //900
-Xsec[12] = scalexs * 0.065056; //1000
-Xsec[13] = scalexs * 0.03437; //1200
-Xsec[14] = scalexs * 0.015; //1500
+Xsec[6] = 0.9696*0.577; //ZH
+float scalexs=1.; 
+Xsec[7]  = scalexs * 0.026;//600
+Xsec[8]  = scalexs * 0.0288;//800
+Xsec[9] = scalexs * 0.02337; //1000
+Xsec[10] = scalexs * 0.01832; //1200
+Xsec[11] = scalexs * 0.01359; //1400
+Xsec[12] = scalexs * 0.00871; //1700
+Xsec[13] = scalexs * 0.00561; //2000
+Xsec[14] = scalexs * 0.00280; //2500
 
-Xsec[15] = 280.47; // Znunu HT
-Xsec[16] = 78.36; // Znunu HT
-Xsec[17] = 10.94; // Znunu HT
-Xsec[18] = 4.203;  // Znunu HT
+Xsec[15] = 1.23*280.47; // Znunu HT
+Xsec[16] = 1.23*78.36; // Znunu HT
+Xsec[17] = 1.23*10.94; // Znunu HT
+Xsec[18] = 1.23*4.203;  // Znunu HT
 
 Xsec[19] = 1.21*1347;  // WJets HT 100-200
 Xsec[20] = 1.21*360;   // WJets HT 200-400
@@ -132,10 +131,10 @@ Xsec[28] = 3.38; // single top
 Xsec[29] = 35.85; // single top
 Xsec[30] = 35.85; // single top
 
-//Xsec[15] = 139.4; // DY HT
-//Xsec[16] = 42.75; // DY HT
-//Xsec[17] = 5.497; // DY HT
-//Xsec[18] = 2.21;  // DY HT
+//Xsec[15] = 1.23*139.4; // DY HT
+//Xsec[16] = 1.23*42.75; // DY HT
+//Xsec[17] = 1.23*5.497; // DY HT
+//Xsec[18] = 1.23*2.21;  // DY HT
 //
 
 TH1F* h_mc[nfiles] ;
@@ -152,7 +151,7 @@ std::cout<<" normalization for = "<<filenameString[i]<<"   "
  if(h_total->Integral()>0) normalization[i]     = (lumi* Xsec[i])/(h_total->Integral());
 else normalization[i]      = 0;
  //cout<<"normalization :" << normalization[i] << std::endl;
- h_mc[i]->Rebin(1); 
+ h_mc[i]->Rebin(2); 
  h_mc[i]->Scale(normalization[i]);  
 // mout << filenameString[i] <<  "  &  " << Xsec[i] <<"  &  " << std::endl; 
 // cout << "Integral : " << h_total->Integral() << "  Entries :  " << h_total->GetEntries() << std::endl;                                         
@@ -161,7 +160,7 @@ else normalization[i]      = 0;
 
 fIn = new TFile(filenameString[nfiles-1],"READ");
 h_data = (TH1F*) fIn->Get(histnameString);
-h_data->Rebin(1);
+h_data->Rebin(2);
 h_data->Sumw2();
 
 
@@ -187,15 +186,15 @@ legend = new TLegend(0.62, 0.71, 0.94,0.92,NULL,"brNDC");
  legend->SetTextFont(42);
  legend->SetNColumns(2);
  legend->AddEntry(h_data,"Data","p");                                                                                                          
- legend->AddEntry(h_mc[8],"M600", "l");
- legend->AddEntry(h_mc[12],"M1000", "l");
- legend->AddEntry(h_mc[14],"M1500", "l");
+ legend->AddEntry(h_mc[9],"M1000", "l");
+ legend->AddEntry(h_mc[11],"M1400", "l");
+ legend->AddEntry(h_mc[13],"M2000", "l");
  legend->AddEntry(h_mc[15],"Z#nu#nu+Jets","f");
  legend->AddEntry(h_mc[2],"Diboson","f");                                                                                                      
  legend->AddEntry(h_mc[5],"t#bar{t}","f");
  legend->AddEntry(h_mc[26],"Single Top","f");
  legend->AddEntry(h_mc[19],"WJets","f");
- legend->AddEntry(h_mc[7],"ZH","f");
+ legend->AddEntry(h_mc[6],"ZH","f");
  //legend->AddEntry(h_mc[6],"QCD","f");
  
 
@@ -253,7 +252,7 @@ THStack *hs = new THStack("hs"," ");
 // For N-1 Plots only
 bool nminus = 0;
 TLatex *tt;
-if(("histfacFatJet_WLight" == "ElectronNMinus1E") || ("histfacFatJet_WLight" == "ElectronNMinus1B") ){
+if(("MonoHFatJetSelection_JetAndLeptonVeto" == "ElectronNMinus1E") || ("MonoHFatJetSelection_JetAndLeptonVeto" == "ElectronNMinus1B") ){
 nminus =1;
 tt  = new TLatex(0.5,0.87,"N-1");
 tt->SetTextSize(0.05);
@@ -280,8 +279,8 @@ h_mc[18]->SetLineColor(kOrange-1);
 
 
 
-h_mc[7]->SetFillColor(kTeal-8);
-h_mc[7]->SetLineColor(kTeal-8);
+h_mc[6]->SetFillColor(kTeal-8);
+h_mc[6]->SetLineColor(kTeal-8);
 
 for(int diboson =2; diboson <5; diboson++){
 h_mc[diboson]->SetFillColor(kRed-10);
@@ -336,8 +335,8 @@ h_mc[30]->SetLineColor(kBlue-7);
 
 
 
-h_mc[6]->SetFillColor(kGreen);
-h_mc[6]->SetLineColor(kGreen);
+//h_mc[6]->SetFillColor(kGreen);
+//h_mc[6]->SetLineColor(kGreen);
 
 /*
 for(int qcd = 6; qcd < 7 ; qcd++){ 
@@ -345,12 +344,12 @@ h_mc[qcd]->SetFillColor(kOrange+4);
 h_mc[qcd]->SetLineColor(kOrange+4);
 }*/
 
-h_mc[8]->SetLineColor(kBlack);
-h_mc[8]->SetLineWidth(3);
-h_mc[12]->SetLineColor(kGreen);
-h_mc[12]->SetLineWidth(3);
-h_mc[14]->SetLineColor(kRed);
-h_mc[14]->SetLineWidth(3);
+h_mc[9]->SetLineColor(kBlack);
+h_mc[9]->SetLineWidth(3);
+h_mc[11]->SetLineColor(kGreen);
+h_mc[11]->SetLineWidth(3);
+h_mc[13]->SetLineColor(kRed);
+h_mc[13]->SetLineWidth(3);
 
 
 
@@ -367,7 +366,7 @@ hs->Add(h_mc[15]);
 hs->Add(h_mc[16]);
 hs->Add(h_mc[17]);
 hs->Add(h_mc[18]);
-hs->Add(h_mc[7]); 
+hs->Add(h_mc[6]); 
 //hs->Add(h_mc[1]);
 hs->Add(h_mc[19]);
 hs->Add(h_mc[20]);
@@ -430,7 +429,7 @@ c12->SetLogy(0);
   hs->GetYaxis()->SetTitleFont(22);
   hs->GetYaxis()->SetLabelFont(22);
   hs->GetYaxis()->SetLabelSize(.05);
-  hs->GetXaxis()->SetTitle("MuEF");
+  hs->GetXaxis()->SetTitle("M_{SD}");
   }else{
   hs->GetXaxis()->SetLabelOffset(999);
   hs->GetXaxis()->SetLabelSize(0);  
@@ -441,7 +440,7 @@ c12->SetLogy(0);
   hs->GetYaxis()->SetTitle("Events");                                   
   hs->GetYaxis()->SetTitleSize(0.07);                                                                                                            hs->GetYaxis()->SetTitleOffset(0.9);                                                                                                           hs->GetYaxis()->SetTitleFont(22);
   hs->GetYaxis()->SetLabelFont(22);                                                                                                              hs->GetYaxis()->SetLabelSize(.07);   
-  hs->GetXaxis()->SetRangeUser(0,1.);                                                                                                       hs->GetXaxis()->SetNdivisions(508); 
+  hs->GetXaxis()->SetRangeUser(20,200);                                                                                                       hs->GetXaxis()->SetNdivisions(508); 
   legend->Draw("same"); 
   t2a->Draw("same");
   t2b->Draw("same");
@@ -451,9 +450,9 @@ c12->SetLogy(0);
   if(nminus = =1){tt->Draw("same");}
   
 // Commenting out the signal for control region
-  //h_mc[8]->Draw("same");
-  //h_mc[12]->Draw("same");
-  //h_mc[14]->Draw("same");
+  h_mc[9]->Draw("same");
+  h_mc[11]->Draw("same");
+  h_mc[13]->Draw("same");
 
 
   
@@ -488,7 +487,7 @@ c12->SetLogy(0);
   DataMC->GetYaxis()->SetTitleFont(22);
   DataMC->GetYaxis()->SetLabelSize(0.15);
   DataMC->GetYaxis()->CenterTitle();
-  DataMC->GetXaxis()->SetTitle("MuEF");
+  DataMC->GetXaxis()->SetTitle("M_{SD}");
 //DataMC->GetXaxis()->SetIndiceSize(0.1);
   DataMC->GetXaxis()->SetLabelSize(0.157);
   DataMC->GetXaxis()->SetTitleSize(0.162);
@@ -513,7 +512,7 @@ c12->SetLogy(0);
  c1_1->SetFrameFillStyle(0);
  c1_1->SetFrameBorderMode(0);
  c1_1->SetLogy(0);
- DataMC->GetXaxis()->SetRangeUser(0,1.);
+ DataMC->GetXaxis()->SetRangeUser(20,200);
  DataMC->Draw("PE1");
  DataMC->SetMarkerStyle(20);
  DataMC->SetMarkerColor(1);
@@ -524,7 +523,7 @@ c12->SetLogy(0);
  c1_1->SetGridy();
 
 
- TF1 *line0 = new TF1("line0","[0]*x",0,1.);
+ TF1 *line0 = new TF1("line0","[0]*x",20,200);
  line0->FixParameter(0,0);
 // line0->FixParameter(1,0);
  
@@ -539,14 +538,14 @@ c12->SetLogy(0);
   
 
 
-if(0){ 
+if(1){ 
    
 //=======================================================================
   //Calculating the contribution of each background in particular range
  // As Data DY(ee) diboson TTjets WWJets
  TAxis *xaxis = h_mc[0]->GetXaxis();
- Int_t binxmin = xaxis->FindBin(0);
- Int_t binxmax = xaxis->FindBin(1.);
+ Int_t binxmin = xaxis->FindBin(20);
+ Int_t binxmax = xaxis->FindBin(200);
 
   float qcdEntries =0.0, dibosonentries =0.0 , wjetentries=0.0;
 //  for(int qcd = 6; qcd < 22 ; qcd++){                                                                                   
@@ -557,30 +556,31 @@ if(0){
 wjetentries= h_mc[19]->Integral() +h_mc[20]->Integral()+h_mc[21]->Integral()+h_mc[22]->Integral()+h_mc[23]->Integral()+h_mc[24]->Integral()+h_mc[25]->Integral();
                                              
                                      
-  mout << "histfacFatJet_WLight_h_MuEF0"            << std::endl; 
-  mout << " DATA "    << h_data->Integral()  << std::endl; 
-  mout << " DYJETS "  << h_mc[0]->Integral() << std::endl; 
+  mout << "MonoHFatJetSelection_JetAndLeptonVeto_h_Mjj0"            <<  " a"<<std::endl; 
+//  mout << " DATA "    << h_data->Integral()  << std::endl; 
+  mout << " DATA  0"    <<  std::endl; 
+//  mout << " DYJETS "  << h_mc[0]->Integral() << std::endl; 
   mout << " DIBOSON " << dibosonentries                     << std::endl;
-  mout << " TT "      << h_mc[5]->Integral() << std::endl; 
+  mout << " TT "      << h_mc[5]->Integral() + h_mc[26]->Integral()+h_mc[27]->Integral()+h_mc[28]->Integral()+h_mc[29]->Integral()+ h_mc[30]->Integral() << std::endl; 
   mout << " WJETS "   << h_mc[19]->Integral() +h_mc[20]->Integral()+h_mc[21]->Integral()+h_mc[22]->Integral()+h_mc[23]->Integral()+h_mc[24]->Integral()+h_mc[25]->Integral()<< std::endl;
-  mout << " ZH "      << h_mc[7]->Integral() << std::endl;
-  mout << " DY high pt"<<h_mc[15]->Integral()+h_mc[16]->Integral()+h_mc[17]->Integral()+h_mc[18]->Integral() << std::endl;  
-  mout << " Single Top "<<h_mc[26]->Integral()+h_mc[27]->Integral()+h_mc[28]->Integral()+h_mc[29]->Integral()+ h_mc[30]->Integral() << std::endl;  
-  mout << " M600 "    << h_mc[8]->Integral() << std::endl;
-  mout << " M700 "    << h_mc[9]->Integral() << std::endl;
-  mout << " M800 "    << h_mc[10]->Integral() << std::endl;
-  mout << " M900 "    << h_mc[11]->Integral() << std::endl;
-  mout << " M1000 "   << h_mc[12]->Integral() << std::endl;
-  mout << " M1200 "   << h_mc[13]->Integral() << std::endl;
-  mout << " M1500 "   << h_mc[14]->Integral() << std::endl;
-  mout << " QCD "     << h_mc[6]->Integral() <<  std::endl;
-  mout << "Total Bkg " << dibosonentries+h_mc[5]->Integral()+wjetentries+h_mc[7]->Integral()+h_mc[15]->Integral()+h_mc[16]->Integral()+h_mc[17]->Integral()+h_mc[18]->Integral()+h_mc[26]->Integral()+h_mc[27]->Integral()+h_mc[28]->Integral()+h_mc[29]->Integral()+ h_mc[30]->Integral() <<std::endl;
-  mout << "======================================================" <<std::endl;
+  mout << " ZH "      << h_mc[6]->Integral() << std::endl;
+  mout << " DYJETS "<<h_mc[15]->Integral()+h_mc[16]->Integral()+h_mc[17]->Integral()+h_mc[18]->Integral() << std::endl;  
+//  mout << " Single Top "<<h_mc[26]->Integral()+h_mc[27]->Integral()+h_mc[28]->Integral()+h_mc[29]->Integral()+ h_mc[30]->Integral() << std::endl;  
+  mout << " M600 "    << h_mc[7]->Integral() << std::endl;
+  mout << " M800 "    << h_mc[8]->Integral() << std::endl;
+  mout << " M1000 "    << h_mc[9]->Integral() << std::endl;
+  mout << " M1200 "    << h_mc[10]->Integral() << std::endl;
+  mout << " M1400 "   << h_mc[11]->Integral() << std::endl;
+  mout << " M1700 "   << h_mc[12]->Integral() << std::endl;
+  mout << " M2000 "   << h_mc[13]->Integral() << std::endl;
+  mout << " M2500 "   << h_mc[14]->Integral() << std::endl;
+//  mout << "Total Bkg " << dibosonentries+h_mc[5]->Integral()+wjetentries+h_mc[6]->Integral()+h_mc[15]->Integral()+h_mc[16]->Integral()+h_mc[17]->Integral()+h_mc[18]->Integral()+h_mc[26]->Integral()+h_mc[27]->Integral()+h_mc[28]->Integral()+h_mc[29]->Integral()+ h_mc[30]->Integral() <<std::endl;
+  mout << "========= =============================================" <<std::endl;
 //=========================================================================
 
 }
  
  c12->Draw();
- c12->SaveAs(DirPreName+dirpathname +"/DYPdf/histfacFatJet_WLight_h_MuEF0.pdf");
- c12->SaveAs(DirPreName+dirpathname +"/DYPng/histfacFatJet_WLight_h_MuEF0.png");
- c12->SaveAs(DirPreName+dirpathname +"/DYROOT/histfacFatJet_WLight_h_MuEF0.root");                                                                         }
+ c12->SaveAs(DirPreName+dirpathname +"/DYPdf/MonoHFatJetSelection_JetAndLeptonVeto_h_Mjj0.pdf");
+ c12->SaveAs(DirPreName+dirpathname +"/DYPng/MonoHFatJetSelection_JetAndLeptonVeto_h_Mjj0.png");
+ c12->SaveAs(DirPreName+dirpathname +"/DYROOT/MonoHFatJetSelection_JetAndLeptonVeto_h_Mjj0.root");                                                                         }

@@ -46,9 +46,9 @@ void  NMinusOne::Fill(std::vector<ResonanceWithMET<Jet,MET > > objectCollection,
       if(i==j) continue;
       UsedBitVector.push_back(j);
     }
-    std::cout<<" i = "<<i<<" bitvec "<<objectCollection[0].cutsStatus<<std::endl;
+    //std::cout<<" i = "<<i<<" bitvec "<<objectCollection[0].cutsStatus<<std::endl;
     if(CheckBitPattern(objectCollection,UsedBitVector)){
-      std::cout<<" filling histograms for i = "<<i<<std::endl;
+      //std::cout<<" filling histograms for i = "<<i<<std::endl;
       // if these cuts are passes then fill the variable histogram which cut is not applied. 
       // Since it is not known in the loop which cut is not applied we are filling all the histograms. 
       h_FatJetpT[i]->Fill(objectCollection[0].jet1.p4.Pt());
@@ -128,12 +128,12 @@ void NMinusOne::Write(){
 
 
 bool NMinusOne::CheckBitPattern(std::vector<ResonanceWithMET<Jet,MET > > objectCollection, std::vector<int> bitVector){
-  std::cout<<" SIZE = "<<bitVector.size();
+  //std::cout<<" SIZE = "<<bitVector.size();
   bool decision=false;
   size_t nbit=0;
   for(int ibit=0;ibit<(int)bitVector.size();ibit++){
-    std::cout<<" ibit = "<<bitVector[ibit]
-	     <<" value  = "<<objectCollection[0].cutsStatus[ibit]<<std::endl;
+    //std::cout<<" ibit = "<<bitVector[ibit]
+    //	     <<" value  = "<<objectCollection[0].cutsStatus[ibit]<<std::endl;
     // bitVector has the integer which values are to be cut on.
     // so bitVector[ibit] is the bit number NOT ibit itself
     if(objectCollection[0].cutsStatus[bitVector[ibit]]==1) nbit++;
