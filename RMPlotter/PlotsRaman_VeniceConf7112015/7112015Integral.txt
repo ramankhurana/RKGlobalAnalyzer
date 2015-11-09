@@ -1,0 +1,76 @@
+MonoHFatJetsPreselection_2subj_h_Mjj0
+ DATA 211
+ DYJETS 208.095
+ DIBOSON 0
+ TT 150.113
+ WJETS 56.3959
+ ZH 3.22141
+ DY high pt32.3224
+ Single Top 12.2202
+ M600 18.7277
+ M700 619.776
+ M800 1040.37
+ M900 959.306
+ M1000 628.229
+ M1200 317.449
+ M1500 125.717
+ QCD 1.61943e+10
+Total Bkg 254.273
+======================================================
+MonoHFatJetSelection_Jetveto_h_Mjj0
+ DATA 95
+ DYJETS 104.047
+ DIBOSON 0
+ TT 30.4218
+ WJETS 37.4752
+ ZH 2.86399
+ DY high pt21.6972
+ Single Top 4.39918
+ M600 14.1936
+ M700 527.441
+ M800 878.666
+ M900 817.051
+ M1000 540.621
+ M1200 276.409
+ M1500 108.825
+ QCD 3.28193e+09
+Total Bkg 96.8574
+======================================================
+MonoHFatJetSelection_LeptonVeto_h_Mjj0
+ DATA 137
+ DYJETS 132.826
+ DIBOSON 0
+ TT 74.5523
+ WJETS 25.1933
+ ZH 3.07562
+ DY high pt31.4182
+ Single Top 3.85878
+ M600 17.9391
+ M700 598.482
+ M800 1012.9
+ M900 941.798
+ M1000 619.309
+ M1200 313.43
+ M1500 124.297
+ QCD 8.04277e+09
+Total Bkg 138.098
+======================================================
+MonoHFatJetSelection_JetAndLeptonVeto_h_Mjj0
+ DATA 63
+ DYJETS 73.0545
+ DIBOSON 0
+ TT 14.045
+ WJETS 16.5336
+ ZH 2.72291
+ DY high pt21.1687
+ Single Top 1.4003
+ M600 13.7993
+ M700 509.278
+ M800 857.281
+ M900 803.372
+ M1000 534.067
+ M1200 273.165
+ M1500 107.754
+ QCD 1.51519e+09
+Total Bkg 55.8705
+======================================================
