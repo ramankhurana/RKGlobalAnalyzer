@@ -1,5 +1,5 @@
 import os
-outputdirname="Raman/MonoHFatJetAnalysis_ForExoWorkShopV7"
+outputdirname="Raman/MonoHFatJetAnalysis_ForExoWorkShopVTry"
 inputprefix="--input-dir=root://cmsxrootd.hep.wisc.edu//store/user/khurana/"
 cmsswpath="/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/"
 exepath="/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/runallAnalysis.exe"
@@ -7,8 +7,9 @@ exepath="/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/
 fout = open("samplestorun.txt","w")
 
 ## list of samples will appear here. 
-samples_1='''crab_MET-Run2015D-PromptReco-V420151027_1p2fb MET/crab_MET-Run2015D-PromptReco-V420151027_1p2fb
-crab_MET-Run2015D-05Oct2015V120151027_1p2fb MET/crab_MET-Run2015D-05Oct2015V120151027_1p2fb
+samples='''crab_MET-Run2015D-PromptReco-V420151027_1p2fb MET/crab_MET-Run2015D-PromptReco-V420151027_1p2fb'''
+
+aaaa='''crab_MET-Run2015D-05Oct2015V120151027_1p2fb MET/crab_MET-Run2015D-05Oct2015V120151027_1p2fb
 ST_s-channel_4f_leptonDecays_13TeV-amcatnlo-pythia8_TuneCUETP8M1 SingleTopReminiAODSim_20151026/ST_s-channel_4f_leptonDecays_13TeV-amcatnlo-pythia8_TuneCUETP8M1/crab_ST_s-channel_4f_leptonDecays_13TeV-amcatnlo-pythia8_TuneCUETP8M1_MC25ns_ReMiniAOD_20151026/151026_000332
 ST_tW_antitop_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M1 SingleTopReminiAODSim_20151026/ST_tW_antitop_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M1/crab_ST_tW_antitop_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M1_MC25ns_ReMiniAOD_20151026/151026_000558/
 ST_tW_top_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M1 SingleTopReminiAODSim_20151026/ST_tW_top_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M1/crab_ST_tW_top_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M1_MC25ns_ReMiniAOD_20151026/151026_000652
@@ -37,7 +38,7 @@ WZ_TuneCUETP8M1_13TeV-pythia8 WZ_TuneCUETP8M1_13TeV-pythia8/crab_WZ_TuneCUETP8M1
 ZZ_TuneCUETP8M1_13TeV-pythia8 ZZ_TuneCUETP8M1_13TeV-pythia8/crab_ZZ_TuneCUETP8M1_13TeV-pythia8_MC25ns_ReMiniAOD_20151026/
 WW_TuneCUETP8M1_13TeV-pythia8 WW_TuneCUETP8M1_13TeV-pythia8/crab_WW_TuneCUETP8M1_13TeV-pythia8_MC25ns_ReMiniAOD_20151026/'''
 
-samples='''MonoHToBBarMZp-600GeV_MA0-300GeV MonoHToBBarMZp-600GeV_MA0-300GeV//crab_MonoHToBBarMZp-600GeV_MA0-300GeV_MC25ns_ReMiniAOD_20151108/
+qsamples='''MonoHToBBarMZp-600GeV_MA0-300GeV MonoHToBBarMZp-600GeV_MA0-300GeV//crab_MonoHToBBarMZp-600GeV_MA0-300GeV_MC25ns_ReMiniAOD_20151108/
 MonoHToBBarMZp-800GeV_MA0-300GeV MonoHToBBarMZp-800GeV_MA0-300GeV/crab_MonoHToBBarMZp-800GeV_MA0-300GeV_MC25ns_ReMiniAOD_20151108/
 MonoHToBBarMZp-1000GeV_MA0-300GeV MonoHToBBarMZp-1000GeV_MA0-300GeV/crab_MonoHToBBarMZp-1000GeV_MA0-300GeV_MC25ns_ReMiniAOD_20151108/
 MonoHToBBarMZp-1200GeV_MA0-300GeV MonoHToBBarMZp-1200GeV_MA0-300GeV/crab_MonoHToBBarMZp-1200GeV_MA0-300GeV_MC25ns_ReMiniAOD_20151108/
@@ -85,7 +86,7 @@ for line in f:
     datasetdet=[a,b]
     #os.system("farmoutAnalysisJobs "+outputdirname+"datasetdet[0] "+inputprefix+datasetdet[1]+cmsswpath+exepath+" --fwklite --input-files-per-job=1")
     #jobcommand = ("farmoutAnalysisJobs "+outputdirname+"/"+datasetdet[0]+" "+inputprefix+datasetdet[1]+" "+cmsswpath+" "+exepath+" --fwklite --input-files-per-job=20 --resubmit-failed-jobs")
-    jobcommand = ("farmoutAnalysisJobs "+outputdirname+"/"+datasetdet[0]+" "+inputprefix+datasetdet[1]+" "+cmsswpath+" "+exepath+" --fwklite --input-files-per-job=20")
+    jobcommand = ("farmoutAnalysisJobs "+outputdirname+"/"+datasetdet[0]+" "+inputprefix+datasetdet[1]+" "+cmsswpath+" "+exepath+" --fwklite --input-files-per-job=200")
     #--resubmit-failed-jobs
     print "submitting jobs for"+datasetdet[0]
     os.system(jobcommand)

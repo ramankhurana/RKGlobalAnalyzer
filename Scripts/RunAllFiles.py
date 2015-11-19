@@ -25,7 +25,7 @@ import os
 ## Following are the three input variables which you need to pass on.
 ## For now edit in the py file, if it works and useful then i will make is configurable. 
 
-inputfilepath='/hdfs/store/user/khurana/Raman/MonoHFatJetAnalysis_AllMCWithPU_V3/SignalFiles_0804-runallAnalysis/'
+inputfilepath='/hdfs/store/user/khurana/SingleMuon/crab_SingleMuon-Run2015D-05Oct2015-v1_20151117_2p2fb_SingleMuTextFile'
 outputfilepath='trial/'
 macroname='RootMacro'  ## don't give .C in the name
 
@@ -49,8 +49,12 @@ i = 0
 for ifile in filelist:
     filename =  ifile.rstrip()
     inputfilename =  filename  #inputfilepath+'/'+filename
-    filename = filename.replace(inputfilepath,outputfilepath)
-    outputfilename = filename ##x outputfilepath+'/'+filename
+    print inputfilename
+    tmpname = inputfilename.split('NCUGlobalTuples')
+    print tmpname
+    #filename = filename.replace(inputfilepath,outputfilepath)
+    #outputfilename = filename ##x outputfilepath+'/'+filename
+    outputfilename = outputfilepath+'AnalysisOutput'+tmpname[1] ##x outputfilepath+'/'+filename
     OutputMacro.write(macroname+'(\"'+inputfilename+'\",\"'+outputfilename+'\"); \n')
     i=i+1
 
