@@ -1,8 +1,36 @@
 #! /usr/bin/env python
 import sys
 import os
+print sys.argv
+
+
+
+
+
+if len(sys.argv) < 2 :
+    print "insufficient options provided"
+    print "proper usage "
+    print "----------------------------------------------"
+    print "python MakeEOSDirTree.py dir_in_eos_to_be_listed user_name_of_eos_holder "
+    print "----------------------------------------------"
+    print "e.g. python MakeEOSDirTree.py SingleMuon khurana"
+    print "----------------------------------------------"
+    exit (1)
+
+
+## default values
 samplename='SingleMuon'
-eospath='/store/user/khurana/'
+username='khurana'
+
+## need 3 parameters
+
+if len(sys.argv) == 3 :
+    samplename=sys.argv[1]
+    username=sys.argv[2]
+
+
+eospath='/store/user/'+username+'/'
+
 eos='/afs/cern.ch/project/eos/installation/0.3.84-aquamarine/bin/eos.select ls '
 fullsamplename=eospath+'/'+samplename
 

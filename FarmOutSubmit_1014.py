@@ -89,6 +89,7 @@ for line in f:
     jobcommand = ("farmoutAnalysisJobs "+outputdirname+"/"+datasetdet[0]+" "+inputprefix+datasetdet[1]+" "+cmsswpath+" "+exepath+" --fwklite --input-files-per-job=1")
     #--resubmit-failed-jobs
     print "submitting jobs for"+datasetdet[0]
+    print jobcommand
     os.system(jobcommand)
 ### Monika Files
 ###
