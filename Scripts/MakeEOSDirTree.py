@@ -60,7 +60,7 @@ inputFileList=open('inputfileslist.txt','w')
 
 
 def ListFiles(fullsamplename_):
-    print ('-------------------',fullsamplename_)
+    #print ('-------------------',fullsamplename_)
     dirs=[]
     if isinstance(fullsamplename_,str) :
         dirs=listdirs(fullsamplename_)
@@ -70,23 +70,26 @@ def ListFiles(fullsamplename_):
     newdirs=[]
     for dirname in dirs:
         name=fullsamplename_+'/'+dirname
-        print ('name ',name)
+        #print ('name ',name)
         status=isFileOrDir(name)
-        print status
+        #print status
         if status=='file' :
             #if name.count('NCUGlobal')==1:
-            inputFileList.write(name+'\n')
-            print 'written in file'
+            towrite =  name+'\n'
+            towrite = towrite.replace('/store', 'root://eoscms//eos//cms/store')
+            inputFileList.write(towrite)
+            #print 'written in file'
         elif status=='dir' :
-            print ("status in dir",status)
             newdirlist=listdirs(name)
-            print ('newdirlist',newdirlist)
+            #print ('newdirlist',newdirlist)
             for newdir_ in newdirlist:
                 #print ('new dir', name+'/'+newdir_)
-                print ('new dir', newdir_)
+                #print ('new dir', newdir_)
                 #newdirs.append(name+'/'+newdir_)
                 if isFileOrDir(newdir_) == 'file' :
-                    inputFileList.write(name+'/'+newdir_+'\n')
+                    towrite_ = name+'/'+newdir_+'\n'
+                    towrite_ = towrite_.replace('/store', 'root://eoscms//eos//cms/store')
+                    inputFileList.write(towrite_)
                 elif isFileOrDir(newdir_)== 'dir' :
                     ListFiles(name+'/'+newdir_)
                 
@@ -96,3 +99,6 @@ def ListFiles(fullsamplename_):
     return 0
 newlistPath=ListFiles(fullsamplename)
 print newlistPath
+
+
+
