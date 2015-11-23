@@ -1,0 +1,18 @@
+void skimTree(){
+  TFile* inputfile = new TFile("/hdfs/store/user/khurana/MET/crab_MET-Run2015D-PromptReco-V42015112_1p5fb_METTextFile/151102_173430/0000/NCUGlobalTuples_261.root","READ");
+  inputfile->cd();
+  //  tree->cd();
+  TTree* tmptree = (TTree*)inputfile->Get("tree/treeMaker");
+  
+  TFile* outputfile = new TFile("skimmedMET.root","RECREATE");
+  outputfile->cd();
+  TTree* newtree = new TTree("TOFCalib","Tree for TOF Calibration");
+  newtree->SetDirectory(0);
+  newtree =   tmptree->CopyTree("pfMetRawPt>200","",100000000,0);
+  //newtree = tmptree->CopyTree("pfMetRawPt>200","",10000,0);
+  
+  outputfile->cd();
+  newtree->Write();
+  //outputfile->Write();
+    
+}

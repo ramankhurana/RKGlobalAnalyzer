@@ -1,5 +1,5 @@
 import os
-outputdirname="Raman/MonoHFatJetAnalysis_ForExoWorkShopVTry"
+outputdirname="Raman/MonoHFatJetAnalysis_ForExoWorkShopVTr"
 inputprefix="--input-dir=root://cmsxrootd.hep.wisc.edu//store/user/khurana/"
 cmsswpath="/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/"
 exepath="/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/runallAnalysis.exe"
@@ -86,7 +86,7 @@ for line in f:
     datasetdet=[a,b]
     #os.system("farmoutAnalysisJobs "+outputdirname+"datasetdet[0] "+inputprefix+datasetdet[1]+cmsswpath+exepath+" --fwklite --input-files-per-job=1")
     #jobcommand = ("farmoutAnalysisJobs "+outputdirname+"/"+datasetdet[0]+" "+inputprefix+datasetdet[1]+" "+cmsswpath+" "+exepath+" --fwklite --input-files-per-job=20 --resubmit-failed-jobs")
-    jobcommand = ("farmoutAnalysisJobs "+outputdirname+"/"+datasetdet[0]+" "+inputprefix+datasetdet[1]+" "+cmsswpath+" "+exepath+" --fwklite --input-files-per-job=200")
+    jobcommand = ("farmoutAnalysisJobs "+outputdirname+"/"+datasetdet[0]+" "+inputprefix+datasetdet[1]+" "+cmsswpath+" "+exepath+" --fwklite --input-files-per-job=1")
     #--resubmit-failed-jobs
     print "submitting jobs for"+datasetdet[0]
     os.system(jobcommand)
