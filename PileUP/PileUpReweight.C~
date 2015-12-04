@@ -1,0 +1,41 @@
+{
+
+  // TFile *f1 = new TFile("Pileup_DYJetsToLL_M-50.root","READ");
+  //TFile *f2 = new TFile("Pileup_ElectronData.root","READ");
+
+  //  TFile *f1 = new TFile("Pileup_DYJetsToLL_M-25.root","READ");
+  //TFile *f2 = new TFile("DataPU.root","READ");
+
+  TFile *f1 = new TFile("Pileup_DYJetsToLL_M-25.root","READ");
+  TFile *f2 = new TFile(" Data_25ns.root","READ");
+ TH1F *h1;
+ TH1F *h2;
+ TH1F *h3;  
+ 
+ // h1 = (TH1F*) f1->Get("mcPUDist");
+ h1 = (TH1F*) f1->Get("pileup");
+ //h2 = (TH1F*) f2->Get("Pileup_data");
+ h2 = (TH1F*) f2->Get("pileup");
+ h3 = (TH1F*) h2->Clone("PileUpweighted");
+ 
+ h1->SetName("MC");
+ h2->SetName("Data");
+
+  h1->Scale(1./h1->Integral());
+  h3->Scale(1./h3->Integral());
+  h2->Scale(1./h2->Integral());
+
+
+ h3->Divide(h1);
+
+ 
+ TFile *f3 = new TFile("PileUpWeightedFile.root","RECREATE");
+ f3->cd();
+ h1->Write();
+ h2->Write();
+ h3->Write();
+ 
+ f3->Close();
+
+
+}

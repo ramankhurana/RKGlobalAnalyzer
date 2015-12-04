@@ -1,0 +1,46 @@
+{
+
+  TString filename("SignalEff_Graph_Bin_5.root");
+  TFile *f1;
+  TGraphAsymmErrors *g2;
+  TGraphAsymmErrors *g1; 
+  TGraphAsymmErrors *g3;
+  f1 = new TFile(filename, "UPDATE");
+  g1 = (TGraphAsymmErrors*) f1->Get("CutFlowAndEachCutFatJet_2subj");
+  g2 = (TGraphAsymmErrors*) f1->Get("CutFlowAndEachCutFatJet_1subj");
+
+  
+
+ 
+ 
+  const int nbins=8;// g1->GetN();
+
+  Double_t xvalue1[nbins], yvalue1[nbins], xvalue2[nbins], yvalue2[nbins], yvalue3[nbins] ;
+  
+ 
+  for( int i=0; i < nbins ; i++){
+    g1->GetPoint(i,xvalue1[i],yvalue1[i]);
+    g2->GetPoint(i,xvalue2[i],yvalue2[i]);
+    yvalue3[i] = yvalue2[i] + yvalue1[i];
+    cout <<" " << yvalue3[i] <<std::endl;
+ 
+  }
+
+  g3 = new TGraphAsymmErrors(nbins, xvalue1, yvalue3);
+  g3->SetName("Subjet1PlusSubjet2");
+  g3->Draw("AP*");  
+  f1->cd();
+  g3->Write();
+  f1->Write();
+  f1->Close();
+ 
+  
+  
+  
+  
+
+
+
+  
+
+}

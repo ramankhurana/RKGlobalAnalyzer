@@ -1,0 +1,29 @@
+{
+TString filenameString("/afs/hep.wisc.edu/cms/khurana/METScanning/ForHotLine/CMSSW_7_4_7/src/MetScanning/MetAnalyzer/METScanningHotLine2015D.root");
+
+//histoname
+TString histnameString("Metanalyzer/h_nVtxhbhet");
+TFile *fIn;
+
+TH1F* h_num ;
+TH1F* h_den;
+float normalization[nfiles];
+
+fIn = new TFile(filenameString,"READ");
+h_num = (TH1F*) fIn->Get(histnameString);
+h_den = (TH1F*) fIn->Get("Metanalyzer/h_nVtxNoFilter");
+
+TGraphAsymmErrors* gr = new TGraphAsymmErrors(h_num, h_den);
+gr->Draw("APL");
+gr->SetName("Metanalyzer");
+
+TString FilePreName("METScan_Eff");
+TFile *fout= new TFile(FilePreName+".root","RECREATE");
+fout->cd();
+gr->Write();
+fout->Write();
+fout->Close();
+
+
+
+}

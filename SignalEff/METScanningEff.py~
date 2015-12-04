@@ -1,0 +1,73 @@
+import os
+## if root file exist then delete it 
+## add this line
+## Created by Monika Mittal Khurana
+macro='''{
+TString filenameString("/afs/hep.wisc.edu/cms/khurana/METScanning/ForHotLine/CMSSW_7_4_7/src/MetScanning/MetAnalyzer/METScanningHotLine2015D.root");
+
+//histoname
+TString histnameString("HISTPATH/HISTNAME");
+TFile *fIn;
+
+TH1F* h_num ;
+TH1F* h_den;
+
+fIn = new TFile(filenameString,"READ");
+h_num = (TH1F*) fIn->Get(histnameString);
+h_den = (TH1F*) fIn->Get("Metanalyzer/h_nVtxNoFilter");
+
+TGraphAsymmErrors* gr = new TGraphAsymmErrors(h_num, h_den);
+gr->Draw("APL");
+gr->SetName("HISTNAME");
+
+
+
+TString FilePreName("METScan_Eff");
+TFile *fout= new TFile(FilePreName+".root","FILEMODE");
+fout->cd();
+gr->Write();
+fout->Write();
+fout->Close();
+
+
+
+}
+'''
+## template macro ends here
+
+TemplateOverlapMacro = open('TemplateOverlapMacro.C','w')
+TemplateOverlapMacro.write(macro)
+TemplateOverlapMacro.close()
+
+def makeplot(inputs):
+    print inputs
+    TemplateOverlapMacro = open('TemplateOverlapMacro.C','r')
+    NewPlot       = open('Plot.C','w')
+    for line in TemplateOverlapMacro:
+        line = line.replace("HISTPATH",inputs[0])
+        line = line.replace("HISTNAME",inputs[1])
+        line = line.replace("FILEMODE",inputs[2])
+        #print line
+        NewPlot.write(line)
+    NewPlot.close()
+    os.system('root -l -b -q  Plot.C')
+
+##########Start Adding your plots here
+
+makeplot(['Metanalyzer','h_nVtxhbhet','RECREATE']);
+makeplot(['Metanalyzer','h_nVtxcsct','UPDATE']);
+makeplot(['Metanalyzer','h_nVtxEESCBad','UPDATE']);
+makeplot(['Metanalyzer','h_nVtxECDCTP','UPDATE']);
+makeplot(['Metanalyzer','h_nVtxCSCTH2015','UPDATE']);
+makeplot(['Metanalyzer','h_nVtxCSCTHMu','UPDATE']);
+makeplot(['Metanalyzer','h_nVtxHCALStrp','UPDATE']);
+makeplot(['Metanalyzer','h_nVtxAllCSCTH2015','UPDATE']);
+makeplot(['Metanalyzer','h_nVtxAllCSCTHMu','UPDATE']);
+makeplot(['Metanalyzer','h_nVtxAllHCALStrp','UPDATE']);
+makeplot(['Metanalyzer','h_nVtxAllCSCTH2015HCALStrp','UPDATE']);
+makeplot(['Metanalyzer','h_nVtxAllCSCTH2015HCALStrpIsolation','UPDATE']);
+#makeplot(['CutFlowAndEachCutFatJet','h_cutflow_0_f','2','RECREATE']);
+#makeplot(['CutFlowAndEachCutFatJet_2subj','h_cutflow_0_f','2','UPDATE']);
+
+
+

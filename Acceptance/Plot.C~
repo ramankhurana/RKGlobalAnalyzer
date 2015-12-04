@@ -1,0 +1,96 @@
+void Plot(){
+  cout << "a "<<std::endl;
+  
+  std::vector<TString> filenameString;
+  TString filenamepath("/afs/hep.wisc.edu/cms/khurana/Monika/CMSSW_7_4_5/src/RKGlobalAnalyzer/DYJetsToLL/");
+  
+  cout << "b "<<std::endl;
+  filenameString.push_back(filenamepath + "Merged_DYJetsToLL_M-10to50.root");
+  filenameString.push_back(filenamepath + "Merged_DYJetsToLL_M-50to200.root");
+  filenameString.push_back(filenamepath + "Merged_DYJetsToLL_M-200to400.root");
+  filenameString.push_back(filenamepath + "Merged_DYJetsToLL_M-400to500.root");
+  filenameString.push_back(filenamepath + "Merged_DYJetsToLL_M-500to700.root");
+  filenameString.push_back(filenamepath + "Merged_DYJetsToLL_M-700to800.root");
+  filenameString.push_back(filenamepath + "Merged_DYJetsToLL_M-800to1000.root");
+  filenameString.push_back(filenamepath + "Merged_DYJetsToLL_M-1000to1500.root");
+  filenameString.push_back(filenamepath + "Merged_DYJetsToLL_M-1500to2000.root");
+  filenameString.push_back(filenamepath + "Merged_DYJetsToLL_M-2000to3000.root");
+  
+  cout << "c "<<std::endl;
+  const int nfiles = (icnt) filenameString.size();                                                                                          
+  cout << nfiles <<std::endl;
+  //nfiles = 9;
+  cout << nfiles <<std::endl;
+  float Xsec[10];
+  Xsec[0] = 6203.3;
+  Xsec[1] = 2031.9;
+  Xsec[2] = 2.56;
+  Xsec[3] = 0.141;
+  Xsec[4] = 0.08;
+  Xsec[5] = 0.012;
+  Xsec[6] = 0.01;
+  Xsec[7] = 0.0053;
+  Xsec[8] = 0.00067;
+  Xsec[9] = 0.00018;
+  
+  cout << "d "<<std::endl;
+  
+  //histoname
+  TString histnameString("h_ZMass");
+  TFile *fIn;
+  
+  TH1F* h_num[10] ;
+  TH1F* h_den[10];
+  
+  
+  for(int i =0; i<(int)filenameString.size()-1; i++){
+    std::cout<<" file number "<<i<<std::endl;
+    fIn = new TFile(filenameString[i],"READ");
+    
+    h_num[i] = (TH1F*) fIn->Get(histnameString);
+    h_den[i] = (TH1F*) fIn->Get("h_ZMass");
+    
+    h_num[i]->Scale(Xsec[i]/h_den[i]->Integral());
+    h_den[i]->Scale(Xsec[i]/h_den[i]->Integral());
+    h_num[i]->Sumw2();
+    h_den[i]->Sumw2();
+    std::cout << filenameString[i] << "   " << " h_ZMass "  <<   " Integral : " << h_num[i]->Integral() << "   " << h_den[i]->Integral() << std::endl;
+  }
+  
+  THStack *hs_num = new THStack("hs_num"," ");
+  THStack *hs_den = new THStack("hs_den"," ");
+  
+  
+  for(int j =0; j <nfiles; j++){
+    hs_num->Add(h_num[j]);
+    hs_den->Add(h_den[j]);
+  }
+  
+  TH1F *Stackhist_num = (TH1F*)hs_num->GetStack()->Last();
+  TH1F *Stackhist_den = (TH1F*)hs_den->GetStack()->Last();
+  ///*
+  
+  
+  //TH1F *histo = (TH1F*) Stackhist_num->Clone();
+  //histo->Divide(Stackhist_den);
+  
+  //histo->Draw("P");
+  //histo->SetName("h_ZMass_h_ZMass");
+  //*/
+  TGraphAsymmErrors* gr = new TGraphAsymmErrors(Stackhist_num, Stackhist_den);
+  gr->Draw("AP");
+  gr->SetName("h_ZMass_h_ZMass");
+  
+  std::cout<<" working " <<std::endl;
+  
+  //TString FilePreName("AccEff_All");
+  //TFile *fout= new TFile("AccEff_All1.root","RECREATE");
+  ////TFile *fout= new TFile(FilePreName+".root","RECREATE");
+  //fout->cd();
+  //gr->Write();
+  //fout->Write();
+  //fout->Close();
+  //
+  
+  
+}

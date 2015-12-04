@@ -41,6 +41,10 @@
 #include "../../RKUtilities/interface/DYAnalysisCuts.h" 
 #include "../../RKDYAnalysis/interface/ElectronSelectionBitsProducer.h"
 #include "../../RKDYAnalysis/interface/ElectronNMinusOne.h"
+#include "../../RKUtilities/interface/PileUpWeights.h"
+#include "../../RKDataFormats/interface/Event.h"
+#include "../../RKUtilities/interface/ScaleFactorElectron.h"
+
 using namespace std;
 // Fixed size dimensions of array or collections stored in the TTree if any.
 const Int_t kMaxmuInnerdxy = 1;
@@ -72,6 +76,9 @@ class RKAnalyzer {
    //TString outputfilename;
    
    // Physics Object Classes
+  
+  Event events;
+  
    // Jets
    Jet jets;
    // MET
@@ -112,7 +119,11 @@ class RKAnalyzer {
    TwoObjectValidator<Resonance<Jet,Jet> > diJetValidator;
 
    // DiJet   
-   TwoObjectValidator<Resonance<Electron,Electron> > diElectronValidator;
+   TwoObjectValidator<Resonance<Electron,Electron> > diElectronValidator; 
+   TwoObjectValidator<Resonance<Electron,Electron> > diElectronValidator_barrel; 
+   TwoObjectValidator<Resonance<Electron,Electron> > diElectronValidator_endcap;
+   TwoObjectValidator<Resonance<Electron,Electron> > diElectronValidator_barend;
+
 
    TwoObjectValidator<Resonance<Electron,Electron> > Tmp_diElectronValidator_NEle;
    TwoObjectValidator<Resonance<Electron,Electron> > Tmp_diElectronValidator_Trig;
@@ -156,6 +167,10 @@ class RKAnalyzer {
    
    // DiElectron 
    std::vector<Resonance<Electron,Electron> > RKdiElectronCollection;
+   std::vector<Resonance<Electron,Electron> > RKdiElectronCollection_barrel;
+   std::vector<Resonance<Electron,Electron> > RKdiElectronCollection_endcap;
+   std::vector<Resonance<Electron,Electron> > RKdiElectronCollection_barend;
+   
    std::vector<Resonance<Electron,Electron> > TmpdiElectronCollection_nEle;
    std::vector<Resonance<Electron,Electron> > TmpdiElectronCollection_Trig;
    std::vector<Resonance<Electron,Electron> > TmpdiElectronCollection_Kin;
@@ -175,11 +190,13 @@ class RKAnalyzer {
    SelectionBitsProducer selectionbits;
    CutFlowAndEachCut cutflowobj;
    NMinusOne nminusobj;
-   ElectronNMinusOne elenminusoneobjB;
-   ElectronNMinusOne elenminusoneobjE;
+     ElectronNMinusOne elenminusoneobjB;
+     ElectronNMinusOne elenminusoneobjE;
    //// Use the bits to fill N-1 Histograms
    //// And cut flow histograms. 
   
+  
+
    
    
    // Declaration of leaf types
@@ -195,6 +212,7 @@ class RKAnalyzer {
    Float_t         ptHat;
    Float_t         mcWeight;
    Int_t           nGenPar;
+   TClonesArray    *genParP4;
    vector<float>   *genParE;
    vector<float>   *genParPt;
    vector<float>   *genParEta;
@@ -218,6 +236,8 @@ class RKAnalyzer {
    vector<float>   *genJetPhi;
    vector<float>   *genJetEM;
    vector<float>   *genJetHAD;
+   vector<int>     *genStFlag;
+   
 
 
    vector<vector<float> > *hlt_TrigObjPt;
@@ -597,6 +617,7 @@ class RKAnalyzer {
    TBranch        *b_ptHat;   //!
    TBranch        *b_mcWeight;   //!
    TBranch        *b_nGenPar;   //!
+   TBranch        *b_genParP4;   //!
    TBranch        *b_genParE;   //!
    TBranch        *b_genParPt;   //!
    TBranch        *b_genParEta;   //!
@@ -620,6 +641,7 @@ class RKAnalyzer {
    TBranch        *b_genJetPhi;   //!
    TBranch        *b_genJetEM;   //!
    TBranch        *b_genJetHAD;   //!
+   TBranch        *b_genStFlag;   //! 
    
    TBranch        *b_nMu;   //!
    TBranch        *b_muP4;   //!
@@ -992,6 +1014,7 @@ class RKAnalyzer {
    void TotalEvent(std::vector<TString> filelist);
    void TotalEvent(TH1F* h);
    bool TriggerStatus(std::string TRIGNAME);
+   void EventProducer();
    Double_t deltaEta(Double_t eta1, Double_t eta2);
    Double_t deltaPhi(Double_t phi1, Double_t phi2);  
    Double_t deltaR(Double_t eta1, Double_t phi1, Double_t eta2, Double_t phi2);
@@ -1015,33 +1038,21 @@ class RKAnalyzer {
 #ifdef RKAnalyzer_cxx
  RKAnalyzer::RKAnalyzer(TTree *tree) : fChain(0) 
 {
-  //inputfilename=input;
-  //  outputfilename=output;
-// if parameter tree is not specified (or zero), connect the file
-// used to generate this class and read the Tree.
-  //TString filename="/hdfs/store/user/khurana/SingleElectron/crab_SingleElectron_Run2015B-PromptReco-v1/150713_071520/0000/NCUGlobalTuples_89.root";
-  //TString filename="/hdfs/store/user/khurana/SingleElectron/crab_SingleElectron_Run2015B-PromptReco-v1/150713_071520/0000/NCUGlobalTuples_108.root";
-  //TString filename="/hdfs/store/user/khurana/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/crab_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_HLT/150713_072349/0000/NCUGlobalTuples_1.root";
-  //TString filename="/hdfs/store/user/khurana/SingleElectron/crab_SingleElectron_Run2015B-PromptReco-v1_JSON/150720_204200/0000/NCUGlobalTuples_212.root";
-  //  TString filename ="/hdfs/store/user/khurana/DYTesting/NCUGlobalTuples_90.root";
-  //  TString filename = "/hdfs/store/user/khurana/SingleElectron/crab_SingleElectron_Run2015B-PromptReco-v1_40p6pb_TM/150813_213229/0000/NCUGlobalTuples_218.root";
-  //TString filename = "/hdfs/store/user/khurana/DoubleEG/crab_DoubleEG_Run2015B-PromptReco-v1_TriggerChanged_07092015/150907_154332/0000/NCUGlobalTuples_419.root";
 
-TString filename = "/afs/hep.wisc.edu/cms/khurana/DMRunII/ForData2/CMSSW_7_4_7/src/DelPanj/TreeMaker/NCUGlobalTuples.root";
-   if (tree == 0) {
-     //f = (TFile*)gROOT->GetListOfFiles()->FindObject("InputRootFile/NCUGlobalTuples_10.root");
-     
-     f = (TFile*)gROOT->GetListOfFiles()->FindObject(filename);
-      if (!f || !f->IsOpen()) {
-	//f = new TFile("InputRootFile/NCUGlobalTuples_10.root");
-	f = new TFile(filename);
-      }
-      //TDirectory * dir = (TDirectory*)f->Get("InputRootFile/NCUGlobalTuples_10.root:/tree");
-      TDirectory * dir = (TDirectory*)f->Get(filename+":/tree");
-      dir->GetObject("treeMaker",tree);
+TString filename ="/hdfs/store/user/khurana/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/crab_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_MC25ns_ReMiniAOD_20151026/151025_235212/0000/NCUGlobalTuples_1.root";
 
-   }
-   Init(tree);
+//  TString filename ="/hdfs/store/user/khurana/DYJetsToLL_M-UETP8M1_13TeV-amcatnloFXFX-pythia8/crab_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_MC25ns_ReMiniAOD_20151026/151025_235212/0000/NCUGlobalTuples_1.root 
+//10to50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/crab_DYJetsToLL_M-10to50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_MC25ns_ReMiniAOD_NewMiniIso_Extended/151124_182452/0000/NCUGlobalTuples_168.root";
+
+  if (tree == 0) {
+    TChain * chain = new TChain("tree/treeMaker","");
+
+    chain->Add(filename);
+
+    tree = chain;
+  }
+  Init(tree);
+
 }
 
 RKAnalyzer::~RKAnalyzer()
@@ -1080,6 +1091,7 @@ void RKAnalyzer::Init(TTree *tree)
    // (once per file to be processed).
 
    // Set object pointer
+  genParP4 = 0;
    genParE = 0;
    genParPt = 0;
    genParEta = 0;
@@ -1102,6 +1114,7 @@ void RKAnalyzer::Init(TTree *tree)
    genJetPhi = 0;
    genJetEM = 0;
    genJetHAD = 0;
+   genStFlag = 0;
    muP4 = 0;
    muType = 0;
    muCharge = 0;
@@ -1457,6 +1470,7 @@ void RKAnalyzer::Init(TTree *tree)
    fChain->SetBranchAddress("mcWeight", &mcWeight, &b_mcWeight);
    fChain->SetBranchAddress("nGenPar", &nGenPar, &b_nGenPar);
    fChain->SetBranchAddress("genParE", &genParE, &b_genParE);
+   fChain->SetBranchAddress("genParP4", &genParP4, &b_genParP4);
    fChain->SetBranchAddress("genParPt", &genParPt, &b_genParPt);
    fChain->SetBranchAddress("genParEta", &genParEta, &b_genParEta);
    fChain->SetBranchAddress("genParPhi", &genParPhi, &b_genParPhi);
@@ -1472,6 +1486,8 @@ void RKAnalyzer::Init(TTree *tree)
    fChain->SetBranchAddress("genMo2", &genMo2, &b_genMo2);
    fChain->SetBranchAddress("genDa1", &genDa1, &b_genDa1);
    fChain->SetBranchAddress("genDa2", &genDa2, &b_genDa2);
+   fChain->SetBranchAddress("genStFlag", &genStFlag, &b_genStFlag);
+
    
    fChain->SetBranchAddress("nMu", &nMu, &b_nMu);
    fChain->SetBranchAddress("muP4", &muP4, &b_muP4);

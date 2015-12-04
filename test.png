@@ -1,0 +1,29 @@
+{
+//========= Macro generated from object: h1/h1
+//========= by ROOT version6.02/05
+   
+   TH1F *h11 = new TH1F("h11","h1",5,0,5);
+   h11->SetBinContent(2,1);
+   h11->SetBinContent(3,1);
+   h11->SetBinContent(4,1);
+   h11->SetBinContent(6,1);
+   h11->SetEntries(4);
+
+   Int_t ci;      // for color index setting
+   TColor *color; // for color definition with alpha
+   ci = TColor::GetColor("#000099");
+   h11->SetLineColor(ci);
+   h11->GetXaxis()->SetLabelFont(42);
+   h11->GetXaxis()->SetLabelSize(0.035);
+   h11->GetXaxis()->SetTitleSize(0.035);
+   h11->GetXaxis()->SetTitleFont(42);
+   h11->GetYaxis()->SetLabelFont(42);
+   h11->GetYaxis()->SetLabelSize(0.035);
+   h11->GetYaxis()->SetTitleSize(0.035);
+   h11->GetYaxis()->SetTitleFont(42);
+   h11->GetZaxis()->SetLabelFont(42);
+   h11->GetZaxis()->SetLabelSize(0.035);
+   h11->GetZaxis()->SetTitleSize(0.035);
+   h11->GetZaxis()->SetTitleFont(42);
+   h11->Draw("");
+}

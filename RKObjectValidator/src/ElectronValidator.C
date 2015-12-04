@@ -3,18 +3,17 @@
 void ElectronValidator::Fill(std::vector<Electron> electroncollection){
   if(false) std::cout<<" Filling Electron Validator"<<std::endl;
   
-  mcweight_=1.0;
-  if(electroncollection[0].isdata)  mcweight_=1;
-  if(!electroncollection[0].isdata) mcweight_= electroncollection[0].weight;
-
-  h_nElectron->Fill(electroncollection.size(), mcweight_);
+  //if(electroncollection.size()<0) continue;
+  
+  h_nElectron->Fill(electroncollection.size(), electroncollection[0].myevent.allmcweight);
   if(false) std::cout<<" size filled "<<std::endl;
-  if(electroncollection.size()>0){ h_nVtx->Fill(electroncollection[0].nVtx, mcweight_);
-    h_nTrueInt->Fill(electroncollection[0].nTrueInt, mcweight_);
-    h_nPUVert->Fill(electroncollection[0].nPUVert, mcweight_);
-    if(false) std::cout<<" n Vtx "<<std::endl;}
+  h_nVtx->Fill(electroncollection[0].nVtx, electroncollection[0].myevent.allmcweight);
+  h_nTrueInt->Fill(electroncollection[0].nTrueInt, electroncollection[0].myevent.allmcweight);
+  h_nPUVert->Fill(electroncollection[0].nPUVert, electroncollection[0].myevent.allmcweight);
+  if(false) std::cout<<" n Vtx "<<std::endl;
   for (size_t i=0; i <  electroncollection.size(); i++){
     
+    float weightfactor = electroncollection[i].myevent.allmcweight;   
     if(false) std::cout<<"inside ele loop "<<std::endl;
     h_vtxdetaIn         ->Fill(electroncollection[i].nVtx,electroncollection[i].dEtaIn);
     h_vtxdphiIn         ->Fill(electroncollection[i].nVtx,electroncollection[i].dPhiIn);
@@ -28,47 +27,47 @@ void ElectronValidator::Fill(std::vector<Electron> electroncollection){
     h_vtxconversionveto ->Fill(electroncollection[i].nVtx,electroncollection[i].passConversionVeto); 
     
     if(false) std::cout<<" profile filled "<<std::endl;
-    h_pt[4]->Fill(electroncollection[i].p4.Pt() ,mcweight_);
-    h_eta[4]->Fill(electroncollection[i].p4.Eta() ,mcweight_);
-    h_phi[4]->Fill(electroncollection[i].p4.Phi() ,mcweight_);
-    h_IsPassVeto[4]->Fill(electroncollection[i].IsPassVeto ,mcweight_);
-    h_IsPassLoose[4]->Fill(electroncollection[i].IsPassLoose ,mcweight_);
-    h_IsPassMedium[4]->Fill(electroncollection[i].IsPassMedium ,mcweight_);
-    h_IsPassTight[4]->Fill(electroncollection[i].IsPassTight ,mcweight_);
-    h_IsPassHEEP[4]->Fill(electroncollection[i].IsPassHEEP ,mcweight_);
-    h_IsMVATrig[4]->Fill(electroncollection[i].IsMVATrig ,mcweight_);  //Add This
-    h_IsMVANonTrig[4]->Fill(electroncollection[i].IsMVANonTrig ,mcweight_);
-    h_MVATrig[4]->Fill(electroncollection[i].MVATrig ,mcweight_);
-    h_MVANonTrig[4]->Fill(electroncollection[i].MVANonTrig ,mcweight_);
-    h_charge[4]->Fill(electroncollection[i].charge ,mcweight_);
-    h_r9[4]->Fill(electroncollection[i].r9 ,mcweight_);
+    h_pt[4]->Fill(electroncollection[i].p4.Pt() ,weightfactor);
+    h_eta[4]->Fill(electroncollection[i].p4.Eta() ,weightfactor);
+    h_phi[4]->Fill(electroncollection[i].p4.Phi() ,weightfactor);
+    h_IsPassVeto[4]->Fill(electroncollection[i].IsPassVeto ,weightfactor);
+    h_IsPassLoose[4]->Fill(electroncollection[i].IsPassLoose ,weightfactor);
+    h_IsPassMedium[4]->Fill(electroncollection[i].IsPassMedium ,weightfactor);
+    h_IsPassTight[4]->Fill(electroncollection[i].IsPassTight ,weightfactor);
+    h_IsPassHEEP[4]->Fill(electroncollection[i].IsPassHEEP ,weightfactor);
+    h_IsMVATrig[4]->Fill(electroncollection[i].IsMVATrig ,weightfactor);  //Add This
+    h_IsMVANonTrig[4]->Fill(electroncollection[i].IsMVANonTrig ,weightfactor);
+    h_MVATrig[4]->Fill(electroncollection[i].MVATrig ,weightfactor);
+    h_MVANonTrig[4]->Fill(electroncollection[i].MVANonTrig ,weightfactor);
+    h_charge[4]->Fill(electroncollection[i].charge ,weightfactor);
+    h_r9[4]->Fill(electroncollection[i].r9 ,weightfactor);
     if(false) std::cout<<" filed upto r9"<<std::endl;
-    h_etSC[4]->Fill(electroncollection[i].etSC ,mcweight_);
-    h_etaSC[4]->Fill(electroncollection[i].etaSC ,mcweight_);
-    h_energySC[4]->Fill(electroncollection[i].energySC ,mcweight_);
-    h_preenergySC[4]->Fill(electroncollection[i].preenergySC ,mcweight_);
-    h_phiSC[4]->Fill(electroncollection[i].phiSC ,mcweight_);
-    h_dEtaIn[4]->Fill(electroncollection[i].dEtaIn ,mcweight_);
-    h_dPhiIn[4]->Fill(electroncollection[i].dPhiIn ,mcweight_);
-    h_hOverE[4]->Fill(electroncollection[i].hOverE ,mcweight_);
-    h_full5x5_sigmaIetaIeta[4]->Fill(electroncollection[i].full5x5_sigmaIetaIeta ,mcweight_);
-    h_eoverP[4]->Fill(electroncollection[i].eoverP ,mcweight_);
-    h_eoverPInv[4]->Fill(electroncollection[i].eoverPInv ,mcweight_);
-    h_brem[4]->Fill(electroncollection[i].brem ,mcweight_);
-    h_dEtaWidth[4]->Fill(electroncollection[i].dEtaWidth ,mcweight_);
-    h_dPhiWidth[4]->Fill(electroncollection[i].dPhiWidth ,mcweight_);
-    h_isoChargedHadrons[4]->Fill((electroncollection[i].isoChargedHadrons)/(electroncollection[i].p4.Pt()) ,mcweight_);
-    h_isoNeutralHadrons[4]->Fill((electroncollection[i].isoNeutralHadrons)/(electroncollection[i].p4.Pt()) ,mcweight_);
-    h_isoPhotons[4]->Fill((electroncollection[i].isoPhotons)/(electroncollection[i].p4.Pt()) ,mcweight_);
-    h_isoChargedFromPU[4]->Fill((electroncollection[i].isoChargedFromPU)/(electroncollection[i].p4.Pt()) ,mcweight_); //add in main code
-    h_isoDeltaBeta[4]->Fill(electroncollection[i].isoDeltaBeta ,mcweight_);
-    h_isoRho[4]->Fill(electroncollection[i].isoRho ,mcweight_);
-    h_d0[4]->Fill(electroncollection[i].d0 ,mcweight_);     //fix it 
-    h_dz[4]->Fill(electroncollection[i].dz ,mcweight_);
-    h_expectedMissingInnerHits[4]->Fill(electroncollection[i].expectedMissingInnerHits ,mcweight_);
-    h_passConversionVeto[4]->Fill(electroncollection[i].passConversionVeto ,mcweight_);
-    h_barrel[4]->Fill(electroncollection[i].barrel ,mcweight_);
-    h_endcap[4]->Fill(electroncollection[i].endcap ,mcweight_);
+    h_etSC[4]->Fill(electroncollection[i].etSC ,weightfactor);
+    h_etaSC[4]->Fill(electroncollection[i].etaSC ,weightfactor);
+    h_energySC[4]->Fill(electroncollection[i].energySC ,weightfactor);
+    h_preenergySC[4]->Fill(electroncollection[i].preenergySC ,weightfactor);
+    h_phiSC[4]->Fill(electroncollection[i].phiSC ,weightfactor);
+    h_dEtaIn[4]->Fill(electroncollection[i].dEtaIn ,weightfactor);
+    h_dPhiIn[4]->Fill(electroncollection[i].dPhiIn ,weightfactor);
+    h_hOverE[4]->Fill(electroncollection[i].hOverE ,weightfactor);
+    h_full5x5_sigmaIetaIeta[4]->Fill(electroncollection[i].full5x5_sigmaIetaIeta ,weightfactor);
+    h_eoverP[4]->Fill(electroncollection[i].eoverP ,weightfactor);
+    h_eoverPInv[4]->Fill(electroncollection[i].eoverPInv ,weightfactor);
+    h_brem[4]->Fill(electroncollection[i].brem ,weightfactor);
+    h_dEtaWidth[4]->Fill(electroncollection[i].dEtaWidth ,weightfactor);
+    h_dPhiWidth[4]->Fill(electroncollection[i].dPhiWidth ,weightfactor);
+    h_isoChargedHadrons[4]->Fill((electroncollection[i].isoChargedHadrons)/(electroncollection[i].p4.Pt()) ,weightfactor);
+    h_isoNeutralHadrons[4]->Fill((electroncollection[i].isoNeutralHadrons)/(electroncollection[i].p4.Pt()) ,weightfactor);
+    h_isoPhotons[4]->Fill((electroncollection[i].isoPhotons)/(electroncollection[i].p4.Pt()) ,weightfactor);
+    h_isoChargedFromPU[4]->Fill((electroncollection[i].isoChargedFromPU)/(electroncollection[i].p4.Pt()) ,weightfactor); //add in main code
+    h_isoDeltaBeta[4]->Fill(electroncollection[i].isoDeltaBeta ,weightfactor);
+    h_isoRho[4]->Fill(electroncollection[i].isoRho ,weightfactor);
+    h_d0[4]->Fill(electroncollection[i].d0 ,weightfactor);     //fix it 
+    h_dz[4]->Fill(electroncollection[i].dz ,weightfactor);
+    h_expectedMissingInnerHits[4]->Fill(electroncollection[i].expectedMissingInnerHits ,weightfactor);
+    h_passConversionVeto[4]->Fill(electroncollection[i].passConversionVeto ,weightfactor);
+    h_barrel[4]->Fill(electroncollection[i].barrel ,weightfactor);
+    h_endcap[4]->Fill(electroncollection[i].endcap ,weightfactor);
     if(false) std::cout<<" filled to endcap"<<std::endl;
     
     
@@ -76,48 +75,48 @@ void ElectronValidator::Fill(std::vector<Electron> electroncollection){
     // Fill First Four Electron Properties 
     if(i<4){
       if(false) std::cout<<" for less than 4"<<std::endl;
-      h_pt[i]->Fill(electroncollection[i].p4.Pt() ,mcweight_);
-      h_eta[i]->Fill(electroncollection[i].p4.Eta() ,mcweight_);   
-      h_phi[i]->Fill(electroncollection[i].p4.Phi() ,mcweight_);  
-      h_IsPassVeto[i]->Fill(electroncollection[i].IsPassVeto ,mcweight_); 
-      h_IsPassLoose[i]->Fill(electroncollection[i].IsPassLoose ,mcweight_); 
-      h_IsPassMedium[i]->Fill(electroncollection[i].IsPassMedium ,mcweight_); 
-      h_IsPassTight[i]->Fill(electroncollection[i].IsPassTight ,mcweight_); 
-      h_IsPassHEEP[i]->Fill(electroncollection[i].IsPassHEEP ,mcweight_);  
-      h_IsMVATrig[i]->Fill(electroncollection[i].IsMVATrig ,mcweight_);  //Add This
-      h_IsMVANonTrig[i]->Fill(electroncollection[i].IsMVANonTrig ,mcweight_);
-      h_MVATrig[i]->Fill(electroncollection[i].MVATrig ,mcweight_);
-      h_MVANonTrig[i]->Fill(electroncollection[i].MVANonTrig ,mcweight_);
-      h_charge[i]->Fill(electroncollection[i].charge ,mcweight_);
-      h_r9[i]->Fill(electroncollection[i].r9 ,mcweight_);
+      h_pt[i]->Fill(electroncollection[i].p4.Pt() ,weightfactor);
+      h_eta[i]->Fill(electroncollection[i].p4.Eta() ,weightfactor);   
+      h_phi[i]->Fill(electroncollection[i].p4.Phi() ,weightfactor);  
+      h_IsPassVeto[i]->Fill(electroncollection[i].IsPassVeto ,weightfactor); 
+      h_IsPassLoose[i]->Fill(electroncollection[i].IsPassLoose ,weightfactor); 
+      h_IsPassMedium[i]->Fill(electroncollection[i].IsPassMedium ,weightfactor); 
+      h_IsPassTight[i]->Fill(electroncollection[i].IsPassTight ,weightfactor); 
+      h_IsPassHEEP[i]->Fill(electroncollection[i].IsPassHEEP ,weightfactor);  
+      h_IsMVATrig[i]->Fill(electroncollection[i].IsMVATrig ,weightfactor);  //Add This
+      h_IsMVANonTrig[i]->Fill(electroncollection[i].IsMVANonTrig ,weightfactor);
+      h_MVATrig[i]->Fill(electroncollection[i].MVATrig ,weightfactor);
+      h_MVANonTrig[i]->Fill(electroncollection[i].MVANonTrig ,weightfactor);
+      h_charge[i]->Fill(electroncollection[i].charge ,weightfactor);
+      h_r9[i]->Fill(electroncollection[i].r9 ,weightfactor);
       
-      h_etSC[i]->Fill(electroncollection[i].etSC ,mcweight_);
-      h_etaSC[i]->Fill(electroncollection[i].etaSC ,mcweight_);
-      h_energySC[i]->Fill(electroncollection[i].energySC ,mcweight_);
-      h_preenergySC[i]->Fill(electroncollection[i].preenergySC ,mcweight_);
-      h_phiSC[i]->Fill(electroncollection[i].phiSC ,mcweight_);
-      h_dEtaIn[i]->Fill(electroncollection[i].dEtaIn ,mcweight_);
-      h_dPhiIn[i]->Fill(electroncollection[i].dPhiIn ,mcweight_);
-      h_hOverE[i]->Fill(electroncollection[i].hOverE ,mcweight_);
-      h_full5x5_sigmaIetaIeta[i]->Fill(electroncollection[i].full5x5_sigmaIetaIeta ,mcweight_);
-      h_eoverP[i]->Fill(electroncollection[i].eoverP ,mcweight_);
-      h_eoverPInv[i]->Fill(electroncollection[i].eoverPInv ,mcweight_);
-      h_brem[i]->Fill(electroncollection[i].brem ,mcweight_);
-      h_dEtaWidth[i]->Fill(electroncollection[i].dEtaWidth ,mcweight_);
-      h_dPhiWidth[i]->Fill(electroncollection[i].dPhiWidth ,mcweight_);
-      h_isoChargedHadrons[i]->Fill((electroncollection[i].isoChargedHadrons)/(electroncollection[i].p4.Pt()) ,mcweight_);
-      h_isoNeutralHadrons[i]->Fill((electroncollection[i].isoNeutralHadrons)/(electroncollection[i].p4.Pt()) ,mcweight_);
-      h_isoPhotons[i]->Fill((electroncollection[i].isoPhotons)/(electroncollection[i].p4.Pt()) ,mcweight_);
-      h_isoChargedFromPU[i]->Fill((electroncollection[i].isoChargedFromPU)/(electroncollection[i].p4.Pt()) ,mcweight_); //add in main code
-      h_isoDeltaBeta[i]->Fill(electroncollection[i].isoDeltaBeta ,mcweight_);
-      h_isoRho[i]->Fill(electroncollection[i].isoRho ,mcweight_);
-      // h_ooEmooP[i]->Fill(electroncollection[i].ooEmooP ,mcweight_);
-      h_d0[i]->Fill(electroncollection[i].d0 ,mcweight_);     //fix it 
-      h_dz[i]->Fill(electroncollection[i].dz ,mcweight_);
-      h_expectedMissingInnerHits[i]->Fill(electroncollection[i].expectedMissingInnerHits ,mcweight_);
-      h_passConversionVeto[i]->Fill(electroncollection[i].passConversionVeto ,mcweight_);
-      h_barrel[i]->Fill(electroncollection[i].barrel ,mcweight_); 
-      h_endcap[i]->Fill(electroncollection[i].endcap ,mcweight_);
+      h_etSC[i]->Fill(electroncollection[i].etSC ,weightfactor);
+      h_etaSC[i]->Fill(electroncollection[i].etaSC ,weightfactor);
+      h_energySC[i]->Fill(electroncollection[i].energySC ,weightfactor);
+      h_preenergySC[i]->Fill(electroncollection[i].preenergySC ,weightfactor);
+      h_phiSC[i]->Fill(electroncollection[i].phiSC ,weightfactor);
+      h_dEtaIn[i]->Fill(electroncollection[i].dEtaIn ,weightfactor);
+      h_dPhiIn[i]->Fill(electroncollection[i].dPhiIn ,weightfactor);
+      h_hOverE[i]->Fill(electroncollection[i].hOverE ,weightfactor);
+      h_full5x5_sigmaIetaIeta[i]->Fill(electroncollection[i].full5x5_sigmaIetaIeta ,weightfactor);
+      h_eoverP[i]->Fill(electroncollection[i].eoverP ,weightfactor);
+      h_eoverPInv[i]->Fill(electroncollection[i].eoverPInv ,weightfactor);
+      h_brem[i]->Fill(electroncollection[i].brem ,weightfactor);
+      h_dEtaWidth[i]->Fill(electroncollection[i].dEtaWidth ,weightfactor);
+      h_dPhiWidth[i]->Fill(electroncollection[i].dPhiWidth ,weightfactor);
+      h_isoChargedHadrons[i]->Fill((electroncollection[i].isoChargedHadrons)/(electroncollection[i].p4.Pt()) ,weightfactor);
+      h_isoNeutralHadrons[i]->Fill((electroncollection[i].isoNeutralHadrons)/(electroncollection[i].p4.Pt()) ,weightfactor);
+      h_isoPhotons[i]->Fill((electroncollection[i].isoPhotons)/(electroncollection[i].p4.Pt()) ,weightfactor);
+      h_isoChargedFromPU[i]->Fill((electroncollection[i].isoChargedFromPU)/(electroncollection[i].p4.Pt()) ,weightfactor); //add in main code
+      h_isoDeltaBeta[i]->Fill(electroncollection[i].isoDeltaBeta ,weightfactor);
+      h_isoRho[i]->Fill(electroncollection[i].isoRho ,weightfactor);
+      // h_ooEmooP[i]->Fill(electroncollection[i].ooEmooP ,weightfactor);
+      h_d0[i]->Fill(electroncollection[i].d0 ,weightfactor);     //fix it 
+      h_dz[i]->Fill(electroncollection[i].dz ,weightfactor);
+      h_expectedMissingInnerHits[i]->Fill(electroncollection[i].expectedMissingInnerHits ,weightfactor);
+      h_passConversionVeto[i]->Fill(electroncollection[i].passConversionVeto ,weightfactor);
+      h_barrel[i]->Fill(electroncollection[i].barrel ,weightfactor); 
+      h_endcap[i]->Fill(electroncollection[i].endcap ,weightfactor);
       
     }// if(i<4)
   }
@@ -184,6 +183,7 @@ void ElectronValidator::DefineHistograms(){
     h_passConversionVeto[i]         =  new TH1F("h_passConversionVeto"+postfix,"",5,-1,4);
     h_barrel[i]                     =  new TH1F("h_barrel"+postfix,"",2,0,2);
     h_endcap[i]                     =  new TH1F("h_endcap"+postfix,"",2,0,2);
+
 
     
   }

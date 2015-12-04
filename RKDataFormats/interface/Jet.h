@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <TLorentzVector.h>
-
+#include "Event.h"
 using namespace std;
 
 class Jet{
@@ -16,6 +16,7 @@ class Jet{
   Int_t charge;
   Int_t partonFlavor;
   
+  Event myevent;
   Float_t B_SSV;
   Float_t B_CSV;
   Float_t B_SSVHE;
@@ -28,6 +29,14 @@ class Jet{
   Float_t tau1;
   Float_t tau2;
   Float_t tau3;
+
+  Float_t  idisoRecofac;
+  Float_t  allfac;
+  Float_t  triggerfac;
+  Float_t  SCfac;
+
+ 
+
 
   Float_t jetMuEF;
   Float_t jetPhoEF;
@@ -84,6 +93,14 @@ class Jet{
     isCSVMed_       =   false   ;
     isCSVT_         =   false   ; 
     isLooseJet_     =   false   ;
+
+    idisoRecofac=1.;
+    allfac=1.;
+    triggerfac=1.;
+    SCfac=1.;
+
+   
+    
   }
 };
 

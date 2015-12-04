@@ -17,12 +17,19 @@ class Event {
   Int_t run;
   Int_t lumi;
   Int_t event;
+  Float_t mcweight;
+  Float_t puweight;
+  Float_t allmcweight;
+  Int_t nvtx;
   
   void Clear(){
     run=0;
     lumi=0;
     event=0;
-    
+    mcweight = 0.;
+    puweight = 0.;
+    allmcweight=0.;
+    nvtx=0;
   }
   protected:
 

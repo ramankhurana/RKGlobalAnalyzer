@@ -1,0 +1,6 @@
+root -l -b  <<EOF
+.L untuplizer_AccEff.C++
+
+EOF
+#.x run_low.C
+#("","")

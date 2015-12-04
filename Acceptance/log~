@@ -1,0 +1,163 @@
+
+Processing Del.C...
+a 
+b 
+c 
+d 
+ ibin = 0 content = 6329 num_err = 79.555
+ ibin = 1 content = 3772 num_err = 61.4166
+ ibin = 2 content = 2711 num_err = 52.0673
+ ibin = 3 content = 2269 num_err = 47.634
+ ibin = 4 content = 2191 num_err = 46.8081
+ ibin = 5 content = 2103 num_err = 45.8585
+ ibin = 6 content = 2875 num_err = 53.619
+ ibin = 7 content = 3424 num_err = 58.515
+ ibin = 8 content = 0 num_err = 0
+ ibin = 9 content = 0 num_err = 0
+ ibin = 10 content = 0 num_err = 0
+ ibin = 11 content = 0 num_err = 0
+ ibin = 12 content = 0 num_err = 0
+ ibin = 13 content = 0 num_err = 0
+ ibin = 14 content = 0 num_err = 0
+ ibin = 15 content = 0 num_err = 0
+ ibin = 16 content = 0 num_err = 0
+ ibin = 17 content = 0 num_err = 0
+ ibin = 18 content = 0 num_err = 0
+ ibin = 19 content = 0 num_err = 0
+ ibin = 20 content = 0 num_err = 0
+ ibin = 21 content = 0 num_err = 0
+ ibin = 22 content = 0 num_err = 0
+ ibin = 23 content = 0 num_err = 0
+ ibin = 24 content = 0 num_err = 0
+ ibin = 25 content = 0 num_err = 0
+ ibin = 26 content = 0 num_err = 0
+ ibin = 27 content = 0 num_err = 0
+ ibin = 28 content = 0 num_err = 0
+ ibin = 29 content = 0 num_err = 0
+ ibin = 30 content = 0 num_err = 0
+ ibin = 31 content = 0 num_err = 0
+ ibin = 32 content = 0 num_err = 0
+ ibin = 33 content = 0 num_err = 0
+ ibin = 34 content = 0 num_err = 0
+ ibin = 35 content = 0 num_err = 0
+ ibin = 36 content = 0 num_err = 0
+ ibin = 37 content = 0 num_err = 0
+ ibin = 38 content = 0 num_err = 0
+ ibin = 39 content = 0 num_err = 0
+ ibin = 40 content = 0 num_err = 0
+ ibin = 41 content = 0 num_err = 0
+ ibin = 42 content = 0 num_err = 0
+ ibin = 43 content = 0 num_err = 0
+ ibin = 44 content = 0 num_err = 0
+after scaling 0.00179755 ibin = 0 content = 11.3767 num_err = 79.555
+after scaling 0.00179755 ibin = 1 content = 6.78035 num_err = 61.4166
+after scaling 0.00179755 ibin = 2 content = 4.87315 num_err = 52.0673
+after scaling 0.00179755 ibin = 3 content = 4.07864 num_err = 47.634
+after scaling 0.00179755 ibin = 4 content = 3.93843 num_err = 46.8081
+after scaling 0.00179755 ibin = 5 content = 3.78024 num_err = 45.8585
+after scaling 0.00179755 ibin = 6 content = 5.16795 num_err = 53.619
+after scaling 0.00179755 ibin = 7 content = 6.15481 num_err = 58.515
+after scaling 0.00179755 ibin = 8 content = 0 num_err = 0
+after scaling 0.00179755 ibin = 9 content = 0 num_err = 0
+after scaling 0.00179755 ibin = 10 content = 0 num_err = 0
+after scaling 0.00179755 ibin = 11 content = 0 num_err = 0
+after scaling 0.00179755 ibin = 12 content = 0 num_err = 0
+after scaling 0.00179755 ibin = 13 content = 0 num_err = 0
+after scaling 0.00179755 ibin = 14 content = 0 num_err = 0
+after scaling 0.00179755 ibin = 15 content = 0 num_err = 0
+after scaling 0.00179755 ibin = 16 content = 0 num_err = 0
+after scaling 0.00179755 ibin = 17 content = 0 num_err = 0
+after scaling 0.00179755 ibin = 18 content = 0 num_err = 0
+after scaling 0.00179755 ibin = 19 content = 0 num_err = 0
+after scaling 0.00179755 ibin = 20 content = 0 num_err = 0
+after scaling 0.00179755 ibin = 21 content = 0 num_err = 0
+after scaling 0.00179755 ibin = 22 content = 0 num_err = 0
+after scaling 0.00179755 ibin = 23 content = 0 num_err = 0
+after scaling 0.00179755 ibin = 24 content = 0 num_err = 0
+after scaling 0.00179755 ibin = 25 content = 0 num_err = 0
+after scaling 0.00179755 ibin = 26 content = 0 num_err = 0
+after scaling 0.00179755 ibin = 27 content = 0 num_err = 0
+after scaling 0.00179755 ibin = 28 content = 0 num_err = 0
+after scaling 0.00179755 ibin = 29 content = 0 num_err = 0
+after scaling 0.00179755 ibin = 30 content = 0 num_err = 0
+after scaling 0.00179755 ibin = 31 content = 0 num_err = 0
+after scaling 0.00179755 ibin = 32 content = 0 num_err = 0
+after scaling 0.00179755 ibin = 33 content = 0 num_err = 0
+after scaling 0.00179755 ibin = 34 content = 0 num_err = 0
+after scaling 0.00179755 ibin = 35 content = 0 num_err = 0
+after scaling 0.00179755 ibin = 36 content = 0 num_err = 0
+after scaling 0.00179755 ibin = 37 content = 0 num_err = 0
+after scaling 0.00179755 ibin = 38 content = 0 num_err = 0
+after scaling 0.00179755 ibin = 39 content = 0 num_err = 0
+after scaling 0.00179755 ibin = 40 content = 0 num_err = 0
+after scaling 0.00179755 ibin = 41 content = 0 num_err = 0
+after scaling 0.00179755 ibin = 42 content = 0 num_err = 0
+after scaling 0.00179755 ibin = 43 content = 0 num_err = 0
+after scaling 0.00179755 ibin = 44 content = 0 num_err = 0
+ error indi = 0
+/afs/hep.wisc.edu/cms/khurana/Monika/CMSSW_7_4_5/src/RKGlobalAnalyzer/DYJetsToLL/Merged_DYJetsToLL_M-10to50.root    h_ZMass_Acc_Reco  Integral : 34.7736   6203.3
+ error indi = 0
+/afs/hep.wisc.edu/cms/khurana/Monika/CMSSW_7_4_5/src/RKGlobalAnalyzer/DYJetsToLL/Merged_DYJetsToLL_new_M-50to200.root    h_ZMass_Acc_Reco  Integral : 689.519   2028.85
+ error indi = 0
+/afs/hep.wisc.edu/cms/khurana/Monika/CMSSW_7_4_5/src/RKGlobalAnalyzer/DYJetsToLL/Merged_DYJetsToLL_M-200to400.root    h_ZMass_Acc_Reco  Integral : 1.29466   2.56
+ error indi = 0
+/afs/hep.wisc.edu/cms/khurana/Monika/CMSSW_7_4_5/src/RKGlobalAnalyzer/DYJetsToLL/Merged_DYJetsToLL_M-400to500.root    h_ZMass_Acc_Reco  Integral : 0.0837534   0.141
+ error indi = 0
+/afs/hep.wisc.edu/cms/khurana/Monika/CMSSW_7_4_5/src/RKGlobalAnalyzer/DYJetsToLL/Merged_DYJetsToLL_M-500to700.root    h_ZMass_Acc_Reco  Integral : 0.0517547   0.08
+ error indi = 0
+/afs/hep.wisc.edu/cms/khurana/Monika/CMSSW_7_4_5/src/RKGlobalAnalyzer/DYJetsToLL/Merged_DYJetsToLL_M-700to800.root    h_ZMass_Acc_Reco  Integral : 0.0082056   0.012
+ error indi = 0
+/afs/hep.wisc.edu/cms/khurana/Monika/CMSSW_7_4_5/src/RKGlobalAnalyzer/DYJetsToLL/Merged_DYJetsToLL_M-800to1000.root    h_ZMass_Acc_Reco  Integral : 0.00704534   0.01
+ error indi = 112.96
+/afs/hep.wisc.edu/cms/khurana/Monika/CMSSW_7_4_5/src/RKGlobalAnalyzer/DYJetsToLL/Merged_DYJetsToLL_M-1000to1500.root    h_ZMass_Acc_Reco  Integral : 0.00393807   0.0053
+ error indi = 23.3024
+/afs/hep.wisc.edu/cms/khurana/Monika/CMSSW_7_4_5/src/RKGlobalAnalyzer/DYJetsToLL/Merged_DYJetsToLL_M-1500to2000.root    h_ZMass_Acc_Reco  Integral : 0.000523685   0.00067
+ error indi = 13
+/afs/hep.wisc.edu/cms/khurana/Monika/CMSSW_7_4_5/src/RKGlobalAnalyzer/DYJetsToLL/Merged_DYJetsToLL_M-2000to3000.root    h_ZMass_Acc_Reco  Integral : 0.000145904   0.00018
+ ibin = 0 da =  79.5602 db =  2563.22 a = 11.502 b = 11771.1 r = 0.000977141 dr 0.00676228
+ ibin = 1 da =  61.4222 db =  1363.06 a = 6.92508 b = 3324.4 r = 0.00208311 dr 0.0184959
+ ibin = 2 da =  54.0761 db =  881.254 a = 5.24186 b = 1381.93 r = 0.00379314 dr 0.0392055
+ ibin = 3 da =  48.6463 db =  623.101 a = 4.78481 b = 681.077 r = 0.00702536 dr 0.0717141
+ ibin = 4 da =  47.823 db =  463.512 a = 4.98534 b = 380.719 r = 0.0130945 dr 0.12662
+ ibin = 5 da =  47.608 db =  359.51 a = 5.21645 b = 230.628 r = 0.0226185 dr 0.209417
+ ibin = 6 da =  54.639 db =  289.567 a = 7.04839 b = 150.237 r = 0.0469151 dr 0.374758
+ ibin = 7 da =  63.1894 db =  230.846 a = 8.90435 b = 101.778 r = 0.0874878 dr 0.651795
+ ibin = 8 da =  3.48531 db =  12.4702 a = 6.02996 b = 36.2784 r = 0.166214 dr 0.111776
+ ibin = 9 da =  4.50356 db =  10.4598 a = 7.31701 b = 34.1348 r = 0.214356 dr 0.147381
+ ibin = 10 da =  3.48829 db =  9.90102 a = 7.07347 b = 28.397 r = 0.249092 dr 0.150441
+ ibin = 11 da =  6.09144 db =  12.8972 a = 8.59264 b = 31.2947 r = 0.274572 dr 0.225149
+ ibin = 12 da =  4.49774 db =  12.5077 a = 10.9387 b = 36.8585 r = 0.296775 dr 0.158218
+ ibin = 13 da =  6.4699 db =  16.2877 a = 14.5694 b = 46.4753 r = 0.313487 dr 0.177342
+ ibin = 14 da =  8.62977 db =  13.237 a = 27.9136 b = 84.9297 r = 0.328667 dr 0.113793
+ ibin = 15 da =  9.3514 db =  17.0374 a = 55.5738 b = 163.611 r = 0.339671 dr 0.0672159
+ ibin = 16 da =  6.47227 db =  13.0925 a = 262.142 b = 747.157 r = 0.350853 dr 0.0106225
+ ibin = 17 da =  10.0517 db =  18.0042 a = 234.242 b = 651.846 r = 0.359352 dr 0.0183385
+ ibin = 18 da =  8.95524 db =  17.0545 a = 22.2975 b = 59.7495 r = 0.373183 dr 0.183876
+ ibin = 19 da =  10.769 db =  17.9204 a = 8.14419 b = 21.0537 r = 0.386829 dr 0.608315
+ ibin = 20 da =  9.96373 db =  14.521 a = 3.55334 b = 9.2345 r = 0.38479 dr 1.23705
+ ibin = 21 da =  9.85346 db =  15.0096 a = 2.94592 b = 7.37438 r = 0.399481 dr 1.56412
+ ibin = 22 da =  11.348 db =  19.7012 a = 2.06793 b = 5.06693 r = 0.408124 dr 2.74482
+ ibin = 23 da =  14.6531 db =  21.8904 a = 1.73499 b = 4.19536 r = 0.41355 dr 4.10549
+ ibin = 24 da =  20.4921 db =  28.7071 a = 1.44998 b = 3.42871 r = 0.422895 dr 6.94671
+ ibin = 25 da =  19.5566 db =  27.4962 a = 1.18699 b = 2.76262 r = 0.429662 dr 8.27043
+ ibin = 26 da =  21.5997 db =  31.7496 a = 0.986383 b = 2.24103 r = 0.440147 dr 11.4796
+ ibin = 27 da =  22.5722 db =  33.8221 a = 0.782148 b = 1.76298 r = 0.443651 dr 15.3743
+ ibin = 28 da =  25.6488 db =  39.8952 a = 0.644564 b = 1.44691 r = 0.445478 dr 21.5664
+ ibin = 29 da =  35.9706 db =  49.5973 a = 0.622687 b = 1.30578 r = 0.476869 dr 32.9685
+ ibin = 30 da =  46.5542 db =  66.1013 a = 0.511682 b = 1.06626 r = 0.479883 dr 52.833
+ ibin = 31 da =  92.9138 db =  128.52 a = 0.340192 b = 0.696581 r = 0.488374 dr 160.968
+ ibin = 32 da =  87.3185 db =  119.089 a = 0.261051 b = 0.521794 r = 0.500294 dr 202.586
+ ibin = 33 da =  90.518 db =  123.059 a = 0.214094 b = 0.421349 r = 0.508116 dr 261.102
+ ibin = 34 da =  108.948 db =  142.541 a = 0.203073 b = 0.379273 r = 0.535428 dr 350.724
+ ibin = 35 da =  125.988 db =  159.382 a = 0.130668 b = 0.228686 r = 0.571388 dr 679.78
+ ibin = 36 da =  179.056 db =  228.076 a = 0.0658107 b = 0.114432 r = 0.575106 dr 1939.66
+ ibin = 37 da =  191.724 db =  239.498 a = 0.0406548 b = 0.0667146 r = 0.609384 dr 3611.7
+ ibin = 38 da =  172.412 db =  209.846 a = 0.0270404 b = 0.0420127 r = 0.643625 dr 5213.08
+ ibin = 39 da =  177.659 db =  214.56 a = 0.0147972 b = 0.0222003 r = 0.666529 dr 10273.1
+ ibin = 40 da =  228.132 db =  272.795 a = 0.00862614 b = 0.0125524 r = 0.687211 dr 23523.6
+ ibin = 41 da =  150.536 db =  176.177 a = 0.00483298 b = 0.00678607 r = 0.712191 dr 28878.3
+ ibin = 42 da =  149.263 db =  172.242 a = 0.00225367 b = 0.00305548 r = 0.737583 dr 64149.7
+ ibin = 43 da =  156.288 db =  177.387 a = 0.00122203 b = 0.00159543 r = 0.765958 dr 129803
+ ibin = 44 da =  197.873 db =  222.902 a = 0.000453377 b = 0.000579012 r = 0.783018 dr 455689
+ ibin = 45 da =  0 db =  0 a = 0.000123671 b = 0.000152193 r = 0.812595 dr 0
+Info in <TCanvas::MakeDefCanvas>:  created default TCanvas with name c1

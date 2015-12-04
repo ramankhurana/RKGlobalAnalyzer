@@ -8,6 +8,7 @@
 #include <iostream>
 #include <TLorentzVector.h>
 #include <bitset>
+#include "Event.h"
 class Electron {
  public:
   // Variables for corrected Electron
@@ -15,13 +16,13 @@ class Electron {
   ~Electron(){};
   
   //IDs
-  Bool_t IsPassVeto; 
-  Bool_t IsPassLoose; 
-  Bool_t IsPassMedium; 
-  Bool_t IsPassTight; 
-  Bool_t IsPassHEEP;  
-  Bool_t IsMVATrig;  //Add This
-  Bool_t IsMVANonTrig;
+  bool  IsPassVeto; 
+  bool  IsPassLoose; 
+  bool  IsPassMedium; 
+  bool  IsPassTight; 
+  bool  IsPassHEEP;  
+  bool  IsMVATrig;  //Add This
+  bool  IsMVANonTrig;
   Float_t MVATrig;
   Float_t MVANonTrig;
 
@@ -45,6 +46,12 @@ class Electron {
   Float_t  dEtaWidth;
   Float_t  dPhiWidth;
 
+
+  //
+  Float_t  idisoRecofac;
+  Float_t  allfac;
+  Float_t  triggerfac; 
+  Float_t  SCfac;
 
 
   Float_t  isoChargedHadrons;
@@ -72,10 +79,10 @@ class Electron {
   Int_t           nPUVert;
 
   Float_t RE25E55;
-  Bool_t EcalDrivenSeed;
+  bool EcalDrivenSeed;
   Float_t Dr03TkSumPt; 
   Float_t MiniIso;
-
+  Event myevent;
   
   Float_t weight;
   bool operator== (Electron& other_){
@@ -85,11 +92,11 @@ class Electron {
     cutsStatusL = 0b0000000000000000;
     cutsStatusM = 0b0000000000000000;
     cutsStatusT = 0b0000000000000000;
-    IsPassVeto= 0;
-    IsPassLoose= 0;
-    IsPassMedium= 0;
-    IsPassTight= 0;
-    IsPassHEEP= 0;
+    IsPassVeto= false;
+    IsPassLoose= false;
+    IsPassMedium= false;
+    IsPassTight= false;
+    IsPassHEEP= false;
     IsMVATrig= 0;
     IsMVANonTrig= 0;
     MVATrig= 0;
@@ -137,11 +144,14 @@ class Electron {
      nPUVert=0;
      
  RE25E55 =0;
- EcalDrivenSeed=0;
+ EcalDrivenSeed=false;
  Dr03TkSumPt=0; 
  MiniIso=0;
+idisoRecofac=1.;
+ allfac=1.;
+ triggerfac=1.;
+ SCfac=1.;     
 
-     
 
   }
   protected:
