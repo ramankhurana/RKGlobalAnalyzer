@@ -24,6 +24,9 @@ void HistFactory::DefineHistograms(){
     h_nFJets[i]     = new TH1F("h_nFJets"+postfix,"h_nFJets",10,0,10);
     h_DRSJ[i]       = new TH1F("h_DRSJ"+postfix,"h_DRSJ",100,0,5);
     
+    
+    h_dPhiThinJetMET[i] = new TH1F("h_dPhiThinJetMET"+postfix,"h_dPhiThinJetMET",70,-3.5,3.5);
+    
     h_Q1Q2[i]       = new TH1F("h_Q1Q2"+postfix,"h_Q1Q2",21,-10,10);
     h_MET[i]        = new TH1F("h_MET"+postfix,"h_MET",300,0,3000);
     h_Mjj[i]        = new TH1F("h_Mjj"+postfix,"",300,0,3000);
@@ -58,6 +61,38 @@ void HistFactory::DefineHistograms(){
     h_M_vs_Q1Q2[i]  = new TH2F("h_M_vs_Q1Q2"+postfix,"h_M_vs_Q1Q2",100,0,200,21,-10,10);
   }
 
+  // Define Branches for skimTree;
+  skimTree = new TTree("skimTree"+prefix,"Tree with relevant info only");
+  skimTree->Branch("run_", &run_, "Run_/I");
+  skimTree->Branch("lumi_", &lumi_, "Lumi_/I");
+  skimTree->Branch("event_", &event_, "Event_/I");
+  skimTree->Branch("dphiMin_",&dphiMin_,"dphiMin_/F");
+  skimTree->Branch("NAddMu_",&NAddMu_,"NAddMu_/I");
+  skimTree->Branch("NAddEle_",&NAddEle_,"NAddEle_/I");
+  skimTree->Branch("NAddTau_",&NAddTau_,"NAddTau_/I");
+  skimTree->Branch("NAddBJet",&NAddBJet,"NAddBJet/I");
+  skimTree->Branch("MinCSV_",&MinCSV_,"MinCSV_/F");
+  skimTree->Branch("MaxCSV_",&MaxCSV_,"MaxCSV_/F");
+  skimTree->Branch("DRSJ_",&DRSJ_,"DRSJ_/F");
+  skimTree->Branch("Mass_",&Mass_,"Mass_/F");
+  skimTree->Branch("JetPhi_",&JetPhi_,"JetPhi_/F");
+  skimTree->Branch("JetEta_",&JetEta_,"JetEta_/F");
+  skimTree->Branch("JetCSVSum_",&JetCSVSum_,"JetCSVSum_/F");
+  skimTree->Branch("JetMetDPhi_",&JetMetDPhi_,"JetMetDPhi_/F");
+  skimTree->Branch("Tau21_",&Tau21_,"Tau21_/F");
+  skimTree->Branch("JetPt_",&JetPt_,"JetPt_/F");
+  skimTree->Branch("SumET_",&SumET_,"SumET_/F");
+  skimTree->Branch("MET_",&MET_,"MET_/F");
+  skimTree->Branch("jetCEmEF_",&jetCEmEF_,"jetCEmEF_/F");
+  skimTree->Branch("jetCHadEF_",&jetCHadEF_,"jetCHadEF_/F");
+  skimTree->Branch("jetPhoEF_",&jetPhoEF_,"jetPhoEF_/F");
+  skimTree->Branch("jetNEmEF_",&jetNEmEF_,"jetNEmEF_/F");
+  skimTree->Branch("jetNEmEF_",&jetNEmEF_,"jetNEmEF_/F");
+  skimTree->Branch("jetNHadEF_",&jetNHadEF_,"jetNHadEF_/F");
+  skimTree->Branch("jetMuEF_",&jetMuEF_,"jetMuEF_/F");
+  skimTree->Branch("jetCMulti_",&jetCMulti_,"jetCMulti_/F");
+  
+  
 }
 
 void HistFactory::Fill(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > objectCollection, Int_t howManyObjs, std::vector<int> istatus){
@@ -126,9 +161,14 @@ void HistFactory::Fill(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > objec
 
 
 // Following histograms will be filled when you have fat-jet-MET combination 
-void HistFactory::Fill(std::vector<ResonanceWithMET<Jet,MET > > objectCollection, Int_t howManyObjs, std::vector<int> istatus){
+void HistFactory::Fill(std::vector<ResonanceWithMET<Jet,MET > > objectCollection, Int_t howManyObjs, std::vector<int> istatus, std::vector<TString> eventlist){
   if(objectCollection.size()>0){
-    for(size_t i=0; i< TMath::Min(objectCollection.size(),(size_t)nobjectmet);i++){
+    
+    bool objectfilled = false;
+    //for(size_t i=0; i< TMath::Min(objectCollection.size(),(size_t)nobjectmet);i++) {
+    for(size_t i=0; i< objectCollection.size();i++) {
+      if(objectfilled) continue; // fill only one obj info
+      //int i=0;
       Int_t nbits = 0;
       for (size_t ibit=0; ibit<istatus.size(); ibit++){
 	
@@ -143,17 +183,68 @@ void HistFactory::Fill(std::vector<ResonanceWithMET<Jet,MET > > objectCollection
       if(objectCollection.size() >0) mcweight_ = objectCollection[0].events.mcweight ;
       
       if(nbits==(int)istatus.size()){
+	
+	//TString thisEvent;
+	//thisEvent.Form("%d:%d:%d",objectCollection[0].events.run,objectCollection[0].events.lumi,objectCollection[0].events.event);
+	//if ( std::find(eventlist.begin(), eventlist.end(), thisEvent) != eventlist.end() ) {
+	//  std::cout<<" match found to skip event "<<std::endl;	
+	//  return;
+	//}
+	
+	
+	float dphimin=3.4;
+	for(int ij=0;ij<(int)objectCollection[0].thinjets.size();ij++){
+	  float dr_ =    RKMath::DeltaR(objectCollection[0].thinjets[ij].p4.Eta() ,
+					objectCollection[0].thinjets[ij].p4.Phi() ,
+					objectCollection[i].jet1.p4.Eta(),
+					objectCollection[i].jet1.p4.Phi());
+	  if(dr_ < 0.8 )  continue;
+	  float dphi_ = RKMath::DeltaPhi( objectCollection[0].thinjets[ij].p4.Phi() ,
+					  objectCollection[i].jet2.RawPhi);
+	  if(TMath::Abs(dphi_)<dphimin) dphimin = TMath::Abs(dphi_);
+	}
+	h_dPhiThinJetMET[i]->Fill(dphimin, mcweight_ );
+	
+
+	
 	if(false)	std::cout<<" filling FATJETMET "<<std::endl;
-	h_nMuons[i]->Fill(objectCollection[0].muons.size()             , mcweight_  );
-	h_nElectrons[i]->Fill(objectCollection[0].electrons.size()     , mcweight_  );
-        h_nTaus[i]->Fill(objectCollection[0].taus.size()               , mcweight_  );
+	
+	int naddmuon = 0;
+	for (size_t imu=0; (imu< objectCollection[0].muons.size()); imu++){
+	  float dr_ = objectCollection[0].muons[imu].p4.DeltaR(objectCollection[i].jet1.p4);
+	  if(dr_ > 0.8) {
+	    naddmuon++;
+	  }
+	}
+
+	int naddele = 0;
+	for (size_t iele=0; (iele< objectCollection[0].electrons.size()); iele++){
+	  float dr_ = objectCollection[0].electrons[iele].p4.DeltaR(objectCollection[i].jet1.p4);
+	  if(dr_ > 0.8) {
+	    naddele++;
+	  }
+	}
+
+	int naddtau = 0;
+	for (size_t itau=0; (itau< objectCollection[0].taus.size()); itau++){
+	  float dr_ = objectCollection[0].taus[itau].p4.DeltaR(objectCollection[i].jet1.p4);
+	  if(dr_ > 0.8) {
+	    naddtau++;
+	  }
+	}
+
+	
+	h_nMuons[i]->Fill(naddmuon             , mcweight_  );
+	h_nElectrons[i]->Fill(naddele          , mcweight_  );
+        h_nTaus[i]->Fill(naddtau               , mcweight_  );
+	
 	int njets=objectCollection[0].jets.size();
 	int naddjet = 0;
 	for(int ij=0;ij<njets;ij++){
 	  float dr_ = RKMath::DeltaR(objectCollection[0].jets[ij].p4.Eta() ,
 				     objectCollection[0].jets[ij].p4.Phi() ,
-				     objectCollection[0].jet1.p4.Eta(),
-				     objectCollection[0].jet1.p4.Phi());
+				     objectCollection[i].jet1.p4.Eta(),
+				     objectCollection[i].jet1.p4.Phi());
 	  if(dr_ < 0.8 )  continue;
 	  //float dphi_ = RKMath::DeltaPhi(objectCollection[0].jets[ij].p4.Phi(), objectCollection[0].jet1.p4.Phi() );
 	  //if( dphi_ < 2.0 ) continue;
@@ -170,6 +261,8 @@ void HistFactory::Fill(std::vector<ResonanceWithMET<Jet,MET > > objectCollection
 	float drsj ;
 	TLorentzVector p41;
 	TLorentzVector p42;
+	float maxcsv=-999;
+	float mincsv=-999;
 	if(objectCollection[i].jet1.SDPx.size()>1){
 	  p41.SetPxPyPzE(objectCollection[i].jet1.SDPx[0],
 			 objectCollection[i].jet1.SDPy[0],
@@ -182,9 +275,10 @@ void HistFactory::Fill(std::vector<ResonanceWithMET<Jet,MET > > objectCollection
 	
 	  drsj   = p41.DeltaR(p42);
 	  float csv1 = objectCollection[i].jet1.SDCSV[0];
-	  float csv2 = objectCollection[i].jet1.SDCSV[2];
-	  float maxcsv = TMath::Max(csv1,csv2);
-	  float mincsv = TMath::Min(csv1,csv2);
+	  float csv2 = objectCollection[i].jet1.SDCSV[1];
+	  maxcsv = TMath::Max(csv1,csv2);
+	  mincsv = TMath::Min(csv1,csv2);
+	  
 	  h_CSVMax[i]->Fill(maxcsv, mcweight_);
 	  h_CSVMin[i]->Fill(mincsv, mcweight_);
 	}
@@ -218,6 +312,43 @@ void HistFactory::Fill(std::vector<ResonanceWithMET<Jet,MET > > objectCollection
 	// 2D histograms 
 	h_M_vs_MET[i]->Fill(objectCollection[i].jet1.SDmass, objectCollection[i].jet2.RawPt );
 	
+	//--------------
+	// Filling the branches here which are used to fill the histograms. 
+	// This can be used later for more debugging. 
+	//--------------
+	run_           = objectCollection[i].events.run;
+	lumi_          = objectCollection[i].events.lumi;
+	event_         = objectCollection[i].events.event;
+	dphiMin_       = dphimin;
+	NAddMu_        = naddmuon;
+	NAddEle_       = naddele;
+	NAddTau_       = naddtau;
+	NAddBJet       = naddjet;
+	MinCSV_        = mincsv;
+	MaxCSV_        = maxcsv;
+	DRSJ_          = drsj;
+	Mass_          = objectCollection[i].jet1.SDmass;
+	JetPhi_        = objectCollection[i].jet1.p4.Phi();
+	JetEta_        = objectCollection[i].jet1.p4.Eta();
+	JetCSVSum_     = objectCollection[i].jet1.B_CISVV2;
+	JetMetDPhi_    = TMath::Abs(objectCollection[i].TransverseObjProp.DeltaPhi);
+	Tau21_         = objectCollection[i].jet1.tau2/objectCollection[i].jet1.tau1;
+	JetPt_         = objectCollection[i].jet1.p4.Pt();
+	SumET_         = objectCollection[i].jet2.RawSumEt;
+	MET_           = objectCollection[i].jet2.RawPt;
+	jetCEmEF_      = objectCollection[i].jet1.jetCEmEF;
+	jetCHadEF_     = objectCollection[i].jet1.jetCHadEF;
+	jetPhoEF_      = objectCollection[i].jet1.jetPhoEF;
+	jetNEmEF_      = objectCollection[i].jet1.jetNEmEF;
+	jetNHadEF_     = objectCollection[i].jet1.jetNHadEF;
+	jetMuEF_       = objectCollection[i].jet1.jetMuEF;
+	jetCMulti_     = objectCollection[i].jet1.jetCMulti;
+	
+	//--------------------
+	// Branches ends here
+	//--------------------
+	skimTree->Fill();
+	objectfilled=true;
       }// if(nbits==istatus.size()){ 
     }//for(int i=0; i<(int)objectCollection.size();i++){
   }// if(objectCollection.size()>0){
@@ -228,9 +359,10 @@ void HistFactory::Fill(std::vector<ResonanceWithMET<Jet,MET > > objectCollection
 
 void HistFactory::Write(){
   file->cd();
+  skimTree->Write();
   file->mkdir(prefix);
   file->cd(prefix);
-
+  
   for(int i =0; i<nobjectmet; i++){
     // 1D Histograms
     h_nMuons[i]       ->Write();

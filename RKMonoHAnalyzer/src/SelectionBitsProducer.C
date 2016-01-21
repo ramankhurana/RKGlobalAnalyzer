@@ -93,13 +93,15 @@ std::vector<ResonanceWithMET<Jet,MET> > SelectionBitsProducer::SelectionBitsSave
       // for fat-jet CSV
       StatusOfCuts[cuts.cutsMapFatJet["bcsv"]]              = (objectCollection[i].jet1.B_CISVV2 > tmp_cutValueMap["leadingcsv"] )         ;  
       
+      bool a = false ;
+      bool b = false ;
       if (objectCollection[i].jet1.nsubJets >1 ) {
 	// for two sub-jets csv
 	StatusOfCuts[cuts.cutsMapFatJet["c2subjet"]]        = (objectCollection[i].jet1.SDCSV[0] > tmp_cutValueMap["leadingcsv"]
 							       && objectCollection[i].jet1.SDCSV[1] > tmp_cutValueMap["leadingcsv"] )         ;  
 	
-	bool a = objectCollection[i].jet1.SDCSV[0] > tmp_cutValueMap["leadingcsv"];
-	bool b = objectCollection[i].jet1.SDCSV[1] > tmp_cutValueMap["leadingcsv"];
+	a = objectCollection[i].jet1.SDCSV[0] > tmp_cutValueMap["leadingcsv"];
+	b = objectCollection[i].jet1.SDCSV[1] > tmp_cutValueMap["leadingcsv"];
 	bool first = a && !b;
 	bool second = !a && b;
 	// XOR will give exactly one of them passing the CSV
@@ -137,7 +139,24 @@ std::vector<ResonanceWithMET<Jet,MET> > SelectionBitsProducer::SelectionBitsSave
       }
       // for 1 subjet csv 
       
-      StatusOfCuts[cuts.cutsMapFatJet["gDPHIJetMet"]]       = (TMath::Abs(objectCollection[i].TransverseObjProp.DeltaPhi) > tmp_cutValueMap["dphiDiJetMet"] );    
+      
+      //DPhi between any thin-jet and MET. To reject the QCD background. 
+      int ncloseJet=0;
+      for(int ij=0;ij<(int)objectCollection[0].thinjets.size();ij++){
+	float dr_ =    RKMath::DeltaR(objectCollection[0].thinjets[ij].p4.Eta() ,
+				      objectCollection[0].thinjets[ij].p4.Phi() ,
+				      objectCollection[i].jet1.p4.Eta(),
+				      objectCollection[i].jet1.p4.Phi());
+        if(dr_ < 0.8 )  continue;
+	float dphi_ = RKMath::DeltaPhi( objectCollection[0].thinjets[ij].p4.Phi() ,
+					objectCollection[i].jet2.RawPhi);
+	if(TMath::Abs(dphi_)<0.4) ncloseJet++;
+      }
+
+      
+      // DPhi between Fat-jet and MET > 2.5 
+      // Added AntiQCD cut
+      StatusOfCuts[cuts.cutsMapFatJet["gDPHIJetMet"]]       = (TMath::Abs(objectCollection[i].TransverseObjProp.DeltaPhi) > tmp_cutValueMap["dphiDiJetMet"]  && ncloseJet==0)  ;    
       
       //std::cout<<" SDMASS  = "<<objectCollection[i].jet1.SDmass <<std::endl;
       StatusOfCuts[cuts.cutsMapFatJet["hMjet"]]             = (objectCollection[i].jet1.SDmass > tmp_cutValueMap["MDiJetLow"]  &&         
@@ -154,17 +173,42 @@ std::vector<ResonanceWithMET<Jet,MET> > SelectionBitsProducer::SelectionBitsSave
       for(int ij=0;ij<njets;ij++){
 	float dr_ = RKMath::DeltaR(objectCollection[0].jets[ij].p4.Eta() ,
 				   objectCollection[0].jets[ij].p4.Phi() ,
-				   objectCollection[0].jet1.p4.Eta(),
-				   objectCollection[0].jet1.p4.Phi());
+				   objectCollection[i].jet1.p4.Eta(),
+				   objectCollection[i].jet1.p4.Phi());
 	if(dr_ < 0.8 )  continue;
-	//float dphi_ = RKMath::DeltaPhi(objectCollection[0].jets[ij].p4.Phi(), objectCollection[0].jet1.p4.Phi() );                                                                   	//if( TMath::Abs(dphi_) < 2.0 ) continue;                                                                      
+ 	//float dphi_ = RKMath::DeltaPhi(objectCollection[0].jets[ij].p4.Phi(), objectCollection[0].jet1.p4.Phi() );                                                                   	//if( TMath::Abs(dphi_) < 2.0 ) continue;                                                                      
 	naddjet++;
       }
-      StatusOfCuts[cuts.cutsMapFatJet["jNele"]]             = (objectCollection[0].electrons.size() == tmp_cutValueMap["Nele"]);
-      StatusOfCuts[cuts.cutsMapFatJet["kNmu"]]              = (objectCollection[0].muons.size()  == tmp_cutValueMap["Nmu"]);
-      StatusOfCuts[cuts.cutsMapFatJet["lNjet"]]             = (naddjet >= tmp_cutValueMap["Njet"]);
 
-      StatusOfCuts[cuts.cutsMapFatJet["mNtau"]]             = (objectCollection[0].taus.size() == tmp_cutValueMap["Ntau"]);
+
+      int naddmuon = 0;
+      for (size_t imu=0; (imu< objectCollection[0].muons.size()); imu++){
+	float dr_ = objectCollection[0].muons[imu].p4.DeltaR(objectCollection[i].jet1.p4);
+	if(dr_ > 0.8) {
+	  naddmuon++;
+	}
+      }
+
+      int naddele = 0;
+      for (size_t iele=0; (iele< objectCollection[0].electrons.size()); iele++){
+	float dr_ = objectCollection[0].electrons[iele].p4.DeltaR(objectCollection[i].jet1.p4);
+	if(dr_ > 0.8) {
+	  naddele++;
+	}
+      }
+      
+      int naddtau = 0;
+      for (size_t itau=0; (itau< objectCollection[0].taus.size()); itau++){
+	float dr_ = objectCollection[0].taus[itau].p4.DeltaR(objectCollection[i].jet1.p4);
+	if(dr_ > 0.8) {
+	  naddtau++;
+	}
+      }
+      
+      StatusOfCuts[cuts.cutsMapFatJet["jNele"]]             = (naddele   == tmp_cutValueMap["Nele"]);
+      StatusOfCuts[cuts.cutsMapFatJet["kNmu"]]              = (naddmuon  == tmp_cutValueMap["Nmu"]);
+      StatusOfCuts[cuts.cutsMapFatJet["lNjet"]]             = (naddjet   >= tmp_cutValueMap["Njet"]);
+      StatusOfCuts[cuts.cutsMapFatJet["mNtau"]]             = (naddtau    == tmp_cutValueMap["Ntau"]);
       
       
       
@@ -182,8 +226,7 @@ std::vector<ResonanceWithMET<Jet,MET> > SelectionBitsProducer::SelectionBitsSave
 				      objectCollection[0].taus.size())
 	       <<std::endl;
       // exactly Zero leptons
-      StatusOfCuts[cuts.cutsMapFatJet["pNLepton"]]              = (objectCollection[0].muons.size() +  objectCollection[0].electrons.size() +
-								   objectCollection[0].taus.size())  == tmp_cutValueMap["NLepton"] ;
+      StatusOfCuts[cuts.cutsMapFatJet["pNLepton"]]              = (naddele + naddmuon + naddtau )  == tmp_cutValueMap["NLepton"] ;
       
       
       
@@ -203,6 +246,8 @@ std::vector<ResonanceWithMET<Jet,MET> > SelectionBitsProducer::SelectionBitsSave
 
       bool csv_heavyjet = (csv_subjet1a && csv_subjet2b)  || ( csv_subjet1b && csv_subjet2a );
       StatusOfCuts[cuts.cutsMapFatJet["rZHeavyBJet"]]           =  csv_heavyjet ;
+      
+      StatusOfCuts[cuts.cutsMapFatJet["sAtLeastOneBTag"]]       =  a || b ;
       
       
       

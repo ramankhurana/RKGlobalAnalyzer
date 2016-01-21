@@ -31,12 +31,12 @@ gStyle->SetErrorX(0);
 gStyle->SetLineWidth(1);
 
 //Provide luminosity of total data
-//float lumi = 1263.8; // It will print on your plots too
-float lumi = 3000.; // It will print on your plots too
+float lumi = 1263.8; // It will print on your plots too
+//float lumi = 3000.; // It will print on your plots too
 
 std::vector<TString> filenameString;
 //Change here Directories of the file
-TString filenamepath("/afs/hep.wisc.edu/cms/khurana/Script/MonoHFatJetAnalysis_ForExoWorkShopV6/"); 
+TString filenamepath("/afs/hep.wisc.edu/cms/khurana/Script/MonoHFatJetAnalysis_ForAnLooseBTag_DR//"); 
 filenameString.push_back(filenamepath + "Merged_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root");
 //WJets  1
 filenameString.push_back(filenamepath + "Merged_WJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root");
@@ -447,7 +447,7 @@ c12->SetLogy(0);
   }  
 
 
-  hs->GetYaxis()->SetTitle("Events");                                   
+  hs->GetYaxis()->SetTitle("Events");
   hs->GetYaxis()->SetTitleSize(0.07);                                                                                                            hs->GetYaxis()->SetTitleOffset(0.9);                                                                                                           hs->GetYaxis()->SetTitleFont(22);
   hs->GetYaxis()->SetLabelFont(22);                                                                                                              hs->GetYaxis()->SetLabelSize(.07);   
   hs->GetXaxis()->SetRangeUser(XMIN,XMAX);                                                                                                       hs->GetXaxis()->SetNdivisions(508); 
@@ -632,18 +632,19 @@ def makeplot(inputs):
 ##########Start Adding your plots here
 
 #dirnames=['MonoHFatJetsPreselection_1subj','MonoHFatJetsPreselection_2subj','histfacFatJet_TTBar','histfacFatJet_ZLight','histfacFatJet_ZHeavy','histfacFatJet_WLight','histfacFatJet_WHeavy']
-dirnames=['MonoHFatJetsPreselection_2subj','MonoHFatJetSelection_Jetveto','MonoHFatJetSelection_LeptonVeto','MonoHFatJetSelection_JetAndLeptonVeto']
+#dirnames=['MonoHFatJetsPreselection_2subj','MonoHFatJetSelection_Jetveto','MonoHFatJetSelection_LeptonVeto','MonoHFatJetSelection_JetAndLeptonVeto']
+dirnames=['histfacFatJet_WLight']
 ## Plots After Pre-selection
 #makeplot(['CutFlowAndEachCutFatJet', 'h_cutflow_0_f', 'Cut Flow', '0','5', '1', '1','1'])
 for dirname in dirnames:
-    makeplot([dirname,'h_Mjj0','M_{SD}','20','200','2','0','1']) 
+   # makeplot([dirname,'h_Mjj0','M_{SD}','20','200','2','0','1']) 
 #    makeplot([dirname,'h_nMuons0','N_{add. #mu}','0','5','1','0'])
  #   makeplot([dirname,'h_nElectrons0','N_{add. e}','0','5','1','0'])
   #  makeplot([dirname,'h_nJetss0','N_{add. Jets}','0','5','1','0']) 
     ##makeplot([dirname,'h_MET0','MET','200','800','4','0'])
     ##makeplot([dirname,'h_pTjj0','p_{T}^{AK8Jet}','100','1600','4','0'])
     ##makeplot([dirname,'h_h_Tau21jj0','#tau_{21}','0','1','1','0'])
-    ##makeplot([dirname,'h_CSVSum0','CSV','0','1','1','0'])
+    makeplot([dirname,'h_CSVSum0','CSV','0','1','1','0'])
     ##makeplot([dirname,'h_phijj0','#phi_{AK8Jet}','-3.5','3.5','5','0'])
     ##makeplot([dirname,'h_etajj0','#eta_{AK8Jet}','-2.5','2.5','5','0'])
     ##makeplot([dirname,'h_nTaus0','N_{#tau}','0','5','1','0'])

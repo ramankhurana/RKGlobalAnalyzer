@@ -14,24 +14,30 @@
  
  ofstream mout;
  mout.open(DirPreName+dirpathname +"/HISTPATH"+dirpathname +"Integral.txt",std::ios::app);
+ ofstream rout;
+ rout.open(DirPreName+dirpathname +"/HISTPATH"+dirpathname +"Integral.html",std::ios::app);
 
 gROOT->ProcessLine(".L /afs/hep.wisc.edu/cms/khurana/Monika/CMSSW_7_4_5/src/RKGlobalAnalyzer/tdrstyle.C");                                     setTDRStyle();
 gStyle->SetOptStat(0);
 gStyle->SetOptTitle(0);
 gStyle->SetFrameLineWidth(3);
-gStyle->SetErrorX(0);
+//gStyle->SetErrorX(0);
 gStyle->SetLineWidth(1);
 
 //Provide luminosity of total data
+float lumi = 2151.2; // It will print on your plots too
 //float lumi = 1263.8; // It will print on your plots too
-float lumi = 3000.; // It will print on your plots too
+//float lumi = 3000.; // It will print on your plots too
 
 std::vector<TString> filenameString;
 //Change here Directories of the file
-TString filenamepath("/afs/hep.wisc.edu/cms/khurana/Script/MonoHFatJetAnalysis_ForExoWorkShopV6/"); 
-filenameString.push_back(filenamepath + "Merged_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root");
+
+//TString filenamepath("/afs/hep.wisc.edu/cms/khurana/Script/MonoHFatJetAnalysis_ForAnLoose_BaseLine_BugFix/"); 
+TString filenamepath("/afs/hep.wisc.edu/cms/khurana/Script/MonoHFatJetAnalysis_ForAnLoose_BaseLine/"); 
+// DYJets 1
+filenameString.push_back(filenamepath + "Merged_WW_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root");
 //WJets  1
-filenameString.push_back(filenamepath + "Merged_WJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8-runallAnalysis.root");
+filenameString.push_back(filenamepath + "Merged_WW_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root");
 
 // Diboson WW WZ ZZ 2 3 4
 filenameString.push_back(filenamepath + "Merged_WW_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root");
@@ -100,7 +106,12 @@ Xsec[1] = 61500;
 Xsec[2] = 118.7; 
 Xsec[3] = 66.1;
 Xsec[4] = 15.4;
-Xsec[5] = 831.76;
+
+//float Stt = 0.894141 ;
+float Stt = 1. ;
+
+Xsec[5] = Stt * 831.76; // ttbar
+
 Xsec[6] = 0.9696*0.577; //ZH
 float scalexs=1.; 
 Xsec[7]  = scalexs * 0.026;//600
@@ -112,24 +123,43 @@ Xsec[12] = scalexs * 0.00871; //1700
 Xsec[13] = scalexs * 0.00561; //2000
 Xsec[14] = scalexs * 0.00280; //2500
 
+// old sf = 1.23 
+//Xsec[15] = 1.626*280.47; // Znunu HT
+//Xsec[16] = 1.617*78.36; // Znunu HT
+//Xsec[17] = 1.459*10.94; // Znunu HT
+//Xsec[18] = 1.391*4.203;  // Znunu HT
+
 Xsec[15] = 1.23*280.47; // Znunu HT
 Xsec[16] = 1.23*78.36; // Znunu HT
 Xsec[17] = 1.23*10.94; // Znunu HT
 Xsec[18] = 1.23*4.203;  // Znunu HT
 
-Xsec[19] = 1.21*1347;  // WJets HT 100-200
-Xsec[20] = 1.21*360;   // WJets HT 200-400
-Xsec[21] = 1.21*48.9;  // WJets HT 400-600
-Xsec[22] = 1.21*12.8;  // WJets HT 600-800
-Xsec[23] = 1.21*5.26;  // WJets HT 800-1200
-Xsec[24] = 1.21*1.33;  // WJets HT 1200-2500
-Xsec[25] = 1.21*0.03089;  // WJets HT 2500-Inf
+//float Sw = 1.10981;
+float Sw = 1.;
+// old sf = 1.21
+//Xsec[19] = Sw  *  1.459*1347;  // WJets HT 100-200
+//Xsec[20] = Sw  *  1.434*360;   // WJets HT 200-400
+//Xsec[21] = Sw  *  1.532*48.9;  // WJets HT 400-600
+//Xsec[22] = Sw  *  1.004*12.8;  // WJets HT 600-800
+//Xsec[23] = Sw  *  1.004*5.26;  // WJets HT 800-1200
+//Xsec[24] = Sw  *  1.004*1.33;  // WJets HT 1200-2500
+//Xsec[25] = Sw  *  1.004*0.03089;  // WJets HT 2500-Inf
 
-Xsec[26] = 44.51; // single top
-Xsec[27] = 26.49; // single top
-Xsec[28] = 3.38; // single top
-Xsec[29] = 35.85; // single top
-Xsec[30] = 35.85; // single top
+
+
+Xsec[19] = Sw  *  1.21*1347;  // WJets HT 100-200
+Xsec[20] = Sw  *  1.21*360;   // WJets HT 200-400
+Xsec[21] = Sw  *  1.21*48.9;  // WJets HT 400-600
+Xsec[22] = Sw  *  1.21*12.8;  // WJets HT 600-800
+Xsec[23] = Sw  *  1.21*5.26;  // WJets HT 800-1200
+Xsec[24] = Sw  *  1.21*1.33;  // WJets HT 1200-2500
+Xsec[25] = Sw  *  1.21*0.03089;  // WJets HT 2500-Inf
+
+Xsec[26] = Stt  *  44.51; // single top
+Xsec[27] = Stt  *  26.49; // single top
+Xsec[28] = Stt  *  3.38; // single top
+Xsec[29] = Stt  *  35.85; // single top
+Xsec[30] = Stt  *  35.85; // single top
 
 //Xsec[15] = 1.23*139.4; // DY HT
 //Xsec[16] = 1.23*42.75; // DY HT
@@ -144,24 +174,27 @@ TH1F *h_data;
 for(int i =0; i<(int)filenameString.size()-1; i++){
  fIn = new TFile(filenameString[i],"READ");
  h_mc[i] = (TH1F*) fIn->Get(histnameString);
+ h_mc[i]->Rebin(REBIN); 
+ h_mc[i]->Sumw2();
+
  h_total      = (TH1F*) fIn->Get("nEvents_weight");
  
-std::cout<<" normalization for = "<<filenameString[i]<<"   "
-<<h_mc[i]->Integral()<<std::endl;
+//std::cout<<" normalization for = "<<i<<"  "<<filenameString[i]<<"   "
+//<<h_mc[i]->Integral()
+//<<std::endl;
  if(h_total->Integral()>0) normalization[i]     = (lumi* Xsec[i])/(h_total->Integral());
 else normalization[i]      = 0;
  //cout<<"normalization :" << normalization[i] << std::endl;
- h_mc[i]->Rebin(REBIN); 
  h_mc[i]->Scale(normalization[i]);  
 // mout << filenameString[i] <<  "  &  " << Xsec[i] <<"  &  " << std::endl; 
-// cout << "Integral : " << h_total->Integral() << "  Entries :  " << h_total->GetEntries() << std::endl;                                         
+//// cout << "Integral : " << h_total->Integral() << "  Entries :  " << h_total->GetEntries() << std::endl;                                         
 
  }
 
 fIn = new TFile(filenameString[nfiles-1],"READ");
 h_data = (TH1F*) fIn->Get(histnameString);
 h_data->Rebin(REBIN);
-h_data->Sumw2();
+//h_data->Sumw2();
 
 
 
@@ -169,11 +202,11 @@ h_data->Sumw2();
  TLegend *legend;
  
  if(NORATIOPLOT){
- legend = new TLegend(0.73, 0.68, 0.95,0.92,NULL,"brNDC");
+ legend = new TLegend(0.73, 0.62, 0.95,0.92,NULL,"brNDC");
  legend->SetTextSize(0.05);
  }else{
 
-legend = new TLegend(0.62, 0.71, 0.94,0.92,NULL,"brNDC"); 
+legend = new TLegend(0.62, 0.65, 0.94,0.92,NULL,"brNDC"); 
 //legend = new TLegend(0.13, 0.85, 0.95,0.92,NULL,"brNDC");
 // legend = new TLegend(0.7, 0.68, 0.95,0.92,NULL,"brNDC");
  legend->SetTextSize(0.05); }
@@ -359,35 +392,65 @@ h_mc[13]->SetLineWidth(3);
 //hs->Add(h_mc[6]);
 
 for(int diboson = 2; diboson < 5; diboson++){
- hs->Add(h_mc[diboson]);
+ hs->Add(h_mc[diboson],"hist");
 }                                                                                                          
-//hs->Add(h_mc[0]);                                                                        
-hs->Add(h_mc[15]);
-hs->Add(h_mc[16]);
-hs->Add(h_mc[17]);
-hs->Add(h_mc[18]);
-hs->Add(h_mc[6]); 
-//hs->Add(h_mc[1]);
-hs->Add(h_mc[19]);
-hs->Add(h_mc[20]);
-hs->Add(h_mc[21]);
-hs->Add(h_mc[22]);
-hs->Add(h_mc[23]);
-hs->Add(h_mc[24]);
-hs->Add(h_mc[25]);
-hs->Add(h_mc[26]);
-hs->Add(h_mc[27]);
-hs->Add(h_mc[28]);
-hs->Add(h_mc[29]);
-hs->Add(h_mc[30]);
+//hs->Add(h_mc[0],"hist");                                                                        
+hs->Add(h_mc[15],"hist");
+hs->Add(h_mc[16],"hist");
+hs->Add(h_mc[17],"hist");
+hs->Add(h_mc[18],"hist");
+hs->Add(h_mc[6],"hist"); 
+//hs->Add(h_mc[1],"hist");
+hs->Add(h_mc[19],"hist");
+hs->Add(h_mc[20],"hist");
+hs->Add(h_mc[21],"hist");
+hs->Add(h_mc[22],"hist");
+hs->Add(h_mc[23],"hist");
+hs->Add(h_mc[24],"hist");
+hs->Add(h_mc[25],"hist");
+hs->Add(h_mc[26],"hist");
+hs->Add(h_mc[27],"hist");
+hs->Add(h_mc[28],"hist");
+hs->Add(h_mc[29],"hist");
+hs->Add(h_mc[30],"hist");
 
-hs->Add(h_mc[5]);
+hs->Add(h_mc[5],"hist");
 
 h_data->SetMarkerColor(kBlack);
 h_data->SetMarkerStyle(20);
 float maxi = h_data->GetMaximum();
 
-TH1 *Stackhist = (TH1*)hs->GetStack()->Last(); 
+TH1F *Stackhist = (TH1F*)hs->GetStack()->Last(); 
+ TH1F* h_err;
+ h_err = (TH1F*) h_data->Clone("h_err");
+ h_err->Sumw2();
+ h_err->Reset();
+ for(int diboson = 2; diboson < 5; diboson++){
+   h_err->Add(h_mc[diboson]);
+ }
+ //h_err->Add(h_mc[0],"hist");                                                                                                                                                       
+ h_err->Add(h_mc[15]);
+ h_err->Add(h_mc[16]);
+ h_err->Add(h_mc[17]);
+ h_err->Add(h_mc[18]);
+ h_err->Add(h_mc[6]);
+ //h_err->Add(h_mc[1],"hist");                                                                                                                                                       
+ h_err->Add(h_mc[19]);
+ h_err->Add(h_mc[20]);
+ h_err->Add(h_mc[21]);
+ h_err->Add(h_mc[22]);
+ h_err->Add(h_mc[23]);
+ h_err->Add(h_mc[24]);
+ h_err->Add(h_mc[25]);
+ h_err->Add(h_mc[26]);
+ h_err->Add(h_mc[27]);
+ h_err->Add(h_mc[28]);
+ h_err->Add(h_mc[29]);
+ h_err->Add(h_mc[30]);
+ h_err->Add(h_mc[5]);
+// for (int ibin=0; ibin<h_err->GetNbinsX();ibin++){
+  // std::cout<<" stack err = "<<h_err->GetBinError(ibin)<<std::endl;
+// }
 
 
 //Setting canvas without log axis
@@ -407,16 +470,40 @@ c12->SetLogy(0);
   c1_2->SetLogy(ISLOG);
   c1_2->Draw();
   c1_2->cd();
-  hs->Draw("hist"); 
-  h_data->SetLineColor(1);
+
+hs->Draw();
+
+  TH1F *Stackhist1 = (TH1F*)hs->GetStack()->Last(); 
+//  Stackhist1->SetFillColor(kRed);
+//  Stackhist1->DrawCopy("histsame");
+//  Stackhist1->SetFillStyle(3018);
+  //Stackhist1->SetLineColor(kRed);
+  //Stackhist1->SetLineWidth(4);
+  //Stackhist1->Draw(" same e2");  
+
+
+
+  //hs->Draw("same");
+
+  h_err->Draw("E2 SAME");
+  //h_err->SetLineColor(kYellow);                                                                                                                                                    
+  h_err->SetMarkerStyle(1);
+  h_err->SetMarkerSize(0.000001);
+
+  h_err->SetFillColor(2);
+  h_err->SetFillStyle(3002);
+
+
+    h_data->SetLineColor(1);
   h_data->Draw("same p e1");
   
   if(ISLOG)    hs->SetMinimum(0.1);
   if(!ISLOG)   hs->SetMinimum(1);
-  if(!ISLOG)   hs->SetMaximum(maxi *1.22);
-  if(ISLOG)    hs->SetMaximum(maxi *10);
+  if(!ISLOG)   hs->SetMaximum(maxi *1.33);
+  if(ISLOG)    hs->SetMaximum(maxi *100);
   //if(!ISLOG) hs->SetMaximum(0.4);
  
+
   if(NORATIOPLOT){
   hs->GetXaxis()->SetTitleSize(0.05);
   hs->GetXaxis()->SetTitleOffset(0.97);
@@ -438,9 +525,17 @@ c12->SetLogy(0);
 
 
   hs->GetYaxis()->SetTitle("Events");                                   
-  hs->GetYaxis()->SetTitleSize(0.07);                                                                                                            hs->GetYaxis()->SetTitleOffset(0.9);                                                                                                           hs->GetYaxis()->SetTitleFont(22);
-  hs->GetYaxis()->SetLabelFont(22);                                                                                                              hs->GetYaxis()->SetLabelSize(.07);   
-  hs->GetXaxis()->SetRangeUser(XMIN,XMAX);                                                                                                       hs->GetXaxis()->SetNdivisions(508); 
+  hs->GetYaxis()->SetTitleSize(0.07); 
+  hs->GetYaxis()->SetTitleOffset(0.9);
+  hs->GetYaxis()->SetTitleFont(22);
+  hs->GetYaxis()->SetLabelFont(22);
+  hs->GetYaxis()->SetLabelSize(.07);
+  hs->GetXaxis()->SetRangeUser(XMIN,XMAX);  
+  hs->GetXaxis()->SetNdivisions(508); 
+
+  legend->AddEntry(h_err,"Stats. Unc.","f");
+
+
   legend->Draw("same"); 
   t2a->Draw("same");
   t2b->Draw("same");
@@ -557,8 +652,8 @@ wjetentries= h_mc[19]->Integral() +h_mc[20]->Integral()+h_mc[21]->Integral()+h_m
                                              
                                      
   mout << "HISTPATH_HISTNAME"            <<  " a"<<std::endl; 
-//  mout << " DATA "    << h_data->Integral()  << std::endl; 
-  mout << " DATA  0"    <<  std::endl; 
+  mout << " DATA "    << h_data->Integral()  << std::endl; 
+//  mout << " DATA  0"    <<  std::endl; 
 //  mout << " DYJETS "  << h_mc[0]->Integral() << std::endl; 
   mout << " DIBOSON " << dibosonentries                     << std::endl;
   mout << " TT "      << h_mc[5]->Integral() + h_mc[26]->Integral()+h_mc[27]->Integral()+h_mc[28]->Integral()+h_mc[29]->Integral()+ h_mc[30]->Integral() << std::endl; 
@@ -578,9 +673,29 @@ wjetentries= h_mc[19]->Integral() +h_mc[20]->Integral()+h_mc[21]->Integral()+h_m
   mout << "========= =============================================" <<std::endl;
 //=========================================================================
 
+
+float a = h_mc[19]->Integral() +h_mc[20]->Integral()+h_mc[21]->Integral()+h_mc[22]->Integral()+h_mc[23]->Integral()+h_mc[24]->Integral()+h_mc[25]->Integral();
+float b = h_mc[5]->Integral() + h_mc[26]->Integral()+h_mc[27]->Integral()+h_mc[28]->Integral()+h_mc[29]->Integral()+ h_mc[30]->Integral();
+float c = h_data->Integral() - (dibosonentries + h_mc[6]->Integral() + h_mc[15]->Integral()+h_mc[16]->Integral()+h_mc[17]->Integral()+h_mc[18]->Integral());
+mout << "a "<<a
+<<" b "<<b
+<<" c "<<c
+<<std::endl;
 }
  
  c12->Draw();
+if(!ISLOG){
  c12->SaveAs(DirPreName+dirpathname +"/DYPdf/HISTPATH_HISTNAME.pdf");
  c12->SaveAs(DirPreName+dirpathname +"/DYPng/HISTPATH_HISTNAME.png");
- c12->SaveAs(DirPreName+dirpathname +"/DYROOT/HISTPATH_HISTNAME.root");                                                                         }
+ c12->SaveAs(DirPreName+dirpathname +"/DYROOT/HISTPATH_HISTNAME.root");                                                                         
+ rout<<"<hr/>"<<std::endl;
+ rout<<"<table class=\"\"> <tr><td><img src=\""<<"DYPng/HISTPATH_HISTNAME.png\" height=\"400\" width=\"400\"></td>   </tr> </table>"<<std::endl;
+
+}
+ 
+if(ISLOG){
+ c12->SaveAs(DirPreName+dirpathname +"/DYPdf/HISTPATH_HISTNAME_log.pdf");
+ c12->SaveAs(DirPreName+dirpathname +"/DYPng/HISTPATH_HISTNAME_log.png");
+ c12->SaveAs(DirPreName+dirpathname +"/DYROOT/HISTPATH_HISTNAME_log.root");                                                                        
+}
+ }

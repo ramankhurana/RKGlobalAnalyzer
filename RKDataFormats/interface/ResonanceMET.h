@@ -32,6 +32,7 @@ class ResonanceMET{
   Float_t DPHI_MET_J;
   std::bitset<26> cutsStatus;
   std::vector<Jet> jets;
+  std::vector<Jet> thinjets;
   MET met;
   std::vector<Muon> muons;
   std::vector<Electron> electrons;

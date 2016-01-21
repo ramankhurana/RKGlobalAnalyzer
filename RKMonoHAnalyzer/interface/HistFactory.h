@@ -20,6 +20,8 @@
 #include "TH2F.h"
 #include "TFile.h"
 #include "TMath.h"
+#include "TTree.h"
+#include "TBranch.h"
 #define nobjectmet 2
 
 
@@ -28,18 +30,20 @@ class HistFactory {
   HistFactory(){};
   ~HistFactory(){};
   void Fill(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > objectCollection, Int_t howManyObjs, std::vector<int> bitVec);
-    void Fill(std::vector<ResonanceWithMET<Jet,MET > > objectCollection, Int_t howManyObjs, std::vector<int> bitVec);
+  void Fill(std::vector<ResonanceWithMET<Jet,MET > > objectCollection, Int_t howManyObjs, std::vector<int> bitVec, std::vector<TString> eventlist);
   void DefineHistograms();
   void GetInputs(TFile* f, TString prefix_);
   void Write();
   
   TString prefix;
   TFile* file;
+  TTree*   skimTree;
   TH1F*    h_nMuons[nobjectmet];
   TH1F*    h_nTaus[nobjectmet];
   TH1F*    h_nElectrons[nobjectmet];
   TH1F*    h_nJets[nobjectmet];
   TH1F*    h_nFJets[nobjectmet];
+  TH1F*    h_dPhiThinJetMET[nobjectmet];
   TH1F*    h_DRSJ[nobjectmet];
   TH1F*    h_Q1Q2[nobjectmet];
   TH1F*    h_MET[nobjectmet];
@@ -68,7 +72,38 @@ class HistFactory {
   TH2F*    h_M_vs_MET[nobjectmet];
   TH2F*    h_MET_vs_Q1Q2[nobjectmet];
   TH2F*    h_M_vs_Q1Q2[nobjectmet];
-
+  
+  //--------------------
+  // Adding tree varibales for more debugging.
+  //--------------------
+  Int_t       run_;
+  Int_t       lumi_;
+  Int_t       event_;
+  Float_t     dphiMin_;
+  Int_t       NAddMu_;
+  Int_t       NAddEle_;
+  Int_t       NAddTau_;
+  Int_t       NAddBJet;
+  Float_t     MinCSV_;
+  Float_t     MaxCSV_;
+  Float_t     DRSJ_;
+  Float_t     Mass_;
+  Float_t     JetPhi_;
+  Float_t     JetEta_;
+  Float_t     JetCSVSum_;
+  Float_t     JetMetDPhi_;
+  Float_t     Tau21_;
+  Float_t     JetPt_;
+  Float_t     SumET_;
+  Float_t     MET_;
+  Float_t     jetCEmEF_;
+  Float_t     jetCHadEF_;
+  Float_t     jetPhoEF_;
+  Float_t     jetNEmEF_;
+  Float_t     jetNHadEF_;
+  Float_t     jetMuEF_;
+  Float_t     jetCMulti_;
+  
   protected:
 
   private:

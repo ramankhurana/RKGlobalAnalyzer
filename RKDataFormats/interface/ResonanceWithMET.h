@@ -34,6 +34,7 @@ class ResonanceWithMET{
 
   std::bitset<26> cutsStatus;
   std::vector<Jet> jets;
+  std::vector<Jet> thinjets;
   MET met;
   std::vector<Muon> muons;
   std::vector<Muon> taus;

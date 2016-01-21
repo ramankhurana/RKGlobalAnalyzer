@@ -73,7 +73,7 @@ class RKAnalyzer {
   // Main Program Histograms
   TH1F* nEvents;
   TH1F* nEvents_weight;
-  
+  std::vector<TString> eventlist;
   //   TString inputfilename;
    //TString outputfilename;
    
@@ -501,6 +501,7 @@ class RKAnalyzer {
    vector<float>   *FATjetTRmass;
    vector<float>   *FATjetPRmass;
    vector<float>   *FATjetFimass;
+   vector<float>   *FATjetPRmassL2L3Corr;
    vector<float>   *FATjetTau1;
    vector<float>   *FATjetTau2;
    vector<float>   *FATjetTau3;
@@ -867,6 +868,8 @@ class RKAnalyzer {
    TBranch        *b_FATjetTRmass;   //!
    TBranch        *b_FATjetPRmass;   //!
    TBranch        *b_FATjetFimass;   //!
+   TBranch        *b_FATjetPRmassL2L3Corr;   //!                                                                                               
+
    TBranch        *b_FATjetTau1;   //!
    TBranch        *b_FATjetTau2;   //!
    TBranch        *b_FATjetTau3;   //!
@@ -1004,26 +1007,21 @@ class RKAnalyzer {
 
 #ifdef RKAnalyzer_cxx
  RKAnalyzer::RKAnalyzer(TTree *tree) : fChain(0) 
-{
-  //inputfilename=input;
-  //  outputfilename=output;
-// if parameter tree is not specified (or zero), connect the file
-// used to generate this class and read the Tree.
+ {
+   //TString filename="/hdfs/store/user/khurana/MET/crab_MET-Run2015D-PromptReco-V420151027_1p2fb/151027_163331/0000/NCUGlobalTuples_1.root";
+   TString filename="/hdfs/store/user/khurana/TT_TuneCUETP8M1_13TeV-powheg-pythia8/crab_TT_TuneCUETP8M1_13TeV-powheg-pythia8_MC25ns_ReMiniAOD_20151105/151105_162128/0000/NCUGlobalTuples_467.root";
+     ///hdfs/store/user/khurana/MonoHSignalTrees_20151012/crab_MonoHToBBarMZp-1000GeV_MA0-300GeVTreeMaker_20151012/treeMaker_Spring15_Nocleaning_cfg-step3_miniAOD_1.root";
+  
+   if (tree == 0) {
+     TChain * chain = new TChain("tree/treeMaker","");
 
+     chain->Add(filename);
 
-  ///hdfs/store/user/khurana/ZprimeToZhToZinvhbb_narrow_M-1800_13TeV-madgraph/crab_ZprimeToZhToZinvhbb_narrow_M-1800_13TeV-madgraph_0826/150826_085911/0000/NCUGlobalTuples_1.root
-//TString filename="/hdfs/store/user/khurana/DYJetsToLL_M-50_HT-100to200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/crab_DYJetsToLL_M-50_HT-100to200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_0826/150826_144459/0000/NCUGlobalTuples_77.root";
-  //TString filename="/hdfs/store/user/khurana/SignalFiles_0804/NCUGlobalTuples_M1500GeV.root";
-  //TString filename="/hdfs/store/user/khurana/MonoHSignalTreesMerged_20150919/Merged_crab_MonoHToBBarMZp-600GeV_MA0-300GeVTreeMaker_0919.root";
-  //TString filename="/hdfs/store/user/khurana/MET/crab_MET-Run2015D-PromptReco-V4_20151019/151019_195552/0000/NCUGlobalTuples_1.root";
-  //TString filename="/hdfs/store/user/khurana/MonoHSignalTrees_20151012/crab_MonoHToBBarMZp-1400GeV_MA0-300GeVTreeMaker_20151012/treeMaker_Spring15_Nocleaning_cfg-step3_miniAOD_1.root";
-  TString filename="/hdfs/store/user/khurana/MonoHSignalTrees_20151012/crab_MonoHToBBarMZp-1000GeV_MA0-300GeVTreeMaker_20151012/treeMaker_Spring15_Nocleaning_cfg-step3_miniAOD_1.root";
-  
-  //TString filename="/hdfs/store/user/khurana/ZprimeToZhToZinvhbb_narrow_M-2000_13TeV-madgraph/crab_ZprimeToZhToZinvhbb_narrow_M-2000_13TeV-madgraph_0826/150826_090147/0000/NCUGlobalTuples_6.root";
-  
-  //TString filename="/hdfs/store/user/khurana/DYJetsToLL_M-50_HT-400to600_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/crab_DYJetsToLL_M-50_HT-400to600_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_0826/150826_144628/0000/NCUGlobalTuples_10.root";
-  //TString filename="/hdfs/store/user/khurana/DoubleEG/DoubleEG_Run2015C-PromptReco-v1/0000/NCUGlobalTuples_1.root";
-  
+     tree = chain;
+   }
+   Init(tree);
+
+   /*
    if (tree == 0) {
      //f = (TFile*)gROOT->GetListOfFiles()->FindObject("InputRootFile/NCUGlobalTuples_10.root");
      
@@ -1039,6 +1037,7 @@ class RKAnalyzer {
 
    }
    Init(tree);
+   */
 }
 
 RKAnalyzer::~RKAnalyzer()
@@ -1305,6 +1304,8 @@ void RKAnalyzer::Init(TTree *tree)
    FATjetTRmass = 0;
    FATjetPRmass = 0;
    FATjetFimass = 0;
+   FATjetPRmassL2L3Corr = 0;
+
    FATjetTau1 = 0;
    FATjetTau2 = 0;
    FATjetTau3 = 0;
@@ -1662,6 +1663,7 @@ void RKAnalyzer::Init(TTree *tree)
    fChain->SetBranchAddress("FATjetTRmass", &FATjetTRmass, &b_FATjetTRmass);
    fChain->SetBranchAddress("FATjetPRmass", &FATjetPRmass, &b_FATjetPRmass);
    fChain->SetBranchAddress("FATjetFimass", &FATjetFimass, &b_FATjetFimass);
+   fChain->SetBranchAddress("FATjetPRmassL2L3Corr", &FATjetPRmassL2L3Corr, &b_FATjetPRmassL2L3Corr);
    fChain->SetBranchAddress("FATjetTau1", &FATjetTau1, &b_FATjetTau1);
    fChain->SetBranchAddress("FATjetTau2", &FATjetTau2, &b_FATjetTau2);
    fChain->SetBranchAddress("FATjetTau3", &FATjetTau3, &b_FATjetTau3);

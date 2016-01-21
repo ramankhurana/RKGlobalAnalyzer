@@ -1,28 +1,31 @@
 import os
-outputdirname="Raman/MonoHFatJetAnalysis_ForExoWorkShopVTr"
-inputprefix="--input-dir=root://cmsxrootd.hep.wisc.edu//store/user/khurana/"
+#outputdirname="Raman/MonoHFatJetAnalysis_ForAnTightBTag_DR"
+outputdirname="Raman/MonoHFatJetAnalysis_ForAnLoose_BaseLine_BugFix/"
+#outputdirname="Raman/MonoHFatJetAnalysis_ForAnTightBTag_DR"
+inputprefix="--input-dir=root://cmsxrootd.hep.wisc.edu/store/user/khurana/"
 cmsswpath="/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/"
 exepath="/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/runallAnalysis.exe"
 
 fout = open("samplestorun.txt","w")
+##WJetsToLNu_HT-600ToInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8 WJetsHTBinSampleReMiniAOD/
+
+
 
 ## list of samples will appear here. 
-samples='''crab_MET-Run2015D-PromptReco-V420151027_1p2fb MET/crab_MET-Run2015D-PromptReco-V420151027_1p2fb'''
-
-aaaa='''crab_MET-Run2015D-05Oct2015V120151027_1p2fb MET/crab_MET-Run2015D-05Oct2015V120151027_1p2fb
+samples='''crab_MET-Run2015D-05Oct2015V120160112_FullDataSet_2p2FB_SkipEventsOldFile29Oct MET/crab_MET-Run2015D-05Oct2015V120160112_FullDataSet_2p2FB_SkipEventsOldFile29Oct/
+crab_MET-Run2015D-PromptReco-V420160112_FullDataSet_2p2FB_SkipEventsOldFile29Oct MET/crab_MET-Run2015D-PromptReco-V420160112_FullDataSet_2p2FB_SkipEventsOldFile29Oct/
 ST_s-channel_4f_leptonDecays_13TeV-amcatnlo-pythia8_TuneCUETP8M1 SingleTopReminiAODSim_20151026/ST_s-channel_4f_leptonDecays_13TeV-amcatnlo-pythia8_TuneCUETP8M1/crab_ST_s-channel_4f_leptonDecays_13TeV-amcatnlo-pythia8_TuneCUETP8M1_MC25ns_ReMiniAOD_20151026/151026_000332
 ST_tW_antitop_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M1 SingleTopReminiAODSim_20151026/ST_tW_antitop_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M1/crab_ST_tW_antitop_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M1_MC25ns_ReMiniAOD_20151026/151026_000558/
 ST_tW_top_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M1 SingleTopReminiAODSim_20151026/ST_tW_top_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M1/crab_ST_tW_top_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M1_MC25ns_ReMiniAOD_20151026/151026_000652
 ST_t-channel_antitop_4f_leptonDecays_13TeV-powheg-pythia8_TuneCUETP8M1 SingleTopReminiAODSim_20151026/ST_t-channel_antitop_4f_leptonDecays_13TeV-powheg-pythia8_TuneCUETP8M1/crab_ST_t-channel_antitop_4f_leptonDecays_13TeV-powheg-pythia8_TuneCUETP8M1_MC25ns_ReMiniAOD_20151026/151026_000418
 ST_t-channel_top_4f_leptonDecays_13TeV-powheg-pythia8_TuneCUETP8M1 SingleTopReminiAODSim_20151026/ST_t-channel_top_4f_leptonDecays_13TeV-powheg-pythia8_TuneCUETP8M1/crab_ST_t-channel_top_4f_leptonDecays_13TeV-powheg-pythia8_TuneCUETP8M1_MC25ns_ReMiniAOD_20151026/151026_000513
-WJetsToLNu_HT-200To400_TuneCUETP8M1_13TeV-madgraphMLM-pythia8  WJetsToLNu_HT-200To400_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/crab_WJetsToLNu_HT-200To400_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/151007_221737
-WJetsToLNu_HT-400To600_TuneCUETP8M1_13TeV-madgraphMLM-pythia8 WJetsToLNu_HT-400To600_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/crab_WJetsToLNu_HT-400To600_TuneCUETP8M1_13TeV-madgraphMLM-pythia8MC25ns_ReMiniAOD_20151026/151025_221751/0000/
-WJetsToLNu_HT-100To200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8 WJetsToLNu_HT-100To200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/crab_WJetsToLNu_HT-100To200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/151007_221547
-WJetsToLNu_HT-600ToInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8 WJetsToLNu_HT-600ToInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/crab_WJetsToLNu_HT-600ToInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/151007_221831
-WJetsToLNu_HT-600To800_TuneCUETP8M1_13TeV-madgraphMLM-pythia8 WJetsToLNu_HT-600To800_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/crab_WJetsToLNu_HT-600To800_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_MC25ns_ReMiniAOD_20151026/151025_235938/
-WJetsToLNu_HT-800To1200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8 WJetsToLNu_HT-800To1200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/crab_WJetsToLNu_HT-800To1200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_MC25ns_ReMiniAOD_20151026/151026_000033/
-WJetsToLNu_HT-1200To2500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8 WJetsToLNu_HT-1200To2500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/crab_WJetsToLNu_HT-1200To2500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_MC25ns_ReMiniAOD_20151026/151026_000152/
-WJetsToLNu_HT-2500ToInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8 WJetsToLNu_HT-2500ToInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/crab_WJetsToLNu_HT-2500ToInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_MC25ns_ReMiniAOD_20151026/151026_000238/
+WJetsToLNu_HT-100To200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8 WJetsHTBinSampleReMiniAOD/crab_WJetsToLNu_HT-100To200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_MC25ns_ReMiniAOD_20151026
+WJetsToLNu_HT-200To400_TuneCUETP8M1_13TeV-madgraphMLM-pythia8  WJetsHTBinSampleReMiniAOD/crab_WJetsToLNu_HT-200To400_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_MC25ns_ReMiniAOD_20151026/
+WJetsToLNu_HT-400To600_TuneCUETP8M1_13TeV-madgraphMLM-pythia8 WJetsHTBinSampleReMiniAOD/crab_WJetsToLNu_HT-400To600_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_MC25ns_ReMiniAOD_20151026/
+WJetsToLNu_HT-600To800_TuneCUETP8M1_13TeV-madgraphMLM-pythia8 WJetsHTBinSampleReMiniAOD/crab_WJetsToLNu_HT-600To800_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_MC25ns_ReMiniAOD_20151026/
+WJetsToLNu_HT-800To1200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8 WJetsHTBinSampleReMiniAOD/crab_WJetsToLNu_HT-800To1200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_MC25ns_ReMiniAOD_20151026/
+WJetsToLNu_HT-1200To2500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8 WJetsHTBinSampleReMiniAOD/crab_WJetsToLNu_HT-1200To2500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_MC25ns_ReMiniAOD_20151026/
+WJetsToLNu_HT-2500ToInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8 WJetsHTBinSampleReMiniAOD/crab_WJetsToLNu_HT-2500ToInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_MC25ns_ReMiniAOD_20151026/
 ZJetsToNuNu_HT-600ToInf_13TeV-madgraph ZJetsToNuNu_HT_ReMiniAOD/crab_ZJetsToNuNu_HT-600ToInf_13TeV-madgraph_MC25ns_ReMiniAOD_20151026
 ZJetsToNuNu_HT-400To600_13TeV-madgraph ZJetsToNuNu_HT_ReMiniAOD/crab_ZJetsToNuNu_HT-400To600_13TeV-madgraph_MC25ns_ReMiniAOD_20151026
 ZJetsToNuNu_HT-200To400_13TeV-madgraph ZJetsToNuNu_HT_ReMiniAOD/crab_ZJetsToNuNu_HT-200To400_13TeV-madgraph_MC25ns_ReMiniAOD_20151026
@@ -36,9 +39,8 @@ ZH_HToBB_ZToNuNu_M120_13TeV_amcatnloFXFX_madspin_pythia8 ZH_HToBB_ZToNuNu_M120_1
 TT_TuneCUETP8M1_13TeV-powheg-pythia8 TT_TuneCUETP8M1_13TeV-powheg-pythia8/crab_TT_TuneCUETP8M1_13TeV-powheg-pythia8_MC25ns_ReMiniAOD_20151105
 WZ_TuneCUETP8M1_13TeV-pythia8 WZ_TuneCUETP8M1_13TeV-pythia8/crab_WZ_TuneCUETP8M1_13TeV-pythia8_MC25ns_ReMiniAOD_20151026
 ZZ_TuneCUETP8M1_13TeV-pythia8 ZZ_TuneCUETP8M1_13TeV-pythia8/crab_ZZ_TuneCUETP8M1_13TeV-pythia8_MC25ns_ReMiniAOD_20151026/
-WW_TuneCUETP8M1_13TeV-pythia8 WW_TuneCUETP8M1_13TeV-pythia8/crab_WW_TuneCUETP8M1_13TeV-pythia8_MC25ns_ReMiniAOD_20151026/'''
-
-qsamples='''MonoHToBBarMZp-600GeV_MA0-300GeV MonoHToBBarMZp-600GeV_MA0-300GeV//crab_MonoHToBBarMZp-600GeV_MA0-300GeV_MC25ns_ReMiniAOD_20151108/
+WW_TuneCUETP8M1_13TeV-pythia8 WW_TuneCUETP8M1_13TeV-pythia8/crab_WW_TuneCUETP8M1_13TeV-pythia8_MC25ns_ReMiniAOD_20151026/
+MonoHToBBarMZp-600GeV_MA0-300GeV MonoHToBBarMZp-600GeV_MA0-300GeV//crab_MonoHToBBarMZp-600GeV_MA0-300GeV_MC25ns_ReMiniAOD_20151108/
 MonoHToBBarMZp-800GeV_MA0-300GeV MonoHToBBarMZp-800GeV_MA0-300GeV/crab_MonoHToBBarMZp-800GeV_MA0-300GeV_MC25ns_ReMiniAOD_20151108/
 MonoHToBBarMZp-1000GeV_MA0-300GeV MonoHToBBarMZp-1000GeV_MA0-300GeV/crab_MonoHToBBarMZp-1000GeV_MA0-300GeV_MC25ns_ReMiniAOD_20151108/
 MonoHToBBarMZp-1200GeV_MA0-300GeV MonoHToBBarMZp-1200GeV_MA0-300GeV/crab_MonoHToBBarMZp-1200GeV_MA0-300GeV_MC25ns_ReMiniAOD_20151108/
@@ -84,10 +86,9 @@ f = open('samplestorun.txt','r')
 for line in f:
     a,b = line.split()
     datasetdet=[a,b]
-    #os.system("farmoutAnalysisJobs "+outputdirname+"datasetdet[0] "+inputprefix+datasetdet[1]+cmsswpath+exepath+" --fwklite --input-files-per-job=1")
-    #jobcommand = ("farmoutAnalysisJobs "+outputdirname+"/"+datasetdet[0]+" "+inputprefix+datasetdet[1]+" "+cmsswpath+" "+exepath+" --fwklite --input-files-per-job=20 --resubmit-failed-jobs")
-    jobcommand = ("farmoutAnalysisJobs "+outputdirname+"/"+datasetdet[0]+" "+inputprefix+datasetdet[1]+" "+cmsswpath+" "+exepath+" --fwklite --input-files-per-job=1")
-    #--resubmit-failed-jobs
+    #jobcommand = ("farmoutAnalysisJobs "+outputdirname+"/"+datasetdet[0]+" "+inputprefix+datasetdet[1]+" "+cmsswpath+" "+exepath+" --fwklite --input-files-per-job=30 --resubmit-failed-jobs")
+    #jobcommand = ("farmoutAnalysisJobs "+outputdirname+"/"+datasetdet[0]+" "+inputprefix+datasetdet[1]+" "+cmsswpath+" "+exepath+" --fwklite --input-files-per-job=30")
+    jobcommand = ("farmoutAnalysisJobs "+outputdirname+"/"+datasetdet[0]+" "+inputprefix+datasetdet[1]+" "+cmsswpath+" "+exepath+" --fwklite --input-files-per-job=10 --extra-inputs=csc2015.txt")
     print "submitting jobs for"+datasetdet[0]
     print jobcommand
     os.system(jobcommand)
@@ -141,3 +142,8 @@ for line in f:
 ####farmoutAnalysisJobs DMHistosRun2015B_19July/QCD_Pt_30to50_TuneCUETP8M1_13TeV_pythia8 --input-dir=root://cmsxrootd.hep.wisc.edu//store/user/khurana/QCD_Pt_30to50_TuneCUETP8M1_13TeV_pythia8 /afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/ /afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/runallAnalysis.exe --fwklite --input-files-per-job=1
 ####
 ####farmoutAnalysisJobs DMHistosRun2015B_19July/QCD_Pt_300to470_TuneCUETP8M1_13TeV_pythia8 --input-dir=root://cmsxrootd.hep.wisc.edu//store/user/khurana/QCD_Pt_300to470_TuneCUETP8M1_13TeV_pythia8 /afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/ /afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/runallAnalysis.exe --fwklite --input-files-per-job=1
+
+
+old='''crab_MET-Run2015D-PromptReco-V420151027_1p2fb MET/crab_MET-Run2015D-PromptReco-V420151027_1p2fb
+crab_MET-Run2015D-05Oct2015V120151027_1p2fb MET/crab_MET-Run2015D-05Oct2015V120151027_1p2fb'''
+

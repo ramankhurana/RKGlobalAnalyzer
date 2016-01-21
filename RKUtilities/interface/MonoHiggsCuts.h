@@ -56,7 +56,7 @@ class MonoHiggsCuts {
     cutsMapFatJet["pNLepton"]           = 15;
     cutsMapFatJet["qZLightBJet"]        = 16;
     cutsMapFatJet["rZHeavyBJet"]        = 17;
-    cutsMapFatJet["s"]                  = 18;
+    cutsMapFatJet["sAtLeastOneBTag"]    = 18;
     cutsMapFatJet["t"]                  = 19;
     cutsMapFatJet["u"]                  = 20;
     cutsMapFatJet["v"]                  = 21;
@@ -71,8 +71,10 @@ class MonoHiggsCuts {
     cutValueMapFatJet["leadingjetpt"]=200.;
     cutValueMapFatJet["jeteta"]=2.5;
     cutValueMapFatJet["leadingcsv"]=0.605;
-    cutValueMapZLight["csvlow"]=0.3;
-    cutValueMapZLight["csvhigh"]=0.6;
+    //cutValueMapFatJet["leadingcsv"]=0.89;
+    //cutValueMapFatJet["leadingcsv"]=0.97;
+    cutValueMapFatJet["csvlow"]=0.3;
+    cutValueMapFatJet["csvhigh"]=0.6;
     cutValueMapFatJet["metpt"]=200.;
     cutValueMapFatJet["dphiDiJetMet"]=2.5;
     cutValueMapFatJet["MTDiJet"]=400;
@@ -125,13 +127,14 @@ class MonoHiggsCuts {
     cutValueMapTTBar["leadingjetpt"]=200.;
     cutValueMapTTBar["jeteta"]=2.5;
     cutValueMapTTBar["leadingcsv"]=0.605;
-    cutValueMapZLight["csvlow"]=0.3;
-    cutValueMapZLight["csvhigh"]=0.6;
+    //cutValueMapTTBar["leadingcsv"]=0.89;
+    cutValueMapTTBar["csvlow"]=0.3;
+    cutValueMapTTBar["csvhigh"]=0.6;
     cutValueMapTTBar["metpt"]=200.;
     cutValueMapTTBar["dphiDiJetMet"]=2.5;
     cutValueMapTTBar["MTDiJet"]=400;
-    cutValueMapTTBar["MDiJetLow"]=150.; //  make sure this cut is 
-    cutValueMapTTBar["MDiJetHigh"]=100.; // applied correctly.
+    cutValueMapTTBar["MDiJetLow"]=30.; //  make sure this cut is 
+    cutValueMapTTBar["MDiJetHigh"]=250.; // applied correctly.
     cutValueMapTTBar["DPHIJet1MET"]=2.;
     cutValueMapTTBar["DPHIJet2MET"]=2.;
     cutValueMapTTBar["MTJet1"]=300.;
@@ -139,7 +142,7 @@ class MonoHiggsCuts {
     cutValueMapTTBar["Nele"]=1;
     cutValueMapTTBar["Nmu"]=1;
     cutValueMapTTBar["Ntau"]=1;
-    cutValueMapTTBar["Njet"]=2;// atleast 1 jets
+    cutValueMapTTBar["Njet"]=2;// >=1 jets
     cutValueMapTTBar["NLepton"]=1;
     cutValueMapTTBar["DPHIMETClosedJ"]=0.5;
 
@@ -149,13 +152,14 @@ class MonoHiggsCuts {
     cutValueMapZLight["leadingjetpt"]=200.;
     cutValueMapZLight["jeteta"]=2.5;
     cutValueMapZLight["leadingcsv"]=0.605;
+    //cutValueMapZLight["leadingcsv"]=0.89;
     cutValueMapZLight["csvlow"]=0.3;
     cutValueMapZLight["csvhigh"]=0.6;
     cutValueMapZLight["metpt"]=200.;
     cutValueMapZLight["dphiDiJetMet"]=2.5;
     cutValueMapZLight["MTDiJet"]=400;
-    cutValueMapZLight["MDiJetLow"]=30.; //  make sure this cut is 
-    cutValueMapZLight["MDiJetHigh"]=250.; // applied correctly.
+    cutValueMapZLight["MDiJetLow"]=150.; //  make sure this cut is   // changed now to 150 earlier it was 30
+    cutValueMapZLight["MDiJetHigh"]=100.; // applied correctly.      // changed now to 100 earlier it was 250
     cutValueMapZLight["DPHIJet1MET"]=2.;
     cutValueMapZLight["DPHIJet2MET"]=2.;
     cutValueMapZLight["MTJet1"]=300.;
@@ -164,9 +168,9 @@ class MonoHiggsCuts {
     cutValueMapZLight["Nmu"]=0;
     cutValueMapZLight["Ntau"]=0;
     cutValueMapZLight["NLepton"]=0;
-    cutValueMapZLight["Njet"]=2;
+    cutValueMapZLight["Njet"]=1;
     cutValueMapZLight["DPHIMETClosedJ"]=0.5;
-
+     
 
 
     // cutValueMapZHeavy
@@ -174,6 +178,7 @@ class MonoHiggsCuts {
     cutValueMapZHeavy["leadingjetpt"]=200.;
     cutValueMapZHeavy["jeteta"]=2.5;
     cutValueMapZHeavy["leadingcsv"]=0.605;
+    //cutValueMapZHeavy["leadingcsv"]=0.89;
     cutValueMapZHeavy["csvlow"]=0.3;
     cutValueMapZHeavy["csvhigh"]=0.6;
     cutValueMapZHeavy["metpt"]=200.;
@@ -193,37 +198,38 @@ class MonoHiggsCuts {
     cutValueMapZHeavy["DPHIMETClosedJ"]=0.5;
 
 
-
+    // -------- W+Jets 1-----------
     // cutValueMapWLight
     // cutValueMapWLight
-    cutValueMapWLight.clear();
-    cutValueMapWLight["leadingjetpt"]=200.;
-    cutValueMapWLight["jeteta"]=2.5;
-    cutValueMapWLight["leadingcsv"]=0.605;
-    cutValueMapWLight["csvlow"]=0.3;
-    cutValueMapWLight["csvhigh"]=0.6;
-    cutValueMapWLight["metpt"]=200.;
-    cutValueMapWLight["dphiDiJetMet"]=2.5;
-    cutValueMapWLight["MTDiJet"]=400;
-    cutValueMapWLight["MDiJetLow"]=30.; //  make sure this cut is 
-    cutValueMapWLight["MDiJetHigh"]=250.; // applied correctly.
-    cutValueMapWLight["DPHIJet1MET"]=2.;
-    cutValueMapWLight["DPHIJet2MET"]=2.;
-    cutValueMapWLight["MTJet1"]=300.;
-    cutValueMapWLight["MTJet2"]=200.;
-    cutValueMapWLight["Nele"]=1;
-    cutValueMapWLight["Nmu"]=1;
-    cutValueMapWLight["Ntau"]=1;
-    cutValueMapWLight["NLepton"]=1;
-    cutValueMapWLight["Njet"]=1;
-    cutValueMapWLight["DPHIMETClosedJ"]=0.5;
-    
     //cutValueMapWLight.clear();
     //cutValueMapWLight["leadingjetpt"]=200.;
     //cutValueMapWLight["jeteta"]=2.5;
     //cutValueMapWLight["leadingcsv"]=0.605;
-    //cutValueMapWLight["csvlow"]=0.3;
-    //cutValueMapWLight["csvhigh"]=0.6;
+    //cutValueMapWLight["csvlow"]=0.0;
+    //cutValueMapWLight["csvhigh"]=1.0;
+    //cutValueMapWLight["metpt"]=200.;
+    //cutValueMapWLight["dphiDiJetMet"]=2.5;
+    //cutValueMapWLight["MTDiJet"]=400;
+    //cutValueMapWLight["MDiJetLow"]=30.; //  make sure this cut is 
+    //cutValueMapWLight["MDiJetHigh"]=250.; // applied correctly.
+    //cutValueMapWLight["DPHIJet1MET"]=2.;
+    //cutValueMapWLight["DPHIJet2MET"]=2.;
+    //cutValueMapWLight["MTJet1"]=300.;
+    //cutValueMapWLight["MTJet2"]=200.;
+    //cutValueMapWLight["Nele"]=1;
+    //cutValueMapWLight["Nmu"]=1;
+    //cutValueMapWLight["Ntau"]=1;
+    //cutValueMapWLight["NLepton"]=1;
+    //cutValueMapWLight["Njet"]=1;
+    //cutValueMapWLight["DPHIMETClosedJ"]=0.5;
+    
+    //-------- W+Jets 2-----------
+    //cutValueMapWLight.clear();
+    //cutValueMapWLight["leadingjetpt"]=200.;
+    //cutValueMapWLight["jeteta"]=2.5;
+    //cutValueMapWLight["leadingcsv"]=0.605;
+    //cutValueMapWLight["csvlow"]=0.0;
+    //cutValueMapWLight["csvhigh"]=0.605;
     //cutValueMapWLight["metpt"]=200.;
     //cutValueMapWLight["dphiDiJetMet"]=2.5;
     //cutValueMapWLight["MTDiJet"]=400;
@@ -239,6 +245,32 @@ class MonoHiggsCuts {
     //cutValueMapWLight["Njet"]=1;
     //cutValueMapWLight["NLepton"]=1;
     //cutValueMapWLight["DPHIMETClosedJ"]=0.5;
+    
+
+    // -------- W+Jets 3-----------
+    cutValueMapWLight.clear();
+    cutValueMapWLight["leadingjetpt"]=200.;
+    cutValueMapWLight["jeteta"]=2.5;
+    cutValueMapWLight["leadingcsv"]=0.605;
+    //cutValueMapWLight["leadingcsv"]=0.89;
+    cutValueMapWLight["csvlow"]=0.3;
+    cutValueMapWLight["csvhigh"]=0.6;
+    cutValueMapWLight["metpt"]=200.;
+    cutValueMapWLight["dphiDiJetMet"]=2.5;
+    cutValueMapWLight["MTDiJet"]=400;
+    cutValueMapWLight["MDiJetLow"]=30.; //  make sure this cut is 
+    cutValueMapWLight["MDiJetHigh"]=250.; // applied correctly.
+    cutValueMapWLight["DPHIJet1MET"]=2.;
+    cutValueMapWLight["DPHIJet2MET"]=2.;
+    cutValueMapWLight["MTJet1"]=300.;
+    cutValueMapWLight["MTJet2"]=200.;
+    cutValueMapWLight["Nele"]=1;
+    cutValueMapWLight["Nmu"]=1;
+    cutValueMapWLight["Ntau"]=1;
+    cutValueMapWLight["Njet"]=1;
+    cutValueMapWLight["NLepton"]=1;
+    cutValueMapWLight["DPHIMETClosedJ"]=0.5;
+    
 
 
 
@@ -247,6 +279,7 @@ class MonoHiggsCuts {
     cutValueMapWHeavy["leadingjetpt"]=200.;
     cutValueMapWHeavy["jeteta"]=2.5;
     cutValueMapWHeavy["leadingcsv"]=0.605;
+    //cutValueMapWHeavy["leadingcsv"]=0.89;
     cutValueMapWHeavy["csvlow"]=0.3;
     cutValueMapWHeavy["csvhigh"]=0.6;
     cutValueMapWHeavy["metpt"]=200.;
