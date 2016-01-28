@@ -149,7 +149,7 @@ void untuplizer_AccEff(std::string inputFile, std::string outputFile){
     const Int_t nsize = data.GetPtrStringSize(); 
 
    
-    if(mcWeight < 0) mcw=1;                                                                                                          
+    if(mcWeight < 0) mcw=-1;                                                                                                          
     if(mcWeight > 0) mcw=1; 
     
     //triggerstatus = TriggerStatus("HLT_Ele22_eta2p1_WP75_Gsf_v");

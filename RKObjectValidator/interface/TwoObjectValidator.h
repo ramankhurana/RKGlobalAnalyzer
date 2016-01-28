@@ -35,8 +35,12 @@ class TwoObjectValidator {
   void Write();
 
  
-  float weightfactor_;
+  float weightfactor_=0.0;
   // 1D Histograms 
+  TH1F*    h_InvMass_fineBin;
+  TH2F*    h_nvtxweight;
+  TH1F*    h_puweight;
+  TH1F*    h_pudist;
   TH1F*    h_pt ;
   TH1F*    h_eta ;
   TH1F*    h_phi ;
@@ -72,16 +76,18 @@ void TwoObjectValidator<T>::Fill(std::vector<T> objectcollection){
   if(objectcollection.size()>0){
 
     //    if( (objectcollection[0].jet1.charge * objectcollection[0].jet2.charge) == -1) {
-     weightfactor_ = objectcollection[0].jet1.myevent.allmcweight * objectcollection[0].jet1.allfac * objectcollection[0].jet2.allfac  ;      
-      if(false) std::cout<<" mcweight_ in diobject = "<<weightfactor_
-	       <<" isdata "<<objectcollection[0].jet1.isdata
-	       <<std::endl;
+    weightfactor_ = objectcollection[0].jet1.myevent.allmcweight;
+    //     weightfactor_ = objectcollection[0].jet1.myevent.allmcweight * objectcollection[0].jet1.allfac * objectcollection[0].jet2.allfac  ;            if(false) std::cout<<" mcweight_ in diobject = "<<weightfactor_ <<" isdata "<<objectcollection[0].jet1.isdata <<std::endl;
+      if(false) std::cout<<" mcweight_ in diobject = "<<objectcollection[0].jet1.myevent.puweight << std::endl; 
       if(false) std::cout <<" okay after weight declaration"<<std::endl;
       
       // Fill properties of first di-jet combination made from 
       // selected leading jet and selected sub-leading jet. 
       
-      // 1D Histograms 
+      // 1D Histograms
+      h_nvtxweight->Fill(objectcollection[0].jet1.myevent.nvtx,objectcollection[0].jet1.myevent.puweight); 
+      h_puweight->Fill(objectcollection[0].jet1.myevent.puweight);
+      h_pudist->Fill(objectcollection[0].jet1.myevent.nvtx,weightfactor_);
       h_pt           ->Fill(objectcollection[0].ResonanceProp.p4.Pt(),weightfactor_);
       h_eta          ->Fill(objectcollection[0].ResonanceProp.p4.Eta(),weightfactor_);
       h_phi          ->Fill(objectcollection[0].ResonanceProp.p4.Phi(),weightfactor_);
@@ -91,6 +97,7 @@ void TwoObjectValidator<T>::Fill(std::vector<T> objectcollection){
       h_DeltaPhi     ->Fill(objectcollection[0].ResonanceProp.DeltaPhi,weightfactor_);
       h_DeltaEta     ->Fill(objectcollection[0].ResonanceProp.DeltaEta,weightfactor_);
       h_InvMass      ->Fill(objectcollection[0].ResonanceProp.InvMass,weightfactor_);
+      h_InvMass_fineBin->Fill(objectcollection[0].ResonanceProp.InvMass,weightfactor_);
       h_Pt2OverPt1   ->Fill(1.0/objectcollection[0].ResonanceProp.Pt1OverPt2,weightfactor_);
       h_PtOverPt1Pt2 ->Fill(objectcollection[0].ResonanceProp.PtOverPt1Pt2,weightfactor_);
       h_PtOverMass_1 ->Fill(objectcollection[0].ResonanceProp.PtOverMass_1,weightfactor_);
@@ -120,7 +127,10 @@ void TwoObjectValidator<T>::GetInputs(TFile* f, TString prefix_){
 
 template <class T>
 void TwoObjectValidator<T>::DefineHistograms(){
-  // 1D Histograms 
+  // 1D Histograms ]
+  h_nvtxweight            = new TH2F("h_nvtxweight", "h_nvtxweight", 50,0,50,2000,0.,200);
+  h_puweight              = new TH1F("h_puweight","h_puweight",100,0,10);    
+  h_pudist                = new TH1F("h_pudist","h_pudist", 50,0,50);
   h_pt                    = new TH1F("h_pt","h_pt",2000,0,2000);
   h_eta                   = new TH1F("h_eta","h_eta",100,-5,5);
   h_phi                   = new TH1F("h_phi","h_phi",35,-3.5,3.5);
@@ -129,7 +139,8 @@ void TwoObjectValidator<T>::DefineHistograms(){
   h_DeltaR                = new TH1F("h_DeltaR","h_DeltaR",50,0.,5);
   h_DeltaPhi              = new TH1F("h_DeltaPhi","h_DeltaPhi",70,-3.5,3.5);
   h_DeltaEta              = new TH1F("h_DeltaEta","h_DeltaEta",50,-5,5);
-  h_InvMass               = new TH1F("h_InvMass","h_InvMass",5000,0,5000);
+  h_InvMass_fineBin       = new TH1F("h_InvMass_fineBin", "h_InvMass_fineBin",30000,0.,3000); 
+  h_InvMass               = new TH1F("h_InvMass","h_InvMass",5000,0.,5000.);
   h_Pt2OverPt1            = new TH1F("h_Pt2OverPt1","h_Pt2OverPt1",50,0,1.);
   h_PtOverPt1Pt2          = new TH1F("h_PtOverPt1Pt2","h_PtOverPt1Pt2",50,0.,1.0);
   h_PtOverMass_1          = new TH1F("h_PtOverMass_1","h_PtOverMass_1",50,0,5.);
@@ -151,6 +162,10 @@ void TwoObjectValidator<T>::Write(){
   file->cd(prefix);
   
   // 1D Histograms 
+  h_InvMass_fineBin->Write();
+  h_nvtxweight->Write();
+  h_puweight->Write();
+  h_pudist->Write();
   h_pt                   ->Write();
   h_eta                  ->Write();
   h_phi                  ->Write();

@@ -1,5 +1,6 @@
 void PreparePUWeights(){
-  TFile* f = new TFile("/afs/hep.wisc.edu/cms/khurana/Monika/CMSSW_7_4_5/src/RKGlobalAnalyzer/PileUP/PileUpWeightedFile.root","READ");
+  TFile* f = new TFile("/afs/hep.wisc.edu/cms/khurana/Monika/CMSSW_7_4_5/src/RKGlobalAnalyzer/PileUP/ROOTFILES/PileUpWeightedFile_true69p3mb.root","READ");
+  //  TFile* f = new TFile("/afs/hep.wisc.edu/cms/khurana/Monika/CMSSW_7_4_5/src/RKGlobalAnalyzer/PileUP/PileUpWeightedFile.root","READ");
   f->cd();
   
   TH1F* h = (TH1F*) f->Get("PileUpweighted");
@@ -19,10 +20,11 @@ void PreparePUWeights(){
   f1<<"   ~PileUpWeights(){};"<<std::endl;
   f1<<"   static Float_t PUWEIGHT(Int_t nvtx){"<<std::endl;
   f1<<"   Float_t  puweight[200]= {1.};"<<std::endl;
+  f1<< "   puweight[0]  =  "<<1.<<";"<<std::endl;
   for (int i=1; i<=nbins; i++){
     f1<< "   puweight["<<i<<"]  =  "<<h->GetBinContent(i)<<";"<<std::endl;
   }
-  f1<<"   if(nvtx >= 50) puweight[nvtx] =1;" <<std::endl;
+  f1<<"   if(nvtx >= 50) puweight[nvtx] =0;" <<std::endl;
   f1<<"   return puweight[nvtx];"<<std::endl;
   f1<<"  }"<<std::endl;
   f1<<"};"<<std::endl;

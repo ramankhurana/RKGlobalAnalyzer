@@ -7,7 +7,7 @@
 #include <TUrl.h>
 #include "../../RKUtilities/interface/EAElectron.h"
 using namespace std;
-void RKAnalyzer::Loop(TString output){
+void RKAnalyzer::Loop(TString output, TString mode){
   bool debug=false;
 
   nEvents = new TH1F("nEvents","",2,0,2);
@@ -17,10 +17,14 @@ void RKAnalyzer::Loop(TString output){
 
   bool GenFlag = false;
   int GenPart=-1;
+  ptlead =10.;
+  ptsublead = 10; 
   
  
   if(debug) std::cout<<" creating output file"<<std::endl;
   fout = new TFile(output,"RECREATE");
+  cout << " outtput"  << output <<std::endl;
+
 
   jetvalidator.GetInputs(fout,"Jet_NoCut_");
   jetvalidator_selected.GetInputs(fout,"Jet_PtEtaBTag_");
@@ -60,7 +64,7 @@ void RKAnalyzer::Loop(TString output){
   Long64_t nentries = fChain->GetEntriesFast();
   
   std::cout<<" nevents ====== "<<nentries<<std::endl;
-  //nentries = 51;
+  //nentries = 100;
   Long64_t nbytes = 0, nb = 0;
   for (Long64_t jentry=0; jentry<nentries;jentry++) {
     Long64_t ientry = LoadTree(jentry);
@@ -68,17 +72,27 @@ void RKAnalyzer::Loop(TString output){
     nb = fChain->GetEntry(jentry);   nbytes += nb;
     
     
-    //if( !(jentry==49) ) continue;
+
 
     std::cout<<" ------------------- event number -----------------: = "<<jentry<<std::endl;
     
     ClearCollections();  
-    
-    
+
+    //intialize the cuts
+    ptlead = 30.;
+    ptsublead = 10.;    
+        
+       
     if(isData){ 
-      triggerstatus = TriggerStatus("HLT_Ele22_eta2p1_WPLoose_Gsf_v");}
+      triggerstatus = TriggerStatus("HLT_Ele23_WPLoose_Gsf_v");}
     if( !isData){
-      triggerstatus = TriggerStatus("HLT_Ele22_eta2p1_WP75_Gsf_v");}
+      triggerstatus = TriggerStatus("HLT_Ele27_WP85_Gsf_v");}
+    
+
+    //double electron trigger same for 25 and 50 ns data
+    //triggerstatus = TriggerStatus("HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_");
+    //triggerstatus = TriggerStatus("HLT_Ele17_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_"); 
+    
     
     
     EventProducer(); 
@@ -87,98 +101,93 @@ void RKAnalyzer::Loop(TString output){
     MuonProducer();
     ElectronProducer();
 
-    //for DYToEE  M<200
-    //
+
     
     TLorentzVector* FSRele1;
     TLorentzVector* FSRele2;
     TLorentzVector FSRtwo;
-    /*        
-    GenFlag = false;
-    GenPart =0;
-
-    for (Int_t ele = 0; ele < nGenPar ; ele++) {
-      if(((*genParSt)[ele] ==1 ) && (((*genStFlag)[ele] >> 9 ) & 1)  &&  fabs((*genParId)[ele])==11){
-	GenPart++;
-	if (GenPart ==1 ){FSRele1 = (TLorentzVector*) genParP4->At(ele);}
-        if (GenPart ==2 ){FSRele2 = (TLorentzVector*) genParP4->At(ele);}
-
-      }
-    }
-    if(GenPart >=2){
-      FSRtwo = *FSRele1 + *FSRele2;
-      if(FSRtwo.M() < 200.){
-	GenFlag = true;}	
-    }
-    if(GenFlag == false) continue; */
-    
-    //DYTaua  >200
-    GenFlag = false;
-    GenPart =0;
-    for (Int_t ele = 0; ele < nGenPar ; ele++) {
-      if( (((*genStFlag)[ele] >> 9 ) & 1) &&(((*genStFlag)[ele] >>2 ) & 1)  &&  fabs((*genParId)[ele])==15){
-        GenPart++;
-	if (GenPart ==1 ){FSRele1 = (TLorentzVector*) genParP4->At(ele);}
-        if (GenPart ==2 ){FSRele2 = (TLorentzVector*) genParP4->At(ele);}
-      }
-    }
-    if(GenPart >=2){ 
-      FSRtwo = *FSRele1 + *FSRele2;
-      if(FSRtwo.M() < 200.){
-      GenFlag = true;}
-    }
-    if(GenFlag == false) continue;
-
-
-    /////////////////////////#######################################/////////////////
-       
-    /* 
-
-    //for DYEE
-    GenFlag = false;
-    GenPart =0;
-    for (Int_t ele = 0; ele < nGenPar ; ele++) {
-      if(((*genParSt)[ele] ==1 ) && (((*genStFlag)[ele] >> 9 ) & 1)  &&  fabs((*genParId)[ele])==11){
-      GenPart++;
-      }
-    }
-    if(GenPart >=2){GenFlag = true;}	
-    if(GenFlag == false) continue;
+            
      
-     //for DYTau DYtau
-    GenFlag = false;
-    GenPart =0;
-    for (Int_t ele = 0; ele < nGenPar ; ele++) {
-      if( (((*genStFlag)[ele] >> 9 ) & 1) &&(((*genStFlag)[ele] >>2 ) & 1)  &&  fabs((*genParId)[ele])==15){
-        GenPart++;
+    //for DYToEE  M<200
+    if(mode=="DYEE50To200"){ 
+      if(false){cout << "mode :" << mode <<std::endl;}
+      GenFlag = false;
+      GenPart =0;
+      for (Int_t ele = 0; ele < nGenPar ; ele++) {
+	if(((*genParSt)[ele] ==1 ) && (((*genStFlag)[ele] >> 9 ) & 1)  &&  fabs((*genParId)[ele])==11){
+	  GenPart++;
+	  if (GenPart ==1 ){FSRele1 = (TLorentzVector*) genParP4->At(ele);}
+	  if (GenPart ==2 ){FSRele2 = (TLorentzVector*) genParP4->At(ele);}
+	}
+      }
+      if(GenPart >=2){
+	FSRtwo = *FSRele1 + *FSRele2;
+	if(FSRtwo.M() <= 200.){
+	  GenFlag = true;}	
       }
     }
-    if(GenPart >=2){GenFlag = true;}
-    if(GenFlag == false) continue; */
+    //DYTauTau  M < 200
+    if(mode=="DYTauTau50To200"){
+      if(false){cout << "mode :" << mode <<std::endl;}
+      GenFlag = false;
+      GenPart =0;
+      for (Int_t ele = 0; ele < nGenPar ; ele++) {
+	if( (((*genStFlag)[ele] >> 9 ) & 1) &&(((*genStFlag)[ele] >>2 ) & 1)  &&  fabs((*genParId)[ele])==15){
+	  GenPart++;
+	  if (GenPart ==1 ){FSRele1 = (TLorentzVector*) genParP4->At(ele);}
+	  if (GenPart ==2 ){FSRele2 = (TLorentzVector*) genParP4->At(ele);}
+	}
+      }
+      if(GenPart >=2){ 
+	FSRtwo = *FSRele1 + *FSRele2;
+	if(FSRtwo.M() <= 200.){
+	  GenFlag = true;}
+      }
+    }
     
+    //for DYEE
+    if(mode == "DYEE"){
+      if(false){cout << "mode :" << mode <<std::endl;}
+      GenFlag = false;
+      GenPart =0;
+      for (Int_t ele = 0; ele < nGenPar ; ele++) {
+	if(((*genParSt)[ele] ==1 ) && (((*genStFlag)[ele] >> 9 ) & 1)  &&  fabs((*genParId)[ele])==11){
+	  GenPart++;
+	}
+      }
+      if(GenPart >=2){GenFlag = true;}	
+    }
+    //for DYTau DYtau
+    if(mode=="DYTauTau"){    
+      if(false){cout << "mode :" << mode <<std::endl;}
+      GenFlag = false;
+      GenPart =0;
+      for (Int_t ele = 0; ele < nGenPar ; ele++) {
+	if( (((*genStFlag)[ele] >> 9 ) & 1) &&(((*genStFlag)[ele] >>2 ) & 1)  &&  fabs((*genParId)[ele])==15){
+	  GenPart++;
+	}
+      }
+      if(GenPart >=2){GenFlag = true;}
+    }
+  
+
+    if(mode=="all"){GenFlag = true;}
+    if(GenFlag == false) continue; 
     
+
     
+
     nEvents->Fill(1);
     nEvents_weight->Fill(1,events.mcweight);
-    numberofVtx->Fill(nVtx);
+
     
     if (nVtx < 1) continue;
     // Clear all the collections    
 
-   
+
+    numberofVtx->Fill(nVtx,events.allmcweight);         
     
-    
-    //double electron trigger same for 25 and 50 ns data
-    //triggerstatus = TriggerStatus("HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_");
-    //triggerstatus = TriggerStatus("HLT_Ele17_Ele12_CaloIdL_TrackIdL_IsoVL"); 
-    
-    // 50ns single electron trigger
-    /*     
-	   if(isData){ 
-	   triggerstatus = TriggerStatus("HLT_Ele23_WPLoose_Gsf_v");}
-	   if(!isData){
-	   triggerstatus = TriggerStatus("HLT_Ele23_WP75_Gsf");}*/
-    //25 ns Single electron trigger
+
          
     // Produce jet collection for analysis and validation of object variables.
     // Produce MET collection for analysis and validation of object.
@@ -205,10 +214,10 @@ void RKAnalyzer::Loop(TString output){
     
 
 
-    if(RKElectronCollection.size()>1) std::cout<<" number of reco ele = "<<RKElectronCollection.size() 
+    if(RKElectronCollection.size()>1) if(false) {std::cout<<" number of reco ele = "<<RKElectronCollection.size() 
     					       <<"    " <<RKElectronCollection[0].p4.Pt() 
     					       <<"     " <<RKElectronCollection[1].p4.Pt() 
-    					       <<std::endl;
+							  <<std::endl;}
     //
     // Fill Validation histograms for MET
     if(false) std::cout <<" MET Validator"<<std::endl;
@@ -242,26 +251,28 @@ void RKAnalyzer::Loop(TString output){
     
 
     // Dielectron Collection
-    if(RKdiElectronCollection.size()>0  && (RKdiElectronCollection[0].jet1.p4.Pt() > 25.)) diElectronValidator.Fill(RKdiElectronCollection);
+    if(RKdiElectronCollection.size()>0  && (RKdiElectronCollection[0].jet1.p4.Pt() >= ptlead)) diElectronValidator.Fill(RKdiElectronCollection);
     
         
-    if(RKdiElectronCollection_barrel.size()>0 && (RKdiElectronCollection_barrel[0].jet1.p4.Pt() > 25.)) diElectronValidator_barrel.Fill(RKdiElectronCollection_barrel); 
-    if(RKdiElectronCollection_endcap.size()>0 && (RKdiElectronCollection_endcap[0].jet1.p4.Pt() > 25.)) diElectronValidator_endcap.Fill(RKdiElectronCollection_endcap);
-    if(RKdiElectronCollection_barend.size()>0 && (RKdiElectronCollection_barend[0].jet1.p4.Pt() > 25. )) diElectronValidator_barend.Fill(RKdiElectronCollection_barend);
+    if(RKdiElectronCollection_barrel.size()>0 && (RKdiElectronCollection_barrel[0].jet1.p4.Pt() >= ptlead)) diElectronValidator_barrel.Fill(RKdiElectronCollection_barrel); 
+    if(RKdiElectronCollection_endcap.size()>0 && (RKdiElectronCollection_endcap[0].jet1.p4.Pt() >= ptlead)) diElectronValidator_endcap.Fill(RKdiElectronCollection_endcap);
+    if(RKdiElectronCollection_barend.size()>0 && (RKdiElectronCollection_barend[0].jet1.p4.Pt() >= ptlead )) diElectronValidator_barend.Fill(RKdiElectronCollection_barend);
     
     
-    if( RKdiElectronCollection.size()>0  &&  (RKdiElectronCollection[0].jet1.p4.Pt() > 25.) && ((RKdiElectronCollection[0].ResonanceProp.InvMass > 10.) && (RKdiElectronCollection[0].ResonanceProp.InvMass < 60.) ))Tmp_diElectronValidator_NEle.Fill(RKdiElectronCollection);
+    if( RKdiElectronCollection.size()>0  &&  (RKdiElectronCollection[0].jet1.p4.Pt() >= ptlead) && ((RKdiElectronCollection[0].ResonanceProp.InvMass > 10.) && (RKdiElectronCollection[0].ResonanceProp.InvMass <= 60.) ))Tmp_diElectronValidator_NEle.Fill(RKdiElectronCollection);
        
-    if(RKdiElectronCollection.size()>0  &&  (RKdiElectronCollection[0].jet1.p4.Pt() > 25.) && ((RKdiElectronCollection[0].ResonanceProp.InvMass > 60.) && (RKdiElectronCollection[0].ResonanceProp.InvMass < 120.) ))Tmp_diElectronValidator_Trig.Fill(RKdiElectronCollection);
+    if(RKdiElectronCollection.size()>0  &&  (RKdiElectronCollection[0].jet1.p4.Pt() >= ptlead) && ((RKdiElectronCollection[0].ResonanceProp.InvMass > 60.) && (RKdiElectronCollection[0].ResonanceProp.InvMass <= 120.) ))Tmp_diElectronValidator_Trig.Fill(RKdiElectronCollection);
        
-    if(RKdiElectronCollection.size()>0  &&  (RKdiElectronCollection[0].jet1.p4.Pt() > 25.) && ((RKdiElectronCollection[0].ResonanceProp.InvMass > 120.) && (RKdiElectronCollection[0].ResonanceProp.InvMass < 300.) )) Tmp_diElectronValidator_Kin.Fill(RKdiElectronCollection);
+    if(RKdiElectronCollection.size()>0  &&  (RKdiElectronCollection[0].jet1.p4.Pt() >= ptlead) && ((RKdiElectronCollection[0].ResonanceProp.InvMass > 120.) && (RKdiElectronCollection[0].ResonanceProp.InvMass <= 300.) )) Tmp_diElectronValidator_Kin.Fill(RKdiElectronCollection);
     
-    if(RKdiElectronCollection.size()>0  &&  (RKdiElectronCollection[0].jet1.p4.Pt() > 25.) && ((RKdiElectronCollection[0].ResonanceProp.InvMass > 300.))) Tmp_diElectronValidator_MID.Fill(RKdiElectronCollection);
+    if(RKdiElectronCollection.size()>0  &&  (RKdiElectronCollection[0].jet1.p4.Pt() >= ptlead) && ((RKdiElectronCollection[0].ResonanceProp.InvMass > 300.))) Tmp_diElectronValidator_MID.Fill(RKdiElectronCollection);
     
-    if(RKdiElectronCollection.size()>0 && (RKdiElectronCollection[0].jet1.p4.Pt() > 25.) && (RKdiElectronCollection[0].jet1.charge * RKdiElectronCollection[0].jet2.charge ) == -1 )   Tmp_diElectronValidator_Charge.Fill(RKdiElectronCollection);
+    if(RKdiElectronCollection.size()>0 && (RKdiElectronCollection[0].jet1.p4.Pt() >= ptlead) && (RKdiElectronCollection[0].jet1.charge * RKdiElectronCollection[0].jet2.charge ) == -1 )   Tmp_diElectronValidator_Charge.Fill(RKdiElectronCollection);
 
     //Ignore this part        
     
+
+   
     
     if(false) std::cout <<" before sorting "<<std::endl;
     // Dijet Vector Sorting wrt pT of diJet candidate 
@@ -328,38 +339,12 @@ void RKAnalyzer::Loop(TString output){
     if(false) std::cout <<" calling nminus one"<<std::endl;
     if(RKDiJetMETCollectionWithStatus.size()>0) nminusobj.Fill(RKDiJetMETCollectionWithStatus);
     
-    if(false) std::cout <<" calling ABCD method "<<std::endl;
-    // if(RKDiJetMETCollectionWithStatus.size()>0) abcd.Fill(RKDiJetMETCollectionWithStatus);
-    if(false) std::cout <<" pfMetCorrPt = "<<pfMetCorrPt
-			<<" pfMetCorrPhi = "<<pfMetCorrPhi
-			<<" pfMetCorrSumEt = "<<pfMetCorrSumEt
-			<<" pfMetCorrSig = "<<pfMetCorrSig
-			<<" pfMetRawPt = "<<pfMetRawPt
-			<<" pfMetRawPhi = "<<pfMetRawPhi
-			<<" pfMetRawSumEt = "<<pfMetRawSumEt
-			<<" pfmvaMetPt_ = "<<pfmvaMetPt_
-			<<" pfmvaMetPhi_ = "<<pfmvaMetPhi_
-			<<" pfmvaMetSumEt_ = "<<pfmvaMetSumEt_
-			<<" pfmvaMetSig_ = "<<pfmvaMetSig_
-			<<" pfMetRawCov00 " <<pfMetRawCov00
-			<<" pfMetRawCov01 = "<<pfMetRawCov01
-			<<" pfMetRawCov10 = "<<pfMetRawCov10
-			<<std::endl;     // if (Cut(ientry) < 0) continue;
   }      
   // Write Histograms ;
-  //jetvalidator.Write();
-  //jetvalidator_selected.Write();
-  
-  //elenminusoneobjE.Write();
-  //elenminusoneobjB.Write();
+
   electronvalidator.Write();
   electronvalidator_barrel.Write();
   electronvalidator_endcap.Write();
-
-
-   
-  //  metvalidator.Write();
-  //diJetValidator.Write();
   
   diElectronValidator.Write();
   diElectronValidator_barrel.Write();
@@ -371,22 +356,11 @@ void RKAnalyzer::Loop(TString output){
   Tmp_diElectronValidator_Kin.Write();
   Tmp_diElectronValidator_MID.Write();
   Tmp_diElectronValidator_Charge.Write();
-  
-
-   
-  // jetmetValidator.Write();
-  // dijetmetValidator.Write();
-  //  cutflowobj.Write();
-  //nminusobj.Write();
-  //histfac.Write();
-  // histfacJetPreSel.Write();
-   //histfacJetHardPreSel.Write();
-  // abcd.Write();
-   fout->cd();
-   nEvents->Write();
-   nEvents_weight->Write();
-   h_CutFlow->Write();
-   numberofVtx->Write();
+  fout->cd();
+  nEvents->Write();
+  nEvents_weight->Write();
+  h_CutFlow->Write();
+  numberofVtx->Write();
    
 
 }
@@ -486,10 +460,6 @@ void RKAnalyzer::MuonProducer(){
 }
 
 void RKAnalyzer::ElectronProducer(){
-
-  //opening file for effective area 
-  //  edm::FileInPath eaConstantsFile("EgammaAnalysis/ElectronTools/data/PHYS14/effAreaElectrons_cone03_pfNeuHadronsAndPhotons.txt");
-  //EffectiveAreas effectiveAreas(eaConstantsFile.fullPath());
   Int_t kinematic = 0;
   Int_t IDcut = 0;
   Int_t mCFweight =1; 
@@ -498,21 +468,22 @@ void RKAnalyzer::ElectronProducer(){
   TLorentzVector Zp4;  
   std::vector<int> indx; indx.clear();
   bool debug__ = false;
-  //  float leadelept =-999, subleadelept = -999, leadeleeta = -999, leadelecphi = -999, subleadeleeta = -999, subleadelecphi = -999, dielectronmass =-999, dielectronpt = -999, dielectronrapidity = -999, dielectronphi = -999;
   
   if(debug__) std::cout<<" debug 1 "<<std::endl;
   ElectronSelectionBitsProducer eleselectbits;
   for(size_t i=0; i<(size_t) nEle; i++){
     TLorentzVector*  fourmom = (TLorentzVector*) eleP4->At(i);
+    // TLorentzVector  fourmom1 = (TLorentzVector) eleP4->At(i);
+    //    fourmom *= (fourmom,1.0040);
     // for SC 
     //TLorentzVector* fourmom;
     //fourmom = new TLorentzVector();
     //fourmom->SetPtEtaPhiE((*eleScEt)[i],  (*eleScEta)[i],  (*eleScPhi)[i],   (*eleScEn)[i]);
-    //  cout << " Supercluster : " <<" eta : " << (*eleScEta)[i] << "  Et:  " << (*eleScEt)[i] << " Phi:  " << (*eleScPhi)[i] << "  energy :"  <<(*eleScEn)[i] <<std::endl;
-    // cout << " Electron : " <<" eta : " << (*fourmom).Eta() << "  Et:  " << (*fourmom).Pt() << " Phi:  " << (*fourmom).Phi() << "  energy :"  << (*fourmom).Energy() <<std::endl;
+    double corr = 1.0040; 
     if(debug__) std::cout<<" debug 2 "<<std::endl;
     float eA =EAElectron::EA(abs(fourmom->Eta()));
     electrons.p4         = (*fourmom); 
+    electrons.p4 *= corr;
     electrons.IsPassVeto  =  (*eleIsPassVeto)[i]  ; 
     electrons.IsPassLoose  =  (*eleIsPassLoose)[i]  ; 
     electrons.IsPassMedium  =  (*eleIsPassMedium)[i]  ; 
@@ -557,11 +528,11 @@ void RKAnalyzer::ElectronProducer(){
     electrons.nTrueInt = pu_nTrueInt;
     electrons.nPUVert  = pu_nPUVert;
     electrons.nVtx    =  nVtx;
-    electrons.weight  =  mcw;
+    electrons.weight  =  events.mcweight;
     electrons.isdata  = (Bool_t) isData;
     if(debug__) std::cout<<" debug 8 "<<std::endl;
-    electrons.pt20_   = electrons.p4.Pt()>20.;
-    electrons.pt15_   = electrons.p4.Pt()>15.;
+    electrons.pt20_   = electrons.p4.Pt()> ptlead;
+    electrons.pt15_   = electrons.p4.Pt()> ptsublead;
 
     electrons.RE25E55 = (*eleE2x5)[i]/(*eleE5x5)[i];
     //electrons.MiniIso = (*eleMiniIso)[i];
@@ -573,13 +544,14 @@ void RKAnalyzer::ElectronProducer(){
     electrons.myevent = events;
     
     
-    electrons.idisoRecofac = ScaleFactorElectron::SFIdIsoReco(electrons.p4.Pt(),electrons.p4.Eta());
+    electrons.idisoRecofac = ScaleFactorElectron::SFIdIsoReco(electrons.p4.Eta(),electrons.p4.Pt());
     electrons.triggerfac =1;
     electrons.SCfac = 1;
-    if(isData==1){ electrons.allfac =1;}
-    if(isData==0){ electrons.allfac =1;} 
-    //if(isData==0){ electrons.allfac = electrons.idisoRecofac * electrons.triggerfac * electrons.SCfac ;}
-
+    if(isData){ electrons.allfac =1;}
+    if(!isData){ electrons.allfac =1;} 
+    //if(!isData){ electrons.allfac = electrons.idisoRecofac * electrons.triggerfac * electrons.SCfac ;}
+    //if(!isData){ electrons.allfac = electrons.idisoRecofac * electrons.triggerfac * electrons.SCfac ;}
+    //    std::cout << "pt : "  << electrons.p4.Pt()  << "eta:  " <<electrons.p4.Eta()  << "Scale Factor :  " << electrons.allfac << std::endl; 
      if(debug__) std::cout<<" debug 10 "<<std::endl;
     
     electrons.trigger =  triggerstatus;
@@ -595,42 +567,25 @@ void RKAnalyzer::ElectronProducer(){
     //electron.cutsStatusM = SelectionBitsSaver(electrons,);
     //electron.cutsStatusT = SelectionBitsSaver(electrons,);
 
-    if(electrons.p4.Pt() > 15. &&
+    if(electrons.p4.Pt() > ptsublead &&
        fabs(electrons.etaSC) < 2.5 &&
        !( fabs(electrons.etaSC) > 1.4442 && fabs(electrons.etaSC) < 1.566 )){
       kinematic++;
       
       if(debug__) std::cout<<" debug 12 "<<std::endl;
-      if((*eleIsPassMedium)[i]==1 && electrons.EcalDrivenSeed){
+      if((*eleIsPassMedium)[i]==1){
 	indx.push_back(i);
 	IDcut++;
         TLorentzVector*  firstele = (TLorentzVector*) eleP4->At(indx[0]);
-	if(IDcut==2 && (*firstele).Pt() > 25. && (((*eleCharge)[ indx[0] ] *  (*eleCharge)[ indx[1] ]) == -1 )){  // && (*eleScEt)[indx[0]] > 25. ){
+	if(IDcut==2 && (*firstele).Pt() > ptlead && (((*eleCharge)[ indx[0] ] *  (*eleCharge)[ indx[1] ]) == -1 )){  // && (*eleScEt)[indx[0]] > 30. ){
 	  Chargecut=true;
-       /* TLorentzVector* fourmom1;
-          TLorentzVector* fourmom2;
-	  fourmom1 = new TLorentzVector();
-          fourmom2 = new TLorentzVector();
-	  fourmom1->SetPtEtaPhiE((*eleScEt)[indx[0]],  (*eleScEta)[indx[0]],  (*eleScPhi)[indx[0]],   (*eleScEn)[indx[0]]);
-          fourmom2->SetPtEtaPhiE((*eleScEt)[indx[1]],  (*eleScEta)[indx[1]],  (*eleScPhi)[indx[1]],   (*eleScEn)[indx[1]]);*/
+
 	  TLorentzVector*  fourmom1 = (TLorentzVector*) eleP4->At(indx[0]);
 	  TLorentzVector*  fourmom2 = (TLorentzVector*) eleP4->At(indx[1]);
            Zp4 = (*fourmom1) + (*fourmom2);
 	  if((Zp4.M() >= 60.0) && (Zp4.M() <= 120.0)){
 	    masscut = true;
-	    
 	    if(debug__) std::cout<<" debug 13 "<<std::endl;
-	    /*   leadelept      = (*eleScEt)[indx[0]];
-	    subleadelept   = (*eleScEt)[indx[1]];
-	    leadeleeta     = (*eleScEta)[indx[0]];
-	    leadelecphi    = (*eleScPhi)[indx[0]]; 
-	    subleadeleeta  = (*eleScEta)[indx[1]];
-	    subleadelecphi = (*eleScPhi)[indx[1]]; 
-	    dielectronmass =  Zp4.M(); 
-	    dielectronpt   =   Zp4.Pt();
-	    dielectronrapidity = Zp4.Rapidity();
-	    dielectronphi =       Zp4.Phi();*/
-	    
 	  }
         }
       }	
@@ -640,25 +595,22 @@ void RKAnalyzer::ElectronProducer(){
     if(debug__) std::cout<<" debug 14 "<<std::endl;
     
     
-    if(nEle >=2 && triggerstatus && electrons.p4.Pt() > 15. && fabs(electrons.etaSC) < 2.5 && !(fabs(electrons.etaSC) > 1.4442 && fabs(electrons.etaSC) < 1.566 ) && (*eleIsPassMedium)[i]==1 && electrons.EcalDrivenSeed) RKElectronCollection.push_back(electrons);
+    if(nEle >=2 && triggerstatus && electrons.p4.Pt() > ptsublead && fabs(electrons.etaSC) < 2.5 && !(fabs(electrons.etaSC) > 1.4442 && fabs(electrons.etaSC) < 1.566 ) && (*eleIsPassMedium)[i]==1 ) RKElectronCollection.push_back(electrons);
     
     
     if(RKElectronCollection.size() > 2) continue;
 
-    if(nEle >=2 &&triggerstatus &&  electrons.p4.Pt() > 15. && fabs(electrons.etaSC)< 1.4442 && (*eleIsPassMedium)[i]==1 && electrons.EcalDrivenSeed ) RKElectronCollection_barrel.push_back(electrons);
+    if(nEle >=2 &&triggerstatus &&  electrons.p4.Pt() > ptsublead && fabs(electrons.etaSC)< 1.4442 && (*eleIsPassMedium)[i]==1  ) RKElectronCollection_barrel.push_back(electrons);
 
-    if(nEle >=2 && triggerstatus &&  electrons.p4.Pt() > 15. && ( fabs(electrons.etaSC) > 1.566 && fabs(electrons.etaSC)< 2.5 ) && (*eleIsPassMedium)[i]==1 && electrons.EcalDrivenSeed) RKElectronCollection_endcap.push_back(electrons); 
+    if(nEle >=2 && triggerstatus &&  electrons.p4.Pt() > ptsublead && ( fabs(electrons.etaSC) > 1.566 && fabs(electrons.etaSC)< 2.5 ) && (*eleIsPassMedium)[i]==1) RKElectronCollection_endcap.push_back(electrons); 
   }
   if(debug__)std::cout<<" electron collection filled " <<std::endl;
   
   mCFweight=events.mcweight;
   h_CutFlow->Fill(1,mCFweight);
-  //std::cout<<" passed nocut "<<mCFweight<<std::endl;
   if(nEle >= 2){
     h_CutFlow->Fill(2,mCFweight);
-    //std::cout<<" passed twoele "<<mCFweight<<std::endl;
     if(triggerstatus){
-      //std::cout<<" passed triggerstatus "<<std::endl;
       h_CutFlow->Fill(3,mCFweight);
       if(kinematic >= 2){
 	h_CutFlow->Fill(4,mCFweight);
@@ -669,19 +621,8 @@ void RKAnalyzer::ElectronProducer(){
 	    if(masscut){
 	      h_CutFlow->Fill(7,mCFweight);
 	      
-	      /*std::cout << "run:lumi:event " << runId << ":"<<lumiSection<<":"<<eventId
-		             <<" "<<dielectronmass
-		             <<" "<<dielectronpt
-		             <<" "<<dielectronrapidity
-		             <<" "<<dielectronphi
-		             <<" "<<leadelept
-		             <<" "<<subleadelept
-		             <<" "<<leadeleeta
-		             <<" "<<subleadeleeta
-		             <<" "<<leadelecphi
-		             <<" "<<subleadelecphi
-		             <<std::endl;   */
-		 }   
+	      
+	    }   
 	  }             
 	}
       }
@@ -805,12 +746,12 @@ bool RKAnalyzer::TriggerStatus(std::string TRIGNAME){
   if(false) std::cout <<" number of triggers = "<<(*hlt_trigResult).size()<<std::endl;
   for(size_t i =0; i < (*hlt_trigResult).size() ; i++) {
     std::string trigname = (*hlt_trigName)[i];
+   if(false) std::cout <<"trigger name = "<<trigname
+             <<" status = "<<(*hlt_trigResult)[i]<<std::endl;
+
     size_t foundEle00=trigname.find(TRIGNAME);//HLT_DoubleEle33
     if ( foundEle00==std::string::npos) continue;
-    
-    if(false) std::cout <<"trigger name = "<<trigname
-             <<" status = "<<(*hlt_trigResult)[i]<<std::endl;
-    triggerstat=(*hlt_trigResult)[i];
+       triggerstat=(*hlt_trigResult)[i];
   }
   return triggerstat;
 }
@@ -820,15 +761,22 @@ void RKAnalyzer::EventProducer(){
   events.run      = runId;
   events.lumi     = lumiSection;
   events.event    = eventId;
-  if(isData==1)        events.mcweight =  1.0 ;
-  if(isData==0) {
+  if(isData)        events.mcweight =  1.0 ;
+  if(!isData) {
     if(mcWeight<0)   events.mcweight =  -1.0;
     if(mcWeight>0)   events.mcweight =   1.0;
   }
-  events.nvtx            = nVtx;
-  if(isData==1)        events.puweight = 1.0 ;
-  if(isData==0)        events.puweight = 1.0 ;
-  //  if(isData==0)        events.puweight = PileUpWeights::PUWEIGHT(nVtx) ; 
+ 
+  events.nvtx            = (int) nVtx;
+  //events.nvtx            = (int) pu_nTrueInt;
+  if(isData)        events.puweight = 1.0 ;
+  //  if(!isData)       events.puweight = 1.0 ;
+  int ntrueint = (int) (pu_nTrueInt+0.5); 
+  //  cout << ntrueint  <<"  "  << pu_nTrueInt <<std::endl;
+   if(!isData)        events.puweight = PileUpWeights::PUWEIGHT((int) ntrueint) ; 
   // change this number once Monika do the PU re-weiging
   events.allmcweight     = events.mcweight * events.puweight ;
+
+  //  cout << pu_nTrueInt << "   "<< (int) pu_nTrueInt << "  " << events.puweight << std::endl; 
+
 }

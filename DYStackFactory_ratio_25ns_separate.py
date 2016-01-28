@@ -12,7 +12,7 @@ macro='''{
  tm *ltm = localtime(&now);
  TString dirpathname;
 
- TString DirPreName = "PlotsElectron_25ns_";
+ TString DirPreName = "CheckPlotsElectron_25ns_";
  dirpathname.Form("%d%1.2d%d",ltm->tm_mday,1 + ltm->tm_mon,1900 + ltm->tm_year);
  system("mkdir -p  " + DirPreName+dirpathname +"/DYROOT");
  system("mkdir -p  " + DirPreName+dirpathname +"/DYPdf");
@@ -100,6 +100,8 @@ double massbin[46] ={15,20,25,30,35,40,45,50,55,60,64,68,72,76,81,86,91,96,101,1
 
 
 // Main Code starts here
+
+
 
 for(int i =0; i<(int)filenameString.size()-1; i++){
  fIn = new TFile(filenameString[i],"READ");
@@ -304,8 +306,8 @@ float maxi = h_data->GetMaximum();
   h_data->SetLineColor(1);
   h_data->Draw("same p e1");
   
-  if(ISLOG)    hs->SetMinimum(1);
-  if(!ISLOG)   hs->SetMinimum(1);
+  if(ISLOG)    hs->SetMinimum(0.1);
+  if(!ISLOG)   hs->SetMinimum(0.);
   if(!ISLOG)   hs->SetMaximum(maxi *1.22);
   if(ISLOG)    hs->SetMaximum(maxi *100);
   //if(!ISLOG) hs->SetMaximum(0.4);
@@ -503,188 +505,189 @@ def makeplot(inputs):
 
 
 
-makeplot(['Charge',  'h_InvMass', 'M_{ee}', '60', '119', '1', '0' , '1', 'sel'])
-makeplot(['Charge',  'h_InvMass', 'M_{ee}', '10', '3000',  '1', '1' , '1', 'fullrangelog','0','1'])
-makeplot(['Charge',  'h_InvMass', 'M_{ee}', '60', '120', '2', '1' , '0', 'sellog'])
-makeplot(['Charge',  'h_InvMass', 'M_{ee}', '10', '60', '2', '1' , '0', 'sel060'])
-makeplot(['Charge',  'h_InvMass', 'M_{ee}', '120', '400', '4', '1' , '0', 'sel120400'])
-makeplot(['Charge',  'h_InvMass', 'M_{ee}', '400', '2000', '4', '1' , '0', 'sel4002000'])
-
-
-makeplot(['Charge',   'h_pt', 'p_{T}^{ee} ', '0 ', '300' , '8', '1' ])
-makeplot(['Charge',   'h_eta', '#eta_{ee} ', '-5.', '5' , '2', '1' ])
-makeplot(['Charge',   'h_rapidity', 'Rapidity_{ee}', '-3.5', '3.5' , '1', '1' ])
-makeplot(['Charge',   'h_phi', '#phi_{ee} ', '-3.5', '3.5' , '1', '1' ])
-makeplot(['Charge',   'h_DeltaR', '#Delta#R{ee} ', '0', '5' , '1', '1' ])
-makeplot(['Charge',   'h_DeltaPhi', '#Delta#phi{ee} ', '-3.5', '3.5' , '2', '1' ])
-makeplot(['Charge',   'h_DeltaEta', '#Delta#eta{ee} ', '-5', '5' , '1', '1' ])
-makeplot(['Charge',   'h_energy','energy_{ee}','0','800','1','1'])
-makeplot(['Charge',   'h_Pt2OverPt1', 'p_{T}^{e1}/p_{T}^{e2} ', '0', '1' , '1', '1' ])
-makeplot(['Charge',   'h_PtOverPt1Pt2', 'p_{T}^{ee}/p_{T}^{e1}+p_{T}^{e2} ', '0', '1' , '1', '1' ])
-
-######## Plots for electrons#####################
-makeplot(['Electron_NoCut_',   'h_pt4', 'p_{T}^{e} ', '0', '500' , '2', '1' ])
-makeplot(['Electron_NoCut_',   'h_etaSC4', '#eta^{e} ', '-3', '3' , '2', '0' ])
-makeplot(['Electron_NoCut_',   'h_phi4', '#phi^{e} ', '-3.5', '3.5' , '2', '0' ])
-makeplot(['Electron_NoCut_',   'h_etSC4', 'E_{T}^{SC}', '15', '500','1','1'])
-makeplot(['Electron_NoCut_',   'h_dEtaIn4', '#Delta#eta_{In} ', '0', '0.01' , '4', '1' ])
-makeplot(['Electron_NoCut_',   'h_dPhiIn1', '#Delta#phi_{In} ', '0', '0.08' , '4', '1' ])
-makeplot(['Electron_NoCut_',   'h_hOverE4', 'H/E', '0', '0.1' , '2', '1' ])
-makeplot(['Electron_NoCut_',   'h_full5x5_sigmaIetaIeta4', '#sigma_{i#eta i#eta}^{5x5} ', '0', '0.06' , '1', '1' ])
-makeplot(['Electron_NoCut_',   'h_eoverPInv4', 'E/P(Inv) ', '0', '0.25' , '4', '1' ])
-makeplot(['Electron_NoCut_',   'h_isoDeltaBeta4', ' Isolation(#Delta#beta)  ', '0', '0.4' , '1', '1' ])
-makeplot(['Electron_NoCut_',   'h_isoRho4', 'Isolation(#rho) ', '0', '0.4' , '1', '1' ])
-makeplot(['Electron_NoCut_',   'h_d04', 'd_{0} ', '0', '0.2' , '1', '1' ])
-makeplot(['Electron_NoCut_',   'h_dz4', 'd_{z} ', '0', '0.2' , '1', '1' ])
-makeplot(['Electron_NoCut_',   'h_expectedMissingInnerHits4', 'ExpextedMissingInnerHits ', '0', '3' , '1', '1' ])
-makeplot(['Electron_NoCut_',   'h_passConversionVeto4', 'ConversionVeto ', '0', '2' , '1', '1' ])
-makeplot(['Electron_NoCut_',   'h_nelectrons', 'N_{ele}', '1', '5' , '1', '1','1' ])
-
-
-makeplot(['Electron_NoCut_',   'h_pt1', 'p_{T}^{e}(sub-leading)   ', '0', '500' , '1', '1' ])
-makeplot(['Electron_NoCut_',   'h_etaSC1', '#eta^{e} ', '-3', '3' , '1', '0' ])
-makeplot(['Electron_NoCut_',   'h_phi1', '#phi^{e} ', '-3.5', '3.5' , '2', '0' ])
-makeplot(['Electron_NoCut_',   'h_etSC1', 'E_{T}^{SC}(sub-leading)', '15', '300','1','1'])
-makeplot(['Electron_NoCut_',   'h_dEtaIn1', '#Delta#eta_{In}(sub-leading) ', '0', '0.01' , '5', '1' ])
-makeplot(['Electron_NoCut_',   'h_dPhiIn1', '#Delta#phi_{In}(sub-leading) ', '0', '0.08' , '8', '1' ])
-makeplot(['Electron_NoCut_',   'h_hOverE1', 'H/E(sub-leading)', '0', '0.1' , '4', '1' ])
-makeplot(['Electron_NoCut_',   'h_full5x5_sigmaIetaIeta1', '#sigma_{i#eta i#eta}^{5x5}(sub-leading) ', '0', '0.06' , '1', '1' ])
-makeplot(['Electron_NoCut_',   'h_eoverPInv1', 'E/P(Inv)(sub-leading) ', '0', '0.25' , '8', '1' ])
-makeplot(['Electron_NoCut_',   'h_isoDeltaBeta1', ' Isolation(#Delta#beta)(sub-leading)  ', '0', '0.4' , '1', '1' ])
-makeplot(['Electron_NoCut_',   'h_isoRho1', 'Isolation(#rho)(sub-leading) ', '0', '0.4' , '1', '1' ])
-makeplot(['Electron_NoCut_',   'h_d01', 'd_{0}(sub-leading) ', '0', '0.2' , '1', '1' ])
-makeplot(['Electron_NoCut_',   'h_dz1', 'd_{z}(sub-leading) ', '0', '0.2' , '1', '1' ])
-makeplot(['Electron_NoCut_',   'h_expectedMissingInnerHits1', 'ExpextedMissingInnerHits(sub-leading) ', '0', '3' , '1', '1' ])
-makeplot(['Electron_NoCut_',   'h_passConversionVeto1', 'ConversionVeto(sub-leading) ', '0', '2' , '1', '1' ])
-
-makeplot(['Electron_NoCut_',   'h_pt0', 'p_{T}^{e}(leading) ', '0', '500' , '1', '1' ])
-makeplot(['Electron_NoCut_',   'h_etaSC0', '#eta^{e}(leading) ', '-3', '3' , '1', '0' ])
-makeplot(['Electron_NoCut_',   'h_phi0', '#phi^{e}(leading) ', '-3.5', '3.5' , '2', '0' ])
-makeplot(['Electron_NoCut_',   'h_etSC0', 'E_{T}^{SC}(leading)', '15', '500','1','1'])
-makeplot(['Electron_NoCut_',   'h_dEtaIn0', '#Delta#eta_{In}(leading) ', '0', '0.01' , '5', '1' ])
-makeplot(['Electron_NoCut_',   'h_dPhiIn0', '#Delta#phi_{In}(leading) ', '0', '0.08' , '8', '1' ])
-makeplot(['Electron_NoCut_',   'h_hOverE0', 'H/E(leading)', '0', '0.1' , '4', '1' ])
-makeplot(['Electron_NoCut_',   'h_full5x5_sigmaIetaIeta0', '#sigma_{i#eta i#eta}^{5x5}(leading) ', '0', '0.06' , '1', '1' ])
-makeplot(['Electron_NoCut_',   'h_eoverPInv0', 'E/P(Inv)(leading) ', '0', '0.25' , '8', '1' ])
-makeplot(['Electron_NoCut_',   'h_isoDeltaBeta0', ' Isolation(#Delta#beta)(leading)  ', '0', '0.4' , '1', '1' ])
-makeplot(['Electron_NoCut_',   'h_isoRho0', 'Isolation(#rho)(leading) ', '0', '0.4' , '1', '1' ])
-makeplot(['Electron_NoCut_',   'h_d00', 'd_{0}(leading) ', '0', '0.2' , '1', '1' ])
-makeplot(['Electron_NoCut_',   'h_dz0', 'd_{z}(leading) ', '0', '0.2' , '1', '1' ])
-makeplot(['Electron_NoCut_',   'h_expectedMissingInnerHits0', 'ExpextedMissingInnerHits(leading) ', '0', '3' , '1', '1' ])
-makeplot(['Electron_NoCut_',   'h_passConversionVeto0', 'ConversionVeto(leading) ', '0', '2' , '1', '1' ])
-#########
-
-
-makeplot(['DiElectronMediumID',  'h_InvMass', 'M_{ee}', '60', '119', '1', '0' , '1', 'sel'])
-makeplot(['DiElectronMediumID',  'h_InvMass', 'M_{ee}', '60', '120', '2', '1' , '0', 'sellog'])
-makeplot(['DiElectronMediumID',  'h_InvMass', 'M_{ee}', '10', '60', '2', '1' , '0', 'sel060'])
-makeplot(['DiElectronMediumID',  'h_InvMass', 'M_{ee}', '120', '400', '4', '1' , '0', 'sel120400'])
-makeplot(['DiElectronMediumID',  'h_InvMass', 'M_{ee}', '400', '3000', '4', '1' , '0', 'sel4002000'])
+#makeplot(['Charge',  'h_InvMass', 'M_{ee}', '60', '119', '1', '0' , '1', 'sel'])
+#makeplot(['Charge',  'h_InvMass', 'M_{ee}', '10', '3000',  '1', '1' , '1', 'fullrangelog','0','1'])
+#makeplot(['Charge',  'h_InvMass', 'M_{ee}', '60', '120', '2', '1' , '0', 'sellog'])
+#makeplot(['Charge',  'h_InvMass', 'M_{ee}', '10', '60', '2', '1' , '0', 'sel060'])
+#makeplot(['Charge',  'h_InvMass', 'M_{ee}', '120', '400', '4', '1' , '0', 'sel120400'])
+#makeplot(['Charge',  'h_InvMass', 'M_{ee}', '400', '2000', '4', '1' , '0', 'sel4002000'])
+#
+#
+#makeplot(['Charge',   'h_pt', 'p_{T}^{ee} ', '0 ', '300' , '8', '1' ])
+#makeplot(['Charge',   'h_eta', '#eta_{ee} ', '-5.', '5' , '2', '1' ])
+#makeplot(['Charge',   'h_rapidity', 'Rapidity_{ee}', '-3.5', '3.5' , '1', '1' ])
+#makeplot(['Charge',   'h_phi', '#phi_{ee} ', '-3.5', '3.5' , '1', '1' ])
+#makeplot(['Charge',   'h_DeltaR', '#Delta#R{ee} ', '0', '5' , '1', '1' ])
+#makeplot(['Charge',   'h_DeltaPhi', '#Delta#phi{ee} ', '-3.5', '3.5' , '2', '1' ])
+#makeplot(['Charge',   'h_DeltaEta', '#Delta#eta{ee} ', '-5', '5' , '1', '1' ])
+#makeplot(['Charge',   'h_energy','energy_{ee}','0','800','1','1'])
+#makeplot(['Charge',   'h_Pt2OverPt1', 'p_{T}^{e1}/p_{T}^{e2} ', '0', '1' , '1', '1' ])
+#makeplot(['Charge',   'h_PtOverPt1Pt2', 'p_{T}^{ee}/p_{T}^{e1}+p_{T}^{e2} ', '0', '1' , '1', '1' ])
+#
+######### Plots for electrons#####################
+#makeplot(['Electron_NoCut_',   'h_pt4', 'p_{T}^{e} ', '0', '500' , '2', '1' ])
+#makeplot(['Electron_NoCut_',   'h_etaSC4', '#eta^{e} ', '-3', '3' , '2', '0' ])
+#makeplot(['Electron_NoCut_',   'h_phi4', '#phi^{e} ', '-3.5', '3.5' , '2', '0' ])
+#makeplot(['Electron_NoCut_',   'h_etSC4', 'E_{T}^{SC}', '15', '500','1','1'])
+#makeplot(['Electron_NoCut_',   'h_dEtaIn4', '#Delta#eta_{In} ', '0', '0.01' , '4', '1' ])
+#makeplot(['Electron_NoCut_',   'h_dPhiIn1', '#Delta#phi_{In} ', '0', '0.08' , '4', '1' ])
+#makeplot(['Electron_NoCut_',   'h_hOverE4', 'H/E', '0', '0.1' , '2', '1' ])
+#makeplot(['Electron_NoCut_',   'h_full5x5_sigmaIetaIeta4', '#sigma_{i#eta i#eta}^{5x5} ', '0', '0.06' , '1', '1' ])
+#makeplot(['Electron_NoCut_',   'h_eoverPInv4', 'E/P(Inv) ', '0', '0.25' , '4', '1' ])
+#makeplot(['Electron_NoCut_',   'h_isoDeltaBeta4', ' Isolation(#Delta#beta)  ', '0', '0.4' , '1', '1' ])
+#makeplot(['Electron_NoCut_',   'h_isoRho4', 'Isolation(#rho) ', '0', '0.4' , '1', '1' ])
+#makeplot(['Electron_NoCut_',   'h_d04', 'd_{0} ', '0', '0.2' , '1', '1' ])
+#makeplot(['Electron_NoCut_',   'h_dz4', 'd_{z} ', '0', '0.2' , '1', '1' ])
+#makeplot(['Electron_NoCut_',   'h_expectedMissingInnerHits4', 'ExpextedMissingInnerHits ', '0', '3' , '1', '1' ])
+#makeplot(['Electron_NoCut_',   'h_passConversionVeto4', 'ConversionVeto ', '0', '2' , '1', '1' ])
+#makeplot(['Electron_NoCut_',   'h_nelectrons', 'N_{ele}', '1', '5' , '1', '1','1' ])
+#
+#
+#makeplot(['Electron_NoCut_',   'h_pt1', 'p_{T}^{e}(sub-leading)   ', '0', '500' , '1', '1' ])
+#makeplot(['Electron_NoCut_',   'h_etaSC1', '#eta^{e} ', '-3', '3' , '1', '0' ])
+#makeplot(['Electron_NoCut_',   'h_phi1', '#phi^{e} ', '-3.5', '3.5' , '2', '0' ])
+#makeplot(['Electron_NoCut_',   'h_etSC1', 'E_{T}^{SC}(sub-leading)', '15', '300','1','1'])
+#makeplot(['Electron_NoCut_',   'h_dEtaIn1', '#Delta#eta_{In}(sub-leading) ', '0', '0.01' , '5', '1' ])
+#makeplot(['Electron_NoCut_',   'h_dPhiIn1', '#Delta#phi_{In}(sub-leading) ', '0', '0.08' , '8', '1' ])
+#makeplot(['Electron_NoCut_',   'h_hOverE1', 'H/E(sub-leading)', '0', '0.1' , '4', '1' ])
+#makeplot(['Electron_NoCut_',   'h_full5x5_sigmaIetaIeta1', '#sigma_{i#eta i#eta}^{5x5}(sub-leading) ', '0', '0.06' , '1', '1' ])
+#makeplot(['Electron_NoCut_',   'h_eoverPInv1', 'E/P(Inv)(sub-leading) ', '0', '0.25' , '8', '1' ])
+#makeplot(['Electron_NoCut_',   'h_isoDeltaBeta1', ' Isolation(#Delta#beta)(sub-leading)  ', '0', '0.4' , '1', '1' ])
+#makeplot(['Electron_NoCut_',   'h_isoRho1', 'Isolation(#rho)(sub-leading) ', '0', '0.4' , '1', '1' ])
+#makeplot(['Electron_NoCut_',   'h_d01', 'd_{0}(sub-leading) ', '0', '0.2' , '1', '1' ])
+#makeplot(['Electron_NoCut_',   'h_dz1', 'd_{z}(sub-leading) ', '0', '0.2' , '1', '1' ])
+#makeplot(['Electron_NoCut_',   'h_expectedMissingInnerHits1', 'ExpextedMissingInnerHits(sub-leading) ', '0', '3' , '1', '1' ])
+#makeplot(['Electron_NoCut_',   'h_passConversionVeto1', 'ConversionVeto(sub-leading) ', '0', '2' , '1', '1' ])
+#
+#makeplot(['Electron_NoCut_',   'h_pt0', 'p_{T}^{e}(leading) ', '0', '500' , '1', '1' ])
+#makeplot(['Electron_NoCut_',   'h_etaSC0', '#eta^{e}(leading) ', '-3', '3' , '1', '0' ])
+#makeplot(['Electron_NoCut_',   'h_phi0', '#phi^{e}(leading) ', '-3.5', '3.5' , '2', '0' ])
+#makeplot(['Electron_NoCut_',   'h_etSC0', 'E_{T}^{SC}(leading)', '15', '500','1','1'])
+#makeplot(['Electron_NoCut_',   'h_dEtaIn0', '#Delta#eta_{In}(leading) ', '0', '0.01' , '5', '1' ])
+#makeplot(['Electron_NoCut_',   'h_dPhiIn0', '#Delta#phi_{In}(leading) ', '0', '0.08' , '8', '1' ])
+#makeplot(['Electron_NoCut_',   'h_hOverE0', 'H/E(leading)', '0', '0.1' , '4', '1' ])
+#makeplot(['Electron_NoCut_',   'h_full5x5_sigmaIetaIeta0', '#sigma_{i#eta i#eta}^{5x5}(leading) ', '0', '0.06' , '1', '1' ])
+#makeplot(['Electron_NoCut_',   'h_eoverPInv0', 'E/P(Inv)(leading) ', '0', '0.25' , '8', '1' ])
+#makeplot(['Electron_NoCut_',   'h_isoDeltaBeta0', ' Isolation(#Delta#beta)(leading)  ', '0', '0.4' , '1', '1' ])
+#makeplot(['Electron_NoCut_',   'h_isoRho0', 'Isolation(#rho)(leading) ', '0', '0.4' , '1', '1' ])
+#makeplot(['Electron_NoCut_',   'h_d00', 'd_{0}(leading) ', '0', '0.2' , '1', '1' ])
+#makeplot(['Electron_NoCut_',   'h_dz0', 'd_{z}(leading) ', '0', '0.2' , '1', '1' ])
+#makeplot(['Electron_NoCut_',   'h_expectedMissingInnerHits0', 'ExpextedMissingInnerHits(leading) ', '0', '3' , '1', '1' ])
+#makeplot(['Electron_NoCut_',   'h_passConversionVeto0', 'ConversionVeto(leading) ', '0', '2' , '1', '1' ])
+##########
+#
+#
+#makeplot(['DiElectronMediumID',  'h_InvMass', 'M_{ee}', '60', '119', '1', '0' , '1', 'sel'])
+#makeplot(['DiElectronMediumID',  'h_InvMass', 'M_{ee}', '60', '120', '2', '1' , '0', 'sellog'])
+#makeplot(['DiElectronMediumID',  'h_InvMass', 'M_{ee}', '10', '60', '2', '1' , '0', 'sel060'])
+#makeplot(['DiElectronMediumID',  'h_InvMass', 'M_{ee}', '120', '400', '4', '1' , '0', 'sel120400'])
+#makeplot(['DiElectronMediumID',  'h_InvMass', 'M_{ee}', '400', '3000', '4', '1' , '0', 'sel4002000'])
 makeplot(['DiElectronMediumID',  'h_InvMass', 'M_{ee}', '10', '3000',  '1', '1' , '1', 'fullrangelogvariableBin','0','1'])
-makeplot(['DiElectronMediumID',  'h_InvMass', 'M_{ee}', '0', '3000', '6', '1', '1', 'fullrange' ])
-
-makeplot(['DiElectronMediumID',   'h_pt', 'p_{T}^{ee} ', '0 ', '300' , '8', '1' ])
-makeplot(['DiElectronMediumID',   'h_eta', '#eta_{ee} ', '-5.', '5' , '2', '1' ])
-makeplot(['DiElectronMediumID',   'h_energy','energy_{ee}','0','800','1','1'])
-makeplot(['DiElectronMediumID',   'h_phi', '#phi_{ee} ', '-3.5', '3.5' , '1', '1' ])
-makeplot(['DiElectronMediumID',   'h_DeltaR', '#Delta#R{ee} ', '0', '5' , '1', '1' ])
-makeplot(['DiElectronMediumID',   'h_DeltaPhi', '#Delta#phi{ee} ', '-3.5', '3.5' , '2', '1' ])
-makeplot(['DiElectronMediumID',   'h_DeltaEta', '#Delta#eta{ee} ', '-5', '5' , '1', '1' ])
-makeplot(['DiElectronMediumID',   'h_Pt2OverPt1', 'p_{T}^{e1}/p_{T}^{e2} ', '0', '1' , '1', '1' ])
-makeplot(['DiElectronMediumID',   'h_PtOverPt1Pt2', 'p_{T}^{ee}/p_{T}^{e1}+p_{T}^{e2} ', '0', '1' , '1', '1' ])
-
-makeplot(['DiElectron_Barrel',  'h_InvMass', 'M_{ee}', '60', '119', '1', '0' , '1', 'sel'])
-makeplot(['DiElectron_Barrel',  'h_InvMass', 'M_{ee}', '60', '120', '2', '1' , '0', 'sellog'])
-makeplot(['DiElectron_Barrel',  'h_InvMass', 'M_{ee}', '10', '60', '2', '1' , '0', 'sel060'])
-makeplot(['DiElectron_Barrel',  'h_InvMass', 'M_{ee}', '120', '400', '4', '1' , '0', 'sel120400'])
-makeplot(['DiElectron_Barrel',  'h_InvMass', 'M_{ee}', '400', '3000', '4', '1' , '0', 'sel4002000'])
+#makeplot(['DiElectronMediumID',  'h_InvMass', 'M_{ee}', '0', '3000', '6', '1', '1', 'fullrange' ])
+#
+#makeplot(['DiElectronMediumID',   'h_pt', 'p_{T}^{ee} ', '0 ', '300' , '8', '1' ])
+#makeplot(['DiElectronMediumID',   'h_eta', '#eta_{ee} ', '-5.', '5' , '2', '1' ])
+#makeplot(['DiElectronMediumID',   'h_energy','energy_{ee}','0','800','1','1'])
+#makeplot(['DiElectronMediumID',   'h_phi', '#phi_{ee} ', '-3.5', '3.5' , '1', '1' ])
+#makeplot(['DiElectronMediumID',   'h_DeltaR', '#Delta#R{ee} ', '0', '5' , '1', '1' ])
+#makeplot(['DiElectronMediumID',   'h_DeltaPhi', '#Delta#phi{ee} ', '-3.5', '3.5' , '2', '1' ])
+#makeplot(['DiElectronMediumID',   'h_DeltaEta', '#Delta#eta{ee} ', '-5', '5' , '1', '1' ])
+#makeplot(['DiElectronMediumID',   'h_Pt2OverPt1', 'p_{T}^{e1}/p_{T}^{e2} ', '0', '1' , '1', '1' ])
+#makeplot(['DiElectronMediumID',   'h_PtOverPt1Pt2', 'p_{T}^{ee}/p_{T}^{e1}+p_{T}^{e2} ', '0', '1' , '1', '1' ])
+#
+#makeplot(['DiElectron_Barrel',  'h_InvMass', 'M_{ee}', '60', '119', '1', '0' , '1', 'sel'])
+#makeplot(['DiElectron_Barrel',  'h_InvMass', 'M_{ee}', '60', '120', '2', '1' , '0', 'sellog'])
+#makeplot(['DiElectron_Barrel',  'h_InvMass', 'M_{ee}', '10', '60', '2', '1' , '0', 'sel060'])
+#makeplot(['DiElectron_Barrel',  'h_InvMass', 'M_{ee}', '120', '400', '4', '1' , '0', 'sel120400'])
+#makeplot(['DiElectron_Barrel',  'h_InvMass', 'M_{ee}', '400', '3000', '4', '1' , '0', 'sel4002000'])
 makeplot(['DiElectron_Barrel',  'h_InvMass', 'M_{ee}', '10', '3000',  '1', '1' , '1', 'fullrangelogvariableBin','0','1'])
-makeplot(['DiElectron_Barrel',  'h_InvMass', 'M_{ee}', '0', '3000', '6', '1', '1', 'fullrange' ])
-
-makeplot(['DiElectron_Barrel',   'h_pt', 'p_{T}^{ee} ', '0 ', '300' , '8', '1' ])
-makeplot(['DiElectron_Barrel',   'h_eta', '#eta_{ee} ', '-5.', '5' , '2', '1' ])
-makeplot(['DiElectron_Barrel',   'h_energy','energy_{ee}','0','800','1','1'])
-makeplot(['DiElectron_Barrel',   'h_phi', '#phi_{ee} ', '-3.5', '3.5' , '1', '1' ])
-makeplot(['DiElectron_Barrel',   'h_DeltaR', '#Delta#R{ee} ', '0', '5' , '1', '1' ])
-makeplot(['DiElectron_Barrel',   'h_DeltaPhi', '#Delta#phi{ee} ', '-3.5', '3.5' , '2', '1' ])
-makeplot(['DiElectron_Barrel',   'h_DeltaEta', '#Delta#eta{ee} ', '-5', '5' , '1', '1' ])
-makeplot(['DiElectron_Barrel',   'h_Pt2OverPt1', 'p_{T}^{e1}/p_{T}^{e2} ', '0', '1' , '1', '1' ])
-makeplot(['DiElectron_Barrel',   'h_PtOverPt1Pt2', 'p_{T}^{ee}/p_{T}^{e1}+p_{T}^{e2} ', '0', '1' , '1', '1' ])
-
-
-makeplot(['DiElectron_Endcap',  'h_InvMass', 'M_{ee}', '60', '119', '1', '0' , '1', 'sel'])
-makeplot(['DiElectron_Endcap',  'h_InvMass', 'M_{ee}', '60', '120', '2', '1' , '0', 'sellog'])
-makeplot(['DiElectron_Endcap',  'h_InvMass', 'M_{ee}', '10', '60', '2', '1' , '0', 'sel060'])
-makeplot(['DiElectron_Endcap',  'h_InvMass', 'M_{ee}', '120', '400', '4', '1' , '0', 'sel120400'])
-makeplot(['DiElectron_Endcap',  'h_InvMass', 'M_{ee}', '400', '3000', '4', '1' , '0', 'sel4002000'])
+#makeplot(['DiElectron_Barrel',  'h_InvMass', 'M_{ee}', '0', '3000', '6', '1', '1', 'fullrange' ])
+#
+#makeplot(['DiElectron_Barrel',   'h_pt', 'p_{T}^{ee} ', '0 ', '300' , '8', '1' ])
+#makeplot(['DiElectron_Barrel',   'h_eta', '#eta_{ee} ', '-5.', '5' , '2', '1' ])
+#makeplot(['DiElectron_Barrel',   'h_energy','energy_{ee}','0','800','1','1'])
+#makeplot(['DiElectron_Barrel',   'h_phi', '#phi_{ee} ', '-3.5', '3.5' , '1', '1' ])
+#makeplot(['DiElectron_Barrel',   'h_DeltaR', '#Delta#R{ee} ', '0', '5' , '1', '1' ])
+#makeplot(['DiElectron_Barrel',   'h_DeltaPhi', '#Delta#phi{ee} ', '-3.5', '3.5' , '2', '1' ])
+#makeplot(['DiElectron_Barrel',   'h_DeltaEta', '#Delta#eta{ee} ', '-5', '5' , '1', '1' ])
+#makeplot(['DiElectron_Barrel',   'h_Pt2OverPt1', 'p_{T}^{e1}/p_{T}^{e2} ', '0', '1' , '1', '1' ])
+#makeplot(['DiElectron_Barrel',   'h_PtOverPt1Pt2', 'p_{T}^{ee}/p_{T}^{e1}+p_{T}^{e2} ', '0', '1' , '1', '1' ])
+#
+#
+#makeplot(['DiElectron_Endcap',  'h_InvMass', 'M_{ee}', '60', '119', '1', '0' , '1', 'sel'])
+#makeplot(['DiElectron_Endcap',  'h_InvMass', 'M_{ee}', '60', '120', '2', '1' , '0', 'sellog'])
+#makeplot(['DiElectron_Endcap',  'h_InvMass', 'M_{ee}', '10', '60', '2', '1' , '0', 'sel060'])
+#makeplot(['DiElectron_Endcap',  'h_InvMass', 'M_{ee}', '120', '400', '4', '1' , '0', 'sel120400'])
+#makeplot(['DiElectron_Endcap',  'h_InvMass', 'M_{ee}', '400', '3000', '4', '1' , '0', 'sel4002000'])
 makeplot(['DiElectron_Endcap',  'h_InvMass', 'M_{ee}', '10', '3000',  '1', '1' , '1', 'fullrangelogvariableBin','0','1'])
-makeplot(['DiElectron_Endcap',  'h_InvMass', 'M_{ee}', '0', '3000', '6', '1', '1', 'fullrange' ])
-makeplot(['DiElectron_Endcap',   'h_pt', 'p_{T}^{ee} ', '0 ', '300' , '8', '1' ])
-makeplot(['DiElectron_Endcap',   'h_eta', '#eta_{ee} ', '-5.', '5' , '2', '1' ])
-makeplot(['DiElectron_Endcap',   'h_energy','energy_{ee}','0','800','1','1'])
-makeplot(['DiElectron_Endcap',   'h_phi', '#phi_{ee} ', '-3.5', '3.5' , '1', '1' ])
-makeplot(['DiElectron_Endcap',   'h_DeltaR', '#Delta#R{ee} ', '0', '5' , '1', '1' ])
-makeplot(['DiElectron_Endcap',   'h_DeltaPhi', '#Delta#phi{ee} ', '-3.5', '3.5' , '2', '1' ])
-makeplot(['DiElectron_Endcap',   'h_DeltaEta', '#Delta#eta{ee} ', '-5', '5' , '1', '1' ])
-makeplot(['DiElectron_Endcap',   'h_Pt2OverPt1', 'p_{T}^{e1}/p_{T}^{e2} ', '0', '1' , '1', '1' ])
-makeplot(['DiElectron_Endcap',   'h_PtOverPt1Pt2', 'p_{T}^{ee}/p_{T}^{e1}+p_{T}^{e2} ', '0', '1' , '1', '1' ])
-
-
-makeplot(['DiElectron_BarEnd',  'h_InvMass', 'M_{ee}', '60', '119', '1', '0' , '1', 'sel'])
-makeplot(['DiElectron_BarEnd',  'h_InvMass', 'M_{ee}', '60', '120', '2', '1' , '0', 'sellog'])
-makeplot(['DiElectron_BarEnd',  'h_InvMass', 'M_{ee}', '10', '60', '2', '1' , '0', 'sel060'])
-makeplot(['DiElectron_BarEnd',  'h_InvMass', 'M_{ee}', '120', '400', '4', '1' , '0', 'sel120400'])
-makeplot(['DiElectron_BarEnd',  'h_InvMass', 'M_{ee}', '400', '3000', '4', '1' , '0', 'sel4002000'])
+#makeplot(['DiElectron_Endcap',  'h_InvMass', 'M_{ee}', '0', '3000', '6', '1', '1', 'fullrange' ])
+#makeplot(['DiElectron_Endcap',   'h_pt', 'p_{T}^{ee} ', '0 ', '300' , '8', '1' ])
+#makeplot(['DiElectron_Endcap',   'h_eta', '#eta_{ee} ', '-5.', '5' , '2', '1' ])
+#makeplot(['DiElectron_Endcap',   'h_energy','energy_{ee}','0','800','1','1'])
+#makeplot(['DiElectron_Endcap',   'h_phi', '#phi_{ee} ', '-3.5', '3.5' , '1', '1' ])
+#makeplot(['DiElectron_Endcap',   'h_DeltaR', '#Delta#R{ee} ', '0', '5' , '1', '1' ])
+#makeplot(['DiElectron_Endcap',   'h_DeltaPhi', '#Delta#phi{ee} ', '-3.5', '3.5' , '2', '1' ])
+#makeplot(['DiElectron_Endcap',   'h_DeltaEta', '#Delta#eta{ee} ', '-5', '5' , '1', '1' ])
+#makeplot(['DiElectron_Endcap',   'h_Pt2OverPt1', 'p_{T}^{e1}/p_{T}^{e2} ', '0', '1' , '1', '1' ])
+#makeplot(['DiElectron_Endcap',   'h_PtOverPt1Pt2', 'p_{T}^{ee}/p_{T}^{e1}+p_{T}^{e2} ', '0', '1' , '1', '1' ])
+#
+#
+#makeplot(['DiElectron_BarEnd',  'h_InvMass', 'M_{ee}', '60', '119', '1', '0' , '1', 'sel'])
+#makeplot(['DiElectron_BarEnd',  'h_InvMass', 'M_{ee}', '60', '120', '2', '1' , '0', 'sellog'])
+#makeplot(['DiElectron_BarEnd',  'h_InvMass', 'M_{ee}', '10', '60', '2', '1' , '0', 'sel060'])
+#makeplot(['DiElectron_BarEnd',  'h_InvMass', 'M_{ee}', '120', '400', '4', '1' , '0', 'sel120400'])
+#makeplot(['DiElectron_BarEnd',  'h_InvMass', 'M_{ee}', '400', '3000', '4', '1' , '0', 'sel4002000'])
 makeplot(['DiElectron_BarEnd',  'h_InvMass', 'M_{ee}', '10', '3000',  '1', '1' , '1', 'fullrangelogvariableBin','0','1'])
-makeplot(['DiElectron_BarEnd',  'h_InvMass', 'M_{ee}', '0', '3000', '6', '1', '1', 'fullrange' ])
-makeplot(['DiElectron_BarEnd',   'h_pt', 'p_{T}^{ee} ', '0 ', '300' , '8', '1' ])
-makeplot(['DiElectron_BarEnd',   'h_eta', '#eta_{ee} ', '-5.', '5' , '2', '1' ])
-makeplot(['DiElectron_BarEnd',   'h_energy','energy_{ee}','0','800','1','1'])
-makeplot(['DiElectron_BarEnd',   'h_phi', '#phi_{ee} ', '-3.5', '3.5' , '1', '1' ])
-makeplot(['DiElectron_BarEnd',   'h_DeltaR', '#Delta#R{ee} ', '0', '5' , '1', '1' ])
-makeplot(['DiElectron_BarEnd',   'h_DeltaPhi', '#Delta#phi{ee} ', '-3.5', '3.5' , '2', '1' ])
-makeplot(['DiElectron_BarEnd',   'h_DeltaEta', '#Delta#eta{ee} ', '-5', '5' , '1', '1' ])
-makeplot(['DiElectron_BarEnd',   'h_Pt2OverPt1', 'p_{T}^{e1}/p_{T}^{e2} ', '0', '1' , '1', '1' ])
-makeplot(['DiElectron_BarEnd',   'h_PtOverPt1Pt2', 'p_{T}^{ee}/p_{T}^{e1}+p_{T}^{e2} ', '0', '1' , '1', '1' ])
+#makeplot(['DiElectron_BarEnd',  'h_InvMass', 'M_{ee}', '0', '3000', '6', '1', '1', 'fullrange' ])
+#makeplot(['DiElectron_BarEnd',   'h_pt', 'p_{T}^{ee} ', '0 ', '300' , '8', '1' ])
+#makeplot(['DiElectron_BarEnd',   'h_eta', '#eta_{ee} ', '-5.', '5' , '2', '1' ])
+#makeplot(['DiElectron_BarEnd',   'h_energy','energy_{ee}','0','800','1','1'])
+#makeplot(['DiElectron_BarEnd',   'h_phi', '#phi_{ee} ', '-3.5', '3.5' , '1', '1' ])
+#makeplot(['DiElectron_BarEnd',   'h_DeltaR', '#Delta#R{ee} ', '0', '5' , '1', '1' ])
+#makeplot(['DiElectron_BarEnd',   'h_DeltaPhi', '#Delta#phi{ee} ', '-3.5', '3.5' , '2', '1' ])
+#makeplot(['DiElectron_BarEnd',   'h_DeltaEta', '#Delta#eta{ee} ', '-5', '5' , '1', '1' ])
+#makeplot(['DiElectron_BarEnd',   'h_Pt2OverPt1', 'p_{T}^{e1}/p_{T}^{e2} ', '0', '1' , '1', '1' ])
+#makeplot(['DiElectron_BarEnd',   'h_PtOverPt1Pt2', 'p_{T}^{ee}/p_{T}^{e1}+p_{T}^{e2} ', '0', '1' , '1', '1' ])
+#
+#
+#
+#
+#
+#
+#
+#
+#makeplot(['Electron_NoCut_Barrel',   'h_pt4', 'p_{T}^{e}(barrel) ', '0', '500' , '2', '1' ])
+#makeplot(['Electron_NoCut_Barrel',   'h_eta4', '#eta^{e}(barrel) ', '-3', '3' , '2', '1' ])
+#makeplot(['Electron_NoCut_Barrel',   'h_phi4', '#phi^{e}(barrel) ', '-3.5', '3.5' , '1', '1' ])
+#makeplot(['Electron_NoCut_Barrel',   'h_etSC4', 'E_{T}^{SC}(barrel)', '0', '500','1','1'])
+#makeplot(['Electron_NoCut_Barrel',   'h_dEtaIn4', '#Delta#eta_{In}(barrel) ', '0', '0.01' , '5', '1' ])
+#makeplot(['Electron_NoCut_Barrel',   'h_dPhiIn4', '#Delta#phi_{In}(barrel) ', '0', '0.08' , '8', '1' ])
+#makeplot(['Electron_NoCut_Barrel',   'h_hOverE4', 'H/E(barrel)', '0', '0.1' , '2', '1' ])
+#makeplot(['Electron_NoCut_Barrel',   'h_full5x5_sigmaIetaIeta4', '#sigma_{i#eta i#eta}^{5x5}(barrel) ', '0', '0.06' , '1', '1' ])
+#makeplot(['Electron_NoCut_Barrel',   'h_eoverPInv4', 'E/P(Inv)(barrel) ', '0', '0.25' , '4', '1' ])
+#makeplot(['Electron_NoCut_Barrel',   'h_isoDeltaBeta4', ' Isolation(#Delta#beta)(barrel)  ', '0', '0.4' , '1', '1' ])
+#makeplot(['Electron_NoCut_Barrel',   'h_isoRho4', 'Isolation(#rho)(barrel) ', '0', '0.4' , '1', '1' ])
+#makeplot(['Electron_NoCut_Barrel',   'h_d04', 'd_{0}(barrel) ', '0', '0.2' , '1', '1' ])
+#makeplot(['Electron_NoCut_Barrel',   'h_dz4', 'd_{z}(barrel) ', '0', '0.2' , '1', '1' ])
+#makeplot(['Electron_NoCut_Barrel',   'h_expectedMissingInnerHits4', 'ExpextedMissingInnerHits(barrel) ', '0', '3' , '1', '1' ])
+#makeplot(['Electron_NoCut_Barrel',   'h_passConversionVeto4', 'ConversionVeto(barrel) ', '0', '2' , '1', '1' ])
+#
+#makeplot(['Electron_NoCut_Endcap',   'h_pt4', 'p_{T}^{e}(endcap) ', '0', '500' , '2', '1' ])
+#makeplot(['Electron_NoCut_Endcap',   'h_eta4', '#eta^{e}(endcap) ', '-3', '3' , '2', '1' ])
+#makeplot(['Electron_NoCut_Endcap',   'h_phi4', '#phi^{e}(endcap) ', '-3.5', '3.5' , '1', '1' ])
+#makeplot(['Electron_NoCut_Endcap',   'h_etSC4', 'E_{T}^{SC}(endcap)', '0', '500','1','1'])
+#makeplot(['Electron_NoCut_Endcap',   'h_dEtaIn4', '#Delta#eta_{In}(endcap) ', '0', '0.01' , '5', '1' ])
+#makeplot(['Electron_NoCut_Endcap',   'h_dPhiIn4', '#Delta#phi_{In}(endcap) ', '0', '0.08' , '8', '1' ])
+#makeplot(['Electron_NoCut_Endcap',   'h_hOverE4', 'H/E(endcap)', '0', '0.1' , '2', '1' ])
+#makeplot(['Electron_NoCut_Endcap',   'h_full5x5_sigmaIetaIeta4', '#sigma_{i#eta i#eta}^{5x5}(endcap) ', '0', '0.06' , '1', '1' ])
+#makeplot(['Electron_NoCut_Endcap',   'h_eoverPInv4', 'E/P(Inv)(endcap) ', '0', '0.25' , '4', '1' ])
+#makeplot(['Electron_NoCut_Endcap',   'h_isoDeltaBeta4', ' Isolation(#Delta#beta)(endcap)  ', '0', '0.4' , '1', '1' ])
+#makeplot(['Electron_NoCut_Endcap',   'h_isoRho4', 'Isolation(#rho)(endcap) ', '0', '0.4' , '1', '1' ])
+#makeplot(['Electron_NoCut_Endcap',   'h_d04', 'd_{0}(endcap) ', '0', '0.2' , '1', '1' ])
+#makeplot(['Electron_NoCut_Endcap',   'h_dz4', 'd_{z}(endcap) ', '0', '0.2' , '1', '1' ])
+#makeplot(['Electron_NoCut_Endcap',   'h_expectedMissingInnerHits4', 'ExpextedMissingInnerHits(endcap) ', '0', '3' , '1', '1' ])
+#makeplot(['Electron_NoCut_Endcap',   'h_passConversionVeto4', 'ConversionVeto(endcap) ', '0', '2' , '1', '1' ])
 
-
-
-
-
-
-
-
-makeplot(['Electron_NoCut_Barrel',   'h_pt4', 'p_{T}^{e}(barrel) ', '0', '500' , '2', '1' ])
-makeplot(['Electron_NoCut_Barrel',   'h_eta4', '#eta^{e}(barrel) ', '-3', '3' , '2', '1' ])
-makeplot(['Electron_NoCut_Barrel',   'h_phi4', '#phi^{e}(barrel) ', '-3.5', '3.5' , '1', '1' ])
-makeplot(['Electron_NoCut_Barrel',   'h_etSC4', 'E_{T}^{SC}(barrel)', '0', '500','1','1'])
-makeplot(['Electron_NoCut_Barrel',   'h_dEtaIn4', '#Delta#eta_{In}(barrel) ', '0', '0.01' , '5', '1' ])
-makeplot(['Electron_NoCut_Barrel',   'h_dPhiIn4', '#Delta#phi_{In}(barrel) ', '0', '0.08' , '8', '1' ])
-makeplot(['Electron_NoCut_Barrel',   'h_hOverE4', 'H/E(barrel)', '0', '0.1' , '2', '1' ])
-makeplot(['Electron_NoCut_Barrel',   'h_full5x5_sigmaIetaIeta4', '#sigma_{i#eta i#eta}^{5x5}(barrel) ', '0', '0.06' , '1', '1' ])
-makeplot(['Electron_NoCut_Barrel',   'h_eoverPInv4', 'E/P(Inv)(barrel) ', '0', '0.25' , '4', '1' ])
-makeplot(['Electron_NoCut_Barrel',   'h_isoDeltaBeta4', ' Isolation(#Delta#beta)(barrel)  ', '0', '0.4' , '1', '1' ])
-makeplot(['Electron_NoCut_Barrel',   'h_isoRho4', 'Isolation(#rho)(barrel) ', '0', '0.4' , '1', '1' ])
-makeplot(['Electron_NoCut_Barrel',   'h_d04', 'd_{0}(barrel) ', '0', '0.2' , '1', '1' ])
-makeplot(['Electron_NoCut_Barrel',   'h_dz4', 'd_{z}(barrel) ', '0', '0.2' , '1', '1' ])
-makeplot(['Electron_NoCut_Barrel',   'h_expectedMissingInnerHits4', 'ExpextedMissingInnerHits(barrel) ', '0', '3' , '1', '1' ])
-makeplot(['Electron_NoCut_Barrel',   'h_passConversionVeto4', 'ConversionVeto(barrel) ', '0', '2' , '1', '1' ])
-
-makeplot(['Electron_NoCut_Endcap',   'h_pt4', 'p_{T}^{e}(endcap) ', '0', '500' , '2', '1' ])
-makeplot(['Electron_NoCut_Endcap',   'h_eta4', '#eta^{e}(endcap) ', '-3', '3' , '2', '1' ])
-makeplot(['Electron_NoCut_Endcap',   'h_phi4', '#phi^{e}(endcap) ', '-3.5', '3.5' , '1', '1' ])
-makeplot(['Electron_NoCut_Endcap',   'h_etSC4', 'E_{T}^{SC}(endcap)', '0', '500','1','1'])
-makeplot(['Electron_NoCut_Endcap',   'h_dEtaIn4', '#Delta#eta_{In}(endcap) ', '0', '0.01' , '5', '1' ])
-makeplot(['Electron_NoCut_Endcap',   'h_dPhiIn4', '#Delta#phi_{In}(endcap) ', '0', '0.08' , '8', '1' ])
-makeplot(['Electron_NoCut_Endcap',   'h_hOverE4', 'H/E(endcap)', '0', '0.1' , '2', '1' ])
-makeplot(['Electron_NoCut_Endcap',   'h_full5x5_sigmaIetaIeta4', '#sigma_{i#eta i#eta}^{5x5}(endcap) ', '0', '0.06' , '1', '1' ])
-makeplot(['Electron_NoCut_Endcap',   'h_eoverPInv4', 'E/P(Inv)(endcap) ', '0', '0.25' , '4', '1' ])
-makeplot(['Electron_NoCut_Endcap',   'h_isoDeltaBeta4', ' Isolation(#Delta#beta)(endcap)  ', '0', '0.4' , '1', '1' ])
-makeplot(['Electron_NoCut_Endcap',   'h_isoRho4', 'Isolation(#rho)(endcap) ', '0', '0.4' , '1', '1' ])
-makeplot(['Electron_NoCut_Endcap',   'h_d04', 'd_{0}(endcap) ', '0', '0.2' , '1', '1' ])
-makeplot(['Electron_NoCut_Endcap',   'h_dz4', 'd_{z}(endcap) ', '0', '0.2' , '1', '1' ])
-makeplot(['Electron_NoCut_Endcap',   'h_expectedMissingInnerHits4', 'ExpextedMissingInnerHits(endcap) ', '0', '3' , '1', '1' ])
-makeplot(['Electron_NoCut_Endcap',   'h_passConversionVeto4', 'ConversionVeto(endcap) ', '0', '2' , '1', '1' ])
 ####
 
 

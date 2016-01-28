@@ -1,5 +1,5 @@
 import os
-outputdirname="Monika/Electron_25ns_29112015/"
+outputdirname="Monika/Electron_SET_SingleDataset_data/"
 #inputprefix="--input-dir=root://cmsxrootd.hep.wisc.edu//hdfs/store/user/khurana/"
 inputprefix="--input-dir=root://cmsxrootd.hep.wisc.edu//store/user/khurana/"
 #inputprefix="--input-dir=/store/user/khurana/"
@@ -10,27 +10,47 @@ fout = open("samplestorun.txt","w")
 
 ## list of samples will appear here. 
 ## 25ns data
-mples='''SingleElectron-Run2015D-05Oct2015 SingleElectron/crab_SingleElectron-Run2015D-05Oct2015-v1_20151117_2p2fb_SingleEleTextFile/
+
+mples='''DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8 DYJetsToLL/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/crab_DYJets
+ToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_MC25ns_ReMiniAOD_20151026/
+DoubleEG_Run2015C_25ns-05Oct201520160112 DoubleEG/crab_DoubleEG-Run2015C_25ns-05Oct201520160112_FullDataSet_2p2FB_SkipEventsOldFile29Oct/
+DoubleEG-Run2015D-05Oct201520160112 DoubleEG/crab_DoubleEG-Run2015D-05Oct201520160112_FullDataSet_2p2FB_SkipEventsOldFile29Oct/     
+DoubleEG-Run2015D-PromptReco-V420160112 DoubleEG/crab_DoubleEG-Run2015D-PromptReco-V420160112_FullDataSet_2p2FB_SkipEventsOldFile29Oct/'''
+samples='''SingleElectron-Run2015D-05Oct2015 SingleElectron/crab_SingleElectron-Run2015D-05Oct2015-v1_20151117_2p2fb_SingleEleTextFile/
 SingleElectron-Run2015D-PromptReco SingleElectron/crab_SingleElectron-Run2015D-PromptReco-V420151117_2p2fb_SingleEleTextFile/'''
-amples='''DYJetsToTauTau_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8 DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/crab_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_MC25ns_ReMiniAOD_20151026/
-DYJetsToTauTau_M-10to50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8 DYJetsToLL_M-10to50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/crab_DYJetsToLL_M-10to50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_MC25ns_ReMiniAOD_NewMiniIso_Extended/'''
-aaa='''WZ_TuneCUETP8M1_13TeV-pythia8 WZ_TuneCUETP8M1_13TeV-pythia8/crab_WZ_TuneCUETP8M1_13TeV-pythia8_MC25ns_ReMiniAOD_20151026/
+ples='''WZ_TuneCUETP8M1_13TeV-pythia8 WZ_TuneCUETP8M1_13TeV-pythia8/crab_WZ_TuneCUETP8M1_13TeV-pythia8_MC25ns_ReMiniAOD_20151026/
 ZZ_TuneCUETP8M1_13TeV-pythia8 ZZ_TuneCUETP8M1_13TeV-pythia8/crab_ZZ_TuneCUETP8M1_13TeV-pythia8_MC25ns_ReMiniAOD_20151026/
 WW_TuneCUETP8M1_13TeV-pythia8 WW_TuneCUETP8M1_13TeV-pythia8/crab_WW_TuneCUETP8M1_13TeV-pythia8_MC25ns_ReMiniAOD_20151026/
+WJetsToLNu_HT-100To200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8 WJetsHTBinSampleReMiniAOD/crab_WJetsToLNu_HT-100To200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_MC25ns_ReMiniAOD_20151026                                                                                                        
+WJetsToLNu_HT-200To400_TuneCUETP8M1_13TeV-madgraphMLM-pythia8  WJetsHTBinSampleReMiniAOD/crab_WJetsToLNu_HT-200To400_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_MC25ns_ReMiniAOD_20151026/                                                                                                      
+WJetsToLNu_HT-400To600_TuneCUETP8M1_13TeV-madgraphMLM-pythia8 WJetsHTBinSampleReMiniAOD/crab_WJetsToLNu_HT-400To600_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_MC25ns_ReMiniAOD_20151026/                                                                                                       
+WJetsToLNu_HT-600To800_TuneCUETP8M1_13TeV-madgraphMLM-pythia8 WJetsHTBinSampleReMiniAOD/crab_WJetsToLNu_HT-600To800_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_MC25ns_ReMiniAOD_20151026/                                                                                                       
+WJetsToLNu_HT-800To1200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8 WJetsHTBinSampleReMiniAOD/crab_WJetsToLNu_HT-800To1200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_MC25ns_ReMiniAOD_20151026/                                                                                                     
+WJetsToLNu_HT-1200To2500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8 WJetsHTBinSampleReMiniAOD/crab_WJetsToLNu_HT-1200To2500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_MC25ns_ReMiniAOD_20151026/                                                                                                   
+WJetsToLNu_HT-2500ToInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8 WJetsHTBinSampleReMiniAOD/crab_WJetsToLNu_HT-2500ToInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_MC25ns_ReMiniAOD_20151026/
 WJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8 WJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/crab_WJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_MC25ns_ReMiniAOD_20151026/
-TT_TuneCUETP8M1_13TeV-powheg-pythia8 TT_TuneCUETP8M1_13TeV-powheg-pythia8/crab_TT_TuneCUETP8M1_13TeV-powheg-pythia8_MC25ns_ReMiniAOD_20151105/'''
-samples='''DYJetsToTauTau_M-50to200_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8 DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/crab_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_MC25ns_ReMiniAOD_20151026/'''
+TT_TuneCUETP8M1_13TeV-powheg-pythia8 TT_TuneCUETP8M1_13TeV-powheg-pythia8/crab_TT_TuneCUETP8M1_13TeV-powheg-pythia8_MC25ns_ReMiniAOD_20151105/
+DYJetsToTauTau_M-50to200_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8 DYJetsToTauTau/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/crab_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_MC25ns_ReMiniAOD_20151026/
+DYJetsToTauTau_M-10to50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8 DYJetsToTauTau/DYJetsToLL_M-10to50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/crab_DYJetsToLL_M-10to50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_MC25ns_ReMiniAOD_NewMiniIso_Extended/
+DYJetsToTauTau_M-200to400_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8 DYJetsToTauTau/DYJetsToLL_M-200to400_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/crab_DYJetsToLL_M-200to400_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_MC25ns_ReMiniAOD_20160124/
+DYJetsToTauTau_M-400to500_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8 DYJetsToTauTau/DYJetsToLL_M-400to500_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/crab_DYJetsToLL_M-400to500_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_MC25ns_ReMiniAOD_20160124/
+DYJetsToTauTau_M-500to700_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8 DYJetsToTauTau/DYJetsToLL_M-500to700_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/crab_DYJetsToLL_M-500to700_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_MC25ns_ReMiniAOD_20160124/
+DYJetsToTauTau_M-700to800_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8 DYJetsToTauTau/DYJetsToLL_M-700to800_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/crab_DYJetsToLL_M-700to800_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_MC25ns_ReMiniAOD_20160124/
+DYJetsToTauTau_M-800to1000_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8 DYJetsToTauTau/DYJetsToLL_M-800to1000_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/crab_DYJetsToLL_M-800to1000_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_MC25ns_ReMiniAOD_20160124/
+DYJetsToTauTau_M-1500to2000_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8 DYJetsToTauTau/DYJetsToLL_M-1500to2000_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/crab_DYJetsToLL_M-1500to2000_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_MC25ns_ReMiniAOD_20160124/
+DYJetsToTauTau_M-2000to3000_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8 DYJetsToTauTau/DYJetsToLL_M-2000to3000_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/crab_DYJetsToLL_M-2000to3000_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_MC25ns_ReMiniAOD_20160124/
+DYJetsToTauTau_M-1000to1500_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8 DYJetsToTauTau/DYJetsToLL_M-1000to1500_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/crab_DYJetsToLL_M-1000to1500_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8ForMassBinSamples/
+DYJetsToEE_M-200to400_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8 DYJetsToEE/DYJetsToLL_M-200to400_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/crab_DYJetsToLL_M-200to400_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_MC25ns_ReMiniAOD_20160124/
+DYJetsToEE_M-400to500_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8 DYJetsToEE/DYJetsToLL_M-400to500_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/crab_DYJetsToLL_M-400to500_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_MC25ns_ReMiniAOD_20160124/
+DYJetsToEE_M-500to700_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8 DYJetsToEE/DYJetsToLL_M-500to700_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/crab_DYJetsToLL_M-500to700_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_MC25ns_ReMiniAOD_20160124/
+DYJetsToEE_M-700to800_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8 DYJetsToEE/DYJetsToLL_M-700to800_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/crab_DYJetsToLL_M-700to800_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_MC25ns_ReMiniAOD_20160124/
+DYJetsToEE_M-800to1000_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8 DYJetsToEE/DYJetsToLL_M-800to1000_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/crab_DYJetsToLL_M-800to1000_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_MC25ns_ReMiniAOD_20160124/
+DYJetsToEE_M-1000to1500_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8 DYJetsToEE/DYJetsToLL_M-1000to1500_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/crab_DYJetsToLL_M-1000to1500_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8ForMassBinSamples/
+DYJetsToEE_M-1500to2000_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8 DYJetsToEE/DYJetsToLL_M-1500to2000_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/crab_DYJetsToLL_M-1500to2000_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_MC25ns_ReMiniAOD_20160124/
+DYJetsToEE_M-2000to3000_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8 DYJetsToEE/DYJetsToLL_M-2000to3000_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/crab_DYJetsToLL_M-2000to3000_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_MC25ns_ReMiniAOD_20160124/
+DYJetsToEE_M-50to200_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8 DYJetsToEE/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/crab_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_MC25ns_ReMiniAOD_20151026/
+DYJetsToEE_M-10to50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8 DYJetsToEE/DYJetsToLL_M-10to50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/crab_DYJetsToLL_M-10to50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_MC25ns_ReMiniAOD_NewMiniIso_Extended/'''
 
-
-ples='''DYJetsToTauTau_M-100to200_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8 DYJetsToLL_M-100to200_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/crab_DYJetsToLL_M-100to200_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8ForMassBinSamples/
-DYJetsToTauTau_M-200to400_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8 DYJetsToLL_M-200to400_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/crab_DYJetsToLL_M-200to400_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8ForMassBinSamples/
-DYJetsToTauTau_M-400to500_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8 DYJetsToLL_M-400to500_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/crab_DYJetsToLL_M-400to500_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8ForMassBinSamples/
-DYJetsToTauTau_M-500to700_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8 DYJetsToLL_M-500to700_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/crab_DYJetsToLL_M-500to700_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8ForMassBinSamples/
-DYJetsToTauTau_M-700to800_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8 DYJetsToLL_M-700to800_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/crab_DYJetsToLL_M-700to800_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8ForMassBinSamples/
-DYJetsToTauTau_M-800to1000_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8 DYJetsToLL_M-800to1000_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/crab_DYJetsToLL_M-800to1000_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8ForMassBinSamples/
-DYJetsToTauTau_M-1000to1500_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8 DYJetsToLL_M-1000to1500_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/crab_DYJetsToLL_M-1000to1500_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8ForMassBinSamples/
-DYJetsToTauTau_M-1500to2000_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8 DYJetsToLL_M-1500to2000_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/crab_DYJetsToLL_M-1500to2000_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8ForMassBinSamples/
-DYJetsToTauTau_M-2000to3000_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8 DYJetsToLL_M-2000to3000_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/crab_DYJetsToLL_M-2000to3000_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8ForMassBinSamples/'''
 
 
 ## 50ns data

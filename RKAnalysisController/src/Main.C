@@ -17,10 +17,31 @@ int main(int argc, char *argv[]){
   TString output = argv[2];
   TTree *tree=0;
   RKAnalyzer* ncuAna;
+  TString running_mode="all";
   std::cout<<" caling const"<<std::endl;
   ncuAna = new RKAnalyzer(tree);
   std::cout<<" caling loop"<<std::endl;
-  ncuAna->Loop(output);
+    TString filename_in = argv[1];
+    // for DYToEE M50                                                                                                                    
+  if(filename_in.Contains("DYJetsToEE")) {
+    if(filename_in.Contains("DYJetsToLL_M-50_")) {
+      running_mode = "DYEE50To200";
+    }
+    else {
+      running_mode = "DYEE";
+    }
+  }
+  if(filename_in.Contains("DYJetsToTauTau")){
+    if(filename_in.Contains("DYJetsToLL_M-50_")){
+      running_mode = "DYTauTau50To200";
+    }
+    else {
+      running_mode = "DYTauTau";
+    }
+  }
+  
+  
+  ncuAna->Loop(output,running_mode);
   //std::vector<TString> filenames;
   //filenames.push_back("/store/user/khurana/ggZH_HToBB_ZToNuNu_M120_13TeV_powheg_pythia8/crab_ggZH_HToBB_ZToNuNu_M120_13TeV_powheg_pythia8/150702_105011/0000/NCUGlobalTuples_10.root");
   //ncuAna->TotalEvent(filenames);

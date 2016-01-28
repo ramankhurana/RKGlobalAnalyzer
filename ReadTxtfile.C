@@ -20,16 +20,18 @@ void ReadTxtfile(){
   std::vector<float> eta_max;
   std::vector<float> pt_min;
   std::vector<float> pt_max;
-  std::vector<float> ScaleFactor;
-  std::vector<float> Eff;
+  std::vector<float> DataEff;
+  std::vector<float> DataStat;
+  std::vector<float> MCEff;
+  std::vector<float> MCStat;
 
 
   int nlines =0;
 
   // input file name should be given here                            
-  in.open("TextFile/ScaleFactor_GsfElectronToSC_Reco.txt");
+  in.open("TextFile/CutBasedID_MediumWP_fromTemplates_withSyst_v1.txt");
 
-  double first, second , three, four, five, six;
+  double first, second , three, four, five, six, seven, eight;
   
   while(!in.eof()){
     getline(in,line);
@@ -38,14 +40,17 @@ void ReadTxtfile(){
     if (line.empty()){continue;}
     if (!line.empty()) {
       ss << line;
-      ss >> first >> second >> three >> four >>five >>six;
+      ss >> first >> second >> three >> four >>five >>six>>seven>>eight;
   
       eta_min.push_back(first);
       eta_max.push_back(second);
       pt_min.push_back(three);
       pt_max.push_back(four);
-      ScaleFactor.push_back(five);
-      Eff.push_back(six);
+      DataEff.push_back(five);
+      DataStat.push_back(six);
+      MCEff.push_back(seven);
+      MCStat.push_back(eight);
+    
 
       nlines++;
       //cout<<"nlines"<<nlines<<std::endl;}                                                                                                          
@@ -70,7 +75,10 @@ void ReadTxtfile(){
     f1<<"   static Float_t SFIdIsoReco(float eta, float pt){"<<std::endl;
     f1<<"   Float_t  SF;"<<std::endl;
     for (int i=0; i < eta_min.size(); i++){
-      f1<< "if( eta >  "  <<eta_min[i] <<  " && eta <=   "  << eta_max[i] <<  "  && pt >   "   << pt_min[i] <<   "  && pt <=   " << pt_max[i] <<  ") SF =  " << ScaleFactor[i] <<"  ;"<<std::endl; 
+      if(i==0){
+	f1<< "if( eta >  "  <<eta_min[i] <<  " && eta <=   "  << eta_max[i] <<  "  && pt >   "   << pt_min[i] <<   "  && pt <=   " << pt_max[i] <<  ") SF =  " << DataEff[i]/MCEff[i] <<"  ;"<<std::endl; }
+      if( i >0 ){   
+	f1<< "else if( eta >  "  <<eta_min[i] <<  " && eta <=   "  << eta_max[i] <<  "  && pt >   "   << pt_min[i] <<   "  && pt <=   " << pt_max[i] <<  ") SF =  " << DataEff[i]/MCEff[i] <<"  ;"<<std::endl; }
     }
     f1<<"   else SF = 1;"<<std::endl; 
     f1<<"   return SF;"<<std::endl;

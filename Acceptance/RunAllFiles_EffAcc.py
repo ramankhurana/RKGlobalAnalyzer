@@ -74,7 +74,7 @@ for ifile in filelist:
     outputfilename = outputfilepath+'AnalysisOutput'+tmpname[1] ##x outputfilepath+'/'+filename
 #   OutputMacro.write('tmva = new EffandAcc'+'(t, \"'+inputfilename+'\",\"'+outputfilename+'\"); \n')
  #   OutputMacro.write('tmva->Loop(); \n')
-    OutputMacro.write('untuplizer_AccEff'+'(\"'+inputfilename+'\",\"'+outputfilename+'\"); \n')
+    OutputMacro.write('untuplizer_Acc_SETrigger_Recopt'+'(\"'+inputfilename+'\",\"'+outputfilename+'\"); \n')
     i=i+1
 
 OutputMacro.write('} \n')

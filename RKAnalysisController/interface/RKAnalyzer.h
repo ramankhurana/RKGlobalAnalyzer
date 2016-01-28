@@ -62,6 +62,11 @@ class RKAnalyzer {
   TFile* f;
   TTree          *fChain;   //!pointer to the analyzed TTree or TChain
   Int_t           fCurrent; //!current Tree number in a TChain
+
+
+   
+  float ptlead =10.;
+  float ptsublead = 10.;
   
   
   bool triggerstatus;
@@ -1008,7 +1013,7 @@ class RKAnalyzer {
    virtual Int_t    GetEntry(Long64_t entry);
    virtual Long64_t LoadTree(Long64_t entry);
    virtual void     Init(TTree *tree);
-   virtual void     Loop(TString output);
+   virtual void     Loop(TString output,TString mode);
    virtual Bool_t   Notify();
    virtual void     Show(Long64_t entry = -1);
    void TotalEvent(std::vector<TString> filelist);
@@ -1038,9 +1043,9 @@ class RKAnalyzer {
 #ifdef RKAnalyzer_cxx
  RKAnalyzer::RKAnalyzer(TTree *tree) : fChain(0) 
 {
-
-TString filename ="/hdfs/store/user/khurana/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/crab_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_MC25ns_ReMiniAOD_20151026/151025_235212/0000/NCUGlobalTuples_1.root";
-
+  //  TString filename ="/afs/hep.wisc.edu/cms/khurana/Monika/CMSSW_7_4_5/src/RKGlobalAnalyzer/DYJetsToEE/NCUGlobalTuples_3.root";
+   TString filename ="/hdfs/store/user/khurana/DYJetsToEE/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/crab_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_MC25ns_ReMiniAOD_20151026/151025_235212/0000/NCUGlobalTuples_1.root";
+ //TString filename ="/hdfs/store/user/khurana/WJetsHTBinSampleReMiniAOD/crab_WJetsToLNu_HT-100To200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_MC25ns_ReMiniAOD_20151026/151025_235712/0000/NCUGlobalTuples_1.root";
 //  TString filename ="/hdfs/store/user/khurana/DYJetsToLL_M-UETP8M1_13TeV-amcatnloFXFX-pythia8/crab_DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_MC25ns_ReMiniAOD_20151026/151025_235212/0000/NCUGlobalTuples_1.root 
 //10to50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/crab_DYJetsToLL_M-10to50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_MC25ns_ReMiniAOD_NewMiniIso_Extended/151124_182452/0000/NCUGlobalTuples_168.root";
 
