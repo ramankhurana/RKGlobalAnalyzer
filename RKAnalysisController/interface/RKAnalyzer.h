@@ -1008,10 +1008,9 @@ class RKAnalyzer {
 #ifdef RKAnalyzer_cxx
  RKAnalyzer::RKAnalyzer(TTree *tree) : fChain(0) 
  {
-   //TString filename="/hdfs/store/user/khurana/MET/crab_MET-Run2015D-PromptReco-V420151027_1p2fb/151027_163331/0000/NCUGlobalTuples_1.root";
-   TString filename="/hdfs/store/user/khurana/TT_TuneCUETP8M1_13TeV-powheg-pythia8/crab_TT_TuneCUETP8M1_13TeV-powheg-pythia8_MC25ns_ReMiniAOD_20151105/151105_162128/0000/NCUGlobalTuples_467.root";
-     ///hdfs/store/user/khurana/MonoHSignalTrees_20151012/crab_MonoHToBBarMZp-1000GeV_MA0-300GeVTreeMaker_20151012/treeMaker_Spring15_Nocleaning_cfg-step3_miniAOD_1.root";
-  
+   //TString filename="/hdfs/store/user/khurana/TT_TuneCUETP8M1_13TeV-powheg-pythia8/crab_TT_TuneCUETP8M1_13TeV-powheg-pythia8_MC25ns_ReMiniAOD_20151105/151105_162128/0000/NCUGlobalTuples_467.root";
+   TString filename="Merged_MonoHTobb_M1400GeV.root";
+   
    if (tree == 0) {
      TChain * chain = new TChain("tree/treeMaker","");
 

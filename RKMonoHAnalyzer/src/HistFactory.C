@@ -162,10 +162,10 @@ void HistFactory::Fill(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > objec
 
 // Following histograms will be filled when you have fat-jet-MET combination 
 void HistFactory::Fill(std::vector<ResonanceWithMET<Jet,MET > > objectCollection, Int_t howManyObjs, std::vector<int> istatus, std::vector<TString> eventlist){
-  if(objectCollection.size()>0){
+  
+ if(objectCollection.size()>0){
     
     bool objectfilled = false;
-    //for(size_t i=0; i< TMath::Min(objectCollection.size(),(size_t)nobjectmet);i++) {
     for(size_t i=0; i< objectCollection.size();i++) {
       if(objectfilled) continue; // fill only one obj info
       //int i=0;
@@ -203,7 +203,7 @@ void HistFactory::Fill(std::vector<ResonanceWithMET<Jet,MET > > objectCollection
 					  objectCollection[i].jet2.RawPhi);
 	  if(TMath::Abs(dphi_)<dphimin) dphimin = TMath::Abs(dphi_);
 	}
-	h_dPhiThinJetMET[i]->Fill(dphimin, mcweight_ );
+	h_dPhiThinJetMET[0]->Fill(dphimin, mcweight_ );
 	
 
 	
@@ -234,9 +234,9 @@ void HistFactory::Fill(std::vector<ResonanceWithMET<Jet,MET > > objectCollection
 	}
 
 	
-	h_nMuons[i]->Fill(naddmuon             , mcweight_  );
-	h_nElectrons[i]->Fill(naddele          , mcweight_  );
-        h_nTaus[i]->Fill(naddtau               , mcweight_  );
+	h_nMuons[0]->Fill(naddmuon             , mcweight_  );
+	h_nElectrons[0]->Fill(naddele          , mcweight_  );
+        h_nTaus[0]->Fill(naddtau               , mcweight_  );
 	
 	int njets=objectCollection[0].jets.size();
 	int naddjet = 0;
@@ -250,11 +250,11 @@ void HistFactory::Fill(std::vector<ResonanceWithMET<Jet,MET > > objectCollection
 	  //if( dphi_ < 2.0 ) continue;
 	  naddjet++;
 	}
-	h_nJets[i]->Fill(naddjet   , mcweight_  ); 
+	h_nJets[0]->Fill(naddjet   , mcweight_  ); 
 	
-	if(objectCollection.size()>0) h_nFJets[i]->Fill(objectCollection.size()-1 , mcweight_);
+	if(objectCollection.size()>0) h_nFJets[0]->Fill(objectCollection.size()-1 , mcweight_);
 	
-	//h_nJets[i]->Fill(objectCollection[i].jets.size()     , mcweight_  ); //  -2 is not required when looking at fat-jets
+	//h_nJets[0]->Fill(objectCollection[i].jets.size()     , mcweight_  ); //  -2 is not required when looking at fat-jets
 	
 	
 	// subjet Delta R
@@ -279,46 +279,46 @@ void HistFactory::Fill(std::vector<ResonanceWithMET<Jet,MET > > objectCollection
 	  maxcsv = TMath::Max(csv1,csv2);
 	  mincsv = TMath::Min(csv1,csv2);
 	  
-	  h_CSVMax[i]->Fill(maxcsv, mcweight_);
-	  h_CSVMin[i]->Fill(mincsv, mcweight_);
+	  h_CSVMax[0]->Fill(maxcsv, mcweight_);
+	  h_CSVMin[0]->Fill(mincsv, mcweight_);
 	}
 	else drsj = -1;
-	h_DRSJ[i]->Fill(drsj   , mcweight_);
+	h_DRSJ[0]->Fill(drsj   , mcweight_);
 	// MET
 	
-	h_MET[i]->Fill(objectCollection[i].jet2.RawPt                  , mcweight_  );
+	h_MET[0]->Fill(objectCollection[i].jet2.RawPt                  , mcweight_  );
 	
-	h_Mjj[i]->Fill(objectCollection[i].jet1.SDmass                 , mcweight_  );
-	h_pTjj[i]->Fill(objectCollection[i].jet1.p4.Pt() , mcweight_  );
-	h_etajj[i]->Fill(objectCollection[i].jet1.p4.Eta() , mcweight_);
-	h_phijj[i]->Fill(objectCollection[i].jet1.p4.Phi() , mcweight_);
+	h_Mjj[0]->Fill(objectCollection[i].jet1.SDmass                 , mcweight_  );
+	h_pTjj[0]->Fill(objectCollection[i].jet1.p4.Pt() , mcweight_  );
+	h_etajj[0]->Fill(objectCollection[i].jet1.p4.Eta() , mcweight_);
+	h_phijj[0]->Fill(objectCollection[i].jet1.p4.Phi() , mcweight_);
 	
 	
-	h_CSVSum[i]->Fill(objectCollection[i].jet1.B_CISVV2 , mcweight_  );
-	h_MT_bb_MET[i]->Fill(objectCollection[i].TransverseObjProp.TransMass  , mcweight_ );
-	h_dPhi_bb_MET[i]->Fill(TMath::Abs(objectCollection[i].TransverseObjProp.DeltaPhi) , mcweight_ );
-	h_Tau21jj[i]->Fill(objectCollection[i].jet1.tau2/objectCollection[i].jet1.tau1, mcweight_);
+	h_CSVSum[0]->Fill(objectCollection[i].jet1.B_CISVV2 , mcweight_  );
+	h_MT_bb_MET[0]->Fill(objectCollection[i].TransverseObjProp.TransMass  , mcweight_ );
+	h_dPhi_bb_MET[0]->Fill(TMath::Abs(objectCollection[i].TransverseObjProp.DeltaPhi) , mcweight_ );
+	h_Tau21jj[0]->Fill(objectCollection[i].jet1.tau2/objectCollection[i].jet1.tau1, mcweight_);
 
 	
-	h_MET_Over_SumET[i]->Fill(objectCollection[i].jet2.RawPt / objectCollection[i].jet2.RawSumEt  ,mcweight_);
-	h_MET_Over_pTFatJet[i]->Fill(objectCollection[i].jet2.RawPt / objectCollection[i].jet1.p4.Pt()  ,mcweight_);
-	h_CEmEF[i]->Fill(objectCollection[i].jet1.jetCEmEF  ,mcweight_);
-	h_CHadEF[i]->Fill(objectCollection[i].jet1.jetCHadEF  ,mcweight_);
-	h_PhoEF[i]->Fill(objectCollection[i].jet1.jetPhoEF  ,mcweight_);
-	h_NEmEF[i]->Fill(objectCollection[i].jet1.jetNEmEF  ,mcweight_);
-	h_NHadEF[i]->Fill(objectCollection[i].jet1.jetNHadEF  ,mcweight_);
-	h_MuEF[i]->Fill(objectCollection[i].jet1.jetMuEF  ,mcweight_);
-	h_CMulti[i]->Fill(objectCollection[i].jet1.jetCMulti  ,mcweight_);
+	h_MET_Over_SumET[0]->Fill(objectCollection[i].jet2.RawPt / objectCollection[i].jet2.RawSumEt  ,mcweight_);
+	h_MET_Over_pTFatJet[0]->Fill(objectCollection[i].jet2.RawPt / objectCollection[i].jet1.p4.Pt()  ,mcweight_);
+	h_CEmEF[0]->Fill(objectCollection[i].jet1.jetCEmEF  ,mcweight_);
+	h_CHadEF[0]->Fill(objectCollection[i].jet1.jetCHadEF  ,mcweight_);
+	h_PhoEF[0]->Fill(objectCollection[i].jet1.jetPhoEF  ,mcweight_);
+	h_NEmEF[0]->Fill(objectCollection[i].jet1.jetNEmEF  ,mcweight_);
+	h_NHadEF[0]->Fill(objectCollection[i].jet1.jetNHadEF  ,mcweight_);
+	h_MuEF[0]->Fill(objectCollection[i].jet1.jetMuEF  ,mcweight_);
+	h_CMulti[0]->Fill(objectCollection[i].jet1.jetCMulti  ,mcweight_);
 	// 2D histograms 
-	h_M_vs_MET[i]->Fill(objectCollection[i].jet1.SDmass, objectCollection[i].jet2.RawPt );
+	h_M_vs_MET[0]->Fill(objectCollection[i].jet1.SDmass, objectCollection[i].jet2.RawPt );
 	
 	//--------------
 	// Filling the branches here which are used to fill the histograms. 
 	// This can be used later for more debugging. 
 	//--------------
-	run_           = objectCollection[i].events.run;
-	lumi_          = objectCollection[i].events.lumi;
-	event_         = objectCollection[i].events.event;
+	run_           = objectCollection[0].events.run;
+	lumi_          = objectCollection[0].events.lumi;
+	event_         = objectCollection[0].events.event;
 	dphiMin_       = dphimin;
 	NAddMu_        = naddmuon;
 	NAddEle_       = naddele;

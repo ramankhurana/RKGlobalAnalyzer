@@ -1,0 +1,1 @@
+farmoutAnalysisJobs Raman/MonoHFatJetAnalysis_ForExoWorkShopVTr/crab_MET-Run2015D-PromptReco-V420151027_1p2fb --input-dir=/store/user/khurana/MET/crab_MET-Run2015D-PromptReco-V420151027_1p2fb /afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/ /afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/runallAnalysis.exe --fwklite --input-files-per-job=1

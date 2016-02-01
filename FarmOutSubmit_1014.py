@@ -1,6 +1,6 @@
 import os
 #outputdirname="Raman/MonoHFatJetAnalysis_ForAnTightBTag_DR"
-outputdirname="Raman/MonoHFatJetAnalysis_ForAnLoose_BaseLine_BugFix/"
+outputdirname="Raman/MonoHFatJetAnalysis_ForAnLoose_BaseLineFix_NewTTBar/"
 #outputdirname="Raman/MonoHFatJetAnalysis_ForAnTightBTag_DR"
 inputprefix="--input-dir=root://cmsxrootd.hep.wisc.edu/store/user/khurana/"
 cmsswpath="/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/"

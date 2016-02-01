@@ -13,9 +13,9 @@
  system("mkdir -p  " + DirPreName+dirpathname +"/DYPng");
  
  ofstream mout;
- mout.open(DirPreName+dirpathname +"/MonoHFatJetsPreselection_2subj"+dirpathname +"Integral.txt",std::ios::app);
+ mout.open(DirPreName+dirpathname +"/histfacFatJet_ZLight"+dirpathname +"Integral.txt",std::ios::app);
  ofstream rout;
- rout.open(DirPreName+dirpathname +"/MonoHFatJetsPreselection_2subj"+dirpathname +"Integral.html",std::ios::app);
+ rout.open(DirPreName+dirpathname +"/histfacFatJet_ZLight"+dirpathname +"Integral.html",std::ios::app);
 
 gROOT->ProcessLine(".L /afs/hep.wisc.edu/cms/khurana/Monika/CMSSW_7_4_5/src/RKGlobalAnalyzer/tdrstyle.C");                                     setTDRStyle();
 gStyle->SetOptStat(0);
@@ -32,8 +32,7 @@ float lumi = 2151.2; // It will print on your plots too
 std::vector<TString> filenameString;
 //Change here Directories of the file
 
-//TString filenamepath("/afs/hep.wisc.edu/cms/khurana/Script/MonoHFatJetAnalysis_ForAnLoose_BaseLine_BugFix/"); 
-TString filenamepath("/afs/hep.wisc.edu/cms/khurana/Script/MonoHFatJetAnalysis_ForAnLoose_BaseLine/"); 
+TString filenamepath("/afs/hep.wisc.edu/cms/khurana/Script/MonoHFatJetAnalysis_ForAnLoose_BaseLineFixremoveantibtag/"); 
 // DYJets 1
 filenameString.push_back(filenamepath + "Merged_WW_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root");
 //WJets  1
@@ -94,7 +93,7 @@ filenameString.push_back(filenamepath + "Merged_ST_tW_antitop_5f_inclusiveDecays
 //filenameString.push_back(filenamepath + "Merged_MET-Run2015B-PromptReco-v1TotalV3-runallAnalysis.root");
 filenameString.push_back(filenamepath + "Merged_MET.root");
 //histoname
-TString histnameString("MonoHFatJetsPreselection_2subj/h_nMuons0");
+TString histnameString("histfacFatJet_ZLight/h_nMuons0");
 
 TFile *fIn;
 const int nfiles = (int) filenameString.size();
@@ -285,7 +284,7 @@ THStack *hs = new THStack("hs"," ");
 // For N-1 Plots only
 bool nminus = 0;
 TLatex *tt;
-if(("MonoHFatJetsPreselection_2subj" == "ElectronNMinus1E") || ("MonoHFatJetsPreselection_2subj" == "ElectronNMinus1B") ){
+if(("histfacFatJet_ZLight" == "ElectronNMinus1E") || ("histfacFatJet_ZLight" == "ElectronNMinus1B") ){
 nminus =1;
 tt  = new TLatex(0.5,0.87,"N-1");
 tt->SetTextSize(0.05);
@@ -651,7 +650,7 @@ if(1){
 wjetentries= h_mc[19]->Integral() +h_mc[20]->Integral()+h_mc[21]->Integral()+h_mc[22]->Integral()+h_mc[23]->Integral()+h_mc[24]->Integral()+h_mc[25]->Integral();
                                              
                                      
-  mout << "MonoHFatJetsPreselection_2subj_h_nMuons0"            <<  " a"<<std::endl; 
+  mout << "histfacFatJet_ZLight_h_nMuons0"            <<  " a"<<std::endl; 
   mout << " DATA "    << h_data->Integral()  << std::endl; 
 //  mout << " DATA  0"    <<  std::endl; 
 //  mout << " DYJETS "  << h_mc[0]->Integral() << std::endl; 
@@ -685,17 +684,17 @@ mout << "a "<<a
  
  c12->Draw();
 if(!0){
- c12->SaveAs(DirPreName+dirpathname +"/DYPdf/MonoHFatJetsPreselection_2subj_h_nMuons0.pdf");
- c12->SaveAs(DirPreName+dirpathname +"/DYPng/MonoHFatJetsPreselection_2subj_h_nMuons0.png");
- c12->SaveAs(DirPreName+dirpathname +"/DYROOT/MonoHFatJetsPreselection_2subj_h_nMuons0.root");                                                                         
+ c12->SaveAs(DirPreName+dirpathname +"/DYPdf/histfacFatJet_ZLight_h_nMuons0.pdf");
+ c12->SaveAs(DirPreName+dirpathname +"/DYPng/histfacFatJet_ZLight_h_nMuons0.png");
+ c12->SaveAs(DirPreName+dirpathname +"/DYROOT/histfacFatJet_ZLight_h_nMuons0.root");                                                                         
  rout<<"<hr/>"<<std::endl;
- rout<<"<table class=\"\"> <tr><td><img src=\""<<"DYPng/MonoHFatJetsPreselection_2subj_h_nMuons0.png\" height=\"400\" width=\"400\"></td>   </tr> </table>"<<std::endl;
+ rout<<"<table class=\"\"> <tr><td><img src=\""<<"DYPng/histfacFatJet_ZLight_h_nMuons0.png\" height=\"400\" width=\"400\"></td>   </tr> </table>"<<std::endl;
 
 }
  
 if(0){
- c12->SaveAs(DirPreName+dirpathname +"/DYPdf/MonoHFatJetsPreselection_2subj_h_nMuons0_log.pdf");
- c12->SaveAs(DirPreName+dirpathname +"/DYPng/MonoHFatJetsPreselection_2subj_h_nMuons0_log.png");
- c12->SaveAs(DirPreName+dirpathname +"/DYROOT/MonoHFatJetsPreselection_2subj_h_nMuons0_log.root");                                                                        
+ c12->SaveAs(DirPreName+dirpathname +"/DYPdf/histfacFatJet_ZLight_h_nMuons0_log.pdf");
+ c12->SaveAs(DirPreName+dirpathname +"/DYPng/histfacFatJet_ZLight_h_nMuons0_log.png");
+ c12->SaveAs(DirPreName+dirpathname +"/DYROOT/histfacFatJet_ZLight_h_nMuons0_log.root");                                                                        
 }
  }

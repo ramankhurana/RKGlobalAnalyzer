@@ -22,7 +22,7 @@ class RKMath {
   }
 
   static Float_t DeltaR(Float_t eta1, Float_t  phi1, Float_t eta2, Float_t phi2){
-    double phi = phi1 - phi2;
+    double phi = DeltaPhi(phi1,phi2);
     double eta = eta1 - eta2;
     double dr2 = (phi*phi) + (eta*eta) ;
     double dr = sqrt(dr2);

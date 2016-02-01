@@ -116,6 +116,7 @@ void RKAnalyzer::Loop(TString output){
   
   
   Long64_t nentries = fChain->GetEntriesFast();
+  ///Long64_t nentries = 100;
   
   std::cout<<" nevents ====== "<<nentries<<std::endl;
   Long64_t nbytes = 0, nb = 0;
@@ -140,7 +141,8 @@ void RKAnalyzer::Loop(TString output){
      bool hcalIsoNoise = FilterStatus("Flag_HBHENoiseIsoFilter");
      
      
-     triggerstatus =  met90 || met120 || met170 ;
+     //triggerstatus =  met90 || met120 || met170 ;
+     triggerstatus =  true ;
      
      if(isData==1)  filterstatus = eeBadSC && csct && hlt_hbhet && hcalIsoNoise;
      if(isData==0)  filterstatus = true;
@@ -898,8 +900,8 @@ void RKAnalyzer::MonoHiggsAnalyzer(){
   // Replace the baseline analysis status bits by ttbar status bit
   if(RKFatJetMETCollection.size()>0) RKFatJetMETCollectionWithStatus  = selectionbits.SelectionBitsSaver(RKFatJetMETCollectionWithStatus, cuts.cutValueMapTTBar);
   fatjetbitVec.clear();
-  fatjetbitVec = {0, 16, 6, 8, 15, 11, 13};
-  
+  //fatjetbitVec = {0, 16, 6, 8, 15, 11, 13};
+  fatjetbitVec = {0, 2, 6, 8, 15, 14, 13};
   //fatjetbitVec = {0, 6, 8, 15, 11, 13}; // relaxed sub-jet btag for ttbar for now
   if(RKFatJetMETCollectionWithStatus.size()>0) histfacFatJet_TTBar.Fill(RKFatJetMETCollectionWithStatus,1,fatjetbitVec, eventlist);
 
