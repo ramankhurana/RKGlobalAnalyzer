@@ -20,7 +20,19 @@ int main(int argc, char *argv[]){
   std::cout<<" caling const"<<std::endl;
   ncuAna = new RKAnalyzer(tree);
   std::cout<<" caling loop"<<std::endl;
-  ncuAna->Loop(output);
+  
+  TString filename_in = argv[1];
+  TString running_mode="all";
+  if(filename_in.Contains("WJetsToLNu")) {
+    running_mode="WJETS";
+  }
+  else if (filename_in.Contains("ZJetsToNuNu")){
+    running_mode="ZJETS";
+  }
+  else running_mode="all";
+  
+  
+  ncuAna->Loop(output, running_mode);
   //std::vector<TString> filenames;
   //filenames.push_back("/store/user/khurana/ggZH_HToBB_ZToNuNu_M120_13TeV_powheg_pythia8/crab_ggZH_HToBB_ZToNuNu_M120_13TeV_powheg_pythia8/150702_105011/0000/NCUGlobalTuples_10.root");
   //ncuAna->TotalEvent(filenames);

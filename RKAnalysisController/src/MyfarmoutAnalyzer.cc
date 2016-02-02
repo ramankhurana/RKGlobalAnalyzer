@@ -34,9 +34,22 @@ int main(){
   /// Loop through lines in file (paths to .root files)
   // and add to TChain
   TString infileName = ""; 
+  TString running_mode="all" ;
+  int i=0;
   while( !inputList.eof() ) { 
     infileName="";
     inputList >> infileName;
+    TString filename_in = infileName;
+    if (i==0) {
+      if(filename_in.Contains("WJetsToLNu")) {
+	running_mode="WJETS";
+      }
+      else if (filename_in.Contains("ZJetsToNuNu")){
+	running_mode="ZJETS";
+      }
+      else running_mode="all";
+      
+    }
     
     std::cout << " Input File Name: "  << infileName <<  std::endl;
     theChain->Add( infileName );
@@ -50,7 +63,7 @@ int main(){
   RKAnalyzer analyzer;
   // Initialize and run analyzer on TChain
   analyzer.Init(theChain);
-  analyzer.Loop(outfileName);
+  analyzer.Loop(outfileName, running_mode);
   //analyzer.TotalEvent(infileName_dump);
   //analyzer.TotalEvent(h_ntotal);
   

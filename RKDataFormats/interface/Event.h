@@ -21,7 +21,7 @@ class Event {
   Float_t puweight;
   Float_t allmcweight;
   Int_t nvtx;
-  
+  double EWKreweight;
   void Clear(){
     run=0;
     lumi=0;
@@ -30,6 +30,7 @@ class Event {
     puweight = 0.;
     allmcweight=0.;
     nvtx=0;
+    EWKreweight = 0.0;
   }
   protected:
 

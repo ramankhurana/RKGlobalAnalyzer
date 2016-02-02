@@ -66,7 +66,8 @@ class RKAnalyzer {
   TTree          *fChain;   //!pointer to the analyzed TTree or TChain
   Int_t           fCurrent; //!current Tree number in a TChain
   
-  bool debug;
+  TString sample_name;
+bool debug;
   
   bool triggerstatus;
   bool filterstatus;
@@ -244,6 +245,7 @@ class RKAnalyzer {
    Float_t         ptHat;
    Float_t         mcWeight;
    Int_t           nGenPar;
+   TClonesArray    *genParP4;
    vector<float>   *genParE;
    vector<float>   *genParPt;
    vector<float>   *genParEta;
@@ -639,6 +641,7 @@ class RKAnalyzer {
    TBranch        *b_genJetPhi;   //!
    TBranch        *b_genJetEM;   //!
    TBranch        *b_genJetHAD;   //!
+   TBranch        *b_genParP4;
    
    TBranch        *b_nMu;   //!
    TBranch        *b_muP4;   //!
@@ -976,7 +979,7 @@ class RKAnalyzer {
    virtual Int_t    GetEntry(Long64_t entry);
    virtual Long64_t LoadTree(Long64_t entry);
    virtual void     Init(TTree *tree);
-   virtual void     Loop(TString output);
+   virtual void     Loop(TString output, TString running_mode);
    virtual Bool_t   Notify();
    virtual void     Show(Long64_t entry = -1);
    void TotalEvent(std::vector<TString> filelist);
@@ -994,6 +997,8 @@ class RKAnalyzer {
    void METProducer();
    // fill all the electron variables in the vector 
    void ElectronProducer();
+   double GenWeightProducer(TString sample);
+
    // fill all the muon variables in the vector 
    void MuonProducer();
    void PhotonProducer();
@@ -1009,7 +1014,8 @@ class RKAnalyzer {
  RKAnalyzer::RKAnalyzer(TTree *tree) : fChain(0) 
  {
    //TString filename="/hdfs/store/user/khurana/TT_TuneCUETP8M1_13TeV-powheg-pythia8/crab_TT_TuneCUETP8M1_13TeV-powheg-pythia8_MC25ns_ReMiniAOD_20151105/151105_162128/0000/NCUGlobalTuples_467.root";
-   TString filename="Merged_MonoHTobb_M1400GeV.root";
+   TString filename="/hdfs/store/user/khurana/WJetsHTBinSampleReMiniAOD/crab_WJetsToLNu_HT-400To600_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_MC25ns_ReMiniAOD_20151026/151025_235853/0000/NCUGlobalTuples_22.root";
+   //Merged_ZJetsToNuNu.root";
    
    if (tree == 0) {
      TChain * chain = new TChain("tree/treeMaker","");
@@ -1097,6 +1103,7 @@ void RKAnalyzer::Init(TTree *tree)
    genJetPhi = 0;
    genJetEM = 0;
    genJetHAD = 0;
+   genParP4 = 0;
    muP4 = 0;
    muType = 0;
    muCharge = 0;
@@ -1434,6 +1441,7 @@ void RKAnalyzer::Init(TTree *tree)
    fChain->SetBranchAddress("genMo2", &genMo2, &b_genMo2);
    fChain->SetBranchAddress("genDa1", &genDa1, &b_genDa1);
    fChain->SetBranchAddress("genDa2", &genDa2, &b_genDa2);
+   fChain->SetBranchAddress("genParP4",&genParP4, &b_genParP4);
    
    fChain->SetBranchAddress("nMu", &nMu, &b_nMu);
    fChain->SetBranchAddress("muP4", &muP4, &b_muP4);

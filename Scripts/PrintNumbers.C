@@ -9,6 +9,8 @@ void PrintNumbers(){
   std::cout<<" MET  =  "<<sync->GetBinContent(5)<<std::endl;
   std::cout<<" nJet =  "<<sync->GetBinContent(6)<<std::endl;
   std::cout<<" nLep =  "<<sync->GetBinContent(7)<<std::endl;
+  std::cout<<" nTau =  "<<sync->GetBinContent(8)<<std::endl;
+  std::cout<<" nPho =  "<<sync->GetBinContent(9)<<std::endl;
 
 
 }

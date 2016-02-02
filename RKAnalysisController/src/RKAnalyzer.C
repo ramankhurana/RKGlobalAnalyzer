@@ -11,8 +11,8 @@
 //#include "../../RKUtilities/interface/EventsToSkip.h"
 
 using namespace std;
-void RKAnalyzer::Loop(TString output){
-  
+void RKAnalyzer::Loop(TString output, TString running_mode){
+  sample_name = running_mode;
   //EventsToSkip evtskip;
   //std::vector<TString> vect = evtskip.EventList();
   //std::cout<<" vect size =  "<<vect.size()<<std::endl;
@@ -141,8 +141,8 @@ void RKAnalyzer::Loop(TString output){
      bool hcalIsoNoise = FilterStatus("Flag_HBHENoiseIsoFilter");
      
      
-     //triggerstatus =  met90 || met120 || met170 ;
-     triggerstatus =  true ;
+     triggerstatus = met120 || met170 ;
+     //triggerstatus =  true ;
      
      if(isData==1)  filterstatus = eeBadSC && csct && hlt_hbhet && hcalIsoNoise;
      if(isData==0)  filterstatus = true;
@@ -523,6 +523,91 @@ void RKAnalyzer::TauProducer(){
 }
 
 
+
+double RKAnalyzer::GenWeightProducer(TString sample){
+  float pt__=0;
+  std::cout<<" inside gen weight "<<std::endl;
+  double k2=1.0;
+  // WJets
+  if(sample=="WJETS"){
+    vector<Int_t> goodLepID;
+    goodLepID.clear();
+    for(int ig = 0; ig < (int)nGenPar; ig++){
+      
+      int PID    = (*genParId)[ig];
+      int momPID = (*genMomParId)[ig];
+      int status = (*genParSt)[ig];
+      
+      if( abs(PID) != 11 && 
+	  abs(PID) != 12 &&
+	  abs(PID) != 13 &&
+	  abs(PID) != 14 &&
+	  abs(PID) != 15 &&
+	  abs(PID) != 16 ) continue;
+      
+      if( (status != 1 && abs(PID) != 15) ||
+	  (status != 2 && abs(PID) == 15) ) continue;
+      
+      if( abs(momPID) != 24 && momPID != PID ) continue;
+      
+      goodLepID.push_back(ig);
+      
+    }
+    if(goodLepID.size()==2){
+      TLorentzVector* l4_thisLep = (TLorentzVector*)genParP4->At(goodLepID[0]);
+    TLorentzVector* l4_thatLep = (TLorentzVector*)genParP4->At(goodLepID[1]);
+    TLorentzVector l4_z = (*l4_thisLep+*l4_thatLep);
+    float  pt = l4_z.Pt();
+    pt__ = pt;
+    std::cout<<" pt inside "<<pt<<std::endl;
+    k2 = -0.830041 + 7.93714 *TMath::Power( pt - (-877.978) ,(-0.213831) ) ;
+    
+    }
+    //k2 = fewk_w->Eval(l4_z.Pt());
+    
+  }
+
+  //ZJets
+  if(sample=="ZJETS"){
+    std::cout<<" inside zjets "<<std::endl;
+    vector<Int_t> goodLepID;
+    goodLepID.clear();
+    for(int ig = 0; ig <(int) nGenPar; ig++){
+      std::cout<<" inside loop "<<std::endl;
+
+      Int_t PID    = (*genParId)[ig];
+      Int_t momPID = (*genMomParId)[ig];
+      Int_t status = (*genParSt)[ig];
+      std::cout<<" after vars "<<std::endl;
+
+      if( abs(PID) != 12 && 
+	  abs(PID) != 14 && 
+	  abs(PID) != 16 ) continue;
+      
+      if( status != 1 ) continue;
+      
+      if( momPID != 23 && momPID != PID ) continue;
+      goodLepID.push_back(ig);
+
+    }
+    
+    if(goodLepID.size()==2){
+      TLorentzVector* l4_thisLep = (TLorentzVector*)genParP4->At(goodLepID[0]);
+      TLorentzVector* l4_thatLep = (TLorentzVector*)genParP4->At(goodLepID[1]);
+      TLorentzVector l4_z = (*l4_thisLep+*l4_thatLep);
+      float pt = l4_z.Pt();
+      std::cout<<" pt inside "<<pt<<std::endl;
+      k2 = -0.180805 + 6.04146 *TMath::Power( pt - (-759.098) ,(-0.242556) ) ;
+    }
+  }
+
+  if(sample=="all"){
+    k2 = 1.0;
+  }
+  std::cout<<"  k2 = "<<k2<<"  pt = "<<pt__<<std::endl;
+  return k2;
+}
+
 void RKAnalyzer::ElectronProducer(){
 
   //opening file for effective area 
@@ -733,8 +818,19 @@ void RKAnalyzer::EventProducer(){
     if(mcWeight>0)   events.mcweight =   1.0;
   }
   events.nvtx            = nVtx;
+  
+  
+  if(isData) {
+    events.EWKreweight = 1.0;
+  }
+  if(!isData){
+    events.EWKreweight = GenWeightProducer(sample_name);
+  }
+  
+  
   if(isData==1)        events.puweight = 1.0 ;
   if(isData==0)        events.puweight = PileUpWeights::PUWEIGHT(nVtx) ; // change this number once Monika do the PU re-weighting. 
+  
   events.allmcweight     = events.mcweight * events.puweight ;
 }
 
@@ -901,8 +997,8 @@ void RKAnalyzer::MonoHiggsAnalyzer(){
   if(RKFatJetMETCollection.size()>0) RKFatJetMETCollectionWithStatus  = selectionbits.SelectionBitsSaver(RKFatJetMETCollectionWithStatus, cuts.cutValueMapTTBar);
   fatjetbitVec.clear();
   //fatjetbitVec = {0, 16, 6, 8, 15, 11, 13};
-  fatjetbitVec = {0, 2, 6, 8, 15, 14, 13};
-  //fatjetbitVec = {0, 6, 8, 15, 11, 13}; // relaxed sub-jet btag for ttbar for now
+  //fatjetbitVec = {0, 2, 6, 8, 15, 14, 13};
+  fatjetbitVec = {0, 6, 8, 15, 11, 13}; // relaxed sub-jet btag for ttbar for now
   if(RKFatJetMETCollectionWithStatus.size()>0) histfacFatJet_TTBar.Fill(RKFatJetMETCollectionWithStatus,1,fatjetbitVec, eventlist);
 
   //--------------------------------------------------------
