@@ -40,7 +40,7 @@ float lumi = 2151.2; // It will print on your plots too
 std::vector<TString> filenameString;
 //Change here Directories of the file
 
-TString filenamepath("/afs/hep.wisc.edu/cms/khurana/Script/MonoHFatJetAnalysis_ForAnLoose_BaseLineFix_OldTTBar_WithZAndWEWK/"); 
+TString filenamepath("/afs/hep.wisc.edu/cms/khurana/Script/MonoHFatJetAnalysis_ForAnLoose_BaseLineFix_OldTTBar_WithZAndWEWK_V10/"); 
 // DYJets 1
 filenameString.push_back(filenamepath + "Merged_WW_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root");
 //WJets  1
@@ -130,37 +130,35 @@ Xsec[12] = scalexs * 0.00871; //1700
 Xsec[13] = scalexs * 0.00561; //2000
 Xsec[14] = scalexs * 0.00280; //2500
 
-// old sf = 1.23 
-//Xsec[15] = 1.626*280.47; // Znunu HT
-//Xsec[16] = 1.617*78.36; // Znunu HT
-//Xsec[17] = 1.459*10.94; // Znunu HT
-//Xsec[18] = 1.391*4.203;  // Znunu HT
 
-Xsec[15] = 1.23*280.47; // Znunu HT
-Xsec[16] = 1.23*78.36; // Znunu HT
-Xsec[17] = 1.23*10.94; // Znunu HT
-Xsec[18] = 1.23*4.203;  // Znunu HT
+Xsec[15] = 1.626*280.47; // Znunu HT
+Xsec[16] = 1.617*78.36; // Znunu HT
+Xsec[17] = 1.459*10.94; // Znunu HT
+Xsec[18] = 1.391*4.203;  // Znunu HT
+
+//Xsec[15] = 1.23*280.47; // Znunu HT
+//Xsec[16] = 1.23*78.36; // Znunu HT
+//Xsec[17] = 1.23*10.94; // Znunu HT
+//Xsec[18] = 1.23*4.203;  // Znunu HT
 
 //float Sw = 1.10981;
 float Sw = 1.;
-// old sf = 1.21
-//Xsec[19] = Sw  *  1.459*1347;  // WJets HT 100-200
-//Xsec[20] = Sw  *  1.434*360;   // WJets HT 200-400
-//Xsec[21] = Sw  *  1.532*48.9;  // WJets HT 400-600
-//Xsec[22] = Sw  *  1.004*12.8;  // WJets HT 600-800
-//Xsec[23] = Sw  *  1.004*5.26;  // WJets HT 800-1200
-//Xsec[24] = Sw  *  1.004*1.33;  // WJets HT 1200-2500
-//Xsec[25] = Sw  *  1.004*0.03089;  // WJets HT 2500-Inf
 
+Xsec[19] = Sw  *  1.459*1347;  // WJets HT 100-200
+Xsec[20] = Sw  *  1.434*360;   // WJets HT 200-400
+Xsec[21] = Sw  *  1.532*48.9;  // WJets HT 400-600
+Xsec[22] = Sw  *  1.004*12.8;  // WJets HT 600-800
+Xsec[23] = Sw  *  1.004*5.26;  // WJets HT 800-1200
+Xsec[24] = Sw  *  1.004*1.33;  // WJets HT 1200-2500
+Xsec[25] = Sw  *  1.004*0.03089;  // WJets HT 2500-Inf
 
-
-Xsec[19] = Sw  *  1.21*1347;  // WJets HT 100-200
-Xsec[20] = Sw  *  1.21*360;   // WJets HT 200-400
-Xsec[21] = Sw  *  1.21*48.9;  // WJets HT 400-600
-Xsec[22] = Sw  *  1.21*12.8;  // WJets HT 600-800
-Xsec[23] = Sw  *  1.21*5.26;  // WJets HT 800-1200
-Xsec[24] = Sw  *  1.21*1.33;  // WJets HT 1200-2500
-Xsec[25] = Sw  *  1.21*0.03089;  // WJets HT 2500-Inf
+//Xsec[19] = Sw  *  1.21*1347;  // WJets HT 100-200
+//Xsec[20] = Sw  *  1.21*360;   // WJets HT 200-400
+//Xsec[21] = Sw  *  1.21*48.9;  // WJets HT 400-600
+//Xsec[22] = Sw  *  1.21*12.8;  // WJets HT 600-800
+//Xsec[23] = Sw  *  1.21*5.26;  // WJets HT 800-1200
+//Xsec[24] = Sw  *  1.21*1.33;  // WJets HT 1200-2500
+//Xsec[25] = Sw  *  1.21*0.03089;  // WJets HT 2500-Inf
 
 Xsec[26] = Stt  *  44.51; // single top
 Xsec[27] = Stt  *  26.49; // single top
@@ -189,6 +187,7 @@ for(int i =0; i<(int)filenameString.size()-1; i++){
 //std::cout<<" normalization for = "<<i<<"  "<<filenameString[i]<<"   "
 //<<h_mc[i]->Integral()
 //<<std::endl;
+
  if(h_total->Integral()>0) normalization[i]     = (lumi* Xsec[i])/(h_total->Integral());
 else normalization[i]      = 0;
  //cout<<"normalization :" << normalization[i] << std::endl;
@@ -687,6 +686,7 @@ float c = h_data->Integral() - (dibosonentries + h_mc[6]->Integral() + h_mc[15]-
 mout << "a "<<a
 <<" b "<<b
 <<" c "<<c
+<<" a+b "<<a+b
 <<std::endl;
 }
  
@@ -744,7 +744,7 @@ def makeplot(inputs):
 ##########Start Adding your plots here
 
 #dirnames=['MonoHFatJetSelection_JetAndLeptonVeto','histfacFatJet_TTBar','histfacFatJet_ZLight','histfacFatJet_WLight']
-dirnames=['MonoHFatJetsPreselection_2subj','histfacFatJet_WLight','histfacFatJet_TTBar','histfacFatJet_ZLight']
+dirnames=['MonoHFatJetSelection_JetAndLeptonVeto','histfacFatJet_WLight','histfacFatJet_TTBar','histfacFatJet_ZLight']
 #dirnames=['histfacFatJet_WLight','histfacFatJet_TTBar','histfacFatJet_ZLight']
 #dirnames=['histfacFatJet_ZLight']
 #dirnames=['histfacFatJet_ZLight']
@@ -755,54 +755,54 @@ dirnames=['MonoHFatJetsPreselection_2subj','histfacFatJet_WLight','histfacFatJet
 ## Plots After Pre-selection
 #makeplot(['CutFlowAndEachCutFatJet', 'h_cutflow_0_f', 'Cut Flow', '0','5', '1', '1','1'])
 for dirname in dirnames:
-    #makeplot([dirname,'h_MET0','MET','200','500','2','0'])
+    makeplot([dirname,'h_MET0','MET','200','500','2','0'])
     makeplot([dirname,'h_nMuons0','N_{add. #mu}','0','5','1','0','1'])
-    #makeplot([dirname,'h_Mjj0','M_{SD}','20','200','2','0']) 
-    #makeplot([dirname,'h_nElectrons0','N_{add. e}','0','5','1','0'])
-    #makeplot([dirname,'h_nJetss0','N_{add. Jets}','0','5','1','0']) 
-    #makeplot([dirname,'h_pTjj0','p_{T}^{AK8Jet}','100','1600','4','0'])
-    #makeplot([dirname,'h_h_Tau21jj0','#tau_{21}','0','1','1','0'])
-    #makeplot([dirname,'h_CSVSum0','CSV','0','1','1','0'])
-    #makeplot([dirname,'h_phijj0','#phi_{AK8Jet}','-3.5','3.5','5','0'])
-    #makeplot([dirname,'h_etajj0','#eta_{AK8Jet}','-2.5','2.5','5','0'])
-    #makeplot([dirname,'h_nTaus0','N_{#tau}','0','5','1','0'])
-    #makeplot([dirname,'h_dPhi_bb_MET0','#Delta#phi_{AK8Jet-MET}','2.','3.5','2','0'])
-    #makeplot([dirname,'h_MT_bb_MET0', 'M_{T}', '200','1000', '10','0'])
-    #makeplot([dirname,'h_DRSJ0', '#DeltaR_{sub-jets}', '0','1', '1','0'])
-    #makeplot([dirname,'h_CSVMax0', 'CSV_{Max}', '0','1', '1','0'])
-    #makeplot([dirname,'h_CSVMin0', 'CSV_{Min}', '0','1', '1','0'])
-    #makeplot([dirname,'h_MET_Over_SumET0', 'MET/SumET', '0','5', '2','0'])
-    #makeplot([dirname,'h_MET_Over_pTFatJet0', 'MET/p_{T}^{AK8-Jet}', '0','1.', '1','0'])
-    #makeplot([dirname,'h_CEmEF0', 'CEmEF', '0','1.', '1','0'])
-    #makeplot([dirname,'h_CHadEF0', 'CHadEF', '0','1.', '1','0'])
-    #makeplot([dirname,'h_PhoEF0', 'PhoEF', '0','1.', '1','0'])
-    #makeplot([dirname,'h_NHadEF0', 'NHadEF', '0','1.', '1','0'])
-    #makeplot([dirname,'h_MuEF0', 'MuEF', '0','1.', '1','0'])
+    makeplot([dirname,'h_Mjj0','M_{SD}','20','200','2','0']) 
+    makeplot([dirname,'h_nElectrons0','N_{add. e}','0','5','1','0'])
+    makeplot([dirname,'h_nJetss0','N_{add. Jets}','0','5','1','0']) 
+    makeplot([dirname,'h_pTjj0','p_{T}^{AK8Jet}','100','1600','4','0'])
+    makeplot([dirname,'h_h_Tau21jj0','#tau_{21}','0','1','1','0'])
+    makeplot([dirname,'h_CSVSum0','CSV','0','1','1','0'])
+    makeplot([dirname,'h_phijj0','#phi_{AK8Jet}','-3.5','3.5','5','0'])
+    makeplot([dirname,'h_etajj0','#eta_{AK8Jet}','-2.5','2.5','5','0'])
+    makeplot([dirname,'h_nTaus0','N_{#tau}','0','5','1','0'])
+    makeplot([dirname,'h_dPhi_bb_MET0','#Delta#phi_{AK8Jet-MET}','2.','3.5','2','0'])
+    makeplot([dirname,'h_MT_bb_MET0', 'M_{T}', '200','1000', '10','0'])
+    makeplot([dirname,'h_DRSJ0', '#DeltaR_{sub-jets}', '0','1', '1','0'])
+    makeplot([dirname,'h_CSVMax0', 'CSV_{Max}', '0','1', '1','0'])
+    makeplot([dirname,'h_CSVMin0', 'CSV_{Min}', '0','1', '1','0'])
+    makeplot([dirname,'h_MET_Over_SumET0', 'MET/SumET', '0','5', '2','0'])
+    makeplot([dirname,'h_MET_Over_pTFatJet0', 'MET/p_{T}^{AK8-Jet}', '0','1.', '1','0'])
+    makeplot([dirname,'h_CEmEF0', 'CEmEF', '0','1.', '1','0'])
+    makeplot([dirname,'h_CHadEF0', 'CHadEF', '0','1.', '1','0'])
+    makeplot([dirname,'h_PhoEF0', 'PhoEF', '0','1.', '1','0'])
+    makeplot([dirname,'h_NHadEF0', 'NHadEF', '0','1.', '1','0'])
+    makeplot([dirname,'h_MuEF0', 'MuEF', '0','1.', '1','0'])
     
     
     
-#    makeplot([dirname,'h_Mjj0','M_{SD}','20','200','2','1']) 
-#    makeplot([dirname,'h_nMuons0','N_{add. #mu}','0','5','1','1','1'])
-#    makeplot([dirname,'h_nElectrons0','N_{add. e}','0','5','1','1'])
-#    makeplot([dirname,'h_nJetss0','N_{add. Jets}','0','5','1','1']) 
-#    makeplot([dirname,'h_MET0','MET','200','500','1','1'])
-#    makeplot([dirname,'h_pTjj0','p_{T}^{AK8Jet}','100','1600','4','1'])
-#    makeplot([dirname,'h_h_Tau21jj0','#tau_{21}','0','1','1','1'])
-#    makeplot([dirname,'h_CSVSum0','CSV','0','1','1','1'])
-#    makeplot([dirname,'h_phijj0','#phi_{AK8Jet}','-3.5','3.5','5','1'])
-#    makeplot([dirname,'h_etajj0','#eta_{AK8Jet}','-2.5','2.5','5','1'])
-#    makeplot([dirname,'h_nTaus0','N_{#tau}','0','5','1','1'])
-#    makeplot([dirname,'h_dPhi_bb_MET0','#Delta#phi_{AK8Jet-MET}','2.','3.5','2','1'])
-#    makeplot([dirname,'h_MT_bb_MET0', 'M_{T}', '200','1000', '10','1'])
-#    makeplot([dirname,'h_DRSJ0', '#DeltaR_{sub-jets}', '0','1', '1','1'])
-#    makeplot([dirname,'h_CSVMax0', 'CSV_{Max}', '0','1', '1','1'])
-#    makeplot([dirname,'h_CSVMin0', 'CSV_{Min}', '0','1', '1','1'])
-#    makeplot([dirname,'h_MET_Over_SumET0', 'MET/SumET', '0','5', '2','1'])
-#    makeplot([dirname,'h_MET_Over_pTFatJet0', 'MET/p_{T}^{AK8-Jet}', '0','1.', '1','1'])
-#    makeplot([dirname,'h_CEmEF0', 'CEmEF', '0','1.', '1','1'])
-#    makeplot([dirname,'h_CHadEF0', 'CHadEF', '0','1.', '1','1'])
-#    makeplot([dirname,'h_PhoEF0', 'PhoEF', '0','1.', '1','1'])
-#    makeplot([dirname,'h_NHadEF0', 'NHadEF', '0','1.', '1','1'])
-#    makeplot([dirname,'h_MuEF0', 'MuEF', '0','1.', '1','1'])
-#
+    makeplot([dirname,'h_Mjj0','M_{SD}','20','200','2','1']) 
+    makeplot([dirname,'h_nMuons0','N_{add. #mu}','0','5','1','1','1'])
+    makeplot([dirname,'h_nElectrons0','N_{add. e}','0','5','1','1'])
+    makeplot([dirname,'h_nJetss0','N_{add. Jets}','0','5','1','1']) 
+    makeplot([dirname,'h_MET0','MET','200','500','1','1'])
+    makeplot([dirname,'h_pTjj0','p_{T}^{AK8Jet}','100','1600','4','1'])
+    makeplot([dirname,'h_h_Tau21jj0','#tau_{21}','0','1','1','1'])
+    makeplot([dirname,'h_CSVSum0','CSV','0','1','1','1'])
+    makeplot([dirname,'h_phijj0','#phi_{AK8Jet}','-3.5','3.5','5','1'])
+    makeplot([dirname,'h_etajj0','#eta_{AK8Jet}','-2.5','2.5','5','1'])
+    makeplot([dirname,'h_nTaus0','N_{#tau}','0','5','1','1'])
+    makeplot([dirname,'h_dPhi_bb_MET0','#Delta#phi_{AK8Jet-MET}','2.','3.5','2','1'])
+    makeplot([dirname,'h_MT_bb_MET0', 'M_{T}', '200','1000', '10','1'])
+    makeplot([dirname,'h_DRSJ0', '#DeltaR_{sub-jets}', '0','1', '1','1'])
+    makeplot([dirname,'h_CSVMax0', 'CSV_{Max}', '0','1', '1','1'])
+    makeplot([dirname,'h_CSVMin0', 'CSV_{Min}', '0','1', '1','1'])
+    makeplot([dirname,'h_MET_Over_SumET0', 'MET/SumET', '0','5', '2','1'])
+    makeplot([dirname,'h_MET_Over_pTFatJet0', 'MET/p_{T}^{AK8-Jet}', '0','1.', '1','1'])
+    makeplot([dirname,'h_CEmEF0', 'CEmEF', '0','1.', '1','1'])
+    makeplot([dirname,'h_CHadEF0', 'CHadEF', '0','1.', '1','1'])
+    makeplot([dirname,'h_PhoEF0', 'PhoEF', '0','1.', '1','1'])
+    makeplot([dirname,'h_NHadEF0', 'NHadEF', '0','1.', '1','1'])
+    makeplot([dirname,'h_MuEF0', 'MuEF', '0','1.', '1','1'])
+
 

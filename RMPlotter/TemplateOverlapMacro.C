@@ -32,7 +32,7 @@ float lumi = 2151.2; // It will print on your plots too
 std::vector<TString> filenameString;
 //Change here Directories of the file
 
-TString filenamepath("/afs/hep.wisc.edu/cms/khurana/Script/MonoHFatJetAnalysis_ForAnLoose_BaseLineFix_OldTTBar_WithZAndWEWK/"); 
+TString filenamepath("/afs/hep.wisc.edu/cms/khurana/Script/MonoHFatJetAnalysis_ForAnLoose_BaseLineFix_OldTTBar_WithZAndWEWK_V10/"); 
 // DYJets 1
 filenameString.push_back(filenamepath + "Merged_WW_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root");
 //WJets  1
@@ -122,37 +122,35 @@ Xsec[12] = scalexs * 0.00871; //1700
 Xsec[13] = scalexs * 0.00561; //2000
 Xsec[14] = scalexs * 0.00280; //2500
 
-// old sf = 1.23 
-//Xsec[15] = 1.626*280.47; // Znunu HT
-//Xsec[16] = 1.617*78.36; // Znunu HT
-//Xsec[17] = 1.459*10.94; // Znunu HT
-//Xsec[18] = 1.391*4.203;  // Znunu HT
 
-Xsec[15] = 1.23*280.47; // Znunu HT
-Xsec[16] = 1.23*78.36; // Znunu HT
-Xsec[17] = 1.23*10.94; // Znunu HT
-Xsec[18] = 1.23*4.203;  // Znunu HT
+Xsec[15] = 1.626*280.47; // Znunu HT
+Xsec[16] = 1.617*78.36; // Znunu HT
+Xsec[17] = 1.459*10.94; // Znunu HT
+Xsec[18] = 1.391*4.203;  // Znunu HT
+
+//Xsec[15] = 1.23*280.47; // Znunu HT
+//Xsec[16] = 1.23*78.36; // Znunu HT
+//Xsec[17] = 1.23*10.94; // Znunu HT
+//Xsec[18] = 1.23*4.203;  // Znunu HT
 
 //float Sw = 1.10981;
 float Sw = 1.;
-// old sf = 1.21
-//Xsec[19] = Sw  *  1.459*1347;  // WJets HT 100-200
-//Xsec[20] = Sw  *  1.434*360;   // WJets HT 200-400
-//Xsec[21] = Sw  *  1.532*48.9;  // WJets HT 400-600
-//Xsec[22] = Sw  *  1.004*12.8;  // WJets HT 600-800
-//Xsec[23] = Sw  *  1.004*5.26;  // WJets HT 800-1200
-//Xsec[24] = Sw  *  1.004*1.33;  // WJets HT 1200-2500
-//Xsec[25] = Sw  *  1.004*0.03089;  // WJets HT 2500-Inf
 
+Xsec[19] = Sw  *  1.459*1347;  // WJets HT 100-200
+Xsec[20] = Sw  *  1.434*360;   // WJets HT 200-400
+Xsec[21] = Sw  *  1.532*48.9;  // WJets HT 400-600
+Xsec[22] = Sw  *  1.004*12.8;  // WJets HT 600-800
+Xsec[23] = Sw  *  1.004*5.26;  // WJets HT 800-1200
+Xsec[24] = Sw  *  1.004*1.33;  // WJets HT 1200-2500
+Xsec[25] = Sw  *  1.004*0.03089;  // WJets HT 2500-Inf
 
-
-Xsec[19] = Sw  *  1.21*1347;  // WJets HT 100-200
-Xsec[20] = Sw  *  1.21*360;   // WJets HT 200-400
-Xsec[21] = Sw  *  1.21*48.9;  // WJets HT 400-600
-Xsec[22] = Sw  *  1.21*12.8;  // WJets HT 600-800
-Xsec[23] = Sw  *  1.21*5.26;  // WJets HT 800-1200
-Xsec[24] = Sw  *  1.21*1.33;  // WJets HT 1200-2500
-Xsec[25] = Sw  *  1.21*0.03089;  // WJets HT 2500-Inf
+//Xsec[19] = Sw  *  1.21*1347;  // WJets HT 100-200
+//Xsec[20] = Sw  *  1.21*360;   // WJets HT 200-400
+//Xsec[21] = Sw  *  1.21*48.9;  // WJets HT 400-600
+//Xsec[22] = Sw  *  1.21*12.8;  // WJets HT 600-800
+//Xsec[23] = Sw  *  1.21*5.26;  // WJets HT 800-1200
+//Xsec[24] = Sw  *  1.21*1.33;  // WJets HT 1200-2500
+//Xsec[25] = Sw  *  1.21*0.03089;  // WJets HT 2500-Inf
 
 Xsec[26] = Stt  *  44.51; // single top
 Xsec[27] = Stt  *  26.49; // single top
@@ -181,6 +179,7 @@ for(int i =0; i<(int)filenameString.size()-1; i++){
 //std::cout<<" normalization for = "<<i<<"  "<<filenameString[i]<<"   "
 //<<h_mc[i]->Integral()
 //<<std::endl;
+
  if(h_total->Integral()>0) normalization[i]     = (lumi* Xsec[i])/(h_total->Integral());
 else normalization[i]      = 0;
  //cout<<"normalization :" << normalization[i] << std::endl;
@@ -679,6 +678,7 @@ float c = h_data->Integral() - (dibosonentries + h_mc[6]->Integral() + h_mc[15]-
 mout << "a "<<a
 <<" b "<<b
 <<" c "<<c
+<<" a+b "<<a+b
 <<std::endl;
 }
  

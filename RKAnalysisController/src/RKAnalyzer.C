@@ -13,6 +13,7 @@
 using namespace std;
 void RKAnalyzer::Loop(TString output, TString running_mode){
   sample_name = running_mode;
+  std::cout<<" in loop running_mode "<<running_mode<<std::endl;
   //EventsToSkip evtskip;
   //std::vector<TString> vect = evtskip.EventList();
   //std::cout<<" vect size =  "<<vect.size()<<std::endl;
@@ -116,7 +117,7 @@ void RKAnalyzer::Loop(TString output, TString running_mode){
   
   
   Long64_t nentries = fChain->GetEntriesFast();
-  ///Long64_t nentries = 100;
+  //Long64_t nentries = 1;
   
   std::cout<<" nevents ====== "<<nentries<<std::endl;
   Long64_t nbytes = 0, nb = 0;
@@ -141,7 +142,7 @@ void RKAnalyzer::Loop(TString output, TString running_mode){
      bool hcalIsoNoise = FilterStatus("Flag_HBHENoiseIsoFilter");
      
      
-     triggerstatus = met120 || met170 ;
+     triggerstatus =  met170 ;
      //triggerstatus =  true ;
      
      if(isData==1)  filterstatus = eeBadSC && csct && hlt_hbhet && hcalIsoNoise;
@@ -314,12 +315,12 @@ void RKAnalyzer::JetProducer(){
     jets.nVtx            = nVtx;
     
     if(TMath::Abs(fourmom->Eta()) < 2.4 && 
-       fourmom->Pt() > 30. &&
+       fourmom->Pt() > 50. &&
        (*THINjetPassIDLoose)[i] )   RKJetCollection.push_back(jets);
     
     if(TMath::Abs(fourmom->Eta()) < 2.4 && 
        //jets.B_CISVV2 > 0.4 && 
-       fourmom->Pt() > 10. && 
+       fourmom->Pt() > 30. && 
        (*THINjetPassIDLoose)[i] && 
        //(*THINPUJetID)[i] > -0.63 
        jets.B_CISVV2 > 0.605
@@ -561,7 +562,7 @@ double RKAnalyzer::GenWeightProducer(TString sample){
     pt__ = pt;
     std::cout<<" pt inside "<<pt<<std::endl;
     k2 = -0.830041 + 7.93714 *TMath::Power( pt - (-877.978) ,(-0.213831) ) ;
-    
+        
     }
     //k2 = fewk_w->Eval(l4_z.Pt());
     
@@ -675,6 +676,7 @@ void RKAnalyzer::ElectronProducer(){
     
     
     if(fourmom->Pt() > 10 && TMath::Abs(fourmom->Eta())<2.5 && (*eleIsPassLoose)[i] )  RKElectronCollection.push_back(electrons);
+    
     if(triggerstatus && fourmom->Pt() > 20 && fabs(fourmom->Eta())<2.5 && (*eleInBarrel)[i] ==1 )  RKElectronCollection_barrel.push_back(electrons);
     if(triggerstatus && fourmom->Pt() > 20 && fabs(fourmom->Eta())<2.5 && (*eleInEndcap)[i]==1  )    RKElectronCollection_endcap.push_back(electrons);
 
@@ -778,7 +780,7 @@ bool RKAnalyzer::TriggerStatus(std::string TRIGNAME){
   if(false) std::cout<<" number of triggers = "<<(*hlt_trigResult).size()<<std::endl;
   for(size_t i =0; i < (*hlt_trigResult).size() ; i++) {
     std::string trigname = (*hlt_trigName)[i];
-    if(false) std::cout<<" trigge number "<<i <<" is "<<trigname<<std::endl;
+    if(true) std::cout<<" trigge number "<<i <<" is "<<trigname<<std::endl;
     size_t foundEle00=trigname.find(TRIGNAME);//HLT_DoubleEle33
     if ( foundEle00==std::string::npos) continue;
     

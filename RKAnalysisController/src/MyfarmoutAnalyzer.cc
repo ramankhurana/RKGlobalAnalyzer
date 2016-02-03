@@ -47,11 +47,11 @@ int main(){
       else if (filename_in.Contains("ZJetsToNuNu")){
 	running_mode="ZJETS";
       }
-      else running_mode="all";
       
+      i++;
     }
     
-    std::cout << " Input File Name: "  << infileName <<  std::endl;
+    std::cout << " Input File Name: ** "  << infileName <<  std::endl;
     theChain->Add( infileName );
     infileName_dump.push_back(infileName);
     //f = TFile::Open(infileName);
@@ -60,6 +60,7 @@ int main(){
   }
   
   
+  std::cout<<" running mode = "<<running_mode<<std::endl;
   RKAnalyzer analyzer;
   // Initialize and run analyzer on TChain
   analyzer.Init(theChain);

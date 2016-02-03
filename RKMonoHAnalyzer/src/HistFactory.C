@@ -180,8 +180,13 @@ void HistFactory::Fill(std::vector<ResonanceWithMET<Jet,MET > > objectCollection
     
       Float_t mcweight_  = 1.;
       //if(objectCollection.size() >0) mcweight_ = objectCollection[0].events.allmcweight ;
-      if(objectCollection.size() >0) mcweight_ = objectCollection[0].events.mcweight * objectCollection[0].events.EWKreweight;
-      
+      if(objectCollection.size() >0) {
+	mcweight_ = objectCollection[0].events.mcweight * objectCollection[0].events.EWKreweight;
+	std::cout<<" mcweight = "<<objectCollection[0].events.mcweight
+		 <<" EWKreweight = "<<objectCollection[0].events.EWKreweight
+		 <<" total = "<<mcweight_
+		 <<std::endl;
+      }
       if(nbits==(int)istatus.size()){
 	
 	//TString thisEvent;

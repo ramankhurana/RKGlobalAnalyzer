@@ -69,7 +69,7 @@ class MonoHiggsCuts {
     // cutValueMap
     cutValueMapFatJet.clear();
     cutValueMapFatJet["leadingjetpt"]=200.;
-    cutValueMapFatJet["jeteta"]=2.5;
+    cutValueMapFatJet["jeteta"]=2.4;
     cutValueMapFatJet["leadingcsv"]=0.605;
     //cutValueMapFatJet["leadingcsv"]=0.89;
     //cutValueMapFatJet["leadingcsv"]=0.97;
@@ -84,7 +84,7 @@ class MonoHiggsCuts {
     cutValueMapFatJet["DPHIJet2MET"]=2.;
     cutValueMapFatJet["MTJet1"]=300.;
     cutValueMapFatJet["MTJet2"]=200.;
-    cutValueMapFatJet["Njet"]=1;// atleast 2 jets
+    cutValueMapFatJet["Njet"]=1; //< 1
     cutValueMapFatJet["Nele"]=0;
     cutValueMapFatJet["Nmu"]=0;
     cutValueMapFatJet["Ntau"]=0;
@@ -125,7 +125,7 @@ class MonoHiggsCuts {
     // cutValueMapTTBar
     cutValueMapTTBar.clear();
     cutValueMapTTBar["leadingjetpt"]=200.;
-    cutValueMapTTBar["jeteta"]=2.5;
+    cutValueMapTTBar["jeteta"]=2.4;
     cutValueMapTTBar["leadingcsv"]=0.605;
     //cutValueMapTTBar["leadingcsv"]=0.89;
     cutValueMapTTBar["csvlow"]=0.3;
