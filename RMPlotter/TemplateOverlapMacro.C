@@ -32,7 +32,7 @@ float lumi = 2151.2; // It will print on your plots too
 std::vector<TString> filenameString;
 //Change here Directories of the file
 
-TString filenamepath("/afs/hep.wisc.edu/cms/khurana/Script/MonoHFatJetAnalysis_ForAnLoose_BaseLineFix_OldTTBar_WithZAndWEWK_V10/"); 
+TString filenamepath("/afs/hep.wisc.edu/cms/khurana/Script/MonoHFatJetAnalysis_ForAn_AllMETTriggers_RelaxAntiQCD/"); 
 // DYJets 1
 filenameString.push_back(filenamepath + "Merged_WW_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root");
 //WJets  1
@@ -678,7 +678,10 @@ float c = h_data->Integral() - (dibosonentries + h_mc[6]->Integral() + h_mc[15]-
 mout << "a "<<a
 <<" b "<<b
 <<" c "<<c
-<<" a+b "<<a+b
+//<<" a+b "<<a+b
+<<std::endl;
+
+mout<<" total bkg = "<<a + b + dibosonentries + h_mc[6]->Integral() + h_mc[15]->Integral()+h_mc[16]->Integral()+h_mc[17]->Integral()+h_mc[18]->Integral()
 <<std::endl;
 }
  

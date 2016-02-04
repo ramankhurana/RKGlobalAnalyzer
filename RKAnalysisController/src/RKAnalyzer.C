@@ -135,14 +135,19 @@ void RKAnalyzer::Loop(TString output, TString running_mode){
      //  std::cout<<" match found to skip event "<<std::endl;
      
      bool met90 = TriggerStatus("HLT_PFMET90_PFMHT90_IDLoose");
-     bool met120 = TriggerStatus("HLT_PFMET120_PFMHT120_IDLoose_v");
+     bool met120 = false;
+     
+     if(!isData)   met120 = TriggerStatus("HLT_PFMET120_PFMHT120_IDLoose_v");
+     if(isData)   met120 = TriggerStatus("HLT_PFMET120_PFMHT120_IDTight_v");
+     
      bool met170 = TriggerStatus("HLT_PFMET170_NoiseCleaned_v");
+     
      bool csct   = FilterStatus("Flag_CSCTightHaloFilter");
      bool eeBadSC   = FilterStatus("Flag_eeBadScFilter");
      bool hcalIsoNoise = FilterStatus("Flag_HBHENoiseIsoFilter");
      
      
-     triggerstatus =  met170 ;
+     triggerstatus =  met120 || met170 ;
      //triggerstatus =  true ;
      
      if(isData==1)  filterstatus = eeBadSC && csct && hlt_hbhet && hcalIsoNoise;

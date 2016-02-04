@@ -156,7 +156,8 @@ std::vector<ResonanceWithMET<Jet,MET> > SelectionBitsProducer::SelectionBitsSave
       
       // DPhi between Fat-jet and MET > 2.5 
       // Added AntiQCD cut
-      StatusOfCuts[cuts.cutsMapFatJet["gDPHIJetMet"]]       = (TMath::Abs(objectCollection[i].TransverseObjProp.DeltaPhi) > tmp_cutValueMap["dphiDiJetMet"]  && ncloseJet==0)  ;    
+      StatusOfCuts[cuts.cutsMapFatJet["gDPHIJetMet"]]       = (TMath::Abs(objectCollection[i].TransverseObjProp.DeltaPhi) > tmp_cutValueMap["dphiDiJetMet"] && ncloseJet == 0 )  ;  
+      //&& ncloseJet ==0    
       
       //std::cout<<" SDMASS  = "<<objectCollection[i].jet1.SDmass <<std::endl;
       StatusOfCuts[cuts.cutsMapFatJet["hMjet"]]             = (objectCollection[i].jet1.SDmass > tmp_cutValueMap["MDiJetLow"]  &&         

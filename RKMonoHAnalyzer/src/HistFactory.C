@@ -400,6 +400,7 @@ void HistFactory::Write(){
     h_MuEF[i]                ->Write();
     h_CMulti[i]              ->Write();
     
+    h_dPhiThinJetMET[i]      ->Write();
     // 2D Histograms
     h_M_vs_MET[i]   ->Write();
     h_MET_vs_Q1Q2[i]->Write();

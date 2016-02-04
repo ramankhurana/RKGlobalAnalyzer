@@ -32,7 +32,7 @@ float lumi = 2151.2; // It will print on your plots too
 std::vector<TString> filenameString;
 //Change here Directories of the file
 
-TString filenamepath("/afs/hep.wisc.edu/cms/khurana/Script/MonoHFatJetAnalysis_ForAnLoose_BaseLineFix_OldTTBar_WithZAndWEWK_V10/"); 
+TString filenamepath("/afs/hep.wisc.edu/cms/khurana/Script/MonoHFatJetAnalysis_ForAn_AllMETTriggers_RelaxAntiQCD/"); 
 // DYJets 1
 filenameString.push_back(filenamepath + "Merged_WW_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root");
 //WJets  1
@@ -93,7 +93,7 @@ filenameString.push_back(filenamepath + "Merged_ST_tW_antitop_5f_inclusiveDecays
 //filenameString.push_back(filenamepath + "Merged_MET-Run2015B-PromptReco-v1TotalV3-runallAnalysis.root");
 filenameString.push_back(filenamepath + "Merged_MET.root");
 //histoname
-TString histnameString("histfacFatJet_ZLight/h_MuEF0");
+TString histnameString("histfacFatJet_ZLight/h_dPhiThinJetMET0");
 
 TFile *fIn;
 const int nfiles = (int) filenameString.size();
@@ -465,7 +465,7 @@ c12->SetLogy(0);
   c1_2->SetBottomMargin(0.03);
   }
  //c1_2->SetBottomMargin(-0.5);
-  c1_2->SetLogy(1);
+  c1_2->SetLogy(0);
   c1_2->Draw();
   c1_2->cd();
 
@@ -495,11 +495,11 @@ hs->Draw();
     h_data->SetLineColor(1);
   h_data->Draw("same p e1");
   
-  if(1)    hs->SetMinimum(0.1);
-  if(!1)   hs->SetMinimum(1);
-  if(!1)   hs->SetMaximum(maxi *1.33);
-  if(1)    hs->SetMaximum(maxi *100);
-  //if(!1) hs->SetMaximum(0.4);
+  if(0)    hs->SetMinimum(0.1);
+  if(!0)   hs->SetMinimum(1);
+  if(!0)   hs->SetMaximum(maxi *1.33);
+  if(0)    hs->SetMaximum(maxi *100);
+  //if(!0) hs->SetMaximum(0.4);
  
 
   if(0){
@@ -514,7 +514,7 @@ hs->Draw();
   hs->GetYaxis()->SetTitleFont(22);
   hs->GetYaxis()->SetLabelFont(22);
   hs->GetYaxis()->SetLabelSize(.05);
-  hs->GetXaxis()->SetTitle("MuEF");
+  hs->GetXaxis()->SetTitle("#Delta#phi_{J-MET}");
   }else{
   hs->GetXaxis()->SetLabelOffset(999);
   hs->GetXaxis()->SetLabelSize(0);  
@@ -528,7 +528,7 @@ hs->Draw();
   hs->GetYaxis()->SetTitleFont(22);
   hs->GetYaxis()->SetLabelFont(22);
   hs->GetYaxis()->SetLabelSize(.07);
-  hs->GetXaxis()->SetRangeUser(0,1.);  
+  hs->GetXaxis()->SetRangeUser(0.,3.5);  
   hs->GetXaxis()->SetNdivisions(508); 
 
   legend->AddEntry(h_err,"Stats. Unc.","f");
@@ -580,7 +580,7 @@ hs->Draw();
   DataMC->GetYaxis()->SetTitleFont(22);
   DataMC->GetYaxis()->SetLabelSize(0.15);
   DataMC->GetYaxis()->CenterTitle();
-  DataMC->GetXaxis()->SetTitle("MuEF");
+  DataMC->GetXaxis()->SetTitle("#Delta#phi_{J-MET}");
 //DataMC->GetXaxis()->SetIndiceSize(0.1);
   DataMC->GetXaxis()->SetLabelSize(0.157);
   DataMC->GetXaxis()->SetTitleSize(0.162);
@@ -605,7 +605,7 @@ hs->Draw();
  c1_1->SetFrameFillStyle(0);
  c1_1->SetFrameBorderMode(0);
  c1_1->SetLogy(0);
- DataMC->GetXaxis()->SetRangeUser(0,1.);
+ DataMC->GetXaxis()->SetRangeUser(0.,3.5);
  DataMC->Draw("PE1");
  DataMC->SetMarkerStyle(20);
  DataMC->SetMarkerColor(1);
@@ -616,7 +616,7 @@ hs->Draw();
  c1_1->SetGridy();
 
 
- TF1 *line0 = new TF1("line0","[0]*x",0,1.);
+ TF1 *line0 = new TF1("line0","[0]*x",0.,3.5);
  line0->FixParameter(0,0);
 // line0->FixParameter(1,0);
  
@@ -637,8 +637,8 @@ if(0){
   //Calculating the contribution of each background in particular range
  // As Data DY(ee) diboson TTjets WWJets
  TAxis *xaxis = h_mc[0]->GetXaxis();
- Int_t binxmin = xaxis->FindBin(0);
- Int_t binxmax = xaxis->FindBin(1.);
+ Int_t binxmin = xaxis->FindBin(0.);
+ Int_t binxmax = xaxis->FindBin(3.5);
 
   float qcdEntries =0.0, dibosonentries =0.0 , wjetentries=0.0;
 //  for(int qcd = 6; qcd < 22 ; qcd++){                                                                                   
@@ -649,7 +649,7 @@ if(0){
 wjetentries= h_mc[19]->Integral() +h_mc[20]->Integral()+h_mc[21]->Integral()+h_mc[22]->Integral()+h_mc[23]->Integral()+h_mc[24]->Integral()+h_mc[25]->Integral();
                                              
                                      
-  mout << "histfacFatJet_ZLight_h_MuEF0"            <<  " a"<<std::endl; 
+  mout << "histfacFatJet_ZLight_h_dPhiThinJetMET0"            <<  " a"<<std::endl; 
   mout << " DATA "    << h_data->Integral()  << std::endl; 
 //  mout << " DATA  0"    <<  std::endl; 
 //  mout << " DYJETS "  << h_mc[0]->Integral() << std::endl; 
@@ -678,23 +678,26 @@ float c = h_data->Integral() - (dibosonentries + h_mc[6]->Integral() + h_mc[15]-
 mout << "a "<<a
 <<" b "<<b
 <<" c "<<c
-<<" a+b "<<a+b
+//<<" a+b "<<a+b
+<<std::endl;
+
+mout<<" total bkg = "<<a + b + dibosonentries + h_mc[6]->Integral() + h_mc[15]->Integral()+h_mc[16]->Integral()+h_mc[17]->Integral()+h_mc[18]->Integral()
 <<std::endl;
 }
  
  c12->Draw();
-if(!1){
- c12->SaveAs(DirPreName+dirpathname +"/DYPdf/histfacFatJet_ZLight_h_MuEF0.pdf");
- c12->SaveAs(DirPreName+dirpathname +"/DYPng/histfacFatJet_ZLight_h_MuEF0.png");
- c12->SaveAs(DirPreName+dirpathname +"/DYROOT/histfacFatJet_ZLight_h_MuEF0.root");                                                                         
+if(!0){
+ c12->SaveAs(DirPreName+dirpathname +"/DYPdf/histfacFatJet_ZLight_h_dPhiThinJetMET0.pdf");
+ c12->SaveAs(DirPreName+dirpathname +"/DYPng/histfacFatJet_ZLight_h_dPhiThinJetMET0.png");
+ c12->SaveAs(DirPreName+dirpathname +"/DYROOT/histfacFatJet_ZLight_h_dPhiThinJetMET0.root");                                                                         
  rout<<"<hr/>"<<std::endl;
- rout<<"<table class=\"\"> <tr><td><img src=\""<<"DYPng/histfacFatJet_ZLight_h_MuEF0.png\" height=\"400\" width=\"400\"></td>   </tr> </table>"<<std::endl;
+ rout<<"<table class=\"\"> <tr><td><img src=\""<<"DYPng/histfacFatJet_ZLight_h_dPhiThinJetMET0.png\" height=\"400\" width=\"400\"></td>   </tr> </table>"<<std::endl;
 
 }
  
-if(1){
- c12->SaveAs(DirPreName+dirpathname +"/DYPdf/histfacFatJet_ZLight_h_MuEF0_log.pdf");
- c12->SaveAs(DirPreName+dirpathname +"/DYPng/histfacFatJet_ZLight_h_MuEF0_log.png");
- c12->SaveAs(DirPreName+dirpathname +"/DYROOT/histfacFatJet_ZLight_h_MuEF0_log.root");                                                                        
+if(0){
+ c12->SaveAs(DirPreName+dirpathname +"/DYPdf/histfacFatJet_ZLight_h_dPhiThinJetMET0_log.pdf");
+ c12->SaveAs(DirPreName+dirpathname +"/DYPng/histfacFatJet_ZLight_h_dPhiThinJetMET0_log.png");
+ c12->SaveAs(DirPreName+dirpathname +"/DYROOT/histfacFatJet_ZLight_h_dPhiThinJetMET0_log.root");                                                                        
 }
  }
