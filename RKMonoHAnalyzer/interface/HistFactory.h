@@ -16,6 +16,8 @@
 #include "../../RKDataFormats/interface/ResonanceWithMET.h"
 #include "../../RKUtilities/interface/MonoHiggsCuts.h"
 #include "../../RKUtilities/interface/RKMath.h"
+#include "../../RKUtilities/interface/BTagCalibrationStandalone.h"
+
 #include "TH1F.h"
 #include "TH2F.h"
 #include "TFile.h"
@@ -29,12 +31,29 @@ class HistFactory {
  public:
   HistFactory(){};
   ~HistFactory(){};
-  void Fill(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > objectCollection, Int_t howManyObjs, std::vector<int> bitVec);
+  BTagCalibration* calib;
+  
+  // for central value 
+  BTagCalibrationReader* readerHF;
+  BTagCalibrationReader* readerLF;
+  
+  /*
+  // for sys up value 
+  BTagCalibrationReader* readerHF_up;
+  BTagCalibrationReader* readerLF_up;  
+  
+
+  // for sys down value 
+  BTagCalibrationReader* readerHF_down;
+  BTagCalibrationReader* readerLF_down;  
+  */
+  
+void Fill(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > objectCollection, Int_t howManyObjs, std::vector<int> bitVec);
   void Fill(std::vector<ResonanceWithMET<Jet,MET > > objectCollection, Int_t howManyObjs, std::vector<int> bitVec, std::vector<TString> eventlist);
   void DefineHistograms();
   void GetInputs(TFile* f, TString prefix_);
   void Write();
-  
+  double weightBtag(double pt, double eta, unsigned int flav) ;
   TString prefix;
   TFile* file;
   TTree*   skimTree;

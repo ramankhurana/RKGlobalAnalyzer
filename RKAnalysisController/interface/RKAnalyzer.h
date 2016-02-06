@@ -1,4 +1,4 @@
-//////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////
 // This class has been automatically generated on
 // Sat Apr 25 23:21:07 2015 by ROOT version 5.34/22
 // from TTree tree/tree
@@ -233,8 +233,8 @@ bool debug;
    
    
    // Declaration of leaf types
-   //   Float_t         pu_nTrueInt;
-   //   Int_t           pu_nPUVert;
+   Float_t         pu_nTrueInt;
+   Int_t           pu_nPUVert;
    
    Bool_t          isData;
    Int_t           eventId;
@@ -514,6 +514,9 @@ bool debug;
    vector<vector<float> > *FATsubjetSDPz;
    vector<vector<float> > *FATsubjetSDCE;
    vector<vector<float> > *FATsubjetSDE;
+   vector<vector<int> > *FATsubjetSDPartonFlavor;
+   vector<vector<int> > *FATsubjetSDHadronFlavor;
+
    vector<vector<float> > *FATsubjetSDCSV;
    Int_t           ADDnJet;
    TClonesArray    *ADDgenjetP4;
@@ -607,8 +610,8 @@ bool debug;
 
    
    // List of branches
-   //   TBranch        *b_pu_nTrueInt;   //!
-   //TBranch        *b_pu_nPUVert;   //!
+   TBranch        *b_pu_nTrueInt;   //!
+   TBranch        *b_pu_nPUVert;   //!
    TBranch        *b_isData;   //!
    TBranch        *b_eventId;   //!
    TBranch        *b_runId;   //!
@@ -883,6 +886,9 @@ bool debug;
    TBranch        *b_FATsubjetSDPz;   //!
    TBranch        *b_FATsubjetSDCE;   //!
    TBranch        *b_FATsubjetSDE;   //!
+   TBranch        *b_FATsubjetSDPartonFlavor;   //!                                                                                                                                  
+   TBranch        *b_FATsubjetSDHadronFlavor;   //!                                                                                                                                  
+
    TBranch        *b_FATsubjetSDCSV;   //!
    TBranch        *b_ADDnJet;   //!
    TBranch        *b_ADDgenjetP4;   //!
@@ -1017,6 +1023,7 @@ bool debug;
    //TString filename="/hdfs/store/user/khurana/WJetsHTBinSampleReMiniAOD/crab_WJetsToLNu_HT-400To600_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_MC25ns_ReMiniAOD_20151026/151025_235853/0000/NCUGlobalTuples_22.root";
    //TString filename="/hdfs/store/user/khurana/WJetsHTBinSampleReMiniAOD/crab_WJetsToLNu_HT-600To800_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_MC25ns_ReMiniAOD_20151026/151025_235938/0000/NCUGlobalTuples_65.root";
    TString filename="/hdfs/store/user/khurana/MET/crab_MET-Run2015D-PromptReco-V420160112_FullDataSet_2p2FB_SkipEventsOldFile29Oct/160112_105822/0000/NCUGlobalTuples_1.root";
+   //TString filename="/hdfs/store/user/khurana/MonoHToBBarMZp-600GeV_MA0-300GeV/crab_MonoHToBBarMZp-600GeV_MA0-300GeV_MC25ns_ReMiniAOD_20151108/151108_002928/0000/NCUGlobalTuples_1.root";
    //Merged_ZJetsToNuNu.root";
    
    if (tree == 0) {
@@ -1324,6 +1331,9 @@ void RKAnalyzer::Init(TTree *tree)
    FATsubjetSDPz = 0;
    FATsubjetSDCE = 0;
    FATsubjetSDE = 0;
+   FATsubjetSDPartonFlavor = 0;
+   FATsubjetSDHadronFlavor = 0;
+
    FATsubjetSDCSV = 0;
    ADDgenjetP4 = 0;
    ADDgenjetEM = 0;
@@ -1416,8 +1426,8 @@ void RKAnalyzer::Init(TTree *tree)
    fCurrent = -1;
    fChain->SetMakeClass(1);
    
-   //   fChain->SetBranchAddress("pu_nTrueInt", &pu_nTrueInt, &b_pu_nTrueInt);
-   //   fChain->SetBranchAddress("pu_nPUVert", &pu_nPUVert, &b_pu_nPUVert);
+   fChain->SetBranchAddress("pu_nTrueInt", &pu_nTrueInt, &b_pu_nTrueInt);
+   fChain->SetBranchAddress("pu_nPUVert", &pu_nPUVert, &b_pu_nPUVert);
    fChain->SetBranchAddress("isData", &isData, &b_isData);
    fChain->SetBranchAddress("eventId", &eventId, &b_eventId);
    fChain->SetBranchAddress("runId", &runId, &b_runId);
@@ -1683,6 +1693,9 @@ void RKAnalyzer::Init(TTree *tree)
    fChain->SetBranchAddress("FATsubjetSDPz", &FATsubjetSDPz, &b_FATsubjetSDPz);
    fChain->SetBranchAddress("FATsubjetSDCE", &FATsubjetSDCE, &b_FATsubjetSDCE);
    fChain->SetBranchAddress("FATsubjetSDE", &FATsubjetSDE, &b_FATsubjetSDE);
+   fChain->SetBranchAddress("FATsubjetSDPartonFlavor", &FATsubjetSDPartonFlavor, &b_FATsubjetSDPartonFlavor);
+   fChain->SetBranchAddress("FATsubjetSDHadronFlavor", &FATsubjetSDHadronFlavor, &b_FATsubjetSDHadronFlavor);
+
    fChain->SetBranchAddress("FATsubjetSDCSV", &FATsubjetSDCSV, &b_FATsubjetSDCSV);
    fChain->SetBranchAddress("ADDnJet", &ADDnJet, &b_ADDnJet);
    fChain->SetBranchAddress("ADDgenjetP4", &ADDgenjetP4, &b_ADDgenjetP4);

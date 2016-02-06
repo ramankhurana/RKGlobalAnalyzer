@@ -1,6 +1,6 @@
 import os
 #outputdirname="Raman/MonoHFatJetAnalysis_ForAnTightBTag_DR"
-outputdirname="Raman/MonoHFatJetAnalysis_ForAn_AllMETTriggers_V1/"
+outputdirname="Raman/MonoHFatJetAnalysis_ForAn_AllMETTriggers_WithBTagScaleFactors_WithPU/"
 #outputdirname="Raman/MonoHFatJetAnalysis_ForAnTightBTag_DR"
 inputprefix="--input-dir=root://cmsxrootd.hep.wisc.edu/store/user/khurana/"
 cmsswpath="/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/"
@@ -12,8 +12,10 @@ fout = open("samplestorun.txt","w")
 
 
 ## list of samples will appear here. 
-samplesOlD='''crab_MET-Run2015D-05Oct2015V120160112_FullDataSet_2p2FB_SkipEventsOldFile29Oct MET/crab_MET-Run2015D-05Oct2015V120160112_FullDataSet_2p2FB_SkipEventsOldFile29Oct/
+samplesold='''crab_MET-Run2015D-05Oct2015V120160112_FullDataSet_2p2FB_SkipEventsOldFile29Oct MET/crab_MET-Run2015D-05Oct2015V120160112_FullDataSet_2p2FB_SkipEventsOldFile29Oct/
 crab_MET-Run2015D-PromptReco-V420160112_FullDataSet_2p2FB_SkipEventsOldFile29Oct MET/crab_MET-Run2015D-PromptReco-V420160112_FullDataSet_2p2FB_SkipEventsOldFile29Oct/'''
+
+samplestry='''WJetsToLNu_HT-2500ToInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8 WJetsHTBinSampleReMiniAOD/crab_WJetsToLNu_HT-2500ToInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_MC25ns_ReMiniAOD_20151026/'''
 
 samples='''crab_MET-Run2015D-05Oct2015V120160203_FullDataSet_2p2FB_SkipEventsOldFile29Oct MET/crab_MET-Run2015D-05Oct2015V120160203_FullDataSet_2p2FB_SkipEventsOldFile29Oct
 crab_MET-Run2015D-PromptReco-V420160203_FullDataSet_2p2FB_SkipEventsOldFile29Oct MET/crab_MET-Run2015D-PromptReco-V420160203_FullDataSet_2p2FB_SkipEventsOldFile29Oct
@@ -92,9 +94,12 @@ for line in f:
     datasetdet=[a,b]
     #jobcommand = ("farmoutAnalysisJobs "+outputdirname+"/"+datasetdet[0]+" "+inputprefix+datasetdet[1]+" "+cmsswpath+" "+exepath+" --fwklite --input-files-per-job=30 --resubmit-failed-jobs")
     #jobcommand = ("farmoutAnalysisJobs "+outputdirname+"/"+datasetdet[0]+" "+inputprefix+datasetdet[1]+" "+cmsswpath+" "+exepath+" --fwklite --input-files-per-job=30")
-    jobcommand = ("farmoutAnalysisJobs "+outputdirname+"/"+datasetdet[0]+" "+inputprefix+datasetdet[1]+" "+cmsswpath+" "+exepath+" --fwklite --input-files-per-job=10 --extra-inputs=csc2015.txt")
+    jobcommand = ("farmoutAnalysisJobs "+outputdirname+"/"+datasetdet[0]+" "+inputprefix+datasetdet[1]+" "+cmsswpath+" "+exepath+" --fwklite --input-files-per-job=10 --extra-inputs=CSVv2.csv")
+    
+    print "--------------------------------------------------------------"
     print "submitting jobs for"+datasetdet[0]
-    print jobcommand
+    print "--------------------------------------------------------------"
+    #print jobcommand
     os.system(jobcommand)
 ### Monika Files
 ###

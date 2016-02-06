@@ -22,7 +22,10 @@ class Event {
   Float_t allmcweight;
   Int_t nvtx;
   double EWKreweight;
-  void Clear(){
+  Bool_t isdata;
+  void Clear()
+  {
+    isdata=false;
     run=0;
     lumi=0;
     event=0;

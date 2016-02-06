@@ -222,10 +222,7 @@ std::vector<ResonanceWithMET<Jet,MET> > SelectionBitsProducer::SelectionBitsSave
 
       
       StatusOfCuts[cuts.cutsMapFatJet["oNjetless"]]             = (naddjet < tmp_cutValueMap["Njet"]);
-      std::cout<<" nadd jets = "<<naddjet
-	       <<" nadd leptons = "<<(objectCollection[0].muons.size() +  objectCollection[0].electrons.size() +
-				      objectCollection[0].taus.size())
-	       <<std::endl;
+      
       // exactly Zero leptons
       StatusOfCuts[cuts.cutsMapFatJet["pNLepton"]]              = (naddele + naddmuon + naddtau )  == tmp_cutValueMap["NLepton"] ;
       

@@ -376,7 +376,8 @@ void RKAnalyzer::FATJetProducer(){
     fatjets.tau4                           = (*FATjetTau4)[i];
     fatjets.nsubJets                       = (*FATnSubSDJet)[i];
     
-    fatjets.SDPx                          = (*FATsubjetSDPx)[i];
+    fatjets.HadronFlavor                   = (*FATsubjetSDHadronFlavor)[i];
+    fatjets.SDPx                           = (*FATsubjetSDPx)[i];
     fatjets.SDPy                           = (*FATsubjetSDPy)[i];
     fatjets.SDPz                           = (*FATsubjetSDPz)[i];
     
@@ -785,7 +786,7 @@ bool RKAnalyzer::TriggerStatus(std::string TRIGNAME){
   if(false) std::cout<<" number of triggers = "<<(*hlt_trigResult).size()<<std::endl;
   for(size_t i =0; i < (*hlt_trigResult).size() ; i++) {
     std::string trigname = (*hlt_trigName)[i];
-    if(true) std::cout<<" trigge number "<<i <<" is "<<trigname<<std::endl;
+    if(false) std::cout<<" trigge number "<<i <<" is "<<trigname<<std::endl;
     size_t foundEle00=trigname.find(TRIGNAME);//HLT_DoubleEle33
     if ( foundEle00==std::string::npos) continue;
     
@@ -835,10 +836,12 @@ void RKAnalyzer::EventProducer(){
   }
   
   
-  if(isData==1)        events.puweight = 1.0 ;
-  if(isData==0)        events.puweight = PileUpWeights::PUWEIGHT(nVtx) ; // change this number once Monika do the PU re-weighting. 
+  if(isData)        events.puweight = 1.0 ;
+  int ntrueint = (int) (pu_nTrueInt+0.5);
+  if(!isData)        events.puweight = PileUpWeights::PUWEIGHT(ntrueint) ; // change this number once Monika do the PU re-weighting. 
   
   events.allmcweight     = events.mcweight * events.puweight ;
+  events.isdata  = isData;
 }
 
 
@@ -1132,3 +1135,22 @@ void RKAnalyzer::MonoHiggsAnalyzer(){
   
   
 }
+
+
+
+
+/* From twiki 
+https://twiki.cern.ch/twiki/bin/view/CMS/BTagCalibration
+The scale factors are generally given as functions of pt or discriminator value and subdivided into these categories:
+operatingPoint (loose = 0, medium = 1, tight = 2, disriminator reshaping = 3)
+measurementType (e.g. "ttbar", or "comb" for combination)
+sysType ("up", "central", "down", but arbitrary strings possible, like "up_generator" or "up_jec")
+jetFlavor (B = 0, C = 1, UDSG = 2)
+etaMin, etaMax
+ptMin, ptMax
+discrMin, discrMax (only for disriminator reshaping)
+(formula is the scale factor itself)
+*/
+//Double_t RKAnalyzer::BTagScaleFactors(Double_t pt, Double_t eta, int hadronflavor){
+//}
+//

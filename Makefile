@@ -4,8 +4,8 @@ CFLAGS=-c -Wall
 
 all: runallAnalysis.exe
 
-runallAnalysis.exe: bin/Main.o bin/RKAnalyzer.o bin/JetValidator.o bin/ElectronValidator.o bin/METValidator.o bin/SelectionBitsProducer.o bin/CutFlowAndEachCut.o bin/NMinusOne.o bin/HistFactory.o bin/ABCDMethod.o bin/ElectronSelectionBitsProducer.o bin/ElectronNMinusOne.o bin/Synchronization.o bin/ISRAndJetVetoStudy.o
-	$(CC) bin/Main.o bin/RKAnalyzer.o bin/JetValidator.o bin/ElectronValidator.o bin/METValidator.o bin/SelectionBitsProducer.o bin/CutFlowAndEachCut.o bin/NMinusOne.o bin/HistFactory.o bin/ABCDMethod.o bin/ElectronSelectionBitsProducer.o bin/ElectronNMinusOne.o  bin/Synchronization.o bin/ISRAndJetVetoStudy.o  -o runallAnalysis.exe  `root-config --libs`
+runallAnalysis.exe: bin/Main.o bin/RKAnalyzer.o bin/JetValidator.o bin/ElectronValidator.o bin/METValidator.o bin/SelectionBitsProducer.o bin/CutFlowAndEachCut.o bin/NMinusOne.o bin/HistFactory.o bin/ABCDMethod.o bin/ElectronSelectionBitsProducer.o bin/ElectronNMinusOne.o bin/Synchronization.o bin/ISRAndJetVetoStudy.o bin/BTagCalibrationStandalone.o
+	$(CC) bin/Main.o bin/RKAnalyzer.o bin/JetValidator.o bin/ElectronValidator.o bin/METValidator.o bin/SelectionBitsProducer.o bin/CutFlowAndEachCut.o bin/NMinusOne.o bin/HistFactory.o bin/ABCDMethod.o bin/ElectronSelectionBitsProducer.o bin/ElectronNMinusOne.o  bin/Synchronization.o bin/ISRAndJetVetoStudy.o  bin/BTagCalibrationStandalone.o -o runallAnalysis.exe  `root-config --libs`
 
 bin/Main.o: RKAnalysisController/src/MyfarmoutAnalyzer.cc
 	$(CC) $(CFLAGS)  RKAnalysisController/src/MyfarmoutAnalyzer.cc -o bin/Main.o
@@ -55,6 +55,8 @@ bin/Synchronization.o: RKMonoHAnalyzer/src/Synchronization.C
 	$(CC) $(CFLAGS)   RKMonoHAnalyzer/src/Synchronization.C -o bin/Synchronization.o
 
 
+bin/BTagCalibrationStandalone.o : RKUtilities/interface/BTagCalibrationStandalone.cc
+	$(CC) ${CFLAGS} RKUtilities/interface/BTagCalibrationStandalone.cc -o bin/BTagCalibrationStandalone.o
 
 clean:
 	rm -r bin/*.o runallAnalysis.exe

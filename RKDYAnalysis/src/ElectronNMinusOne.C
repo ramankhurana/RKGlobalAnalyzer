@@ -12,10 +12,7 @@ void  ElectronNMinusOne::Fill(std::vector<Electron> objectCollection){
 	int icut=0;
 	for(mapiter=ElectroncutsMap.begin(); mapiter != ElectroncutsMap.end(); ++mapiter){
 	  //std::cout<<mapiter->first<<"  "<<mapiter->second<<std::endl;
-	  std::cout<<" status= "<<objectCollection[i].cutsStatusM
-		   <<" map = "<<mapiter->second
-		   <<std::endl;
-	  if(objectCollection[i].cutsStatusM == mapiter->second || objectCollection[i].cutsStatusM == 0b0000001111111111) {
+	  	  if(objectCollection[i].cutsStatusM == mapiter->second || objectCollection[i].cutsStatusM == 0b0000001111111111) {
 	    // Fill the histograms when 
 	    // all cuts are satisfied OR
 	    // cuts from map is satisfied 

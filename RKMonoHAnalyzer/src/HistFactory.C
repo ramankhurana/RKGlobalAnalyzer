@@ -1,9 +1,22 @@
 #define HistFactory_cxx
 #include "../interface/HistFactory.h"
 #include "../../RKUtilities/interface/RKDebugger.h"
-
+//#include "../../RKUtilities/interface/BTagScaleFactors.h"
+//#include "../../RKUtilities/interface/BTagCalibrationStandalone.h"
 
 void HistFactory::GetInputs(TFile* f, TString prefix_){
+  
+  // setup calibration readers
+  calib = new BTagCalibration("CSVv2", "CSVv2.csv");
+  
+  readerHF = new BTagCalibrationReader(calib, BTagEntry::OP_LOOSE, "mujets", "central");
+  
+  readerLF = new BTagCalibrationReader(calib, BTagEntry::OP_LOOSE, "comb", "central");
+  
+  //calibration setup ends here. 
+  // ------------------------------------------
+  
+  
   prefix = prefix_;
   file = f;
   if(false) std::cout<<" calling define histograms for Mono-H "<<std::endl;
@@ -112,6 +125,7 @@ void HistFactory::Fill(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > objec
       if(objectCollection.size() >0) mcweight_ = objectCollection[0].jet1.jet1.event.mcweight ;
       
       if(nbits==(int)istatus.size()){
+	
 	if(false)std::cout<<" before N muons "<<objectCollection[0].muons.size()<<std::endl;
 	h_nMuons[i]->Fill(objectCollection[0].muons.size()             , mcweight_  );
 	if(false)std::cout<<" after muons "<<std::endl;
@@ -178,25 +192,53 @@ void HistFactory::Fill(std::vector<ResonanceWithMET<Jet,MET > > objectCollection
       }
 
     
-      Float_t mcweight_  = 1.;
-      //if(objectCollection.size() >0) mcweight_ = objectCollection[0].events.allmcweight ;
-      if(objectCollection.size() >0) {
-	mcweight_ = objectCollection[0].events.mcweight * objectCollection[0].events.EWKreweight;
-	std::cout<<" mcweight = "<<objectCollection[0].events.mcweight
-		 <<" EWKreweight = "<<objectCollection[0].events.EWKreweight
-		 <<" total = "<<mcweight_
-		 <<std::endl;
-      }
       if(nbits==(int)istatus.size()){
 	
-	//TString thisEvent;
-	//thisEvent.Form("%d:%d:%d",objectCollection[0].events.run,objectCollection[0].events.lumi,objectCollection[0].events.event);
-	//if ( std::find(eventlist.begin(), eventlist.end(), thisEvent) != eventlist.end() ) {
-	//  std::cout<<" match found to skip event "<<std::endl;	
-	//  return;
-	//}
 	
+	// --------------
+	// btag scale factors 
+	// --------------
+	TLorentzVector p41;
+	TLorentzVector p42;
+	int flav1, flav2;
+	flav1=flav2=0;
+	if(objectCollection[i].jet1.SDPx.size()>1){
+	  p41.SetPxPyPzE(objectCollection[i].jet1.SDPx[0],
+			 objectCollection[i].jet1.SDPy[0],
+			 objectCollection[i].jet1.SDPz[0],
+			 objectCollection[i].jet1.SDEn[0]);
+	  p42.SetPxPyPzE(objectCollection[i].jet1.SDPx[1],
+			 objectCollection[i].jet1.SDPy[1],
+			 objectCollection[i].jet1.SDPz[1],
+			 objectCollection[i].jet1.SDEn[1]);
+	  flav1 = objectCollection[i].jet1.HadronFlavor[0];
+	  flav2 = objectCollection[i].jet1.HadronFlavor[1];
+	}
+	float sf = weightBtag( p41.Pt(), p41.Eta(),  flav1) * weightBtag( p42.Pt(), p42.Eta(),  flav2)  ;
 	
+	// ---------------
+	// mc weight 
+	// ewk weight
+	// btag weight
+	// --------------
+	Float_t mcweight_  = 1.;
+	if(objectCollection.size() >0) {
+	  
+	  std::cout<<" data = "<<objectCollection[0].events.isdata <<std::endl;
+	  
+	  if(! objectCollection[0].events.isdata ) mcweight_ = objectCollection[0].events.mcweight * objectCollection[0].events.EWKreweight * sf * objectCollection[0].events.puweight;
+	  
+	  std::cout<<" mcweight = "<<objectCollection[0].events.mcweight
+		   <<" EWKreweight = "<<objectCollection[0].events.EWKreweight
+		   <<" btag sf = "<<sf
+		   <<" total = "<<mcweight_
+		   <<std::endl;
+	}
+	
+	std::cout<<" weight factor = "<<mcweight_<<std::endl;
+	// ---------------
+	// filling histograms
+	// ---------------
 	float dphimin=3.4;
 	for(int ij=0;ij<(int)objectCollection[0].thinjets.size();ij++){
 	  float dr_ =    RKMath::DeltaR(objectCollection[0].thinjets[ij].p4.Eta() ,
@@ -264,19 +306,17 @@ void HistFactory::Fill(std::vector<ResonanceWithMET<Jet,MET > > objectCollection
 	
 	// subjet Delta R
 	float drsj ;
-	TLorentzVector p41;
-	TLorentzVector p42;
 	float maxcsv=-999;
 	float mincsv=-999;
 	if(objectCollection[i].jet1.SDPx.size()>1){
-	  p41.SetPxPyPzE(objectCollection[i].jet1.SDPx[0],
-			 objectCollection[i].jet1.SDPy[0],
-			 objectCollection[i].jet1.SDPz[0],
-			 objectCollection[i].jet1.SDEn[0]);
-	  p42.SetPxPyPzE(objectCollection[i].jet1.SDPx[1],
-			 objectCollection[i].jet1.SDPy[1],
-			 objectCollection[i].jet1.SDPz[1],
-			 objectCollection[i].jet1.SDEn[1]);
+	//p41.SetPxPyPzE(objectCollection[i].jet1.SDPx[0],
+	//		 objectCollection[i].jet1.SDPy[0],
+	//		 objectCollection[i].jet1.SDPz[0],
+	//		 objectCollection[i].jet1.SDEn[0]);
+	//p42.SetPxPyPzE(objectCollection[i].jet1.SDPx[1],
+	//		 objectCollection[i].jet1.SDPy[1],
+	//		 objectCollection[i].jet1.SDPz[1],
+	//		 objectCollection[i].jet1.SDEn[1]);
 	
 	  drsj   = p41.DeltaR(p42);
 	  float csv1 = objectCollection[i].jet1.SDCSV[0];
@@ -406,4 +446,47 @@ void HistFactory::Write(){
     h_MET_vs_Q1Q2[i]->Write();
     h_M_vs_Q1Q2[i]  ->Write();
   }
+}
+
+
+
+
+
+
+inline double HistFactory::weightBtag(double pt, double eta, unsigned int flav) { // assuming CSVL                                                                                                
+  double SF=1.0;
+  float MaxBJetPt = 670., MaxLJetPt = 1000.;
+  if (pt>MaxBJetPt && (flav==5 || flav==4) )  { // use MaxBJetPt for  heavy jets                                                                                                     
+    pt = MaxBJetPt;
+  }
+  if (pt>MaxLJetPt && !(flav==5 || flav==4))  { // use MaxLJetPt for  light jets                                                                                                     
+    pt = MaxLJetPt;
+  }
+  
+  std::cout<<" pt = "<<pt
+	   <<" eta = "<<eta
+	   <<" flav = "<<flav
+	   <<std::endl;
+  /*  enum JetFlavor {                                                                                                                                                               
+      FLAV_B=0,                                                                                                                                                                      
+      FLAV_C=1,                                                                                                                                                                      
+      FLAV_UDSG=2,                                                                                                                                                                   
+      };                                                                                                                                                                             
+  */
+  switch(flav)
+    {
+    case 5:
+      SF = readerHF->eval( BTagEntry::FLAV_B , eta, pt);
+      break;
+    case 4:
+      SF = readerHF->eval( BTagEntry::FLAV_C , eta, pt);
+      break;
+
+    default:
+      SF = readerLF->eval( BTagEntry::FLAV_UDSG , eta, pt);
+    }
+  std::cout << "SF for pt, " << pt <<" eta, " << eta << " flav " << flav << " is " << SF << std::endl;
+  return SF ;
+
+
 }

@@ -48,7 +48,7 @@ class Jet{
   std::vector<Float_t> SDPz;
   std::vector<Float_t> SDEn;
   std::vector<Float_t> SDCSV;
-  
+  std::vector<int> HadronFlavor;
   // additional Fat Jets
   Float_t doubleSV;
   Int_t   nSV;
@@ -98,6 +98,8 @@ class Jet{
     SDPz.clear();
     SDEn.clear();
     SDCSV.clear();
+    HadronFlavor.clear();
+    
     doubleSV=0.;
     nSV=0;
     SVMass.clear();
