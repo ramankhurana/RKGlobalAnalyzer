@@ -21,6 +21,8 @@ class MET {
   Float_t RawPt;
   Float_t RawPhi;
   Float_t RawSumEt;
+  Float_t RawPtUp;
+  Float_t RawPtDown;
   Float_t RawCov00;
   Float_t RawCov01;
   Float_t RawCov10;

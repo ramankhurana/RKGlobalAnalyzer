@@ -37,6 +37,8 @@ class HistFactory {
   BTagCalibrationReader* readerHF;
   BTagCalibrationReader* readerLF;
   
+  
+  
   /*
   // for sys up value 
   BTagCalibrationReader* readerHF_up;
@@ -51,7 +53,7 @@ class HistFactory {
 void Fill(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > objectCollection, Int_t howManyObjs, std::vector<int> bitVec);
   void Fill(std::vector<ResonanceWithMET<Jet,MET > > objectCollection, Int_t howManyObjs, std::vector<int> bitVec, std::vector<TString> eventlist);
   void DefineHistograms();
-  void GetInputs(TFile* f, TString prefix_);
+  virtual void GetInputs(TFile* f, TString prefix_, std::string mode = "central");
   void Write();
   double weightBtag(double pt, double eta, unsigned int flav) ;
   TString prefix;
@@ -62,10 +64,12 @@ void Fill(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > objectCollection, 
   TH1F*    h_nElectrons[nobjectmet];
   TH1F*    h_nJets[nobjectmet];
   TH1F*    h_nFJets[nobjectmet];
+  TH1F*    h_NThinJets[nobjectmet];
   TH1F*    h_dPhiThinJetMET[nobjectmet];
   TH1F*    h_DRSJ[nobjectmet];
   TH1F*    h_Q1Q2[nobjectmet];
   TH1F*    h_MET[nobjectmet];
+  TH1F*    h_MHT[nobjectmet];
   TH1F*    h_Mjj[nobjectmet];
   TH1F*    h_pTjj[nobjectmet];
   TH1F*    h_etajj[nobjectmet];
@@ -73,6 +77,8 @@ void Fill(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > objectCollection, 
   TH1F*    h_Tau21jj[nobjectmet];
   TH1F*    h_CSVMax[nobjectmet];
   TH1F*    h_CSVMin[nobjectmet];
+  TH1F*    h_CSV1[nobjectmet];
+  TH1F*    h_CSV2[nobjectmet];
   TH1F*    h_CSVSum[nobjectmet];
   TH1F*    h_dPhi_MET_J[nobjectmet];
   TH1F*    h_MT_bb_MET[nobjectmet];

@@ -50,25 +50,38 @@ rate                SIGNALRATE       DYJETSRATE    WJETSRATE    ZHRATE      TTRA
 
 -------------------------------------------------------------------------------------------------
 
-lumi_13TeV             lnN            1.1    1.1    1.1     1.1     1.1      1.1  
+######################   #### #########  Sig   DYJet  WJets  ZH       TT     DIBOSON  
+lumi_13TeV                lnN            1.04    -      -     1.04     -      1.04  
 
-CMS_xs_Sig             lnN            1.20   -      -       -       -        -
-CMS_xs_DYJets          lnN            -      1.10   -       -       -        -
-CMS_xs_WJets           lnN            -      -      1.10    -       -        -
-CMS_xs_ZH              lnN            -      -      -       1.10    -        -
-CMS_xs_TT              lnN            -      -      -       -       1.10     -
-CMS_xs_DIBOSON         lnN            -      -      -       -       -        1.10
+pdf_qqbar                 lnN            1.01    -      -     1.01     -      1.01
+pdf_gg                    lnN             -      -     -      1.50       -        - 
 
+QCDscale_VH               lnN            1.04    -      -     1.04     -        - 
+QCDscale_ttbar            lnN             -      -      -     -       1.06      -
+QCDscale_VV               lnN             -      -      -     -        -      1.04
 
-CMS_trigg              lnN            1.05  1.05   1.05    1.05    1.05     1.05
-CMS_JES                lnN            1.05  1.05   1.05    1.05    1.05     1.05
-CMS_Sig                lnN            1.10   -      -       -       -        -
-CMS_DYJets             lnN            -      1.10   -       -       -        -
-CMS_WJets              lnN            -      -      1.10    -       -        -
-CMS_ZH                 lnN            -      -      -       1.10    -        -
-CMS_TT                 lnN            -      -      -       -       1.10     -
-CMS_DIBOSON            lnN            -      -      -       -       -        1.10
+CMS_vhbb_boost_EWK_13TeV  lnN            1.05    -      -     -        -        - 
+CMS_vhbb_boost_QCD_13TeV  lnN            1.10    -      -    1.10      -        - 
+CMS_vhbb_ST               lnN             -      -      -      -       1.25     - 
+CMS_vhbb_VV               lnN             -      -      -      -       -      1.25
+CMS_vhbb_eff_b            lnN            1.07    -      -    1.07      -      1.07
+CMS_vhbb_fake_b_13TeV     lnN            1.03    -      -    1.03      -        - 
+CMS_vhbb_res_j            lnN            1.05    -      -    1.05      -      1.05
+CMS_vhbb_scale_j          lnN            1.05    -      -    1.05      -      1.05
 
+CMS_vhbb_Wjets_SF         lnN             -      -     1.10   -        -        - 
+CMS_vhbb_DYjets_SF        lnN             -     1.10    -     -        -        -    
+CMS_vhbb_TT_SF            lnN             -      -      -     -       1.10      - 
+
+CMS_vhbb_monoH_stat       lnN            1.03    -      -     -        -        -
+CMS_vhbb_ggZH_stat        lnN             -      -      -    1.03      -        - 
+
+CMS_vhbb_Wjets_stat        lnN            -      -     1.64   -        -        - 
+CMS_vhbb_DYjets_stat       lnN            -      1.64   -     -        -        - 
+CMS_vhbb_TT_stat           lnN            -      -      -     -       1.34      -
+CMS_vhbb_VV_stat           lnN            -      -      -     -        -      1.43
+
+CMS_vhbb_trigger_MET       lnN          1.03     -      -    1.03      -      1.03
 '''
 
 ## template datacard ends here 

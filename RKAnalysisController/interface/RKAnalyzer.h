@@ -69,7 +69,8 @@ class RKAnalyzer {
   TString sample_name;
 bool debug;
   
-  bool triggerstatus;
+ TLorentzVector mhtp4;
+ bool triggerstatus;
   bool filterstatus;
   // Main Program Histograms
   TH1F* nEvents;
@@ -153,9 +154,15 @@ bool debug;
    HistFactory histfactSel_JetVeto;
    HistFactory histfactSel_LeptonVeto;
    HistFactory histfactSel_JetAndLeptonVeto;
+   HistFactory histfactSel_JetAndLeptonVetoMETUp;
+   HistFactory histfactSel_JetAndLeptonVetoMETDown;
+   HistFactory histfactSel_JetAndLeptonVetoBTagUp;
+   HistFactory histfactSel_JetAndLeptonVetoBTagDown;
    
    HistFactory histfacFatJet_TTBar;
    HistFactory histfacFatJet_ZLight;
+   HistFactory histfacFatJet_ZLightBTagUp;
+   HistFactory histfacFatJet_ZLightBTagDown;
    HistFactory histfacFatJet_ZHeavy;
    HistFactory histfacFatJet_WLight;
    HistFactory histfacFatJet_WHeavy;
@@ -1022,9 +1029,9 @@ bool debug;
    //TString filename="/hdfs/store/user/khurana/TT_TuneCUETP8M1_13TeV-powheg-pythia8/crab_TT_TuneCUETP8M1_13TeV-powheg-pythia8_MC25ns_ReMiniAOD_20151105/151105_162128/0000/NCUGlobalTuples_467.root";
    //TString filename="/hdfs/store/user/khurana/WJetsHTBinSampleReMiniAOD/crab_WJetsToLNu_HT-400To600_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_MC25ns_ReMiniAOD_20151026/151025_235853/0000/NCUGlobalTuples_22.root";
    //TString filename="/hdfs/store/user/khurana/WJetsHTBinSampleReMiniAOD/crab_WJetsToLNu_HT-600To800_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_MC25ns_ReMiniAOD_20151026/151025_235938/0000/NCUGlobalTuples_65.root";
-   TString filename="/hdfs/store/user/khurana/MET/crab_MET-Run2015D-PromptReco-V420160112_FullDataSet_2p2FB_SkipEventsOldFile29Oct/160112_105822/0000/NCUGlobalTuples_1.root";
+   //TString filename="/hdfs/store/user/khurana/MET/crab_MET-Run2015D-PromptReco-V420160112_FullDataSet_2p2FB_SkipEventsOldFile29Oct/160112_105822/0000/NCUGlobalTuples_1.root";
    //TString filename="/hdfs/store/user/khurana/MonoHToBBarMZp-600GeV_MA0-300GeV/crab_MonoHToBBarMZp-600GeV_MA0-300GeV_MC25ns_ReMiniAOD_20151108/151108_002928/0000/NCUGlobalTuples_1.root";
-   //Merged_ZJetsToNuNu.root";
+   TString filename="../Merged_ZJetsToNuNu.root";
    
    if (tree == 0) {
      TChain * chain = new TChain("tree/treeMaker","");

@@ -57,8 +57,8 @@ class MonoHiggsCuts {
     cutsMapFatJet["qZLightBJet"]        = 16;
     cutsMapFatJet["rZHeavyBJet"]        = 17;
     cutsMapFatJet["sAtLeastOneBTag"]    = 18;
-    cutsMapFatJet["t"]                  = 19;
-    cutsMapFatJet["u"]                  = 20;
+    cutsMapFatJet["tmetptup"]           = 19;
+    cutsMapFatJet["umetptdown"]         = 20;
     cutsMapFatJet["v"]                  = 21;
     cutsMapFatJet["w"]                  = 22;
     cutsMapFatJet["x"]                  = 23;
@@ -70,8 +70,8 @@ class MonoHiggsCuts {
     cutValueMapFatJet.clear();
     cutValueMapFatJet["leadingjetpt"]=200.;
     cutValueMapFatJet["jeteta"]=2.4;
-    cutValueMapFatJet["leadingcsv"]=0.605;
-    //cutValueMapFatJet["leadingcsv"]=0.89;
+    //cutValueMapFatJet["leadingcsv"]=0.605;
+    cutValueMapFatJet["leadingcsv"]=0.89;
     //cutValueMapFatJet["leadingcsv"]=0.97;
     cutValueMapFatJet["csvlow"]=0.3;
     cutValueMapFatJet["csvhigh"]=0.6;
@@ -142,7 +142,7 @@ class MonoHiggsCuts {
     cutValueMapTTBar["Nele"]=1;
     cutValueMapTTBar["Nmu"]=1;
     cutValueMapTTBar["Ntau"]=1;
-    cutValueMapTTBar["Njet"]=2;
+    cutValueMapTTBar["Njet"]=2; 
     cutValueMapTTBar["NLepton"]=1;
     cutValueMapTTBar["DPHIMETClosedJ"]=0.5;
 

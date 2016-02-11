@@ -31,7 +31,8 @@ class ResonanceWithMET{
   T2 jet2;
   
   Int_t index_j1;
-
+  
+  TLorentzVector MHTp4;
   std::bitset<26> cutsStatus;
   std::vector<Jet> jets;
   std::vector<Jet> thinjets;

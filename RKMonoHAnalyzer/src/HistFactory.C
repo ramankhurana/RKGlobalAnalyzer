@@ -4,14 +4,23 @@
 //#include "../../RKUtilities/interface/BTagScaleFactors.h"
 //#include "../../RKUtilities/interface/BTagCalibrationStandalone.h"
 
-void HistFactory::GetInputs(TFile* f, TString prefix_){
+void HistFactory::GetInputs(TFile* f, TString prefix_, std::string mode){
   
+
   // setup calibration readers
   calib = new BTagCalibration("CSVv2", "CSVv2.csv");
   
-  readerHF = new BTagCalibrationReader(calib, BTagEntry::OP_LOOSE, "mujets", "central");
+  std::cout<<" mode of running is "<<mode<<std::endl;
+  readerHF = new BTagCalibrationReader(calib, BTagEntry::OP_LOOSE, "mujets", mode);
+  readerLF = new BTagCalibrationReader(calib, BTagEntry::OP_LOOSE, "comb", mode);
+
+  /*
+  readerHF_up = new BTagCalibrationReader(calib, BTagEntry::OP_LOOSE, "mujets", "up");
+  readerLF_up = new BTagCalibrationReader(calib, BTagEntry::OP_LOOSE, "comb", "up");
   
-  readerLF = new BTagCalibrationReader(calib, BTagEntry::OP_LOOSE, "comb", "central");
+  readerHF_down = new BTagCalibrationReader(calib, BTagEntry::OP_LOOSE, "mujets", "down");
+  readerLF_down = new BTagCalibrationReader(calib, BTagEntry::OP_LOOSE, "comb", "down");
+  */
   
   //calibration setup ends here. 
   // ------------------------------------------
@@ -36,12 +45,13 @@ void HistFactory::DefineHistograms(){
     h_nJets[i]      = new TH1F("h_nJetss"+postfix,"h_nJetss",10,0,10);
     h_nFJets[i]     = new TH1F("h_nFJets"+postfix,"h_nFJets",10,0,10);
     h_DRSJ[i]       = new TH1F("h_DRSJ"+postfix,"h_DRSJ",100,0,5);
-    
+    h_NThinJets[i]  = new TH1F("h_NThinJets"+postfix,"h_NThinJets",10,0,10);
     
     h_dPhiThinJetMET[i] = new TH1F("h_dPhiThinJetMET"+postfix,"h_dPhiThinJetMET",70,-3.5,3.5);
     
     h_Q1Q2[i]       = new TH1F("h_Q1Q2"+postfix,"h_Q1Q2",21,-10,10);
     h_MET[i]        = new TH1F("h_MET"+postfix,"h_MET",300,0,3000);
+    h_MHT[i]        = new TH1F("h_MHT"+postfix,"h_MHT",300,0,3000);
     h_Mjj[i]        = new TH1F("h_Mjj"+postfix,"",300,0,3000);
     h_pTjj[i]       = new TH1F("h_pTjj"+postfix,"",300,0,3000);
     h_etajj[i]      = new TH1F("h_etajj"+postfix,"",50,-2.5,2.5);
@@ -50,6 +60,8 @@ void HistFactory::DefineHistograms(){
     
     h_CSVMax[i]     = new TH1F("h_CSVMax"+postfix,"",20,0,1);
     h_CSVMin[i]     = new TH1F("h_CSVMin"+postfix,"",20,0,1);
+    h_CSV1[i]       = new TH1F("h_CSV1"+postfix,"",20,0,1);
+    h_CSV2[i]       = new TH1F("h_CSV2"+postfix,"",20,0,1);
     h_CSVSum[i]     = new TH1F("h_CSVSum"+postfix,"",40,0,2);
     h_dPhi_MET_J[i] = new TH1F("h_dPhi_MET_J"+postfix,"",70,0.,3.5);
     h_MT_bb_MET[i]  = new TH1F("h_MT_bb_MET"+postfix,"",1000,0,5000.);
@@ -148,6 +160,10 @@ void HistFactory::Fill(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > objec
 	
 	h_CSVMax[i]->Fill(TMath::Max(csv1,csv2)                        , mcweight_  );
 	h_CSVMin[i]->Fill(TMath::Min(csv1,csv2)                        , mcweight_  );
+	
+	h_CSV1[i]->Fill(csv1                                         , mcweight_  );
+	h_CSV2[i]->Fill(csv2                                         , mcweight_  );
+	
 	h_CSVSum[i]->Fill((csv1+csv2)                     		  , mcweight_  );
 	if(false)std::cout<<" after csv "<<std::endl;
 	float dphi1 = objectCollection[i].objMet1.DeltaPhi;
@@ -240,7 +256,10 @@ void HistFactory::Fill(std::vector<ResonanceWithMET<Jet,MET > > objectCollection
 	// filling histograms
 	// ---------------
 	float dphimin=3.4;
+	//TLorentzVector MHTp4;
+	int nthinjets = 0;
 	for(int ij=0;ij<(int)objectCollection[0].thinjets.size();ij++){
+	  //MHTp4 = MHTp4 + objectCollection[0].thinjets[ij].p4;
 	  float dr_ =    RKMath::DeltaR(objectCollection[0].thinjets[ij].p4.Eta() ,
 					objectCollection[0].thinjets[ij].p4.Phi() ,
 					objectCollection[i].jet1.p4.Eta(),
@@ -248,8 +267,13 @@ void HistFactory::Fill(std::vector<ResonanceWithMET<Jet,MET > > objectCollection
 	  if(dr_ < 0.8 )  continue;
 	  float dphi_ = RKMath::DeltaPhi( objectCollection[0].thinjets[ij].p4.Phi() ,
 					  objectCollection[i].jet2.RawPhi);
+	  nthinjets++;
 	  if(TMath::Abs(dphi_)<dphimin) dphimin = TMath::Abs(dphi_);
 	}
+	
+	h_NThinJets[0]->Fill(nthinjets, mcweight_);
+	std::cout<<" mht in histfac = "<<objectCollection[0].MHTp4.Pt()<<std::endl;
+	h_MHT[0]->Fill(objectCollection[0].MHTp4.Pt(), mcweight_);
 	h_dPhiThinJetMET[0]->Fill(dphimin, mcweight_ );
 	
 
@@ -326,6 +350,9 @@ void HistFactory::Fill(std::vector<ResonanceWithMET<Jet,MET > > objectCollection
 	  
 	  h_CSVMax[0]->Fill(maxcsv, mcweight_);
 	  h_CSVMin[0]->Fill(mincsv, mcweight_);
+	  
+	  h_CSV1[0]->Fill(csv1, mcweight_);
+	  h_CSV2[0]->Fill(csv2, mcweight_);
 	}
 	else drsj = -1;
 	h_DRSJ[0]->Fill(drsj   , mcweight_);
@@ -418,6 +445,7 @@ void HistFactory::Write(){
     h_DRSJ[i]         ->Write();
     h_Q1Q2[i]         ->Write();
     h_MET[i]          ->Write();
+    h_MHT[i]          ->Write();
     h_Mjj[i]          ->Write();
     h_pTjj[i]         ->Write();
     h_etajj[i]        ->Write();
@@ -425,6 +453,8 @@ void HistFactory::Write(){
     h_Tau21jj[i]      ->Write();
     h_CSVMax[i]       ->Write();
     h_CSVMin[i]       ->Write();
+    h_CSV1[i]       ->Write();
+    h_CSV2[i]       ->Write();
     h_CSVSum[i]       ->Write();
     h_dPhi_MET_J[i]   ->Write();
     h_MT_bb_MET[i]    ->Write();
@@ -439,7 +469,7 @@ void HistFactory::Write(){
     h_NHadEF[i]              ->Write();
     h_MuEF[i]                ->Write();
     h_CMulti[i]              ->Write();
-    
+    h_NThinJets[i]           ->Write();
     h_dPhiThinJetMET[i]      ->Write();
     // 2D Histograms
     h_M_vs_MET[i]   ->Write();
@@ -467,12 +497,6 @@ inline double HistFactory::weightBtag(double pt, double eta, unsigned int flav) 
 	   <<" eta = "<<eta
 	   <<" flav = "<<flav
 	   <<std::endl;
-  /*  enum JetFlavor {                                                                                                                                                               
-      FLAV_B=0,                                                                                                                                                                      
-      FLAV_C=1,                                                                                                                                                                      
-      FLAV_UDSG=2,                                                                                                                                                                   
-      };                                                                                                                                                                             
-  */
   switch(flav)
     {
     case 5:

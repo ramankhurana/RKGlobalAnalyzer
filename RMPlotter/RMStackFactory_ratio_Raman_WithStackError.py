@@ -1,4 +1,5 @@
 import os
+import sys
 ## Ratio is added Data/MC 
 ## Template macro is fed to a python variable
 ## 1.) Dir is created on DateBase 
@@ -6,6 +7,16 @@ import os
 ## in a day you want 2 directories jsut
 ## change the DirPreName
 ## Monika Mittal Khuarana
+## Raman Khurana
+
+
+if len(sys.argv) < 2 : 
+    print "insufficiency inputs provided, please provide the directory with input files"
+
+if len(sys.argv) ==2 : 
+    print "plotting from directory ",sys.argv[1]
+    inputdirname = sys.argv[1]
+
 macro='''{
 #include <ctime>
 #include <cstdlib>
@@ -14,7 +25,7 @@ macro='''{
  tm *ltm = localtime(&now);
  TString dirpathname;
 
- TString DirPreName = "PlotsRaman_VeniceConf";
+ TString DirPreName = "'''+inputdirname+'''";
  dirpathname.Form("%d%1.2d%d",ltm->tm_mday,1 + ltm->tm_mon,1900 + ltm->tm_year);
  system("mkdir -p  " + DirPreName+dirpathname +"/DYROOT");
  system("mkdir -p  " + DirPreName+dirpathname +"/DYPdf");
@@ -40,7 +51,7 @@ float lumi = 2151.2; // It will print on your plots too
 std::vector<TString> filenameString;
 //Change here Directories of the file
 
-TString filenamepath("/afs/hep.wisc.edu/cms/khurana/Script/MonoHFatJetAnalysis_ForAn_AllMETTriggers_WithBTagScaleFactors/"); 
+TString filenamepath("/afs/hep.wisc.edu/cms/khurana/Script/'''+inputdirname+'''/"); 
 // DYJets 1
 filenameString.push_back(filenamepath + "Merged_WW_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root");
 //WJets  1
@@ -505,7 +516,7 @@ hs->Draw();
   
   if(ISLOG)    hs->SetMinimum(0.1);
   if(!ISLOG)   hs->SetMinimum(1);
-  if(!ISLOG)   hs->SetMaximum(maxi *1.33);
+  if(!ISLOG)   hs->SetMaximum(maxi *1.45);
   if(ISLOG)    hs->SetMaximum(maxi *100);
   //if(!ISLOG) hs->SetMaximum(0.4);
  
@@ -659,7 +670,7 @@ wjetentries= h_mc[19]->Integral() +h_mc[20]->Integral()+h_mc[21]->Integral()+h_m
                                      
   mout << "HISTPATH_HISTNAME"            <<  " a"<<std::endl; 
   mout << " DATA "    << h_data->Integral()  << std::endl; 
-//  mout << " DATA  0"    <<  std::endl; 
+//  mout << " DATA 0"    <<  std::endl; 
 //  mout << " DYJETS "  << h_mc[0]->Integral() << std::endl; 
   mout << " DIBOSON " << dibosonentries                     << std::endl;
   mout << " TT "      << h_mc[5]->Integral() + h_mc[26]->Integral()+h_mc[27]->Integral()+h_mc[28]->Integral()+h_mc[29]->Integral()+ h_mc[30]->Integral() << std::endl; 
@@ -683,13 +694,14 @@ wjetentries= h_mc[19]->Integral() +h_mc[20]->Integral()+h_mc[21]->Integral()+h_m
 float a = h_mc[19]->Integral() +h_mc[20]->Integral()+h_mc[21]->Integral()+h_mc[22]->Integral()+h_mc[23]->Integral()+h_mc[24]->Integral()+h_mc[25]->Integral();
 float b = h_mc[5]->Integral() + h_mc[26]->Integral()+h_mc[27]->Integral()+h_mc[28]->Integral()+h_mc[29]->Integral()+ h_mc[30]->Integral();
 float c = h_data->Integral() - (dibosonentries + h_mc[6]->Integral() + h_mc[15]->Integral()+h_mc[16]->Integral()+h_mc[17]->Integral()+h_mc[18]->Integral());
-mout << "a "<<a
-<<" b "<<b
+
+mout << "a "<<a<<"\n"
+<<" b "<<b<<"\n"
 <<" c "<<c
 //<<" a+b "<<a+b
 <<std::endl;
 
-mout<<" total bkg = "<<a + b + dibosonentries + h_mc[6]->Integral() + h_mc[15]->Integral()+h_mc[16]->Integral()+h_mc[17]->Integral()+h_mc[18]->Integral()
+mout<<" total_bkg "<<a + b + dibosonentries + h_mc[6]->Integral() + h_mc[15]->Integral()+h_mc[16]->Integral()+h_mc[17]->Integral()+h_mc[18]->Integral()
 <<std::endl;
 }
  
@@ -746,8 +758,8 @@ def makeplot(inputs):
 
 ##########Start Adding your plots here
 
-#dirnames=['MonoHFatJetSelection_JetAndLeptonVeto','histfacFatJet_TTBar','histfacFatJet_ZLight','histfacFatJet_WLight']
-dirnames=['MonoHFatJetSelection_JetAndLeptonVeto','histfacFatJet_WLight','histfacFatJet_TTBar','histfacFatJet_ZLight']
+#dirnames=['MonoHFatJetSelection_JetAndLeptonVeto','histfacFatJet_WLight','histfacFatJet_TTBar','histfacFatJet_ZLight']
+dirnames=['MonoHFatJetSelection_Jetveto','MonoHFatJetSelection_LeptonVeto']
 #dirnames=['histfacFatJet_WLight','histfacFatJet_TTBar','histfacFatJet_ZLight']
 #dirnames=['histfacFatJet_ZLight']
 #dirnames=['histfacFatJet_ZLight']
@@ -760,8 +772,11 @@ dirnames=['MonoHFatJetSelection_JetAndLeptonVeto','histfacFatJet_WLight','histfa
 for dirname in dirnames:
     #makeplot([dirname,'h_MET0','MET','200','500','2','0'])
     makeplot([dirname,'h_nMuons0','N_{add. #mu}','0','5','1','0','1'])
-    makeplot([dirname,'h_dPhiThinJetMET0','#Delta#phi_{J-MET}','0.','3.5','1','0'])
-#makeplot([dirname,'h_Mjj0','M_{SD}','20','200','2','0']) 
+    #makeplot([dirname,'h_NThinJets0','N_{AK04 Jets}','0','10','1','0','1'])
+    
+    #makeplot([dirname,'h_dPhiThinJetMET0','#Delta#phi_{J-MET}','0.','3.5','1','0'])
+    #makeplot([dirname,'h_MHT0','MHT','100.','500','3','0'])
+    #makeplot([dirname,'h_Mjj0','M_{SD}','20','200','2','0']) 
     #makeplot([dirname,'h_nElectrons0','N_{add. e}','0','5','1','0'])
     #makeplot([dirname,'h_nJetss0','N_{add. Jets}','0','5','1','0']) 
     #makeplot([dirname,'h_pTjj0','p_{T}^{AK8Jet}','100','1600','4','0'])
@@ -774,6 +789,8 @@ for dirname in dirnames:
     #makeplot([dirname,'h_MT_bb_MET0', 'M_{T}', '200','1000', '10','0'])
     #makeplot([dirname,'h_DRSJ0', '#DeltaR_{sub-jets}', '0','1', '1','0'])
     #makeplot([dirname,'h_CSVMax0', 'CSV_{Max}', '0','1', '1','0'])
+    #makeplot([dirname,'h_CSV10', 'CSV_{1}', '0','1', '1','0'])
+    #makeplot([dirname,'h_CSV20', 'CSV_{1}', '0','1', '1','0'])
     #makeplot([dirname,'h_CSVMin0', 'CSV_{Min}', '0','1', '1','0'])
     #makeplot([dirname,'h_MET_Over_SumET0', 'MET/SumET', '0','5', '2','0'])
     #makeplot([dirname,'h_MET_Over_pTFatJet0', 'MET/p_{T}^{AK8-Jet}', '0','1.', '1','0'])

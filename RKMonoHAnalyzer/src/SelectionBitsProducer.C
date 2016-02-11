@@ -164,7 +164,7 @@ std::vector<ResonanceWithMET<Jet,MET> > SelectionBitsProducer::SelectionBitsSave
 							       objectCollection[i].jet1.SDmass < tmp_cutValueMap["MDiJetHigh"] )  ;
       
       
-      StatusOfCuts[cuts.cutsMapFatJet["imetpt"]]            = (objectCollection[i].jet2.RawPt > tmp_cutValueMap["metpt"] )                        ;
+      StatusOfCuts[cuts.cutsMapFatJet["imetpt"]]            = (objectCollection[i].jet2.RawPt > tmp_cutValueMap["metpt"] )  ;
       
       // e, mu, tau information is associated to only first element.
       
@@ -247,7 +247,9 @@ std::vector<ResonanceWithMET<Jet,MET> > SelectionBitsProducer::SelectionBitsSave
       
       StatusOfCuts[cuts.cutsMapFatJet["sAtLeastOneBTag"]]       =  a || b ;
       
-      
+      // MET Uncertainity 
+      StatusOfCuts[cuts.cutsMapFatJet["tmetptup"]]            = (objectCollection[i].jet2.RawPtUp > tmp_cutValueMap["metpt"] )  ;
+      StatusOfCuts[cuts.cutsMapFatJet["umetptdown"]]            = (objectCollection[i].jet2.RawPtDown > tmp_cutValueMap["metpt"] )  ;
       
       
       objectCollection[i].cutsStatus = StatusOfCuts;

@@ -6,7 +6,7 @@
  tm *ltm = localtime(&now);
  TString dirpathname;
 
- TString DirPreName = "PlotsRaman_VeniceConf";
+ TString DirPreName = "MonoHFatJetAnalysis_ForAn_AllMETTriggers_WithBTagScaleFactors_WithPU_WithLooseID_NewTTBar_Exactly1_TightMuonID_MediumBTAG";
  dirpathname.Form("%d%1.2d%d",ltm->tm_mday,1 + ltm->tm_mon,1900 + ltm->tm_year);
  system("mkdir -p  " + DirPreName+dirpathname +"/DYROOT");
  system("mkdir -p  " + DirPreName+dirpathname +"/DYPdf");
@@ -32,7 +32,7 @@ float lumi = 2151.2; // It will print on your plots too
 std::vector<TString> filenameString;
 //Change here Directories of the file
 
-TString filenamepath("/afs/hep.wisc.edu/cms/khurana/Script/MonoHFatJetAnalysis_ForAn_AllMETTriggers_WithBTagScaleFactors/"); 
+TString filenamepath("/afs/hep.wisc.edu/cms/khurana/Script/MonoHFatJetAnalysis_ForAn_AllMETTriggers_WithBTagScaleFactors_WithPU_WithLooseID_NewTTBar_Exactly1_TightMuonID_MediumBTAG/"); 
 // DYJets 1
 filenameString.push_back(filenamepath + "Merged_WW_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root");
 //WJets  1
@@ -497,7 +497,7 @@ hs->Draw();
   
   if(ISLOG)    hs->SetMinimum(0.1);
   if(!ISLOG)   hs->SetMinimum(1);
-  if(!ISLOG)   hs->SetMaximum(maxi *1.33);
+  if(!ISLOG)   hs->SetMaximum(maxi *1.45);
   if(ISLOG)    hs->SetMaximum(maxi *100);
   //if(!ISLOG) hs->SetMaximum(0.4);
  
@@ -651,7 +651,7 @@ wjetentries= h_mc[19]->Integral() +h_mc[20]->Integral()+h_mc[21]->Integral()+h_m
                                      
   mout << "HISTPATH_HISTNAME"            <<  " a"<<std::endl; 
   mout << " DATA "    << h_data->Integral()  << std::endl; 
-//  mout << " DATA  0"    <<  std::endl; 
+//  mout << " DATA 0"    <<  std::endl; 
 //  mout << " DYJETS "  << h_mc[0]->Integral() << std::endl; 
   mout << " DIBOSON " << dibosonentries                     << std::endl;
   mout << " TT "      << h_mc[5]->Integral() + h_mc[26]->Integral()+h_mc[27]->Integral()+h_mc[28]->Integral()+h_mc[29]->Integral()+ h_mc[30]->Integral() << std::endl; 
@@ -675,13 +675,16 @@ wjetentries= h_mc[19]->Integral() +h_mc[20]->Integral()+h_mc[21]->Integral()+h_m
 float a = h_mc[19]->Integral() +h_mc[20]->Integral()+h_mc[21]->Integral()+h_mc[22]->Integral()+h_mc[23]->Integral()+h_mc[24]->Integral()+h_mc[25]->Integral();
 float b = h_mc[5]->Integral() + h_mc[26]->Integral()+h_mc[27]->Integral()+h_mc[28]->Integral()+h_mc[29]->Integral()+ h_mc[30]->Integral();
 float c = h_data->Integral() - (dibosonentries + h_mc[6]->Integral() + h_mc[15]->Integral()+h_mc[16]->Integral()+h_mc[17]->Integral()+h_mc[18]->Integral());
-mout << "a "<<a
-<<" b "<<b
+
+mout << "a "<<a<<"
+"
+<<" b "<<b<<"
+"
 <<" c "<<c
 //<<" a+b "<<a+b
 <<std::endl;
 
-mout<<" total bkg = "<<a + b + dibosonentries + h_mc[6]->Integral() + h_mc[15]->Integral()+h_mc[16]->Integral()+h_mc[17]->Integral()+h_mc[18]->Integral()
+mout<<" total_bkg "<<a + b + dibosonentries + h_mc[6]->Integral() + h_mc[15]->Integral()+h_mc[16]->Integral()+h_mc[17]->Integral()+h_mc[18]->Integral()
 <<std::endl;
 }
  
