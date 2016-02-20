@@ -39,7 +39,9 @@ class ResonanceWithMET{
   MET met;
   std::vector<Muon> muons;
   std::vector<Muon> taus;
+  std::vector<Muon> photons;
   std::vector<Electron> electrons;
+  
   Event events;
   
  private:

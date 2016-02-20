@@ -156,7 +156,9 @@ std::vector<ResonanceWithMET<Jet,MET> > SelectionBitsProducer::SelectionBitsSave
       
       // DPhi between Fat-jet and MET > 2.5 
       // Added AntiQCD cut
-      StatusOfCuts[cuts.cutsMapFatJet["gDPHIJetMet"]]       = (TMath::Abs(objectCollection[i].TransverseObjProp.DeltaPhi) > tmp_cutValueMap["dphiDiJetMet"] && ncloseJet == 0 )  ;  
+      //StatusOfCuts[cuts.cutsMapFatJet["gDPHIJetMet"]]       = true;
+      StatusOfCuts[cuts.cutsMapFatJet["gDPHIJetMet"]]       = objectCollection[i].TransverseObjProp.TransMass > 400. ;
+      //(TMath::Abs(objectCollection[i].TransverseObjProp.DeltaPhi) > tmp_cutValueMap["dphiDiJetMet"] && ncloseJet == 0 )  ;  
       //&& ncloseJet ==0    
       
       //std::cout<<" SDMASS  = "<<objectCollection[i].jet1.SDmass <<std::endl;
@@ -176,7 +178,7 @@ std::vector<ResonanceWithMET<Jet,MET> > SelectionBitsProducer::SelectionBitsSave
 				   objectCollection[0].jets[ij].p4.Phi() ,
 				   objectCollection[i].jet1.p4.Eta(),
 				   objectCollection[i].jet1.p4.Phi());
-	if(dr_ < 0.8 )  continue;
+	if(dr_ < 1.0 )  continue;
  	//float dphi_ = RKMath::DeltaPhi(objectCollection[0].jets[ij].p4.Phi(), objectCollection[0].jet1.p4.Phi() );                                                                   	//if( TMath::Abs(dphi_) < 2.0 ) continue;                                                                      
 	naddjet++;
       }
@@ -185,7 +187,7 @@ std::vector<ResonanceWithMET<Jet,MET> > SelectionBitsProducer::SelectionBitsSave
       int naddmuon = 0;
       for (size_t imu=0; (imu< objectCollection[0].muons.size()); imu++){
 	float dr_ = objectCollection[0].muons[imu].p4.DeltaR(objectCollection[i].jet1.p4);
-	if(dr_ > 0.8) {
+	if(dr_ > 1.0) {
 	  naddmuon++;
 	}
       }
@@ -193,7 +195,7 @@ std::vector<ResonanceWithMET<Jet,MET> > SelectionBitsProducer::SelectionBitsSave
       int naddele = 0;
       for (size_t iele=0; (iele< objectCollection[0].electrons.size()); iele++){
 	float dr_ = objectCollection[0].electrons[iele].p4.DeltaR(objectCollection[i].jet1.p4);
-	if(dr_ > 0.8) {
+	if(dr_ > 1.0) {
 	  naddele++;
 	}
       }
@@ -201,7 +203,7 @@ std::vector<ResonanceWithMET<Jet,MET> > SelectionBitsProducer::SelectionBitsSave
       int naddtau = 0;
       for (size_t itau=0; (itau< objectCollection[0].taus.size()); itau++){
 	float dr_ = objectCollection[0].taus[itau].p4.DeltaR(objectCollection[i].jet1.p4);
-	if(dr_ > 0.8) {
+	if(dr_ > 1.0) {
 	  naddtau++;
 	}
       }
@@ -224,7 +226,7 @@ std::vector<ResonanceWithMET<Jet,MET> > SelectionBitsProducer::SelectionBitsSave
       StatusOfCuts[cuts.cutsMapFatJet["oNjetless"]]             = (naddjet < tmp_cutValueMap["Njet"]);
       
       // exactly Zero leptons
-      StatusOfCuts[cuts.cutsMapFatJet["pNLepton"]]              = (naddele + naddmuon + naddtau )  == tmp_cutValueMap["NLepton"] ;
+      StatusOfCuts[cuts.cutsMapFatJet["pNLepton"]]              = (naddele + naddmuon  )  == tmp_cutValueMap["NLepton"] ;
       
       
       
@@ -251,7 +253,16 @@ std::vector<ResonanceWithMET<Jet,MET> > SelectionBitsProducer::SelectionBitsSave
       StatusOfCuts[cuts.cutsMapFatJet["tmetptup"]]            = (objectCollection[i].jet2.RawPtUp > tmp_cutValueMap["metpt"] )  ;
       StatusOfCuts[cuts.cutsMapFatJet["umetptdown"]]            = (objectCollection[i].jet2.RawPtDown > tmp_cutValueMap["metpt"] )  ;
       
-      
+      // photon veto 
+      int naddphoton = 0;
+      for (size_t ipho=0; (ipho< objectCollection[0].photons.size()); ipho++){
+	float dr_ = objectCollection[0].photons[ipho].p4.DeltaR(objectCollection[i].jet1.p4);
+	if(dr_ > 1.0) {
+	  naddphoton++;
+	}
+      }
+      StatusOfCuts[cuts.cutsMapFatJet["vNPhoton"]]             = (naddphoton    == 0); // making it hardcoded for now. 
+
       objectCollection[i].cutsStatus = StatusOfCuts;
       //std::cout<<" cut status selectionbits FATJETMET = "<<StatusOfCuts<<std::endl;
       //std::cout<<" value 1 = "<<(bitset<26>)MonoHiggsCuts::dphiJets <<std::endl;

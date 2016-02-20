@@ -53,7 +53,7 @@ class HistFactory {
 void Fill(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > objectCollection, Int_t howManyObjs, std::vector<int> bitVec);
   void Fill(std::vector<ResonanceWithMET<Jet,MET > > objectCollection, Int_t howManyObjs, std::vector<int> bitVec, std::vector<TString> eventlist);
   void DefineHistograms();
-  virtual void GetInputs(TFile* f, TString prefix_, std::string mode = "central");
+  virtual void GetInputs(TFile* f, TString prefix_, std::string mode1 = "central",std::string mode2="central");
   void Write();
   double weightBtag(double pt, double eta, unsigned int flav) ;
   TString prefix;
@@ -105,6 +105,11 @@ void Fill(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > objectCollection, 
   Int_t       lumi_;
   Int_t       event_;
   Float_t     dphiMin_;
+  Int_t       nthinjets_;
+  Float_t     MT_;
+  Float_t     CSV1_;
+  Float_t     CSV2_;
+  Float_t     MHT_;
   Int_t       NAddMu_;
   Int_t       NAddEle_;
   Int_t       NAddTau_;

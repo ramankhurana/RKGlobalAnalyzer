@@ -57,9 +57,11 @@ class MonoHiggsCuts {
     cutsMapFatJet["qZLightBJet"]        = 16;
     cutsMapFatJet["rZHeavyBJet"]        = 17;
     cutsMapFatJet["sAtLeastOneBTag"]    = 18;
+    
     cutsMapFatJet["tmetptup"]           = 19;
     cutsMapFatJet["umetptdown"]         = 20;
-    cutsMapFatJet["v"]                  = 21;
+    
+    cutsMapFatJet["vNPhoton"]           = 21;
     cutsMapFatJet["w"]                  = 22;
     cutsMapFatJet["x"]                  = 23;
     cutsMapFatJet["y"]                  = 24;
@@ -70,8 +72,8 @@ class MonoHiggsCuts {
     cutValueMapFatJet.clear();
     cutValueMapFatJet["leadingjetpt"]=200.;
     cutValueMapFatJet["jeteta"]=2.4;
-    //cutValueMapFatJet["leadingcsv"]=0.605;
-    cutValueMapFatJet["leadingcsv"]=0.89;
+    cutValueMapFatJet["leadingcsv"]=0.605;
+    //cutValueMapFatJet["leadingcsv"]=0.89;
     //cutValueMapFatJet["leadingcsv"]=0.97;
     cutValueMapFatJet["csvlow"]=0.3;
     cutValueMapFatJet["csvhigh"]=0.6;
@@ -141,7 +143,7 @@ class MonoHiggsCuts {
     cutValueMapTTBar["MTJet2"]=200.;
     cutValueMapTTBar["Nele"]=1;
     cutValueMapTTBar["Nmu"]=1;
-    cutValueMapTTBar["Ntau"]=1;
+    cutValueMapTTBar["Ntau"]=0;
     cutValueMapTTBar["Njet"]=2; 
     cutValueMapTTBar["NLepton"]=1;
     cutValueMapTTBar["DPHIMETClosedJ"]=0.5;
@@ -218,7 +220,7 @@ class MonoHiggsCuts {
     cutValueMapWLight["MTJet2"]=200.;
     cutValueMapWLight["Nele"]=1;
     cutValueMapWLight["Nmu"]=1;
-    cutValueMapWLight["Ntau"]=1;
+    cutValueMapWLight["Ntau"]=0;
     cutValueMapWLight["Njet"]=1;
     cutValueMapWLight["NLepton"]=1;
     cutValueMapWLight["DPHIMETClosedJ"]=0.5;
@@ -245,7 +247,7 @@ class MonoHiggsCuts {
     cutValueMapWHeavy["MTJet2"]=200.;
     cutValueMapWHeavy["Nele"]=1;
     cutValueMapWHeavy["Nmu"]=1;
-    cutValueMapWHeavy["Ntau"]=1;
+    cutValueMapWHeavy["Ntau"]=0;
     cutValueMapWHeavy["Njet"]=1;
     cutValueMapWHeavy["NLepton"]=1;
     cutValueMapWHeavy["DPHIMETClosedJ"]=0.5;

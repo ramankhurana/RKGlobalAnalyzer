@@ -1,8 +1,6 @@
 import os
-#outputdirname="Raman/MonoHFatJetAnalysis_ForAnTightBTag_DR"
-outputdirname="Raman/AnalysisTuples_V1/"
-#outputdirname="Raman/MonoHFatJetAnalysis_ForAnTightBTag_DR"
-inputprefix="--input-dir=root://cmsxrootd.hep.wisc.edu/store/user/khurana/"
+outputdirname="Raman/AnalysisTuples_V18/"
+inputprefix="--input-dir=root://cmsxrootd.hep.wisc.edu//store/user/khurana/"
 cmsswpath="/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/"
 exepath="/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/runallAnalysis.exe"
 
@@ -99,7 +97,7 @@ for line in f:
     print "--------------------------------------------------------------"
     print "submitting jobs for"+datasetdet[0]
     print "--------------------------------------------------------------"
-    #print jobcommand
+    print jobcommand
     os.system(jobcommand)
 ### Monika Files
 ###

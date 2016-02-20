@@ -4,15 +4,15 @@
 //#include "../../RKUtilities/interface/BTagScaleFactors.h"
 //#include "../../RKUtilities/interface/BTagCalibrationStandalone.h"
 
-void HistFactory::GetInputs(TFile* f, TString prefix_, std::string mode){
+void HistFactory::GetInputs(TFile* f, TString prefix_, std::string mode1, std::string mode2){
   
 
   // setup calibration readers
   calib = new BTagCalibration("CSVv2", "CSVv2.csv");
   
-  std::cout<<" mode of running is "<<mode<<std::endl;
-  readerHF = new BTagCalibrationReader(calib, BTagEntry::OP_LOOSE, "mujets", mode);
-  readerLF = new BTagCalibrationReader(calib, BTagEntry::OP_LOOSE, "comb", mode);
+  //std::cout<<" mode of running is "<<mode<<std::endl;
+  readerHF = new BTagCalibrationReader(calib, BTagEntry::OP_MEDIUM, "mujets", mode1);
+  readerLF = new BTagCalibrationReader(calib, BTagEntry::OP_MEDIUM, "comb", mode2);
 
   /*
   readerHF_up = new BTagCalibrationReader(calib, BTagEntry::OP_LOOSE, "mujets", "up");
@@ -85,13 +85,19 @@ void HistFactory::DefineHistograms(){
     h_MET_vs_Q1Q2[i]= new TH2F("h_MET_vs_Q1Q2"+postfix,"h_MET_vs_Q1Q2",200,0,1000,21,-10,10);
     h_M_vs_Q1Q2[i]  = new TH2F("h_M_vs_Q1Q2"+postfix,"h_M_vs_Q1Q2",100,0,200,21,-10,10);
   }
-
+  
   // Define Branches for skimTree;
   skimTree = new TTree("skimTree"+prefix,"Tree with relevant info only");
   skimTree->Branch("run_", &run_, "Run_/I");
   skimTree->Branch("lumi_", &lumi_, "Lumi_/I");
   skimTree->Branch("event_", &event_, "Event_/I");
   skimTree->Branch("dphiMin_",&dphiMin_,"dphiMin_/F");
+  skimTree->Branch("nthinjets_",&nthinjets_,"nthinjets_/I");
+  skimTree->Branch("MT_",&MT_,"MT_/F");
+  skimTree->Branch("CSV1_",&CSV1_,"CSV1_/F");
+  skimTree->Branch("CSV2_",&CSV2_,"CSV2_/F");
+  skimTree->Branch("MHT_",&MHT_,"MHT_/F");
+  //skimTree->Branch("",&,"/F");
   skimTree->Branch("NAddMu_",&NAddMu_,"NAddMu_/I");
   skimTree->Branch("NAddEle_",&NAddEle_,"NAddEle_/I");
   skimTree->Branch("NAddTau_",&NAddTau_,"NAddTau_/I");
@@ -108,10 +114,10 @@ void HistFactory::DefineHistograms(){
   skimTree->Branch("JetPt_",&JetPt_,"JetPt_/F");
   skimTree->Branch("SumET_",&SumET_,"SumET_/F");
   skimTree->Branch("MET_",&MET_,"MET_/F");
+
   skimTree->Branch("jetCEmEF_",&jetCEmEF_,"jetCEmEF_/F");
   skimTree->Branch("jetCHadEF_",&jetCHadEF_,"jetCHadEF_/F");
   skimTree->Branch("jetPhoEF_",&jetPhoEF_,"jetPhoEF_/F");
-  skimTree->Branch("jetNEmEF_",&jetNEmEF_,"jetNEmEF_/F");
   skimTree->Branch("jetNEmEF_",&jetNEmEF_,"jetNEmEF_/F");
   skimTree->Branch("jetNHadEF_",&jetNHadEF_,"jetNHadEF_/F");
   skimTree->Branch("jetMuEF_",&jetMuEF_,"jetMuEF_/F");
@@ -230,8 +236,12 @@ void HistFactory::Fill(std::vector<ResonanceWithMET<Jet,MET > > objectCollection
 	  flav1 = objectCollection[i].jet1.HadronFlavor[0];
 	  flav2 = objectCollection[i].jet1.HadronFlavor[1];
 	}
-	float sf = weightBtag( p41.Pt(), p41.Eta(),  flav1) * weightBtag( p42.Pt(), p42.Eta(),  flav2)  ;
 	
+	float sf = 1.0;
+	sf = weightBtag( p41.Pt(), p41.Eta(),  flav1) * weightBtag( p42.Pt(), p42.Eta(),  flav2)  ;
+	
+	
+
 	// ---------------
 	// mc weight 
 	// ewk weight
@@ -256,15 +266,14 @@ void HistFactory::Fill(std::vector<ResonanceWithMET<Jet,MET > > objectCollection
 	// filling histograms
 	// ---------------
 	float dphimin=3.4;
-	//TLorentzVector MHTp4;
-	int nthinjets = 0;
+	Int_t nthinjets = 0;
 	for(int ij=0;ij<(int)objectCollection[0].thinjets.size();ij++){
 	  //MHTp4 = MHTp4 + objectCollection[0].thinjets[ij].p4;
 	  float dr_ =    RKMath::DeltaR(objectCollection[0].thinjets[ij].p4.Eta() ,
 					objectCollection[0].thinjets[ij].p4.Phi() ,
 					objectCollection[i].jet1.p4.Eta(),
 					objectCollection[i].jet1.p4.Phi());
-	  if(dr_ < 0.8 )  continue;
+	  if(dr_ < 1.0 )  continue;
 	  float dphi_ = RKMath::DeltaPhi( objectCollection[0].thinjets[ij].p4.Phi() ,
 					  objectCollection[i].jet2.RawPhi);
 	  nthinjets++;
@@ -283,7 +292,7 @@ void HistFactory::Fill(std::vector<ResonanceWithMET<Jet,MET > > objectCollection
 	int naddmuon = 0;
 	for (size_t imu=0; (imu< objectCollection[0].muons.size()); imu++){
 	  float dr_ = objectCollection[0].muons[imu].p4.DeltaR(objectCollection[i].jet1.p4);
-	  if(dr_ > 0.8) {
+	  if(dr_ > 1.0) {
 	    naddmuon++;
 	  }
 	}
@@ -291,7 +300,7 @@ void HistFactory::Fill(std::vector<ResonanceWithMET<Jet,MET > > objectCollection
 	int naddele = 0;
 	for (size_t iele=0; (iele< objectCollection[0].electrons.size()); iele++){
 	  float dr_ = objectCollection[0].electrons[iele].p4.DeltaR(objectCollection[i].jet1.p4);
-	  if(dr_ > 0.8) {
+	  if(dr_ > 1.0) {
 	    naddele++;
 	  }
 	}
@@ -299,7 +308,7 @@ void HistFactory::Fill(std::vector<ResonanceWithMET<Jet,MET > > objectCollection
 	int naddtau = 0;
 	for (size_t itau=0; (itau< objectCollection[0].taus.size()); itau++){
 	  float dr_ = objectCollection[0].taus[itau].p4.DeltaR(objectCollection[i].jet1.p4);
-	  if(dr_ > 0.8) {
+	  if(dr_ > 1.0) {
 	    naddtau++;
 	  }
 	}
@@ -332,6 +341,9 @@ void HistFactory::Fill(std::vector<ResonanceWithMET<Jet,MET > > objectCollection
 	float drsj ;
 	float maxcsv=-999;
 	float mincsv=-999;
+	float csv1 ;
+	float csv2 ;
+	
 	if(objectCollection[i].jet1.SDPx.size()>1){
 	//p41.SetPxPyPzE(objectCollection[i].jet1.SDPx[0],
 	//		 objectCollection[i].jet1.SDPy[0],
@@ -343,8 +355,8 @@ void HistFactory::Fill(std::vector<ResonanceWithMET<Jet,MET > > objectCollection
 	//		 objectCollection[i].jet1.SDEn[1]);
 	
 	  drsj   = p41.DeltaR(p42);
-	  float csv1 = objectCollection[i].jet1.SDCSV[0];
-	  float csv2 = objectCollection[i].jet1.SDCSV[1];
+	 csv1 = objectCollection[i].jet1.SDCSV[0];
+	 csv2 = objectCollection[i].jet1.SDCSV[1];
 	  maxcsv = TMath::Max(csv1,csv2);
 	  mincsv = TMath::Min(csv1,csv2);
 	  
@@ -392,6 +404,11 @@ void HistFactory::Fill(std::vector<ResonanceWithMET<Jet,MET > > objectCollection
 	lumi_          = objectCollection[0].events.lumi;
 	event_         = objectCollection[0].events.event;
 	dphiMin_       = dphimin;
+	nthinjets_     = nthinjets;
+	MT_            = objectCollection[i].TransverseObjProp.TransMass;
+	CSV1_          = csv1;
+	CSV2_          = csv2;
+	MHT_           = objectCollection[0].MHTp4.Pt();
 	NAddMu_        = naddmuon;
 	NAddEle_       = naddele;
 	NAddTau_       = naddtau;
@@ -509,8 +526,16 @@ inline double HistFactory::weightBtag(double pt, double eta, unsigned int flav) 
     default:
       SF = readerLF->eval( BTagEntry::FLAV_UDSG , eta, pt);
     }
+  
+  
+  
   std::cout << "SF for pt, " << pt <<" eta, " << eta << " flav " << flav << " is " << SF << std::endl;
   return SF ;
 
 
 }
+
+
+
+
+// HFup LFcentral   readerHF->eval( BTagEntry::FLAV_B , eta, pt) * readerLF->eval( BTagEntry::FLAV_UDSG , eta, pt);

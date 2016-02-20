@@ -6,16 +6,19 @@
  tm *ltm = localtime(&now);
  TString dirpathname;
 
- TString DirPreName = "MonoHFatJetAnalysis_ForAn_AllMETTriggers_WithBTagScaleFactors_WithPU_WithLooseID_NewTTBar_Exactly1_TightMuonID_MediumBTAG";
+ TString DirPreName = "AnalysisTuples_V17";
  dirpathname.Form("%d%1.2d%d",ltm->tm_mday,1 + ltm->tm_mon,1900 + ltm->tm_year);
- system("mkdir -p  " + DirPreName+dirpathname +"/DYROOT");
- system("mkdir -p  " + DirPreName+dirpathname +"/DYPdf");
- system("mkdir -p  " + DirPreName+dirpathname +"/DYPng");
+ system("mkdir -p  " + DirPreName+dirpathname +"/MonoHROOT");
+ system("mkdir -p  " + DirPreName+dirpathname +"/MonoHPdf");
+ system("mkdir -p  " + DirPreName+dirpathname +"/MonoHPng");
  
  ofstream mout;
- mout.open(DirPreName+dirpathname +"/MonoHFatJetSelection_LeptonVeto"+dirpathname +"Integral.txt",std::ios::app);
+ mout.open(DirPreName+dirpathname +"/MonoHFatJetsPreselection_2subj"+dirpathname +"Integral.txt",std::ios::app);
  ofstream rout;
- rout.open(DirPreName+dirpathname +"/MonoHFatJetSelection_LeptonVeto"+dirpathname +"Integral.html",std::ios::app);
+ rout.open(DirPreName+dirpathname +"/MonoHFatJetsPreselection_2subj"+dirpathname +"Integral.html",std::ios::app);
+ ofstream tableout;
+ tableout.open(DirPreName+dirpathname +"/MonoHFatJetsPreselection_2subj"+dirpathname +"IntegralWithError.txt",std::ios::app);                                                                                          
+
 
 gROOT->ProcessLine(".L /afs/hep.wisc.edu/cms/khurana/Monika/CMSSW_7_4_5/src/RKGlobalAnalyzer/tdrstyle.C");                                     setTDRStyle();
 gStyle->SetOptStat(0);
@@ -25,14 +28,12 @@ gStyle->SetFrameLineWidth(3);
 gStyle->SetLineWidth(1);
 
 //Provide luminosity of total data
-float lumi = 2151.2; // It will print on your plots too
-//float lumi = 1263.8; // It will print on your plots too
-//float lumi = 3000.; // It will print on your plots too
+float lumi = 2263.5; // It will print on your plots too
 
 std::vector<TString> filenameString;
 //Change here Directories of the file
 
-TString filenamepath("/afs/hep.wisc.edu/cms/khurana/Script/MonoHFatJetAnalysis_ForAn_AllMETTriggers_WithBTagScaleFactors_WithPU_WithLooseID_NewTTBar_Exactly1_TightMuonID_MediumBTAG/"); 
+TString filenamepath("/afs/hep.wisc.edu/cms/khurana/Script/AnalysisTuples_V17/"); 
 // DYJets 1
 filenameString.push_back(filenamepath + "Merged_WW_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root");
 //WJets  1
@@ -93,10 +94,15 @@ filenameString.push_back(filenamepath + "Merged_ST_tW_antitop_5f_inclusiveDecays
 //filenameString.push_back(filenamepath + "Merged_MET-Run2015B-PromptReco-v1TotalV3-runallAnalysis.root");
 filenameString.push_back(filenamepath + "Merged_MET.root");
 //histoname
-TString histnameString("MonoHFatJetSelection_LeptonVeto/h_nMuons0");
+
+//const int n_integral = (int)filenameString.size();
+
+TString histnameString("MonoHFatJetsPreselection_2subj/h_MuEF0");
 
 TFile *fIn;
 const int nfiles = (int) filenameString.size();
+
+float Integral[nfiles] , Integral_Error[nfiles];
 
 //check it once
 float Xsec[nfiles];
@@ -107,11 +113,11 @@ Xsec[3] = 66.1;
 Xsec[4] = 15.4;
 
 //float Stt = 0.894141 ;
-float Stt = 1. ;
+float Stt = 1.0;//7.0633e-01 ;
 
 Xsec[5] = Stt * 831.76; // ttbar
 
-Xsec[6] = 0.9696*0.577; //ZH
+Xsec[6] = (0.8696) * 0.577 * 0.2 ; //ZH checked from Michele
 float scalexs=1.; 
 Xsec[7]  = scalexs * 0.026;//600
 Xsec[8]  = scalexs * 0.0288;//800
@@ -123,18 +129,19 @@ Xsec[13] = scalexs * 0.00561; //2000
 Xsec[14] = scalexs * 0.00280; //2500
 
 
-Xsec[15] = 1.626*280.47; // Znunu HT
-Xsec[16] = 1.617*78.36; // Znunu HT
-Xsec[17] = 1.459*10.94; // Znunu HT
-Xsec[18] = 1.391*4.203;  // Znunu HT
+float Sznunu = 1.0;//7.0000e-01;
+Xsec[15] = Sznunu *  1.626*280.47; // Znunu HT
+Xsec[16] = Sznunu *  1.617*78.36; // Znunu HT
+Xsec[17] = Sznunu *  1.459*10.94; // Znunu HT
+Xsec[18] = Sznunu *  1.391*4.203;  // Znunu HT
 
 //Xsec[15] = 1.23*280.47; // Znunu HT
 //Xsec[16] = 1.23*78.36; // Znunu HT
 //Xsec[17] = 1.23*10.94; // Znunu HT
 //Xsec[18] = 1.23*4.203;  // Znunu HT
 
-//float Sw = 1.10981;
-float Sw = 1.;
+
+float Sw = 1.0;//7.8034e-01 ;
 
 Xsec[19] = Sw  *  1.459*1347;  // WJets HT 100-200
 Xsec[20] = Sw  *  1.434*360;   // WJets HT 200-400
@@ -183,6 +190,10 @@ for(int i =0; i<(int)filenameString.size()-1; i++){
  if(h_total->Integral()>0) normalization[i]     = (lumi* Xsec[i])/(h_total->Integral());
 else normalization[i]      = 0;
  //cout<<"normalization :" << normalization[i] << std::endl;
+
+ Integral[i] = h_mc[i]->Integral();
+ if(Integral[i]<0) Integral_Error[i] = 0.0;
+if(Integral[i]>0) Integral_Error[i] = TMath::Sqrt(Integral[i]) * normalization[i];
  h_mc[i]->Scale(normalization[i]);  
 // mout << filenameString[i] <<  "  &  " << Xsec[i] <<"  &  " << std::endl; 
 //// cout << "Integral : " << h_total->Integral() << "  Entries :  " << h_total->GetEntries() << std::endl;                                         
@@ -283,7 +294,7 @@ THStack *hs = new THStack("hs"," ");
 // For N-1 Plots only
 bool nminus = 0;
 TLatex *tt;
-if(("MonoHFatJetSelection_LeptonVeto" == "ElectronNMinus1E") || ("MonoHFatJetSelection_LeptonVeto" == "ElectronNMinus1B") ){
+if(("MonoHFatJetsPreselection_2subj" == "ElectronNMinus1E") || ("MonoHFatJetsPreselection_2subj" == "ElectronNMinus1B") ){
 nminus =1;
 tt  = new TLatex(0.5,0.87,"N-1");
 tt->SetTextSize(0.05);
@@ -375,7 +386,7 @@ h_mc[qcd]->SetFillColor(kOrange+4);
 h_mc[qcd]->SetLineColor(kOrange+4);
 }*/
 
-h_mc[9]->SetLineColor(kBlack);
+h_mc[9]->SetLineColor(kBlue);
 h_mc[9]->SetLineWidth(3);
 h_mc[11]->SetLineColor(kGreen);
 h_mc[11]->SetLineWidth(3);
@@ -514,7 +525,7 @@ hs->Draw();
   hs->GetYaxis()->SetTitleFont(22);
   hs->GetYaxis()->SetLabelFont(22);
   hs->GetYaxis()->SetLabelSize(.05);
-  hs->GetXaxis()->SetTitle("N_{add. #mu}");
+  hs->GetXaxis()->SetTitle("MuEF");
   }else{
   hs->GetXaxis()->SetLabelOffset(999);
   hs->GetXaxis()->SetLabelSize(0);  
@@ -528,7 +539,7 @@ hs->Draw();
   hs->GetYaxis()->SetTitleFont(22);
   hs->GetYaxis()->SetLabelFont(22);
   hs->GetYaxis()->SetLabelSize(.07);
-  hs->GetXaxis()->SetRangeUser(0,5);  
+  hs->GetXaxis()->SetRangeUser(0,1.);  
   hs->GetXaxis()->SetNdivisions(508); 
 
   legend->AddEntry(h_err,"Stats. Unc.","f");
@@ -580,7 +591,7 @@ hs->Draw();
   DataMC->GetYaxis()->SetTitleFont(22);
   DataMC->GetYaxis()->SetLabelSize(0.15);
   DataMC->GetYaxis()->CenterTitle();
-  DataMC->GetXaxis()->SetTitle("N_{add. #mu}");
+  DataMC->GetXaxis()->SetTitle("MuEF");
 //DataMC->GetXaxis()->SetIndiceSize(0.1);
   DataMC->GetXaxis()->SetLabelSize(0.157);
   DataMC->GetXaxis()->SetTitleSize(0.162);
@@ -605,7 +616,7 @@ hs->Draw();
  c1_1->SetFrameFillStyle(0);
  c1_1->SetFrameBorderMode(0);
  c1_1->SetLogy(0);
- DataMC->GetXaxis()->SetRangeUser(0,5);
+ DataMC->GetXaxis()->SetRangeUser(0,1.);
  DataMC->Draw("PE1");
  DataMC->SetMarkerStyle(20);
  DataMC->SetMarkerColor(1);
@@ -616,7 +627,7 @@ hs->Draw();
  c1_1->SetGridy();
 
 
- TF1 *line0 = new TF1("line0","[0]*x",0,5);
+ TF1 *line0 = new TF1("line0","[0]*x",0,1.);
  line0->FixParameter(0,0);
 // line0->FixParameter(1,0);
  
@@ -631,76 +642,109 @@ hs->Draw();
   
 
 
-if(1){ 
+if(0){ 
    
 //=======================================================================
   //Calculating the contribution of each background in particular range
  // As Data DY(ee) diboson TTjets WWJets
  TAxis *xaxis = h_mc[0]->GetXaxis();
  Int_t binxmin = xaxis->FindBin(0);
- Int_t binxmax = xaxis->FindBin(5);
+ Int_t binxmax = xaxis->FindBin(1.);
 
   float qcdEntries =0.0, dibosonentries =0.0 , wjetentries=0.0;
 //  for(int qcd = 6; qcd < 22 ; qcd++){                                                                                   
 //    qcdEntries+ = h_mc[qcd]->GetBinContent(5);}
 
-  for(int diboson = 2; diboson < 5; diboson++){                                                                                                  dibosonentries+ = h_mc[diboson]->GetBinContent(5);}       
+  for(int diboson = 2; diboson < 5; diboson++){  
+    dibosonentries+ = h_mc[diboson]->GetBinContent(5);
+    }    
 
-wjetentries= h_mc[19]->Integral() +h_mc[20]->Integral()+h_mc[21]->Integral()+h_mc[22]->Integral()+h_mc[23]->Integral()+h_mc[24]->Integral()+h_mc[25]->Integral();
-                                             
-                                     
-  mout << "MonoHFatJetSelection_LeptonVeto_h_nMuons0"            <<  " a"<<std::endl; 
-  mout << " DATA "    << h_data->Integral()  << std::endl; 
+wjetentries= h_mc[19]->Integral() +h_mc[20]->Integral()+h_mc[21]->Integral()+h_mc[22]->Integral()+h_mc[23]->Integral()+h_mc[24]->Integral()+h_mc[25]->Integral();            
+      
+float dyjets = h_mc[15]->Integral()+h_mc[16]->Integral()+h_mc[17]->Integral()+h_mc[18]->Integral(); 
+float dyjets_error = Integral_Error[15] + Integral_Error[16] + Integral_Error[17] + Integral_Error[18] ;
+
+float diboson_ = h_mc[2]->Integral() + h_mc[3]->Integral() + h_mc[4]->Integral();
+float diboson_error = Integral_Error[2] + Integral_Error[3] + Integral_Error[4];
+
+float tt_ = h_mc[5]->Integral() + h_mc[26]->Integral()+h_mc[27]->Integral()+h_mc[28]->Integral()+h_mc[29]->Integral()+ h_mc[30]->Integral() ;
+float tt_error = Integral_Error[5] + Integral_Error[26] + Integral_Error[27] +Integral_Error[28] +Integral_Error[29] +Integral_Error[30] ;
+
+//float st = h_mc[26]->Integral()+h_mc[27]->Integral()+h_mc[28]->Integral()+h_mc[29]->Integral()+ h_mc[30]->Integral() ;
+//float st_error = Integral_Error[26] + Integral_Error[27] +Integral_Error[28] +Integral_Error[29] +Integral_Error[30] ;
+
+float wjets = h_mc[19]->Integral() +h_mc[20]->Integral()+h_mc[21]->Integral()+h_mc[22]->Integral()+h_mc[23]->Integral()+h_mc[24]->Integral()+h_mc[25]->Integral() ;
+float wjets_error = Integral_Error[19] + Integral_Error[20] +Integral_Error[21] +Integral_Error[22] +Integral_Error[23] +Integral_Error[24] +Integral_Error[25] ;
+
+float zh = h_mc[6]->Integral();
+float zh_error = Integral_Error[6];
+
+
+  mout << "MonoHFatJetsPreselection_2subj_h_MuEF0"            <<  " a b"<<std::endl; 
+  mout << " DATA "    << h_data->Integral()  <<" 0"<< std::endl; 
 //  mout << " DATA 0"    <<  std::endl; 
 //  mout << " DYJETS "  << h_mc[0]->Integral() << std::endl; 
-  mout << " DIBOSON " << dibosonentries                     << std::endl;
-  mout << " TT "      << h_mc[5]->Integral() + h_mc[26]->Integral()+h_mc[27]->Integral()+h_mc[28]->Integral()+h_mc[29]->Integral()+ h_mc[30]->Integral() << std::endl; 
-  mout << " WJETS "   << h_mc[19]->Integral() +h_mc[20]->Integral()+h_mc[21]->Integral()+h_mc[22]->Integral()+h_mc[23]->Integral()+h_mc[24]->Integral()+h_mc[25]->Integral()<< std::endl;
-  mout << " ZH "      << h_mc[6]->Integral() << std::endl;
-  mout << " DYJETS "<<h_mc[15]->Integral()+h_mc[16]->Integral()+h_mc[17]->Integral()+h_mc[18]->Integral() << std::endl;  
+  mout << " DIBOSON " << diboson_                  <<" "<<diboson_error << std::endl;
+  mout << " TT "      << h_mc[5]->Integral() + h_mc[26]->Integral()+h_mc[27]->Integral()+h_mc[28]->Integral()+h_mc[29]->Integral()+ h_mc[30]->Integral() <<" "<<tt_error <<  std::endl; 
+  mout << " WJETS "   << h_mc[19]->Integral() +h_mc[20]->Integral()+h_mc[21]->Integral()+h_mc[22]->Integral()+h_mc[23]->Integral()+h_mc[24]->Integral()+h_mc[25]->Integral()<< " "<<wjets_error<<std::endl;
+  mout << " ZH "      << h_mc[6]->Integral() <<" "<<zh_error<< std::endl;
+  mout << " DYJETS "<<h_mc[15]->Integral()+h_mc[16]->Integral()+h_mc[17]->Integral()+h_mc[18]->Integral() <<" "<<dyjets_error <<std::endl;  
 //  mout << " Single Top "<<h_mc[26]->Integral()+h_mc[27]->Integral()+h_mc[28]->Integral()+h_mc[29]->Integral()+ h_mc[30]->Integral() << std::endl;  
-  mout << " M600 "    << h_mc[7]->Integral() << std::endl;
-  mout << " M800 "    << h_mc[8]->Integral() << std::endl;
-  mout << " M1000 "    << h_mc[9]->Integral() << std::endl;
-  mout << " M1200 "    << h_mc[10]->Integral() << std::endl;
-  mout << " M1400 "   << h_mc[11]->Integral() << std::endl;
-  mout << " M1700 "   << h_mc[12]->Integral() << std::endl;
-  mout << " M2000 "   << h_mc[13]->Integral() << std::endl;
-  mout << " M2500 "   << h_mc[14]->Integral() << std::endl;
+  mout << " M600 "    << h_mc[7]->Integral() <<" "<<Integral_Error[7]<< std::endl;
+  mout << " M800 "    << h_mc[8]->Integral() <<" "<<Integral_Error[8]<< std::endl;
+  mout << " M1000 "    << h_mc[9]->Integral() <<" "<<Integral_Error[9]<< std::endl;
+  mout << " M1200 "    << h_mc[10]->Integral() <<" "<<Integral_Error[10]<< std::endl;
+  mout << " M1400 "   << h_mc[11]->Integral() <<" "<<Integral_Error[11]<< std::endl;
+  mout << " M1700 "   << h_mc[12]->Integral() <<" "<<Integral_Error[12]<< std::endl;
+  mout << " M2000 "   << h_mc[13]->Integral() <<" "<<Integral_Error[13]<< std::endl;
+  mout << " M2500 "   << h_mc[14]->Integral() <<" "<<Integral_Error[14]<< std::endl;
 //  mout << "Total Bkg " << dibosonentries+h_mc[5]->Integral()+wjetentries+h_mc[6]->Integral()+h_mc[15]->Integral()+h_mc[16]->Integral()+h_mc[17]->Integral()+h_mc[18]->Integral()+h_mc[26]->Integral()+h_mc[27]->Integral()+h_mc[28]->Integral()+h_mc[29]->Integral()+ h_mc[30]->Integral() <<std::endl;
-  mout << "========= =============================================" <<std::endl;
+  mout << "========= ======================== =====================" <<std::endl;
 //=========================================================================
+
+
+
+
+// --------------------- table output --------------------
+  tableout.precision(3);
+  tableout << " Z \\rightarrow \\nu \\nu+Jets & "<< dyjets <<" \\pm "<<dyjets_error <<"\\\\"<<std::endl;  
+  tableout << " t \\bar{t} & "<< tt_ <<" \\pm "<<tt_error <<"\\\\"<< std::endl; 
+  tableout << " W+Jets & "  <<wjets <<" \\pm "<<wjets_error <<"\\\\"<< std::endl;
+  tableout << " WW/WZ/ZZ & " << diboson_ <<" \\pm "<<diboson_error  <<"\\\\"<< std::endl;
+  tableout << " ZH & "      << h_mc[6]->Integral() <<" \\pm "<<Integral_Error[6]<<"\\\\"<< std::endl;
+  tableout << " M600  & "    << h_mc[7]->Integral() <<" \\pm "<<Integral_Error[7]<<"\\\\"<< std::endl;
+  tableout << " M800  & "    << h_mc[8]->Integral() <<" \\pm "<<Integral_Error[8]<<"\\\\"<< std::endl;
+  tableout << " M1000 &  "    << h_mc[9]->Integral() <<" \\pm "<<Integral_Error[9]<<"\\\\"<< std::endl;
+  tableout << " M1200 &  "    << h_mc[10]->Integral() <<" \\pm "<<Integral_Error[10]<<"\\\\"<< std::endl;
+  tableout << " M1400 &  "   << h_mc[11]->Integral() <<" \\pm "<<Integral_Error[11]<<"\\\\"<< std::endl;
+  tableout << " M1700 &  "   << h_mc[12]->Integral() <<" \\pm "<<Integral_Error[12]<<"\\\\"<< std::endl;
+  tableout << " M2000 &  "   << h_mc[13]->Integral() <<" \\pm "<<Integral_Error[13]<<"\\\\"<< std::endl;
+  tableout << " M2500 &  "   << h_mc[14]->Integral() <<" \\pm "<<Integral_Error[14]<<"\\\\"<< std::endl;
+  tableout << " DATA  & "    << h_data->Integral()  << std::endl; 
 
 
 float a = h_mc[19]->Integral() +h_mc[20]->Integral()+h_mc[21]->Integral()+h_mc[22]->Integral()+h_mc[23]->Integral()+h_mc[24]->Integral()+h_mc[25]->Integral();
 float b = h_mc[5]->Integral() + h_mc[26]->Integral()+h_mc[27]->Integral()+h_mc[28]->Integral()+h_mc[29]->Integral()+ h_mc[30]->Integral();
 float c = h_data->Integral() - (dibosonentries + h_mc[6]->Integral() + h_mc[15]->Integral()+h_mc[16]->Integral()+h_mc[17]->Integral()+h_mc[18]->Integral());
 
-mout << "a "<<a<<"
-"
-<<" b "<<b<<"
-"
-<<" c "<<c
-//<<" a+b "<<a+b
-<<std::endl;
-
-mout<<" total_bkg "<<a + b + dibosonentries + h_mc[6]->Integral() + h_mc[15]->Integral()+h_mc[16]->Integral()+h_mc[17]->Integral()+h_mc[18]->Integral()
-<<std::endl;
+tableout << "a "<<a<<" "<<" b "<<b<<" "<<" c "<<c<<std::endl;
+tableout<<" total_bkg "<<a + b + dibosonentries + h_mc[6]->Integral() + h_mc[15]->Integral()+h_mc[16]->Integral()+h_mc[17]->Integral()+h_mc[18]->Integral()<<std::endl;
+tableout<< " "<<std::endl;
 }
  
  c12->Draw();
 if(!0){
- c12->SaveAs(DirPreName+dirpathname +"/DYPdf/MonoHFatJetSelection_LeptonVeto_h_nMuons0.pdf");
- c12->SaveAs(DirPreName+dirpathname +"/DYPng/MonoHFatJetSelection_LeptonVeto_h_nMuons0.png");
- c12->SaveAs(DirPreName+dirpathname +"/DYROOT/MonoHFatJetSelection_LeptonVeto_h_nMuons0.root");                                                                         
+ c12->SaveAs(DirPreName+dirpathname +"/MonoHPdf/MonoHFatJetsPreselection_2subj_h_MuEF0.pdf");
+ c12->SaveAs(DirPreName+dirpathname +"/MonoHPng/MonoHFatJetsPreselection_2subj_h_MuEF0.png");
+ c12->SaveAs(DirPreName+dirpathname +"/MonoHROOT/MonoHFatJetsPreselection_2subj_h_MuEF0.root");                                                                         
  rout<<"<hr/>"<<std::endl;
- rout<<"<table class=\"\"> <tr><td><img src=\""<<"DYPng/MonoHFatJetSelection_LeptonVeto_h_nMuons0.png\" height=\"400\" width=\"400\"></td>   </tr> </table>"<<std::endl;
+ rout<<"<table class=\"\"> <tr><td><img src=\""<<"DYPng/MonoHFatJetsPreselection_2subj_h_MuEF0.png\" height=\"400\" width=\"400\"></td>   </tr> </table>"<<std::endl;
 
 }
  
 if(0){
- c12->SaveAs(DirPreName+dirpathname +"/DYPdf/MonoHFatJetSelection_LeptonVeto_h_nMuons0_log.pdf");
- c12->SaveAs(DirPreName+dirpathname +"/DYPng/MonoHFatJetSelection_LeptonVeto_h_nMuons0_log.png");
- c12->SaveAs(DirPreName+dirpathname +"/DYROOT/MonoHFatJetSelection_LeptonVeto_h_nMuons0_log.root");                                                                        
+ c12->SaveAs(DirPreName+dirpathname +"/MonoHPdf/MonoHFatJetsPreselection_2subj_h_MuEF0_log.pdf");
+ c12->SaveAs(DirPreName+dirpathname +"/MonoHPng/MonoHFatJetsPreselection_2subj_h_MuEF0_log.png");
+ c12->SaveAs(DirPreName+dirpathname +"/MonoHROOT/MonoHFatJetsPreselection_2subj_h_MuEF0_log.root");                                                                        
 }
  }
