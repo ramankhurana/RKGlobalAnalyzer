@@ -47,6 +47,9 @@ int main(){
       else if (filename_in.Contains("ZJetsToNuNu")){
 	running_mode="ZJETS";
       }
+      else if (filename_in.Contains("TT_TuneCUETP8M1")){
+	running_mode="TT";
+      }
       
       i++;
     }

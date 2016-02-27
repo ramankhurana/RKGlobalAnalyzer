@@ -1,5 +1,5 @@
 import os
-outputdirname="Raman/AnalysisTuples_V18/"
+outputdirname="Raman/AnalysisTuples_V39/"
 inputprefix="--input-dir=root://cmsxrootd.hep.wisc.edu//store/user/khurana/"
 cmsswpath="/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/"
 exepath="/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/runallAnalysis.exe"
@@ -14,6 +14,10 @@ samplesold='''crab_MET-Run2015D-05Oct2015V120160112_FullDataSet_2p2FB_SkipEvents
 crab_MET-Run2015D-PromptReco-V420160112_FullDataSet_2p2FB_SkipEventsOldFile29Oct MET/crab_MET-Run2015D-PromptReco-V420160112_FullDataSet_2p2FB_SkipEventsOldFile29Oct/'''
 
 samplestry='''WJetsToLNu_HT-2500ToInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8 WJetsHTBinSampleReMiniAOD/crab_WJetsToLNu_HT-2500ToInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_MC25ns_ReMiniAOD_20151026/'''
+
+onesamples='''crab_MET-Run2015C_25ns-05Oct2015V120160203_FullDataSet_2p2FB_WithoutMETFiltering MET/crab_MET-Run2015C_25ns-05Oct2015V120160203_FullDataSet_2p2FB_WithoutMETFiltering
+crab_MET-Run2015D-05Oct2015V120160203_FullDataSet_2p2FB_WithoutMETFiltering MET/crab_MET-Run2015D-05Oct2015V120160203_FullDataSet_2p2FB_WithoutMETFiltering
+crab_MET-Run2015D-PromptReco-V420160203_FullDataSet_2p2FB_WithoutMETFiltering MET/crab_MET-Run2015D-PromptReco-V420160203_FullDataSet_2p2FB_WithoutMETFiltering'''
 
 samples='''crab_MET-Run2015D-05Oct2015V120160203_FullDataSet_2p2FB_SkipEventsOldFile29Oct MET/crab_MET-Run2015D-05Oct2015V120160203_FullDataSet_2p2FB_SkipEventsOldFile29Oct
 crab_MET-Run2015D-PromptReco-V420160203_FullDataSet_2p2FB_SkipEventsOldFile29Oct MET/crab_MET-Run2015D-PromptReco-V420160203_FullDataSet_2p2FB_SkipEventsOldFile29Oct
@@ -92,13 +96,14 @@ for line in f:
     datasetdet=[a,b]
     #jobcommand = ("farmoutAnalysisJobs "+outputdirname+"/"+datasetdet[0]+" "+inputprefix+datasetdet[1]+" "+cmsswpath+" "+exepath+" --fwklite --input-files-per-job=30 --resubmit-failed-jobs")
     #jobcommand = ("farmoutAnalysisJobs "+outputdirname+"/"+datasetdet[0]+" "+inputprefix+datasetdet[1]+" "+cmsswpath+" "+exepath+" --fwklite --input-files-per-job=30")
-    jobcommand = ("farmoutAnalysisJobs "+outputdirname+"/"+datasetdet[0]+" "+inputprefix+datasetdet[1]+" "+cmsswpath+" "+exepath+" --fwklite --input-files-per-job=10 --extra-inputs=CSVv2.csv")
+    jobcommand = ("farmoutAnalysisJobs "+outputdirname+"/"+datasetdet[0]+" "+inputprefix+datasetdet[1]+" "+cmsswpath+" "+exepath+" --fwklite --input-files-per-job=10 --extra-inputs=CSVv2.csv  ")
     
     print "--------------------------------------------------------------"
     print "submitting jobs for"+datasetdet[0]
     print "--------------------------------------------------------------"
     print jobcommand
     os.system(jobcommand)
+    #os.system('sleep 30')
 ### Monika Files
 ###
 ###1_JSON/ /afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/ /afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/runallAnalysis.exe --fwklite --input-files-per-job=5

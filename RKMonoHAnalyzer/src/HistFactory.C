@@ -11,8 +11,8 @@ void HistFactory::GetInputs(TFile* f, TString prefix_, std::string mode1, std::s
   calib = new BTagCalibration("CSVv2", "CSVv2.csv");
   
   //std::cout<<" mode of running is "<<mode<<std::endl;
-  readerHF = new BTagCalibrationReader(calib, BTagEntry::OP_MEDIUM, "mujets", mode1);
-  readerLF = new BTagCalibrationReader(calib, BTagEntry::OP_MEDIUM, "comb", mode2);
+  readerHF = new BTagCalibrationReader(calib, BTagEntry::OP_LOOSE, "mujets", mode1);
+  readerLF = new BTagCalibrationReader(calib, BTagEntry::OP_LOOSE, "comb", mode2);
 
   /*
   readerHF_up = new BTagCalibrationReader(calib, BTagEntry::OP_LOOSE, "mujets", "up");
@@ -128,15 +128,17 @@ void HistFactory::DefineHistograms(){
 
 void HistFactory::Fill(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > objectCollection, Int_t howManyObjs, std::vector<int> istatus){
   if(false) std::cout<<" inside the Histfac fill "<<objectCollection.size()<<std::endl;
+  
   if(objectCollection.size()>0){
     for(size_t i=0; i< TMath::Min(objectCollection.size(),(size_t)nobjectmet);i++){
+      //{int i=0;
       Int_t nbits = 0;
       for (size_t ibit=0; ibit<istatus.size(); ibit++){
 	if ( objectCollection[i].cutsStatus[istatus[ibit]]) {
 	  nbits++;
 	}
       }
-
+    
       
       if(false) std::cout<<" loop over bits done "<<nbits<<std::endl;
       Float_t mcweight_  = 1.;
@@ -202,9 +204,9 @@ void HistFactory::Fill(std::vector<ResonanceWithMET<Jet,MET > > objectCollection
  if(objectCollection.size()>0){
     
     bool objectfilled = false;
-    for(size_t i=0; i< objectCollection.size();i++) {
-      if(objectfilled) continue; // fill only one obj info
-      //int i=0;
+    //for(size_t i=0; i< objectCollection.size();i++) {
+    //if(objectfilled) continue; // fill only one obj info
+    {int i=0; // fill only first object information
       Int_t nbits = 0;
       for (size_t ibit=0; ibit<istatus.size(); ibit++){
 	
@@ -212,7 +214,7 @@ void HistFactory::Fill(std::vector<ResonanceWithMET<Jet,MET > > objectCollection
 	  nbits++;
 	}
       }
-
+    
     
       if(nbits==(int)istatus.size()){
 	
@@ -268,14 +270,14 @@ void HistFactory::Fill(std::vector<ResonanceWithMET<Jet,MET > > objectCollection
 	float dphimin=3.4;
 	Int_t nthinjets = 0;
 	for(int ij=0;ij<(int)objectCollection[0].thinjets.size();ij++){
-	  //MHTp4 = MHTp4 + objectCollection[0].thinjets[ij].p4;
-	  float dr_ =    RKMath::DeltaR(objectCollection[0].thinjets[ij].p4.Eta() ,
-					objectCollection[0].thinjets[ij].p4.Phi() ,
-					objectCollection[i].jet1.p4.Eta(),
-					objectCollection[i].jet1.p4.Phi());
-	  if(dr_ < 1.0 )  continue;
+	  //float dr_ =    RKMath::DeltaR(objectCollection[0].thinjets[ij].p4.Eta() ,
+	  //				objectCollection[0].thinjets[ij].p4.Phi() ,
+	  //				objectCollection[i].jet1.p4.Eta(),
+	  //				objectCollection[i].jet1.p4.Phi());
+	  //if(dr_ < 1.0 )  continue;
 	  float dphi_ = RKMath::DeltaPhi( objectCollection[0].thinjets[ij].p4.Phi() ,
 					  objectCollection[i].jet2.RawPhi);
+	  if (dphi_<0.7) continue;
 	  nthinjets++;
 	  if(TMath::Abs(dphi_)<dphimin) dphimin = TMath::Abs(dphi_);
 	}
@@ -318,18 +320,23 @@ void HistFactory::Fill(std::vector<ResonanceWithMET<Jet,MET > > objectCollection
 	h_nElectrons[0]->Fill(naddele          , mcweight_  );
         h_nTaus[0]->Fill(naddtau               , mcweight_  );
 	
+	//Jets less than this number
 	int njets=objectCollection[0].jets.size();
 	int naddjet = 0;
+	std::cout<<" in histfactory "<<njets<<std::endl;
 	for(int ij=0;ij<njets;ij++){
 	  float dr_ = RKMath::DeltaR(objectCollection[0].jets[ij].p4.Eta() ,
 				     objectCollection[0].jets[ij].p4.Phi() ,
 				     objectCollection[i].jet1.p4.Eta(),
 				     objectCollection[i].jet1.p4.Phi());
-	  if(dr_ < 0.8 )  continue;
+	  std::cout<<" dr_ = "<<dr_<<std::endl;
+	  if(dr_ < 1.0 )  continue;
 	  //float dphi_ = RKMath::DeltaPhi(objectCollection[0].jets[ij].p4.Phi(), objectCollection[0].jet1.p4.Phi() );
 	  //if( dphi_ < 2.0 ) continue;
 	  naddjet++;
 	}
+	
+	std::cout<<" naddjet in histfactory = "<<naddjet<<std::endl;
 	h_nJets[0]->Fill(naddjet   , mcweight_  ); 
 	
 	if(objectCollection.size()>0) h_nFJets[0]->Fill(objectCollection.size()-1 , mcweight_);

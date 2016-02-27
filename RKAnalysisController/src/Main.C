@@ -29,6 +29,9 @@ int main(int argc, char *argv[]){
   else if (filename_in.Contains("ZJetsToNuNu")){
     running_mode="ZJETS";
   }
+  else if (filename_in.Contains("TT_TuneCUETP8M1")){
+    running_mode="TT";
+  }
   else running_mode="all";
   
   

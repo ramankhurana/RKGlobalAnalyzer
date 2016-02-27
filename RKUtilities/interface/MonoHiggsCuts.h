@@ -62,7 +62,7 @@ class MonoHiggsCuts {
     cutsMapFatJet["umetptdown"]         = 20;
     
     cutsMapFatJet["vNPhoton"]           = 21;
-    cutsMapFatJet["w"]                  = 22;
+    cutsMapFatJet["wNjetExact"]         = 22;
     cutsMapFatJet["x"]                  = 23;
     cutsMapFatJet["y"]                  = 24;
     cutsMapFatJet["z"]                  = 25;
@@ -147,6 +147,32 @@ class MonoHiggsCuts {
     cutValueMapTTBar["Njet"]=2; 
     cutValueMapTTBar["NLepton"]=1;
     cutValueMapTTBar["DPHIMETClosedJ"]=0.5;
+
+
+
+    // cutValueMapTTBar_Merged
+    cutValueMapTTBar_Merged.clear();
+    cutValueMapTTBar_Merged["leadingjetpt"]=200.;
+    cutValueMapTTBar_Merged["jeteta"]=2.4;
+    cutValueMapTTBar_Merged["leadingcsv"]=0.605;
+    cutValueMapTTBar_Merged["csvlow"]=0.3;
+    cutValueMapTTBar_Merged["csvhigh"]=0.6;
+    cutValueMapTTBar_Merged["metpt"]=200.;
+    cutValueMapTTBar_Merged["dphiDiJetMet"]=2.5;
+    cutValueMapTTBar_Merged["MTDiJet"]=400;
+    cutValueMapTTBar_Merged["MDiJetLow"]=30.; //  make sure this cut is 
+    cutValueMapTTBar_Merged["MDiJetHigh"]=250.; // applied correctly.
+    cutValueMapTTBar_Merged["DPHIJet1MET"]=2.;
+    cutValueMapTTBar_Merged["DPHIJet2MET"]=2.;
+    cutValueMapTTBar_Merged["MTJet1"]=300.;
+    cutValueMapTTBar_Merged["MTJet2"]=200.;
+    cutValueMapTTBar_Merged["Nele"]=1;
+    cutValueMapTTBar_Merged["Nmu"]=1;
+    cutValueMapTTBar_Merged["Ntau"]=0;
+    cutValueMapTTBar_Merged["Njet"]=2;
+    cutValueMapTTBar_Merged["NjetExact"]=1;
+    cutValueMapTTBar_Merged["NLepton"]=1;
+    cutValueMapTTBar_Merged["DPHIMETClosedJ"]=0.5;
 
 
     // cutValueMapZLight
@@ -262,6 +288,7 @@ class MonoHiggsCuts {
   std::map<std::string, float> cutValueMap;
   std::map<std::string, float> cutValueMapFatJet;
   std::map<std::string, float> cutValueMapTTBar;
+  std::map<std::string, float> cutValueMapTTBar_Merged;
   std::map<std::string, float> cutValueMapZLight;
   std::map<std::string, float> cutValueMapZHeavy;
   std::map<std::string, float> cutValueMapWLight;

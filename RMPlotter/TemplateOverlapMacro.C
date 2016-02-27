@@ -6,7 +6,7 @@
  tm *ltm = localtime(&now);
  TString dirpathname;
 
- TString DirPreName = "AnalysisTuples_V17";
+ TString DirPreName = "AnalysisTuples_V38";
  dirpathname.Form("%d%1.2d%d",ltm->tm_mday,1 + ltm->tm_mon,1900 + ltm->tm_year);
  system("mkdir -p  " + DirPreName+dirpathname +"/MonoHROOT");
  system("mkdir -p  " + DirPreName+dirpathname +"/MonoHPdf");
@@ -33,7 +33,7 @@ float lumi = 2263.5; // It will print on your plots too
 std::vector<TString> filenameString;
 //Change here Directories of the file
 
-TString filenamepath("/afs/hep.wisc.edu/cms/khurana/Script/AnalysisTuples_V17/"); 
+TString filenamepath("/afs/hep.wisc.edu/cms/khurana/Script/AnalysisTuples_V38/"); 
 // DYJets 1
 filenameString.push_back(filenamepath + "Merged_WW_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root");
 //WJets  1

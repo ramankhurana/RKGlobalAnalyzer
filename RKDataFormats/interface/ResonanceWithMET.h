@@ -44,6 +44,13 @@ class ResonanceWithMET{
   
   Event events;
   
+  int   naddele     ;
+  int   naddmu      ;
+  int   naddtau     ;
+  int   naddthinjet ;
+  int   naddbjet    ;
+  int   naddphoton  ;
+
  private:
  protected:
   
