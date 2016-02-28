@@ -150,7 +150,7 @@ std::vector<ResonanceWithMET<Jet,MET> > SelectionBitsProducer::SelectionBitsSave
         //if(dr_ < 0.8 )  continue;
 	float dphi_ = RKMath::DeltaPhi( objectCollection[0].thinjets[ij].p4.Phi() ,
 					objectCollection[i].jet2.RawPhi);
-	if(TMath::Abs(dphi_)<0.7) ncloseJet++;
+	if(TMath::Abs(dphi_)<0.4) ncloseJet++;
       }
 
       

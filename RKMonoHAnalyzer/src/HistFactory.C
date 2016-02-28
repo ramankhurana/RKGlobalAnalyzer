@@ -277,7 +277,7 @@ void HistFactory::Fill(std::vector<ResonanceWithMET<Jet,MET > > objectCollection
 	  //if(dr_ < 1.0 )  continue;
 	  float dphi_ = RKMath::DeltaPhi( objectCollection[0].thinjets[ij].p4.Phi() ,
 					  objectCollection[i].jet2.RawPhi);
-	  if (dphi_<0.7) continue;
+	  if (dphi_<0.4) continue;
 	  nthinjets++;
 	  if(TMath::Abs(dphi_)<dphimin) dphimin = TMath::Abs(dphi_);
 	}

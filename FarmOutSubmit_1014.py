@@ -1,5 +1,5 @@
 import os
-outputdirname="Raman/AnalysisTuples_V39/"
+outputdirname="Raman/AnalysisTuples_V40/"
 inputprefix="--input-dir=root://cmsxrootd.hep.wisc.edu//store/user/khurana/"
 cmsswpath="/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/"
 exepath="/afs/hep.wisc.edu/cms/khurana/DMRunII/CMSSW_7_4_5/src/RKGlobalAnalyzer/runallAnalysis.exe"
