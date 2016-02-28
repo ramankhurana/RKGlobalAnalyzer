@@ -203,7 +203,8 @@ void RKAnalyzer::Loop(TString output, TString running_mode){
      //ADDJetProducer();
      
      // Analysis should be called after filling the objects
-     MonoHiggsAnalyzer();
+     //MonoHiggsAnalyzer();
+     XHGammaAnalyzer();
      
      //std::cout<<" calling ABCD method "<<std::endl;
      //if(RKDiJetMETCollectionWithStatus.size()>0) abcd.Fill(RKDiJetMETCollectionWithStatus);
@@ -1020,6 +1021,292 @@ void RKAnalyzer::MonoHiggsAnalyzer(){
   // Fat Jet Analysis starts here. 
   if(false) std::cout<<" fat jet met starts here "<<std::endl;
   // FatJet-MET
+  if(MH_FATJetCollection.size()>0) RKFatJetMETCollection = fatjet_met.ReconstructDiObject(MH_FATJetCollection,met);
+  if( RKFatJetMETCollection.size()>0) RKFatJetMETCollection[0].electrons = RKElectronCollection;
+  if( RKFatJetMETCollection.size()>0) RKFatJetMETCollection[0].events = events;
+  if( RKFatJetMETCollection.size()>0) RKFatJetMETCollection[0].muons  = RKMuonCollection;
+  if( RKFatJetMETCollection.size()>0) RKFatJetMETCollection[0].jets   = RKJetCollection_selected;
+  if( RKFatJetMETCollection.size()>0) RKFatJetMETCollection[0].thinjets   = RKJetCollection;
+  if( RKFatJetMETCollection.size()>0) RKFatJetMETCollection[0].taus = RKTauCollection;
+  if( RKFatJetMETCollection.size()>0) RKFatJetMETCollection[0].photons = RKPhotonCollection;
+  if(RKFatJetMETCollection.size()>0) RKFatJetMETCollection[0].MHTp4 = mhtp4;
+  if(false)  std::cout<< "mht pt in rkglbl = "<<mhtp4.Pt()
+	   << "MET = "<<pfMetCorrPt
+	   <<std::endl;
+  if(RKFatJetMETCollection.size()>0) RKFatJetMETCollectionWithStatus  = selectionbits.SelectionBitsSaver(RKFatJetMETCollection, cuts.cutValueMapFatJet);
+  
+  //--------------------------------------------------------
+  // Fat Jet CSV
+  //--------------------------------------------------------
+  std::vector<int> fatjetbitVec ;
+  fatjetbitVec.clear();
+  fatjetbitVec = {0, 1, 6, 7, 8, 14, 15};
+  if(RKFatJetMETCollectionWithStatus.size()>0) histfacFatJetPreSel.Fill(RKFatJetMETCollectionWithStatus,3,fatjetbitVec, eventlist);
+  if(RKFatJetMETCollectionWithStatus.size()>0) nminusobj.Fill(RKFatJetMETCollectionWithStatus,fatjetbitVec);
+  if(RKFatJetMETCollectionWithStatus.size()>0) cutflowFatJetobj.CutFlow(RKFatJetMETCollectionWithStatus, fatjetbitVec);
+
+  //--------------------------------------------------------
+  // Two Sub Jet CSV
+  //--------------------------------------------------------
+  fatjetbitVec.clear();
+  fatjetbitVec = {0, 2, 6, 7, 8};
+  if(RKFatJetMETCollectionWithStatus.size()>0) histfacFatJetPreSel_2subj.Fill(RKFatJetMETCollectionWithStatus,3,fatjetbitVec, eventlist);
+  if(RKFatJetMETCollectionWithStatus.size()>0) nminusobj_2subj.Fill(RKFatJetMETCollectionWithStatus,fatjetbitVec);
+  if(RKFatJetMETCollectionWithStatus.size()>0) cutflowFatJetobj_2subj.CutFlow(RKFatJetMETCollectionWithStatus, fatjetbitVec);
+
+  //--------------------------------------------------------
+  // Exactly Sub Jet CSV
+  //--------------------------------------------------------
+  fatjetbitVec.clear();
+  fatjetbitVec = {0, 3, 6, 7, 8, 14, 15,12,21};
+  if(RKFatJetMETCollectionWithStatus.size()>0) histfacFatJetPreSel_1subj.Fill(RKFatJetMETCollectionWithStatus,3,fatjetbitVec, eventlist);
+  if(RKFatJetMETCollectionWithStatus.size()>0) nminusobj_1subj.Fill(RKFatJetMETCollectionWithStatus,fatjetbitVec);
+  if(RKFatJetMETCollectionWithStatus.size()>0) cutflowFatJetobj_1subj.CutFlow(RKFatJetMETCollectionWithStatus, fatjetbitVec);
+
+  //--------------------------------------------------------
+  // Delta R based Sub Jet CSV
+  //--------------------------------------------------------
+  fatjetbitVec.clear();
+  fatjetbitVec = {0, 4, 6, 7, 8, 14, 15,12,21};
+  if(RKFatJetMETCollectionWithStatus.size()>0) histfacFatJetPreSel_DRsubj.Fill(RKFatJetMETCollectionWithStatus,3,fatjetbitVec, eventlist);
+  if(RKFatJetMETCollectionWithStatus.size()>0) nminusobj_DRsubj.Fill(RKFatJetMETCollectionWithStatus,fatjetbitVec);
+  if(RKFatJetMETCollectionWithStatus.size()>0) cutflowFatJetobj_DRsubj.CutFlow(RKFatJetMETCollectionWithStatus, fatjetbitVec);
+  if(false) std::cout<<" fat jet met ends here "<<std::endl;
+
+  //--------------------------------------------------------
+  // Delta R based Sub Jet CSV :: ATLEAST 1 sub-jet
+  //--------------------------------------------------------
+  fatjetbitVec.clear();
+  fatjetbitVec = {0, 5, 6, 7, 8, 14, 15,12,21};
+  if(RKFatJetMETCollectionWithStatus.size()>0) histfacFatJetPreSel_DROnesubj.Fill(RKFatJetMETCollectionWithStatus,3,fatjetbitVec,eventlist);
+  if(RKFatJetMETCollectionWithStatus.size()>0) nminusobj_DROnesubj.Fill(RKFatJetMETCollectionWithStatus,fatjetbitVec);
+  if(RKFatJetMETCollectionWithStatus.size()>0) cutflowFatJetobj_DROnesubj.CutFlow(RKFatJetMETCollectionWithStatus, fatjetbitVec);
+  if(false) std::cout<<" fat jet met ends here "<<std::endl;
+  
+  
+  //--------------------------------------------------------
+  // Fat-Jet Base Analysis ends here
+  //--------------------------------------------------------
+  
+  //--------------------------------------------------------
+  // Jet veto ----------------------------------------------
+  //--------------------------------------------------------
+  fatjetbitVec.clear();
+  fatjetbitVec = {0, 2, 6, 7, 8, 14};
+  for(int jjj=0; jjj<(int) fatjetbitVec.size(); jjj++){
+    if(RKFatJetMETCollectionWithStatus.size()>0) std::cout<<" for Jet Veto fatjetbitVec = "<<jjj<<"   "<<fatjetbitVec[jjj]
+							  <<"   "<<RKFatJetMETCollectionWithStatus[0].cutsStatus[jjj]
+							  <<std::endl;
+  }
+  if(RKFatJetMETCollectionWithStatus.size()>0) histfactSel_JetVeto.Fill(RKFatJetMETCollectionWithStatus,3,fatjetbitVec,eventlist);
+
+  //--------------------------------------------------------
+  // Lepton veto -------------------------------------------
+  //--------------------------------------------------------
+  fatjetbitVec.clear();
+  fatjetbitVec = {0, 2, 6, 7, 8, 15};
+  if(RKFatJetMETCollectionWithStatus.size()>0) histfactSel_LeptonVeto.Fill(RKFatJetMETCollectionWithStatus,3,fatjetbitVec,eventlist);
+
+  //--------------------------------------------------------
+  // Jet and lepton veto -----------------------------------
+  //--------------------------------------------------------
+  //---------- This is now full selection ------------------
+  fatjetbitVec.clear();
+  fatjetbitVec = {0, 2, 6, 7, 8, 14, 15,12,21}; // two sub-bjet tag
+  //fatjetbitVec = {0, 5, 6, 7, 8, 14, 15}; // two sub-btag jets DR
+  if(RKFatJetMETCollectionWithStatus.size()>0) histfactSel_JetAndLeptonVeto.Fill(RKFatJetMETCollectionWithStatus,3,fatjetbitVec,eventlist);
+  
+  // btagUp
+  if(RKFatJetMETCollectionWithStatus.size()>0) histfactSel_JetAndLeptonVetoBTagUpHF.Fill(RKFatJetMETCollectionWithStatus,3,fatjetbitVec,eventlist);
+  // btagDown
+  if(RKFatJetMETCollectionWithStatus.size()>0) histfactSel_JetAndLeptonVetoBTagDownHF.Fill(RKFatJetMETCollectionWithStatus,3,fatjetbitVec,eventlist);
+  // btagUp
+  if(RKFatJetMETCollectionWithStatus.size()>0) histfactSel_JetAndLeptonVetoBTagUpLF.Fill(RKFatJetMETCollectionWithStatus,3,fatjetbitVec,eventlist);
+  // btagDown
+  if(RKFatJetMETCollectionWithStatus.size()>0) histfactSel_JetAndLeptonVetoBTagDownLF.Fill(RKFatJetMETCollectionWithStatus,3,fatjetbitVec,eventlist);
+  
+
+
+  //--------------------------------------------------------
+  // MET Uncertainity -----------------------------------
+  //--------------------------------------------------------
+  //---------- This is with MET UP ------------------
+  fatjetbitVec.clear();
+  fatjetbitVec = {0, 2, 6, 7, 19, 14, 15,12,21}; // two sub-bjet tag
+  if(RKFatJetMETCollectionWithStatus.size()>0) histfactSel_JetAndLeptonVetoMETUp.Fill(RKFatJetMETCollectionWithStatus,3,fatjetbitVec,eventlist);
+  
+  //---------- This is with MET DOWN ------------------
+  fatjetbitVec.clear();
+  fatjetbitVec = {0, 2, 6, 7, 20, 14, 15,12,21}; // two sub-bjet tag
+  if(RKFatJetMETCollectionWithStatus.size()>0) histfactSel_JetAndLeptonVetoMETDown.Fill(RKFatJetMETCollectionWithStatus,3,fatjetbitVec,eventlist);
+    
+  
+  //--------------------------------------------------------
+  // Control Region for TTBar
+  //--------------------------------------------------------
+  // Replace the baseline analysis status bits by ttbar status bit
+  if(RKFatJetMETCollection.size()>0) RKFatJetMETCollectionWithStatus  = selectionbits.SelectionBitsSaver(RKFatJetMETCollectionWithStatus, cuts.cutValueMapTTBar);
+  fatjetbitVec.clear();
+  //fatjetbitVec = {0, 16, 6, 8, 15, 11, 13};
+  
+  fatjetbitVec = {0,  6, 8, 15, 11, 13,12,21}; //
+  
+  //fatjetbitVec = {0, 6, 8, 15, 11, 13}; // relaxed sub-jet btag for ttbar for now
+  if(RKFatJetMETCollectionWithStatus.size()>0) histfacFatJet_TTBar.Fill(RKFatJetMETCollectionWithStatus,3,fatjetbitVec, eventlist);
+
+
+  //--------------------------------------------------------
+  // Control Region for Merged TTBar
+  //--------------------------------------------------------
+  // Replace the baseline analysis status bits by ttbar status bit
+  if(RKFatJetMETCollection.size()>0) RKFatJetMETCollectionWithStatus  = selectionbits.SelectionBitsSaver(RKFatJetMETCollectionWithStatus, cuts.cutValueMapTTBar_Merged);
+  fatjetbitVec.clear();
+  fatjetbitVec = {0, 6, 8, 15, 13, 12, 21, 22}; //
+  if(RKFatJetMETCollectionWithStatus.size()>0) histfacFatJet_TTBar_Merged.Fill(RKFatJetMETCollectionWithStatus,3,fatjetbitVec, eventlist);
+
+  //--------------------------------------------------------
+  // Control Region for DY+LightJets
+  //--------------------------------------------------------
+  // Replace the baseline analysis status bits by Z+Light status bit
+  fatjetbitVec.clear();
+  if(RKFatJetMETCollection.size()>0) RKFatJetMETCollectionWithStatus  = selectionbits.SelectionBitsSaver(RKFatJetMETCollectionWithStatus, cuts.cutValueMapZLight);
+  fatjetbitVec = {0, 2, 6, 8, 15, 14, 13,12,21};
+  if(RKFatJetMETCollectionWithStatus.size()>0) histfacFatJet_ZLight.Fill(RKFatJetMETCollectionWithStatus,3,fatjetbitVec, eventlist);
+  
+  if(RKFatJetMETCollectionWithStatus.size()>0) histfacFatJet_ZLightBTagUp.Fill(RKFatJetMETCollectionWithStatus,3,fatjetbitVec, eventlist);
+  if(RKFatJetMETCollectionWithStatus.size()>0) histfacFatJet_ZLightBTagDown.Fill(RKFatJetMETCollectionWithStatus,3,fatjetbitVec, eventlist);
+  
+  //--------------------------------------------------------
+  // Control Region for DY+Heavy Jets
+  //--------------------------------------------------------
+  // Replace the baseline analysis status bits by ttbar status bit
+  if(RKFatJetMETCollection.size()>0) RKFatJetMETCollectionWithStatus  = selectionbits.SelectionBitsSaver(RKFatJetMETCollectionWithStatus, cuts.cutValueMapZHeavy);
+  fatjetbitVec.clear();
+  fatjetbitVec = {0, 17, 6, 8, 15, 14, 13,12,21};
+  if(RKFatJetMETCollectionWithStatus.size()>0) histfacFatJet_ZHeavy.Fill(RKFatJetMETCollectionWithStatus,3,fatjetbitVec, eventlist);
+  
+  //--------------------------------------------------------
+  // Control Region for W+Light Jets
+  //--------------------------------------------------------
+  // Replace the baseline analysis status bits by ttbar status bit
+  if(RKFatJetMETCollection.size()>0) RKFatJetMETCollectionWithStatus  = selectionbits.SelectionBitsSaver(RKFatJetMETCollectionWithStatus, cuts.cutValueMapWLight);
+  fatjetbitVec.clear();
+  fatjetbitVec = {0, 16, 6, 8, 15, 14, 13,12,21};
+  if(RKFatJetMETCollectionWithStatus.size()>0) histfacFatJet_WLight.Fill(RKFatJetMETCollectionWithStatus,3,fatjetbitVec, eventlist);
+  
+  //--------------------------------------------------------
+  // Control Region for W+Heavy Jets
+  //--------------------------------------------------------
+  // No need to save selection bits using the same as W+Light except 2 btag subjets are needed. 
+  // Replace the baseline analysis status bits by ttbar status bit
+  //if(RKFatJetMETCollection.size()>0) RKFatJetMETCollectionWithStatus  = selectionbits.SelectionBitsSaver(RKFatJetMETCollectionWithStatus, cuts.cutValueMapWHeavy);
+  fatjetbitVec.clear();
+  fatjetbitVec = {0, 2, 6, 8, 15, 14, 13, 12, 21}; 
+  if(RKFatJetMETCollectionWithStatus.size()>0) histfacFatJet_WHeavy.Fill(RKFatJetMETCollectionWithStatus,3,fatjetbitVec, eventlist);
+  
+  //--------------------------------------------------------
+  // Fat-Jet Part Ending here
+  //--------------------------------------------------------
+
+  
+  if(RKjetMETCollection.size()>0) std::cout<<" transverse mass = "<<RKjetMETCollection[0].TransverseObjProp.TransMass <<std::endl;
+  if(RKjetMETCollection.size()>0) jetmetValidator.Fill(RKjetMETCollection);
+    
+  //DiJet-MET
+  if(RKdiJetCollection.size()>0) RKDiJetMETCollection = dijet_met.ReconstructDiObject(RKdiJetCollection,met);
+  if(false) std::cout<<" size of DIJETMET collection is = "<<RKDiJetMETCollection.size()<<std::endl;
+  
+  // add electron to RKDiJetMETCollectionWithStatus
+  if(RKDiJetMETCollection.size()>0) RKDiJetMETCollection[0].electrons = RKElectronCollection ;
+  if(RKDiJetMETCollection.size()>0) RKDiJetMETCollection[0].events = events ;
+     // add muon to RKDiJetMETCollectionWithStatus
+  if(RKDiJetMETCollection.size()>0) RKDiJetMETCollection[0].muons = RKMuonCollection ;
+  //if(RKDiJetMETCollection.size()>0) std::cout<<" ----------------- muon size = "<<RKDiJetMETCollection[0].muons.size()<<std::endl;
+  
+  // add jets to the RKDiJetMETCollectionWithStatus
+  // add with CSv Cuts
+  if(RKDiJetMETCollection.size()>0) RKDiJetMETCollection[0].jets  = RKJetCollection_selected ;
+  
+  if(false) std::cout<<" objects added "<<std::endl;
+  // add selection bits for baseline Analysis.
+  if(RKDiJetMETCollection.size()>0)RKDiJetMETCollectionWithStatus = selectionbits.SelectionBitsSaver(RKDiJetMETCollection, cuts.cutValueMap);
+  
+  if(false) std::cout<<" added bits "<<std::endl;
+  // add selection bits for ttbar control region 
+  //if(RKDiJetMETCollection.size()>0) RKDiJetMETCollectionTTBar = selectionbits.SelectionBitsSaver(RKDiJetMETCollection,cuts.cutValueMapTTBar);
+  
+  
+  // --------------------------------//
+  // ---------- Histograms -----------//
+  // --------------------------------//
+     // fill histograms for di-jet + met vaiables. very basic and common variables.
+  if(RKDiJetMETCollectionWithStatus.size()>0) dijetmetValidator.Fill(RKDiJetMETCollectionWithStatus,1); // Fill only one dijet+Met combo
+  if(false) std::cout<<" dijetmet validator "<<std::endl;
+  // fill histograms for di-jet + met vaiables. Mono-H Specific histograms. 
+  std::vector<int> bitVec; bitVec.clear();
+  
+  if(false) std::cout<<" histfac 1"<<std::endl;
+  if(RKDiJetMETCollectionWithStatus.size()>0) histfac.Fill(RKDiJetMETCollectionWithStatus,1, bitVec); // empty vector for no cuts
+  
+  if(false) std::cout<<" histfac 2"<<std::endl;
+  // Following is pT,  Eta and CSV Loose
+  bitVec.push_back(0); bitVec.push_back(1); bitVec.push_back(2); bitVec.push_back(3);
+  if(RKDiJetMETCollectionWithStatus.size()>0) histfacJetPreSel.Fill(RKDiJetMETCollectionWithStatus,1, bitVec);
+  bitVec.clear();
+  
+  if(false) std::cout<<" histfac 3"<<std::endl;
+  // Call again with different bit pattern to measure efficiency. 
+  // pre-selection
+  bitVec.push_back(0); bitVec.push_back(1); bitVec.push_back(2); 
+  bitVec.push_back(3); bitVec.push_back(4); bitVec.push_back(5); 
+  bitVec.push_back(6);  // upto Mbb cut
+  if(RKDiJetMETCollectionWithStatus.size()>0) histfacJetHardPreSel.Fill(RKDiJetMETCollectionWithStatus,1, bitVec);
+  
+  // For ISR Study Using Thin Jets 
+  // Using pre-selection
+  if(false) std::cout<<" calling isr "<<std::endl;
+  mh_isrstudy.Fill(RKDiJetMETCollectionWithStatus,1,bitVec);
+  
+  if(false) std::cout<<" histfac 1"<<std::endl;
+  bitVec.clear();
+  
+  // Full Selection 
+  bitVec.push_back(0); bitVec.push_back(1); bitVec.push_back(2); 
+  bitVec.push_back(3); bitVec.push_back(4); bitVec.push_back(5); 
+  bitVec.push_back(6); bitVec.push_back(7); bitVec.push_back(8);
+  bitVec.push_back(9); bitVec.push_back(10);// upto Mbb cut
+  if(RKDiJetMETCollectionWithStatus.size()>0) histfacFullSel.Fill(RKDiJetMETCollectionWithStatus,1, bitVec);
+  if(false) std::cout<<" histfac 1"<<std::endl;
+  bitVec.clear();
+  
+  //if( RKDiJetMETCollectionWithStatus.size()>0)     std::cout<<" cut status main = "<<RKDiJetMETCollectionWithStatus[0].cutsStatus<<std::endl;
+  
+  
+  if(false) std::cout<<" calling cutFlow "<<std::endl;
+  if(RKDiJetMETCollectionWithStatus.size()>0) cutflowobj.CutFlow(RKDiJetMETCollectionWithStatus);
+  
+  if(false) std::cout<<" calling nminus one"<<std::endl;
+  if(RKDiJetMETCollectionWithStatus.size()>0) nminusobj.Fill(RKDiJetMETCollectionWithStatus);
+  
+
+  
+  
+}
+
+
+
+
+
+
+void RKAnalyzer::XHGammaAnalyzer(){
+  
+  /*
+    -- sorting syntax
+    Dijet Vector Sorting wrt pT of diJet candidate 
+    std::sort(RKdiJetCollection.begin(), RKdiJetCollection.end(), DiJetpTSorting() );
+  
+  */
+  // FatJet-Gamma Analysis starts from here
   if(MH_FATJetCollection.size()>0) RKFatJetMETCollection = fatjet_met.ReconstructDiObject(MH_FATJetCollection,met);
   if( RKFatJetMETCollection.size()>0) RKFatJetMETCollection[0].electrons = RKElectronCollection;
   if( RKFatJetMETCollection.size()>0) RKFatJetMETCollection[0].events = events;
