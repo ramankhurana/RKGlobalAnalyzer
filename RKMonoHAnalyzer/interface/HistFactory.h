@@ -59,6 +59,10 @@ void Fill(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > objectCollection, 
   TString prefix;
   TFile* file;
   TTree*   skimTree;
+  TH2F*    h_dPhi_MT_[nobjectmet];
+  TH2F*    h_dPhi_MT_4Bin_[nobjectmet];
+  TH2F*    h_dPhi_CSV_4Bin_[nobjectmet];
+  TH2F*    h_dPhi_CSV_[nobjectmet];
   TH1F*    h_nMuons[nobjectmet];
   TH1F*    h_nTaus[nobjectmet];
   TH1F*    h_nElectrons[nobjectmet];

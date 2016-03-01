@@ -1,0 +1,215 @@
+import sys
+import os
+import ROOT
+ROOT.gROOT.SetBatch(True)  
+from DataSetInfo import *
+
+
+if len(sys.argv) < 3 :
+    print "insufficient options provided see help function "
+    exit (1)
+
+if len(sys.argv) == 3 :
+    print ('You are makeing datacards for '+sys.argv[1]+' and datacards will be saved in '+sys.argv[2])
+
+
+#inputtextfilename='TwoSubJets.txt'
+#dirtosave='twosubjets'
+inputtextfilename=sys.argv[1]
+dirtosave=sys.argv[2]
+
+os.system('mkdir -p '+dirtosave)
+
+## prepare template datacard and store in this variable. 
+## do whatever change you want to do 
+## and keep variables in capital letters with prefix "T" e.g. signal strength can be written as TSIGNAL and DYJets can be TDYJETS
+## these can be replaced by either a python or shell script to make datacards for a specific mass point and analysis. 
+templatecard='''
+imax    1       number of channels
+jmax    *       number of backgrounds
+kmax    *       number of nuisance parameters (sources of systematical uncertainties)
+
+-------------------------------------------------------------------------------------------------
+
+--shapes *     MONOHBB  ROOTFILENAME $PROCESS $PROCESS_$SYSTEMATIC
+
+-------------------------------------------------------------------------------------------------
+bin                      MONOHBB
+observation              DATARATE
+
+-------------------------------------------------------------------------------------------------
+
+bin                      MONOHBB   MONOHBB    MONOHBB    MONOHBB    MONOHBB    MONOHBB
+process                  Sig       DYJets      WJets      ZH          TT        DIBOSON 
+
+-------------------------------------------------------------------------------------------------
+
+process                  0                1          2             3          4         5  
+
+rate                SIGNALRATE       DYJETSRATE    WJETSRATE    ZHRATE      TTRATE    DIBOSONRATE 
+
+-------------------------------------------------------------------------------------------------
+
+######################   #### #########  Sig   DYJet  WJets  ZH       TT     DIBOSON  
+lumi_13TeV                lnN            1.04    -      -     1.04     -      1.04  
+
+pdf_qqbar                 lnN            1.01    -      -     1.01     -      1.01
+pdf_gg                    lnN             -      -     -      1.50       -        - 
+
+QCDscale_VH               lnN            1.04    -      -     1.04     -        - 
+QCDscale_VV               lnN             -      -      -     -        -      1.04
+
+CMS_monoHbb_ST               lnN             -      -      -      -       1.25     - 
+CMS_monoHbb_VV               lnN             -      -      -      -       -      1.25
+CMS_monoHbb_eff_b            lnN            1.07    -      -    1.07      -      1.07
+CMS_monoHbb_fake_b_13TeV     lnN            1.03    -      -    1.03      -        - 
+CMS_monoHbb_res_j            lnN            1.05    -      -    1.05      -      1.05
+CMS_monoHbb_scale_j          lnN            1.05    -      -    1.05      -      1.05
+
+CMS_monoHbb_WHFunc         lnN             -      -     1.10   -        -        - 
+#CMS_monoHbb_Wjets_SF         lnN             -      -     1.10   -        -        - 
+#CMS_monoHbb_DYjets_SF        lnN             -     1.10    -     -        -        -    
+#CMS_monoHbb_TT_SF            lnN             -      -      -     -       1.10      - 
+
+CMS_monoHbb_monoH_stat       lnN            SIGNALERRRATE    -      -     -        -        -
+CMS_monoHbb_ggZH_stat        lnN             -      -      -    ZHERRRATE      -        - 
+CMS_monoHbb_Wjets_stat       lnN            -      -     WJETSERRRATE   -        -        - 
+CMS_monoHbb_DYjets_stat      lnN            -      DYJETSERRRATE   -     -        -        - 
+CMS_monoHbb_TT_stat          lnN            -      -      -     -       TTERRRATE      -
+CMS_monoHbb_VV_stat          lnN            -      -      -     -        -      DIBOSONERRRATE
+
+CMS_monoHbb_trigger_MET      lnN          1.03     -      -    1.03      -      1.03
+'''
+
+## template datacard ends here 
+
+## Write templat datacard to the text file with placeholders.
+##
+datacard = open('DataCard_MXXXGeV.txt','w')
+datacard.write(templatecard)
+datacard.close()
+
+## Function to provide the normalization weight factors
+def Normalize(n,xs,tot):
+    yield_ = n*xs*1./tot
+    return yield_
+
+
+
+## map of placeholder used in the Template datacard.
+## This is analysis specific.
+nameinnumber=['TT',
+              'DIBOSON',
+              'ZH',
+              'DYJETS',
+              'WJETS',
+              'DATA']
+
+## List of signal samples for which limit is needed. 
+## This is analysis specific.
+signalnameinnumber=[ 'M600',
+                     'M800',
+                     'M1000',
+                     'M1200',
+                     'M1400',
+                     'M1700',
+                     'M2000',
+                     'M2500']
+
+
+## create the names of place RATE holders
+placeholder = [x + "RATE" for x in nameinnumber]
+placeholdererr = [x + "ERRRATE" for x in nameinnumber]
+## print placeholder
+print placeholder
+print placeholdererr
+
+
+## valuemap for background and signal with a default value
+valuemap = {
+    "default" : 0.0
+    }
+
+valuemaperr = {
+    "default" : 0.0
+    }
+
+signalvaluemap = {
+    "default" : 0.0
+    }
+
+signalvaluemaperr = {
+    "default" : 0.0
+    }
+
+## Read the signal background numbers from plain TEXTFile
+## this value map is used later to get the datacard by replacing the
+## place holders with values stored in this map.
+numbers = open(inputtextfilename,'r')
+for iline in numbers:
+    a,b,c = iline.split()
+    for iname in range(len(nameinnumber)):
+        if a==nameinnumber[iname]:
+            stringtoprint = nameinnumber[iname]+" value is "+b
+            print stringtoprint
+            ratename = nameinnumber[iname]+"RATE"
+            valuemap[ratename]=b
+            if float(b) > 0. : valuemaperr[ratename]=str(1.0 + round( float(c)/float(b), 2) )
+            if float(b) == 0 : valuemaperr[ratename]=str(1.0)
+    ### Following lines fill the 
+    ### value map for signal points
+    for isigname in range(len(signalnameinnumber)):
+        if a==signalnameinnumber[isigname]:
+            stringtoprint = signalnameinnumber[isigname]+" value is "+b
+            print stringtoprint
+            ratename = signalnameinnumber[isigname]+"RATE"
+            signalvaluemap[ratename]=b
+            if float(b) > 0. : signalvaluemaperr[ratename]= str(1.0 + round(float(c)/float(b), 2) )
+            if float(b) == 0 : signalvaluemaperr[ratename]= str(1.0 )
+
+print valuemap
+print valuemaperr
+print signalvaluemap
+print signalvaluemaperr
+
+## Method to access the rootfiles
+## Use it to clone and then 
+#sigTFile = ROOT.TFile('Merged_DMHistosSpring15_1/main-NCUGlobalTuples_M1500.root','READ')
+#sigEvent  = sigTFile.Get('CutFlowAndEachCut/h_cutflow_0')
+#sigTEvent = sigTFile.Get('nEvents')
+#print sigEvent.GetBinContent(7)
+#scaledsig = Normalize(sigEvent.GetBinContent(7), SignalXS['M1500'],sigTEvent.GetEntries())
+#print scaledsig
+
+
+def MakeDataCard(masspoint):
+    datacard = open('DataCard_MXXXGeV.txt','r')
+    newdatacardname = dirtosave+'/DataCard_'+masspoint+'GeV_MonoHbb_13TeV.txt'
+    os.system('rm '+newdatacardname)
+    datacard600 = open(newdatacardname,'w')
+    
+    for line in datacard:
+        ## replace the background values.
+        for ival in range(len(placeholder)):
+            line = line.replace(placeholder[ival],valuemap[placeholder[ival]])
+            line = line.replace(placeholdererr[ival],valuemaperr[placeholder[ival]])
+        
+        ## replace the signal values
+        masspointrate = masspoint + "RATE"
+        line = line.replace('SIGNALRATE', signalvaluemap[masspointrate])
+        line = line.replace('SIGNALERRRATE', signalvaluemaperr[masspointrate])
+        datacard600.write(line)
+    datacard600.close()
+
+
+
+for imasspoint in range(len(signalnameinnumber)):
+    MakeDataCard(signalnameinnumber[imasspoint])
+
+
+print "datacards produced"
+
+
+
+
+

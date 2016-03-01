@@ -38,14 +38,22 @@ void HistFactory::DefineHistograms(){
   for(int i =0; i<nobjectmet; i++){
     postfix.Form("%d",i);
     
+    float dphibin[]={0.,0.5,3.5};
+    float mtbin[]={0.,450.,3000.};
     // 1D Histograms
-    h_nMuons[i]     = new TH1F("h_nMuons"+postfix,"h_nMuons",10,0,10);
-    h_nTaus[i]      = new TH1F("h_nTaus"+postfix,"h_nTaus",10,0,10);
-    h_nElectrons[i] = new TH1F("h_nElectrons"+postfix,"h_nElectrons",10,0,10);
-    h_nJets[i]      = new TH1F("h_nJetss"+postfix,"h_nJetss",10,0,10);
-    h_nFJets[i]     = new TH1F("h_nFJets"+postfix,"h_nFJets",10,0,10);
-    h_DRSJ[i]       = new TH1F("h_DRSJ"+postfix,"h_DRSJ",100,0,5);
-    h_NThinJets[i]  = new TH1F("h_NThinJets"+postfix,"h_NThinJets",10,0,10);
+    h_dPhi_MT_[i]       = new TH2F("h_dPhi_MT_"+postfix,"h_dPhi_MT_",35,0,3.5, 100,0,3000);
+    h_dPhi_MT_4Bin_[i]  = new TH2F("h_dPhi_MT_4Bin_"+postfix,"h_dPhi_MT_4Bin_",2,dphibin, 2, mtbin); 
+    float csvbin[]={0.0,1.21,2.};
+    h_dPhi_CSV_4Bin_[i] = new TH2F("h_dPhi_CSV_4Bin_"+postfix,"h_dPhi_CSV_4Bin_",2,dphibin, 2, csvbin); 
+    h_dPhi_CSV_[i]      = new TH2F("h_dPhi_CSV_"+postfix,"h_dPhi_CSV_",35,0,3.5, 100,1.2,2.0);
+    
+    h_nMuons[i]         = new TH1F("h_nMuons"+postfix,"h_nMuons",10,0,10);
+    h_nTaus[i]          = new TH1F("h_nTaus"+postfix,"h_nTaus",10,0,10);
+    h_nElectrons[i]     = new TH1F("h_nElectrons"+postfix,"h_nElectrons",10,0,10);
+    h_nJets[i]          = new TH1F("h_nJetss"+postfix,"h_nJetss",10,0,10);
+    h_nFJets[i]         = new TH1F("h_nFJets"+postfix,"h_nFJets",10,0,10);
+    h_DRSJ[i]           = new TH1F("h_DRSJ"+postfix,"h_DRSJ",100,0,5);
+    h_NThinJets[i]      = new TH1F("h_NThinJets"+postfix,"h_NThinJets",10,0,10);
     
     h_dPhiThinJetMET[i] = new TH1F("h_dPhiThinJetMET"+postfix,"h_dPhiThinJetMET",70,-3.5,3.5);
     
@@ -277,11 +285,13 @@ void HistFactory::Fill(std::vector<ResonanceWithMET<Jet,MET > > objectCollection
 	  //if(dr_ < 1.0 )  continue;
 	  float dphi_ = RKMath::DeltaPhi( objectCollection[0].thinjets[ij].p4.Phi() ,
 					  objectCollection[i].jet2.RawPhi);
-	  if (dphi_<0.4) continue;
+	  //if (dphi_<0.4) continue;
 	  nthinjets++;
 	  if(TMath::Abs(dphi_)<dphimin) dphimin = TMath::Abs(dphi_);
 	}
 	
+	h_dPhi_MT_[0]->Fill(dphimin, objectCollection[i].TransverseObjProp.TransMass, mcweight_);
+	h_dPhi_MT_4Bin_[0]->Fill(dphimin, objectCollection[i].TransverseObjProp.TransMass, mcweight_);
 	h_NThinJets[0]->Fill(nthinjets, mcweight_);
 	std::cout<<" mht in histfac = "<<objectCollection[0].MHTp4.Pt()<<std::endl;
 	h_MHT[0]->Fill(objectCollection[0].MHTp4.Pt(), mcweight_);
@@ -377,6 +387,9 @@ void HistFactory::Fill(std::vector<ResonanceWithMET<Jet,MET > > objectCollection
 	h_DRSJ[0]->Fill(drsj   , mcweight_);
 	// MET
 	
+	h_dPhi_CSV_4Bin_[0]->Fill(dphimin, csv1+csv2, mcweight_);
+	h_dPhi_CSV_[0]->Fill(dphimin, csv1+csv2, mcweight_);
+	
 	h_MET[0]->Fill(objectCollection[i].jet2.RawPt                  , mcweight_  );
 	
 	h_Mjj[0]->Fill(objectCollection[i].jet1.SDmass                 , mcweight_  );
@@ -461,6 +474,10 @@ void HistFactory::Write(){
   
   for(int i =0; i<nobjectmet; i++){
     // 1D Histograms
+    h_dPhi_MT_[i]     ->Write();
+    h_dPhi_MT_4Bin_[i]->Write();
+    h_dPhi_CSV_4Bin_[i]->Write();
+    h_dPhi_CSV_[i]->Write();
     h_nMuons[i]       ->Write();
     h_nElectrons[i]   ->Write();
     h_nTaus[i]        ->Write();

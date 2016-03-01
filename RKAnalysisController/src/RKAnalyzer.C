@@ -93,6 +93,7 @@ void RKAnalyzer::Loop(TString output, TString running_mode){
   histfactSel_JetAndLeptonVetoBTagUpLF.GetInputs(fout,"MonoHFatJetSelection_JetAndLeptonVetoBTagUpLF","central","up");
   histfactSel_JetAndLeptonVetoBTagDownLF.GetInputs(fout,"MonoHFatJetSelection_JetAndLeptonVetoBTagDownLF","central","down");
   
+  histfacFatJet_QCD.GetInputs(fout,"histfacFatJet_QCD");
   histfacFatJet_TTBar.GetInputs(fout,"histfacFatJet_TTBar");
   histfacFatJet_TTBar_Merged.GetInputs(fout,"histfacFatJet_TTBar_Merged");
   histfacFatJet_ZLight.GetInputs(fout,"histfacFatJet_ZLight");
@@ -283,6 +284,7 @@ void RKAnalyzer::Loop(TString output, TString running_mode){
    histfactSel_JetAndLeptonVetoBTagUpLF.Write();
    histfactSel_JetAndLeptonVetoBTagDownLF.Write();
    
+   histfacFatJet_QCD.Write();
    histfacFatJet_TTBar.Write();
    histfacFatJet_TTBar_Merged.Write();
    histfacFatJet_ZLight.Write();
@@ -1039,7 +1041,7 @@ void RKAnalyzer::MonoHiggsAnalyzer(){
   //--------------------------------------------------------
   std::vector<int> fatjetbitVec ;
   fatjetbitVec.clear();
-  fatjetbitVec = {0, 1, 6, 7, 8, 14, 15};
+  fatjetbitVec = {0, 6, 8, 12, 21};
   if(RKFatJetMETCollectionWithStatus.size()>0) histfacFatJetPreSel.Fill(RKFatJetMETCollectionWithStatus,3,fatjetbitVec, eventlist);
   if(RKFatJetMETCollectionWithStatus.size()>0) nminusobj.Fill(RKFatJetMETCollectionWithStatus,fatjetbitVec);
   if(RKFatJetMETCollectionWithStatus.size()>0) cutflowFatJetobj.CutFlow(RKFatJetMETCollectionWithStatus, fatjetbitVec);
@@ -1114,6 +1116,14 @@ void RKAnalyzer::MonoHiggsAnalyzer(){
   fatjetbitVec = {0, 2, 6, 7, 8, 14, 15,12,21}; // two sub-bjet tag
   //fatjetbitVec = {0, 5, 6, 7, 8, 14, 15}; // two sub-btag jets DR
   if(RKFatJetMETCollectionWithStatus.size()>0) histfactSel_JetAndLeptonVeto.Fill(RKFatJetMETCollectionWithStatus,3,fatjetbitVec,eventlist);
+  
+  
+  //  For QCD estimation 
+  fatjetbitVec.clear();
+  fatjetbitVec = {0, 7, 8, 14, 15,12,21}; // for QCD estimation dphi and MT cuts are relaxed "6". 
+  if(RKFatJetMETCollectionWithStatus.size()>0) histfacFatJet_QCD.Fill(RKFatJetMETCollectionWithStatus,3,fatjetbitVec, eventlist);
+
+  
   
   // btagUp
   if(RKFatJetMETCollectionWithStatus.size()>0) histfactSel_JetAndLeptonVetoBTagUpHF.Fill(RKFatJetMETCollectionWithStatus,3,fatjetbitVec,eventlist);

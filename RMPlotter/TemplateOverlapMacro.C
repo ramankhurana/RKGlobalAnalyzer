@@ -6,7 +6,7 @@
  tm *ltm = localtime(&now);
  TString dirpathname;
 
- TString DirPreName = "AnalysisTuples_V39";
+ TString DirPreName = "AnalysisTuples_V46";
  dirpathname.Form("%d%1.2d%d",ltm->tm_mday,1 + ltm->tm_mon,1900 + ltm->tm_year);
  system("mkdir -p  " + DirPreName+dirpathname +"/MonoHROOT");
  system("mkdir -p  " + DirPreName+dirpathname +"/MonoHPdf");
@@ -33,7 +33,7 @@ float lumi = 2263.5; // It will print on your plots too
 std::vector<TString> filenameString;
 //Change here Directories of the file
 
-TString filenamepath("/afs/hep.wisc.edu/cms/khurana/Script/AnalysisTuples_V39/"); 
+TString filenamepath("/afs/hep.wisc.edu/cms/khurana/Script/AnalysisTuples_V46/"); 
 // DYJets 1
 filenameString.push_back(filenamepath + "Merged_WW_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root");
 //WJets  1
@@ -182,6 +182,7 @@ for(int i =0; i<(int)filenameString.size()-1; i++){
  h_mc[i]->Sumw2();
 
  h_total      = (TH1F*) fIn->Get("nEvents_weight");
+// h_total      = (TH1F*) fIn->Get("h_total");
  
 //std::cout<<" normalization for = "<<i<<"  "<<filenameString[i]<<"   "
 //<<h_mc[i]->Integral()

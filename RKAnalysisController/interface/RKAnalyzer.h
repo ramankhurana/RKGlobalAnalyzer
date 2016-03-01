@@ -165,6 +165,7 @@ bool debug;
    HistFactory histfactSel_JetAndLeptonVetoBTagUpLF;
    HistFactory histfactSel_JetAndLeptonVetoBTagDownLF;
    
+   HistFactory histfacFatJet_QCD;
    HistFactory histfacFatJet_TTBar;
    HistFactory histfacFatJet_TTBar_Merged;
    HistFactory histfacFatJet_ZLight;
