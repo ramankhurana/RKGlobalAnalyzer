@@ -1,4 +1,23 @@
-{
+import os
+import sys
+## Ratio is added Data/MC 
+## Template macro is fed to a python variable
+## 1.) Dir is created on DateBase 
+## 2.) Starting Extension of your Dir..Like 
+## in a day you want 2 directories jsut
+## change the DirPreName
+## Monika Mittal Khuarana
+## Raman Khurana
+
+
+if len(sys.argv) < 2 : 
+    print "insufficiency inputs provided, please provide the directory with input files"
+
+if len(sys.argv) ==2 : 
+    print "plotting from directory ",sys.argv[1]
+    inputdirname = sys.argv[1]
+
+macro='''{
 #include <ctime>
 #include <cstdlib>
 #include "TStyle.h" 
@@ -6,18 +25,18 @@
  tm *ltm = localtime(&now);
  TString dirpathname;
 
- TString DirPreName = "AnalysisTuples_V46";
+ TString DirPreName = "'''+inputdirname+'''";
  dirpathname.Form("%d%1.2d%d",ltm->tm_mday,1 + ltm->tm_mon,1900 + ltm->tm_year);
  system("mkdir -p  " + DirPreName+dirpathname +"/MonoHROOT");
  system("mkdir -p  " + DirPreName+dirpathname +"/MonoHPdf");
  system("mkdir -p  " + DirPreName+dirpathname +"/MonoHPng");
  
  ofstream mout;
- mout.open(DirPreName+dirpathname +"/histfacFatJet_WHeavy"+dirpathname +"Integral.txt",std::ios::app);
+ mout.open(DirPreName+dirpathname +"/HISTPATH"+dirpathname +"Integral.txt",std::ios::app);
  ofstream rout;
- rout.open(DirPreName+dirpathname +"/histfacFatJet_WHeavy"+dirpathname +"Integral.html",std::ios::app);
+ rout.open(DirPreName+dirpathname +"/HISTPATH"+dirpathname +"Integral.html",std::ios::app);
  ofstream tableout;
- tableout.open(DirPreName+dirpathname +"/histfacFatJet_WHeavy"+dirpathname +"IntegralWithError.txt",std::ios::app);                                                                                          
+ tableout.open(DirPreName+dirpathname +"/HISTPATH"+dirpathname +"IntegralWithError.txt",std::ios::app);                                                                                          
 
 
 gROOT->ProcessLine(".L /afs/hep.wisc.edu/cms/khurana/Monika/CMSSW_7_4_5/src/RKGlobalAnalyzer/tdrstyle.C");                                     setTDRStyle();
@@ -34,7 +53,7 @@ float lumi = 3300.;
 std::vector<TString> filenameString;
 //Change here Directories of the file
 
-TString filenamepath("/afs/hep.wisc.edu/cms/khurana/Script/AnalysisTuples_V46/"); 
+TString filenamepath("/afs/hep.wisc.edu/cms/khurana/Script/'''+inputdirname+'''/"); 
 // DYJets 1
 filenameString.push_back(filenamepath + "Merged_WW_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root");
 //WJets  1
@@ -98,7 +117,7 @@ filenameString.push_back(filenamepath + "Merged_MET.root");
 
 //const int n_integral = (int)filenameString.size();
 
-TString histnameString("histfacFatJet_WHeavy/h_nMuons0");
+TString histnameString("HISTPATH/HISTNAME");
 
 TFile *fIn;
 const int nfiles = (int) filenameString.size();
@@ -192,7 +211,7 @@ TH1F *h_data;
 for(int i =0; i<(int)filenameString.size()-1; i++){
  fIn = new TFile(filenameString[i],"READ");
  h_mc[i] = (TH1F*) fIn->Get(histnameString);
- h_mc[i]->Rebin(1); 
+ h_mc[i]->Rebin(REBIN); 
  h_mc[i]->Sumw2();
 
  h_total      = (TH1F*) fIn->Get("nEvents_weight");
@@ -217,7 +236,7 @@ if(Integral[i]>0) Integral_Error[i] = TMath::Sqrt(Integral[i]) * normalization[i
 
 fIn = new TFile(filenameString[nfiles-1],"READ");
 h_data = (TH1F*) fIn->Get(histnameString);
-h_data->Rebin(1);
+h_data->Rebin(REBIN);
 //h_data->Sumw2();
 
 
@@ -225,7 +244,7 @@ h_data->Rebin(1);
  //Legend
  TLegend *legend;
  
- if(0){
+ if(NORATIOPLOT){
  //legend = new TLegend(0.73, 0.62, 0.95,0.92,NULL,"brNDC");
 legend = new TLegend(0.56, 0.65, 0.9,0.92,NULL,"brNDC");
  legend->SetTextSize(0.045);
@@ -270,7 +289,7 @@ TString latexname = latexnamemiddle+latexnamepost;
 TLatex *t2b;
 TLatex *t2c;
 
-if(0){
+if(NORATIOPLOT){
  t2a = new TLatex(0.7,0.97,latexname);
  t2a->SetTextSize(0.04);
 
@@ -318,7 +337,7 @@ THStack *hs = new THStack("hs"," ");
 // For N-1 Plots only
 bool nminus = 0;
 TLatex *tt;
-if(("histfacFatJet_WHeavy" == "ElectronNMinus1E") || ("histfacFatJet_WHeavy" == "ElectronNMinus1B") ){
+if(("HISTPATH" == "ElectronNMinus1E") || ("HISTPATH" == "ElectronNMinus1B") ){
 nminus =1;
 tt  = new TLatex(0.5,0.87,"N-1");
 tt->SetTextSize(0.05);
@@ -493,14 +512,14 @@ c12->SetLogy(0);
   
   // Upper canvas declaration
  
-  if(0){
+  if(NORATIOPLOT){
   TPad *c1_2 = new TPad("c1_2","newpad",0,0.05,1,0.993);
   }else{
   TPad *c1_2 = new TPad("c1_2","newpad",0,0.29,1,0.974);
   c1_2->SetBottomMargin(0.03);
   }
  //c1_2->SetBottomMargin(-0.5);
-  c1_2->SetLogy(0);
+  c1_2->SetLogy(ISLOG);
   c1_2->Draw();
   c1_2->cd();
 
@@ -508,7 +527,7 @@ c12->SetLogy(0);
 
 hs->Draw();
 
-if("h_nMuons0"=="h_cutFlow0"){
+if("HISTNAME"=="h_cutFlow0"){
     hs->GetXaxis()->SetBinLabel(1,"Preselection");
     hs->GetXaxis()->SetBinLabel(2,"Mass");
     hs->GetXaxis()->SetBinLabel(3,"CSV2");
@@ -540,17 +559,17 @@ if("h_nMuons0"=="h_cutFlow0"){
 
 
     h_data->SetLineColor(1);
-if(!0){
+if(!NORATIOPLOT){
   h_data->Draw("same p e1");
   }
-  if(0)    hs->SetMinimum(1.);
-  if(!0)   hs->SetMinimum(1);
-  if(!0)   hs->SetMaximum(maxi *1.45);
-  if(0)    hs->SetMaximum(maxi *100);
-  //if(!0) hs->SetMaximum(0.4);
+  if(ISLOG)    hs->SetMinimum(1.);
+  if(!ISLOG)   hs->SetMinimum(1);
+  if(!ISLOG)   hs->SetMaximum(maxi *1.45);
+  if(ISLOG)    hs->SetMaximum(maxi *100);
+  //if(!ISLOG) hs->SetMaximum(0.4);
  
 
-  if(0){
+  if(NORATIOPLOT){
   hs->GetXaxis()->SetTitleSize(0.05);
   hs->GetXaxis()->SetTitleOffset(0.97);
   hs->GetXaxis()->SetTitleFont(22);
@@ -562,7 +581,7 @@ if(!0){
   hs->GetYaxis()->SetTitleFont(22);
   hs->GetYaxis()->SetLabelFont(22);
   hs->GetYaxis()->SetLabelSize(.05);
-  hs->GetXaxis()->SetTitle("N_{add. #mu}");
+  hs->GetXaxis()->SetTitle("XAXISLABEL");
   }else{
   hs->GetXaxis()->SetLabelOffset(999);
   hs->GetXaxis()->SetLabelSize(0);  
@@ -576,7 +595,7 @@ if(!0){
   hs->GetYaxis()->SetTitleFont(22);
   hs->GetYaxis()->SetLabelFont(22);
   hs->GetYaxis()->SetLabelSize(.07);
-  hs->GetXaxis()->SetRangeUser(0,5);  
+  hs->GetXaxis()->SetRangeUser(XMIN,XMAX);  
   hs->GetXaxis()->SetNdivisions(508); 
 
   legend->AddEntry(h_err,"Stats. Unc.","f");
@@ -599,7 +618,7 @@ if(!0){
   
  // Lower Tpad Decalaration
  
-  if(! 0){
+  if(! NORATIOPLOT){
   c12->cd();
   
   TH1F *DataMC = (TH1F*) h_data->Clone();
@@ -628,7 +647,7 @@ if(!0){
   DataMC->GetYaxis()->SetTitleFont(22);
   DataMC->GetYaxis()->SetLabelSize(0.15);
   DataMC->GetYaxis()->CenterTitle();
-  DataMC->GetXaxis()->SetTitle("N_{add. #mu}");
+  DataMC->GetXaxis()->SetTitle("XAXISLABEL");
 //DataMC->GetXaxis()->SetIndiceSize(0.1);
   DataMC->GetXaxis()->SetLabelSize(0.157);
   DataMC->GetXaxis()->SetTitleSize(0.162);
@@ -653,7 +672,7 @@ if(!0){
  c1_1->SetFrameFillStyle(0);
  c1_1->SetFrameBorderMode(0);
  c1_1->SetLogy(0);
- DataMC->GetXaxis()->SetRangeUser(0,5);
+ DataMC->GetXaxis()->SetRangeUser(XMIN,XMAX);
  DataMC->Draw("PE1");
  DataMC->SetMarkerStyle(20);
  DataMC->SetMarkerColor(1);
@@ -664,7 +683,7 @@ if(!0){
  c1_1->SetGridy();
 
 
- TF1 *line0 = new TF1("line0","[0]*x",0,5);
+ TF1 *line0 = new TF1("line0","[0]*x",XMIN,XMAX);
  line0->FixParameter(0,0);
 // line0->FixParameter(1,0);
  
@@ -679,14 +698,14 @@ if(!0){
   
 
 
-if(1){ 
+if(TEXTINFILE){ 
    
 //=======================================================================
   //Calculating the contribution of each background in particular range
  // As Data DY(ee) diboson TTjets WWJets
  TAxis *xaxis = h_mc[0]->GetXaxis();
- Int_t binxmin = xaxis->FindBin(0);
- Int_t binxmax = xaxis->FindBin(5);
+ Int_t binxmin = xaxis->FindBin(XMIN);
+ Int_t binxmax = xaxis->FindBin(XMAX);
 
   float qcdEntries =0.0, dibosonentries =0.0 , wjetentries=0.0;
 //  for(int qcd = 6; qcd < 22 ; qcd++){                                                                                   
@@ -717,7 +736,7 @@ float zh = h_mc[6]->Integral();
 float zh_error = Integral_Error[6];
 
 
-  mout << "histfacFatJet_WHeavy_h_nMuons0"            <<  " a b"<<std::endl; 
+  mout << "HISTPATH_HISTNAME"            <<  " a b"<<std::endl; 
   mout << " DATA "    << h_data->Integral()  <<" 0"<< std::endl; 
 //  mout << " DATA 0"    <<  std::endl; 
 //  mout << " DYJETS "  << h_mc[0]->Integral() << std::endl; 
@@ -744,19 +763,19 @@ float zh_error = Integral_Error[6];
 
 // --------------------- table output --------------------
   tableout.precision(3);
-  tableout << " Z \\rightarrow \\nu \\nu+Jets & "<< dyjets <<" \\pm "<<dyjets_error <<"\\\\"<<std::endl;  
-  tableout << " t \\bar{t} & "<< tt_ <<" \\pm "<<tt_error <<"\\\\"<< std::endl; 
-  tableout << " W+Jets & "  <<wjets <<" \\pm "<<wjets_error <<"\\\\"<< std::endl;
-  tableout << " WW/WZ/ZZ & " << diboson_ <<" \\pm "<<diboson_error  <<"\\\\"<< std::endl;
-  tableout << " ZH & "      << h_mc[6]->Integral() <<" \\pm "<<Integral_Error[6]<<"\\\\"<< std::endl;
-  tableout << " M600  & "    << h_mc[7]->Integral() <<" \\pm "<<Integral_Error[7]<<"\\\\"<< std::endl;
-  tableout << " M800  & "    << h_mc[8]->Integral() <<" \\pm "<<Integral_Error[8]<<"\\\\"<< std::endl;
-  tableout << " M1000 &  "    << h_mc[9]->Integral() <<" \\pm "<<Integral_Error[9]<<"\\\\"<< std::endl;
-  tableout << " M1200 &  "    << h_mc[10]->Integral() <<" \\pm "<<Integral_Error[10]<<"\\\\"<< std::endl;
-  tableout << " M1400 &  "   << h_mc[11]->Integral() <<" \\pm "<<Integral_Error[11]<<"\\\\"<< std::endl;
-  tableout << " M1700 &  "   << h_mc[12]->Integral() <<" \\pm "<<Integral_Error[12]<<"\\\\"<< std::endl;
-  tableout << " M2000 &  "   << h_mc[13]->Integral() <<" \\pm "<<Integral_Error[13]<<"\\\\"<< std::endl;
-  tableout << " M2500 &  "   << h_mc[14]->Integral() <<" \\pm "<<Integral_Error[14]<<"\\\\"<< std::endl;
+  tableout << " Z \\\\rightarrow \\\\nu \\\\nu+Jets & "<< dyjets <<" \\\\pm "<<dyjets_error <<"\\\\\\\\"<<std::endl;  
+  tableout << " t \\\\bar{t} & "<< tt_ <<" \\\\pm "<<tt_error <<"\\\\\\\\"<< std::endl; 
+  tableout << " W+Jets & "  <<wjets <<" \\\\pm "<<wjets_error <<"\\\\\\\\"<< std::endl;
+  tableout << " WW/WZ/ZZ & " << diboson_ <<" \\\\pm "<<diboson_error  <<"\\\\\\\\"<< std::endl;
+  tableout << " ZH & "      << h_mc[6]->Integral() <<" \\\\pm "<<Integral_Error[6]<<"\\\\\\\\"<< std::endl;
+  tableout << " M600  & "    << h_mc[7]->Integral() <<" \\\\pm "<<Integral_Error[7]<<"\\\\\\\\"<< std::endl;
+  tableout << " M800  & "    << h_mc[8]->Integral() <<" \\\\pm "<<Integral_Error[8]<<"\\\\\\\\"<< std::endl;
+  tableout << " M1000 &  "    << h_mc[9]->Integral() <<" \\\\pm "<<Integral_Error[9]<<"\\\\\\\\"<< std::endl;
+  tableout << " M1200 &  "    << h_mc[10]->Integral() <<" \\\\pm "<<Integral_Error[10]<<"\\\\\\\\"<< std::endl;
+  tableout << " M1400 &  "   << h_mc[11]->Integral() <<" \\\\pm "<<Integral_Error[11]<<"\\\\\\\\"<< std::endl;
+  tableout << " M1700 &  "   << h_mc[12]->Integral() <<" \\\\pm "<<Integral_Error[12]<<"\\\\\\\\"<< std::endl;
+  tableout << " M2000 &  "   << h_mc[13]->Integral() <<" \\\\pm "<<Integral_Error[13]<<"\\\\\\\\"<< std::endl;
+  tableout << " M2500 &  "   << h_mc[14]->Integral() <<" \\\\pm "<<Integral_Error[14]<<"\\\\\\\\"<< std::endl;
   tableout << " DATA  & "    << h_data->Integral()  << std::endl; 
 
 
@@ -770,18 +789,143 @@ tableout<< " "<<std::endl;
 }
  
  c12->Draw();
-if(!0){
- c12->SaveAs(DirPreName+dirpathname +"/MonoHPdf/histfacFatJet_WHeavy_h_nMuons0.pdf");
- c12->SaveAs(DirPreName+dirpathname +"/MonoHPng/histfacFatJet_WHeavy_h_nMuons0.png");
- c12->SaveAs(DirPreName+dirpathname +"/MonoHROOT/histfacFatJet_WHeavy_h_nMuons0.root");                                                                         
+if(!ISLOG){
+ c12->SaveAs(DirPreName+dirpathname +"/MonoHPdf/HISTPATH_HISTNAME.pdf");
+ c12->SaveAs(DirPreName+dirpathname +"/MonoHPng/HISTPATH_HISTNAME.png");
+ c12->SaveAs(DirPreName+dirpathname +"/MonoHROOT/HISTPATH_HISTNAME.root");                                                                         
  rout<<"<hr/>"<<std::endl;
- rout<<"<table class=\"\"> <tr><td><img src=\""<<"DYPng/histfacFatJet_WHeavy_h_nMuons0.png\" height=\"400\" width=\"400\"></td>   </tr> </table>"<<std::endl;
+ rout<<"<table class=\\"\\"> <tr><td><img src=\\""<<"DYPng/HISTPATH_HISTNAME.png\\" height=\\"400\\" width=\\"400\\"></td>   </tr> </table>"<<std::endl;
 
 }
  
-if(0){
- c12->SaveAs(DirPreName+dirpathname +"/MonoHPdf/histfacFatJet_WHeavy_h_nMuons0_log.pdf");
- c12->SaveAs(DirPreName+dirpathname +"/MonoHPng/histfacFatJet_WHeavy_h_nMuons0_log.png");
- c12->SaveAs(DirPreName+dirpathname +"/MonoHROOT/histfacFatJet_WHeavy_h_nMuons0_log.root");                                                                        
+if(ISLOG){
+ c12->SaveAs(DirPreName+dirpathname +"/MonoHPdf/HISTPATH_HISTNAME_log.pdf");
+ c12->SaveAs(DirPreName+dirpathname +"/MonoHPng/HISTPATH_HISTNAME_log.png");
+ c12->SaveAs(DirPreName+dirpathname +"/MonoHROOT/HISTPATH_HISTNAME_log.root");                                                                        
 }
  }
+'''
+## template macro ends here
+
+TemplateOverlapMacro = open('TemplateOverlapMacro.C','w')
+TemplateOverlapMacro.write(macro)
+TemplateOverlapMacro.close()
+
+def makeplot(inputs):
+    print inputs
+    TemplateOverlapMacro = open('TemplateOverlapMacro.C','r')
+    NewPlot       = open('Plot.C','w')
+    for line in TemplateOverlapMacro:
+        line = line.replace("HISTPATH",inputs[0])
+        line = line.replace("HISTNAME",inputs[1])
+        line = line.replace("XAXISLABEL",inputs[2])
+        line = line.replace("XMIN",inputs[3])
+        line = line.replace("XMAX",inputs[4])
+        line = line.replace("REBIN",inputs[5]) 
+        line = line.replace("ISLOG",inputs[6])
+        if len(inputs) > 7 : 
+            line = line.replace("TEXTINFILE", inputs[7])
+        else : 
+            line = line.replace("TEXTINFILE", "0")     
+        if len(inputs) > 8 :
+            line = line.replace(".pdf",str(inputs[8]+".pdf"))
+            line = line.replace(".png",str(inputs[8]+".png"))
+        if len(inputs) > 9 :
+            line = line.replace("NORATIOPLOT", inputs[9])
+        else :
+            line = line.replace("NORATIOPLOT", "0")
+        #print line
+        NewPlot.write(line)
+    NewPlot.close()
+    os.system('root -l -b -q  Plot.C')
+
+##########Start Adding your plots here
+
+
+#dirnames=['histfacFatJet_WHeavy','MonoHFatJetSelection_JetAndLeptonVeto','histfacFatJet_ZLight']
+#'histfacFatJet_WLight','histfacFatJet_TTBar','histfacFatJet_ZLight','histfacFatJet_TTBar_Merged','histfacFatJet_WHeavy','MonoHFatJetSelection_JetAndLeptonVeto']
+#dirnames=['histfacFatJet_QCD']
+#dirnames=['histfacFatJet_ZLight']
+
+dirnames=['MonoHFatJetSelection_JetAndLeptonVeto','histfacFatJet_ZLight','histfacFatJet_WHeavy']
+#dirnames=['MonoHFatJetSelection_JetAndLeptonVeto']
+
+#dirnames=['MonoHFatJetsPreselection_2subj']
+#dirnames=['MonoHFatJetSelection_Jetveto','MonoHFatJetSelection_LeptonVeto','MonoHFatJetSelection_JetAndLeptonVeto']
+#dirnames=['histfacFatJet_WLight','histfacFatJet_TTBar','histfacFatJet_ZLight']
+#dirnames=['histfacFatJet_ZLight']
+#dirnames=['histfacFatJet_ZLight']
+
+#dirnames=['MonoHFatJetSelection_JetAndLeptonVeto']
+#dirnames=['MonoHFatJetsPreselection_1subj','MonoHFatJetsPreselection_2subj','histfacFatJet_TTBar','histfacFatJet_ZLight','histfacFatJet_ZHeavy','histfacFatJet_WLight','histfacFatJet_WHeavy']
+#dirnames=['MonoHFatJetsPreselection_2subj','MonoHFatJetSelection_Jetveto','MonoHFatJetSelection_LeptonVeto','MonoHFatJetSelection_JetAndLeptonVeto']
+## Plots After Pre-selection
+#makeplot(['CutFlowAndEachCutFatJet', 'h_cutflow_0_f', 'Cut Flow', '0','5', '1', '1','1'])
+for dirname in dirnames:
+    makeLinearplots=True;
+    if makeLinearplots :
+        #makeplot([dirname,'h_dPhi_MT_0','N_{AK04 Jets}','0','10','1','0','1'])
+        makeplot([dirname,'h_nMuons0','N_{add. #mu}','0','5','1','0','1','','0'])## last option 0 will plot data
+        #makeplot([dirname,'h_cutFlow0','','0','6','1','1','1','','1'])
+        #makeplot([dirname,'h_MET0','MET','200','700','2','0'])
+        #makeplot([dirname,'h_NThinJets0','N_{AK04 Jets}','0','10','1','0','1'])
+        #makeplot([dirname,'h_pTjj0','p_{T}^{AK8Jet}','100','1000','4','0'])
+        #makeplot([dirname,'h_CSV10', 'CSV_{1}', '0','1', '1','0'])
+        #makeplot([dirname,'h_CSV20', 'CSV_{2}', '0','1', '1','0'])
+        #makeplot([dirname,'h_Mjj0','M_{SD}','20','250','1','0']) 
+        #makeplot([dirname,'h_nElectrons0','N_{add. e}','0','5','1','0'])
+        #makeplot([dirname,'h_nJetss0','N_{add. Jets}','0','5','1','0']) 
+        #makeplot([dirname,'h_dPhiThinJetMET0','Min #Delta#phi_{J-MET}','0.','3.5','2','0'])
+        #makeplot([dirname,'h_MHT0','MHT','0.','600','2','0'])
+        #makeplot([dirname,'h_CSVSum0','CSV','0','1','1','0'])
+        #makeplot([dirname,'h_phijj0','#phi_{AK8Jet}','-3.5','3.5','4','0'])
+        #makeplot([dirname,'h_etajj0','#eta_{AK8Jet}','-2.5','2.5','4','0'])
+        #makeplot([dirname,'h_nTaus0','N_{#tau}','0','5','1','0'])
+        #makeplot([dirname,'h_dPhi_bb_MET0','#Delta#phi_{AK8Jet-MET}','0.','3.5','2','0'])
+        #makeplot([dirname,'h_MT_bb_MET0', 'M_{T}', '450.','1000', '10','0','1','','1'])
+        #makeplot([dirname,'h_MET_Over_SumET0', 'MET/SumET', '0','5', '1','0'])
+        #makeplot([dirname,'h_MET_Over_pTFatJet0', 'MET/p_{T}^{AK8-Jet}', '0','2.', '1','0'])
+        #makeplot([dirname,'h_DRSJ0', '#DeltaR_{sub-jets}', '0','1', '1','0'])
+        #makeplot([dirname,'h_CSVMax0', 'CSV_{Max}', '0','1', '1','0'])
+        #makeplot([dirname,'h_CSVMin0', 'CSV_{Min}', '0','1', '1','0'])
+        #makeplot([dirname,'h_h_Tau21jj0','#tau_{21}','0','1','1','0'])
+        #makeplot([dirname,'h_CEmEF0', 'CEmEF', '0','1.', '1','0'])
+        #makeplot([dirname,'h_CHadEF0', 'CHadEF', '0','1.', '1','0'])
+        #makeplot([dirname,'h_PhoEF0', 'PhoEF', '0','1.', '1','0'])
+        #makeplot([dirname,'h_NHadEF0', 'NHadEF', '0','1.', '1','0'])
+        #makeplot([dirname,'h_MuEF0', 'MuEF', '0','1.', '1','0'])
+    
+    makelogplots=False
+    
+    if makelogplots : 
+        makeplot([dirname,'h_MET0','MET','200','500','2','1'])
+        makeplot([dirname,'h_NThinJets0','N_{AK04 Jets}','0','10','1','1'])
+        makeplot([dirname,'h_pTjj0','p_{T}^{AK8Jet}','100','1000','4','1'])
+        makeplot([dirname,'h_CSV10', 'CSV_{1}', '0','1', '1','1'])
+        makeplot([dirname,'h_CSV20', 'CSV_{1}', '0','1', '1','1'])
+        makeplot([dirname,'h_Mjj0','M_{SD}','20','200','1','1']) 
+        makeplot([dirname,'h_nMuons0','N_{add. #mu}','0','5','1','1','1'])
+        makeplot([dirname,'h_dPhiThinJetMET0','#Delta#phi_{J-MET}','0.','3.5','2','1'])
+        makeplot([dirname,'h_nElectrons0','N_{add. e}','0','5','1','1'])
+        makeplot([dirname,'h_nJetss0','N_{add. Jets}','0','5','1','1']) 
+        #makeplot([dirname,'h_MET0','MET','200','1000','4','1','1'])
+        #makeplot([dirname,'h_pTjj0','p_{T}^{AK8Jet}','100','1600','4','1'])
+        makeplot([dirname,'h_h_Tau21jj0','#tau_{21}','0','1','1','1'])
+        makeplot([dirname,'h_CSVSum0','CSV','0','1','1','1'])
+        makeplot([dirname,'h_phijj0','#phi_{AK8Jet}','-3.5','3.5','5','1'])
+        makeplot([dirname,'h_etajj0','#eta_{AK8Jet}','-2.5','2.5','5','1'])
+        makeplot([dirname,'h_nTaus0','N_{#tau}','0','5','1','1'])
+        makeplot([dirname,'h_dPhi_bb_MET0','#Delta#phi_{AK8Jet-MET}','0.','3.5','2','1'])
+        makeplot([dirname,'h_MT_bb_MET0', 'M_{T}', '500','1500', '4','1'])
+        makeplot([dirname,'h_DRSJ0', '#DeltaR_{sub-jets}', '0','1', '1','1'])
+        makeplot([dirname,'h_CSVMax0', 'CSV_{Max}', '0','1', '1','1'])
+        makeplot([dirname,'h_CSVMin0', 'CSV_{Min}', '0','1', '1','1'])
+        makeplot([dirname,'h_MET_Over_SumET0', 'MET/SumET', '0','5', '2','1'])
+        makeplot([dirname,'h_MET_Over_pTFatJet0', 'MET/p_{T}^{AK8-Jet}', '0','1.', '1','1'])
+        makeplot([dirname,'h_CEmEF0', 'CEmEF', '0','1.', '1','1'])
+        makeplot([dirname,'h_CHadEF0', 'CHadEF', '0','1.', '1','1'])
+        makeplot([dirname,'h_PhoEF0', 'PhoEF', '0','1.', '1','1'])
+        makeplot([dirname,'h_NHadEF0', 'NHadEF', '0','1.', '1','1'])
+        makeplot([dirname,'h_MuEF0', 'MuEF', '0','1.', '1','1'])
+
+

@@ -1,0 +1,47 @@
+Combination of SR=DataCards_AnalysisTuples_V461032016/MonoHFatJetSelection_JetAndLeptonVeto/DataCard_M1200GeV_MonoHbb_13TeV.txt  ZbCR=DataCards_AnalysisTuples_V461032016/ZLight/DataCard_M1200GeV_MonoHbb_13TeV.txt  WbCR=DataCards_AnalysisTuples_V461032016/WHeavy/DataCard_M1200GeV_MonoHbb_13TeV.txt
+imax 3 number of bins
+jmax 5 number of processes minus 1
+kmax 19 number of nuisance parameters
+----------------------------------------------------------------------------------------------------------------------------------
+--shapes *     SR    FAKE
+--shapes *     WbCR  FAKE
+--shapes *     ZbCR  FAKE
+----------------------------------------------------------------------------------------------------------------------------------
+bin          SR     ZbCR   WbCR 
+observation  76.0   353.0  59.0 
+----------------------------------------------------------------------------------------------------------------------------------
+bin                                         SR        SR        SR        SR        SR        SR        ZbCR      ZbCR      ZbCR      ZbCR      ZbCR      ZbCR      WbCR      WbCR      WbCR      WbCR      WbCR      WbCR    
+process                                     Sig       DIBOSON   ZH        TT        WJets     DYJets    Sig       DIBOSON   ZH        TT        WJets     DYJets    Sig       DIBOSON   ZH        TT        WJets     DYJets  
+process                                     0         1         2         3         4         5         0         1         2         3         4         5         0         1         2         3         4         5       
+rate                                        11.6952   2.8344    0.8201    16.7314   24.3257   43.4796   2.3151    14.1285   0.2827    41.5938   144.3780  260.3730  0.0059    0.6293    0.0106    27.4993   45.4152   0.3745  
+----------------------------------------------------------------------------------------------------------------------------------
+CMS_monoHbb_DYjets_stat   lnN               -         -         -         -         -         1.05      -         -         -         -         -         1.02      -         -         -         -         -         1.49    
+CMS_monoHbb_ST          lnN                 -         -         -         1.25      -         -         -         -         -         1.25      -         -         -         -         -         1.25      -         -       
+CMS_monoHbb_TT_stat     lnN                 -         -         -         1.07      -         -         -         -         -         1.05      -         -         -         -         -         1.06      -         -       
+CMS_monoHbb_VV          lnN                 -         1.25      -         -         -         -         -         1.25      -         -         -         -         -         1.25      -         -         -         -       
+CMS_monoHbb_VV_stat     lnN                 -         1.33      -         -         -         -         -         1.16      -         -         -         -         -         1.82      -         -         -         -       
+CMS_monoHbb_WHFunc      lnN                 -         -         -         -         1.1       -         -         -         -         -         1.1       -         -         -         -         -         1.1       -       
+CMS_monoHbb_Wjets_stat   lnN                -         -         -         -         1.12      -         -         -         -         -         1.05      -         -         -         -         -         1.09      -       
+CMS_monoHbb_eff_b       lnN                 1.07      1.07      1.07      -         -         -         1.07      1.07      1.07      -         -         -         1.07      1.07      1.07      -         -         -       
+CMS_monoHbb_fake_b_13TeV   lnN              1.03      -         1.03      -         -         -         1.03      -         1.03      -         -         -         1.03      -         1.03      -         -         -       
+CMS_monoHbb_ggZH_stat   lnN                 -         -         1.03      -         -         -         -         -         1.05      -         -         -         -         -         1.27      -         -         -       
+CMS_monoHbb_monoH_stat   lnN                1.01      -         -         -         -         -         1.02      -         -         -         -         -         1.38      -         -         -         -         -       
+CMS_monoHbb_res_j       lnN                 1.05      1.05      1.05      -         -         -         1.05      1.05      1.05      -         -         -         1.05      1.05      1.05      -         -         -       
+CMS_monoHbb_scale_j     lnN                 1.05      1.05      1.05      -         -         -         1.05      1.05      1.05      -         -         -         1.05      1.05      1.05      -         -         -       
+CMS_monoHbb_trigger_MET   lnN               1.03      1.03      1.03      -         -         -         1.03      1.03      1.03      -         -         -         1.03      1.03      1.03      -         -         -       
+QCDscale_VH             lnN                 1.04      -         1.04      -         -         -         1.04      -         1.04      -         -         -         1.04      -         1.04      -         -         -       
+QCDscale_VV             lnN                 -         1.04      -         -         -         -         -         1.04      -         -         -         -         -         1.04      -         -         -         -       
+lumi_13TeV              lnN                 1.04      1.04      1.04      -         -         -         1.04      1.04      1.04      -         -         -         1.04      1.04      1.04      -         -         -       
+pdf_gg                  lnN                 -         -         1.5       -         -         -         -         -         1.5       -         -         -         -         -         1.5       -         -         -       
+pdf_qqbar               lnN                 1.01      1.01      1.01      -         -         -         1.01      1.01      1.01      -         -         -         1.01      1.01      1.01      -         -         -       
+ZjHF_norm   rateParam  SR   DYJets 1 [0.7,1.5]
+ZjHF_norm   rateParam  ZbCR DYJets 1 [0.7,1.5]
+
+Wbj_norm   rateParam  SR    WJets 1 [0.7,1.5]
+Wbj_norm   rateParam  ZbCR  WJets 1 [0.7,1.5]
+Wbj_norm   rateParam  WbCR  WJets 1 [0.7,1.5]
+
+TT_norm   rateParam  SR    TT 1 [0.7,1.5]
+TT_norm   rateParam  ZbCR  TT 1 [0.7,1.5]
+TT_norm   rateParam  WbCR  TT 1 [0.7,1.5]
+

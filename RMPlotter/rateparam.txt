@@ -1,0 +1,11 @@
+ZjHF_norm   rateParam  SR   DYJets 1 [0.7,1.5]
+ZjHF_norm   rateParam  ZbCR DYJets 1 [0.7,1.5]
+
+Wbj_norm   rateParam  SR    WJets 1 [0.7,1.5]
+Wbj_norm   rateParam  ZbCR  WJets 1 [0.7,1.5]
+Wbj_norm   rateParam  WbCR  WJets 1 [0.7,1.5]
+
+TT_norm   rateParam  SR    TT 1 [0.7,1.5]
+TT_norm   rateParam  ZbCR  TT 1 [0.7,1.5]
+TT_norm   rateParam  WbCR  TT 1 [0.7,1.5]
+

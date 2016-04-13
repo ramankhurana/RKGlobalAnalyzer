@@ -6,18 +6,18 @@
  tm *ltm = localtime(&now);
  TString dirpathname;
 
- TString DirPreName = "AnalysisTuples_V46";
+ TString DirPreName = "AnalysisTuples_V45";
  dirpathname.Form("%d%1.2d%d",ltm->tm_mday,1 + ltm->tm_mon,1900 + ltm->tm_year);
  system("mkdir -p  " + DirPreName+dirpathname +"/MonoHROOT");
  system("mkdir -p  " + DirPreName+dirpathname +"/MonoHPdf");
  system("mkdir -p  " + DirPreName+dirpathname +"/MonoHPng");
  
  ofstream mout;
- mout.open(DirPreName+dirpathname +"/histfacFatJet_WHeavy"+dirpathname +"Integral.txt",std::ios::app);
+ mout.open(DirPreName+dirpathname +"/histfacFatJet_QCD"+dirpathname +"Integral.txt",std::ios::app);
  ofstream rout;
- rout.open(DirPreName+dirpathname +"/histfacFatJet_WHeavy"+dirpathname +"Integral.html",std::ios::app);
+ rout.open(DirPreName+dirpathname +"/histfacFatJet_QCD"+dirpathname +"Integral.html",std::ios::app);
  ofstream tableout;
- tableout.open(DirPreName+dirpathname +"/histfacFatJet_WHeavy"+dirpathname +"IntegralWithError.txt",std::ios::app);                                                                                          
+ tableout.open(DirPreName+dirpathname +"/histfacFatJet_QCD"+dirpathname +"IntegralWithError.txt",std::ios::app);                                                                                          
 
 
 gROOT->ProcessLine(".L /afs/hep.wisc.edu/cms/khurana/Monika/CMSSW_7_4_5/src/RKGlobalAnalyzer/tdrstyle.C");                                     setTDRStyle();
@@ -28,13 +28,12 @@ gStyle->SetFrameLineWidth(3);
 gStyle->SetLineWidth(1);
 
 //Provide luminosity of total data
-//float lumi = 2263.5; // It will print on your plots too
-float lumi = 3300.;
+float lumi = 2263.5; // It will print on your plots too
 
 std::vector<TString> filenameString;
 //Change here Directories of the file
 
-TString filenamepath("/afs/hep.wisc.edu/cms/khurana/Script/AnalysisTuples_V46/"); 
+TString filenamepath("/afs/hep.wisc.edu/cms/khurana/Script/AnalysisTuples_V45/"); 
 // DYJets 1
 filenameString.push_back(filenamepath + "Merged_WW_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root");
 //WJets  1
@@ -98,7 +97,7 @@ filenameString.push_back(filenamepath + "Merged_MET.root");
 
 //const int n_integral = (int)filenameString.size();
 
-TString histnameString("histfacFatJet_WHeavy/h_nMuons0");
+TString histnameString("histfacFatJet_QCD/h_dPhi_CSV_4Bin_0");
 
 TFile *fIn;
 const int nfiles = (int) filenameString.size();
@@ -114,25 +113,12 @@ Xsec[3] = 66.1;
 Xsec[4] = 15.4;
 
 //float Stt = 0.894141 ;
-float Stt = 1.01;
+float Stt = 1.0;//7.0633e-01 ;
 
 Xsec[5] = Stt * 831.76; // ttbar
 
 Xsec[6] = (0.8696) * 0.577 * 0.2 ; //ZH checked from Michele
-
-float scalexs = 1.0; 
-//
-//Xsec[7]  = scalexs ;//600
-//Xsec[8]  = scalexs ;//800
-//Xsec[9]  = scalexs ; //1000
-//Xsec[10] = scalexs ; //1200
-//Xsec[11] = scalexs ; //1400
-//Xsec[12] = scalexs ; //1700
-//Xsec[13] = scalexs ; //2000
-//Xsec[14] = scalexs ; //2500
-
-
-
+float scalexs=1.; 
 Xsec[7]  = scalexs * 0.026;//600
 Xsec[8]  = scalexs * 0.0288;//800
 Xsec[9] = scalexs * 0.02337; //1000
@@ -143,7 +129,7 @@ Xsec[13] = scalexs * 0.00561; //2000
 Xsec[14] = scalexs * 0.00280; //2500
 
 
-float Sznunu = 0.77;
+float Sznunu = 1.0;//7.0000e-01;
 Xsec[15] = Sznunu *  1.626*280.47; // Znunu HT
 Xsec[16] = Sznunu *  1.617*78.36; // Znunu HT
 Xsec[17] = Sznunu *  1.459*10.94; // Znunu HT
@@ -155,7 +141,7 @@ Xsec[18] = Sznunu *  1.391*4.203;  // Znunu HT
 //Xsec[18] = 1.23*4.203;  // Znunu HT
 
 
-float Sw = 0.7;//7.8034e-01 ;
+float Sw = 1.0;//7.8034e-01 ;
 
 Xsec[19] = Sw  *  1.459*1347;  // WJets HT 100-200
 Xsec[20] = Sw  *  1.434*360;   // WJets HT 200-400
@@ -185,18 +171,17 @@ Xsec[30] = Stt  *  35.85; // single top
 //Xsec[18] = 1.23*2.21;  // DY HT
 //
 
-TH1F* h_mc[nfiles] ;
+TH2F* h_mc[nfiles] ;
 float normalization[nfiles];
-TH1F *h_data;
+TH2F *h_data;
 
 for(int i =0; i<(int)filenameString.size()-1; i++){
  fIn = new TFile(filenameString[i],"READ");
- h_mc[i] = (TH1F*) fIn->Get(histnameString);
- h_mc[i]->Rebin(1); 
+ h_mc[i] = (TH2F*) fIn->Get(histnameString);
+ //h_mc[i]->Rebin(1); 
  h_mc[i]->Sumw2();
 
- h_total      = (TH1F*) fIn->Get("nEvents_weight");
-// h_total      = (TH1F*) fIn->Get("h_total");
+ h_total      = (TH2F*) fIn->Get("nEvents_weight");
  
 //std::cout<<" normalization for = "<<i<<"  "<<filenameString[i]<<"   "
 //<<h_mc[i]->Integral()
@@ -216,8 +201,8 @@ if(Integral[i]>0) Integral_Error[i] = TMath::Sqrt(Integral[i]) * normalization[i
  }
 
 fIn = new TFile(filenameString[nfiles-1],"READ");
-h_data = (TH1F*) fIn->Get(histnameString);
-h_data->Rebin(1);
+h_data = (TH2F*) fIn->Get(histnameString);
+//h_data->Rebin(1);
 //h_data->Sumw2();
 
 
@@ -226,9 +211,8 @@ h_data->Rebin(1);
  TLegend *legend;
  
  if(0){
- //legend = new TLegend(0.73, 0.62, 0.95,0.92,NULL,"brNDC");
-legend = new TLegend(0.56, 0.65, 0.9,0.92,NULL,"brNDC");
- legend->SetTextSize(0.045);
+ legend = new TLegend(0.73, 0.62, 0.95,0.92,NULL,"brNDC");
+ legend->SetTextSize(0.05);
  }else{
 
 legend = new TLegend(0.62, 0.65, 0.94,0.92,NULL,"brNDC"); 
@@ -273,13 +257,6 @@ TLatex *t2c;
 if(0){
  t2a = new TLatex(0.7,0.97,latexname);
  t2a->SetTextSize(0.04);
-
- t2b = new TLatex(0.190,0.92,latexCMSname);
- t2b->SetTextSize(0.05);
-
- t2c = new TLatex(0.22,0.87,latexPreCMSname);
- t2c->SetTextSize(0.047);
-
  }else{
  t2a = new TLatex(0.8,0.975,latexname);
  t2a->SetTextSize(0.047); 
@@ -292,7 +269,6 @@ if(0){
 
 
  }
-
  t2a->SetTextAlign(22);
  t2a->SetNDC(kTRUE);
  t2a->SetTextFont(42);
@@ -318,7 +294,7 @@ THStack *hs = new THStack("hs"," ");
 // For N-1 Plots only
 bool nminus = 0;
 TLatex *tt;
-if(("histfacFatJet_WHeavy" == "ElectronNMinus1E") || ("histfacFatJet_WHeavy" == "ElectronNMinus1B") ){
+if(("histfacFatJet_QCD" == "ElectronNMinus1E") || ("histfacFatJet_QCD" == "ElectronNMinus1B") ){
 nminus =1;
 tt  = new TLatex(0.5,0.87,"N-1");
 tt->SetTextSize(0.05);
@@ -453,9 +429,9 @@ h_data->SetMarkerColor(kBlack);
 h_data->SetMarkerStyle(20);
 float maxi = h_data->GetMaximum();
 
-TH1F *Stackhist = (TH1F*)hs->GetStack()->Last(); 
- TH1F* h_err;
- h_err = (TH1F*) h_data->Clone("h_err");
+TH2F *Stackhist = (TH2F*)hs->GetStack()->Last(); 
+ TH2F* h_err;
+ h_err = (TH2F*) h_data->Clone("h_err");
  h_err->Sumw2();
  h_err->Reset();
  for(int diboson = 2; diboson < 5; diboson++){
@@ -504,21 +480,9 @@ c12->SetLogy(0);
   c1_2->Draw();
   c1_2->cd();
 
-
-
 hs->Draw();
 
-if("h_nMuons0"=="h_cutFlow0"){
-    hs->GetXaxis()->SetBinLabel(1,"Preselection");
-    hs->GetXaxis()->SetBinLabel(2,"Mass");
-    hs->GetXaxis()->SetBinLabel(3,"CSV2");
-    hs->GetXaxis()->SetBinLabel(4,"CSV1");
-    hs->GetXaxis()->SetBinLabel(5,"b-veto");
-    hs->GetXaxis()->SetBinLabel(6,"l-veto");
-}
-
-
-  TH1F *Stackhist1 = (TH1F*)hs->GetStack()->Last(); 
+  TH2F *Stackhist1 = (TH2F*)hs->GetStack()->Last(); 
 //  Stackhist1->SetFillColor(kRed);
 //  Stackhist1->DrawCopy("histsame");
 //  Stackhist1->SetFillStyle(3018);
@@ -540,10 +504,9 @@ if("h_nMuons0"=="h_cutFlow0"){
 
 
     h_data->SetLineColor(1);
-if(!0){
   h_data->Draw("same p e1");
-  }
-  if(0)    hs->SetMinimum(1.);
+  
+  if(0)    hs->SetMinimum(0.1);
   if(!0)   hs->SetMinimum(1);
   if(!0)   hs->SetMaximum(maxi *1.45);
   if(0)    hs->SetMaximum(maxi *100);
@@ -562,7 +525,7 @@ if(!0){
   hs->GetYaxis()->SetTitleFont(22);
   hs->GetYaxis()->SetLabelFont(22);
   hs->GetYaxis()->SetLabelSize(.05);
-  hs->GetXaxis()->SetTitle("N_{add. #mu}");
+  hs->GetXaxis()->SetTitle("N_{AK04 Jets}");
   }else{
   hs->GetXaxis()->SetLabelOffset(999);
   hs->GetXaxis()->SetLabelSize(0);  
@@ -576,7 +539,7 @@ if(!0){
   hs->GetYaxis()->SetTitleFont(22);
   hs->GetYaxis()->SetLabelFont(22);
   hs->GetYaxis()->SetLabelSize(.07);
-  hs->GetXaxis()->SetRangeUser(0,5);  
+  hs->GetXaxis()->SetRangeUser(0,10);  
   hs->GetXaxis()->SetNdivisions(508); 
 
   legend->AddEntry(h_err,"Stats. Unc.","f");
@@ -602,7 +565,7 @@ if(!0){
   if(! 0){
   c12->cd();
   
-  TH1F *DataMC = (TH1F*) h_data->Clone();
+  TH2F *DataMC = (TH2F*) h_data->Clone();
 /* DataMC->Divide(DataMC);
 
   double NMC=0;
@@ -628,7 +591,7 @@ if(!0){
   DataMC->GetYaxis()->SetTitleFont(22);
   DataMC->GetYaxis()->SetLabelSize(0.15);
   DataMC->GetYaxis()->CenterTitle();
-  DataMC->GetXaxis()->SetTitle("N_{add. #mu}");
+  DataMC->GetXaxis()->SetTitle("N_{AK04 Jets}");
 //DataMC->GetXaxis()->SetIndiceSize(0.1);
   DataMC->GetXaxis()->SetLabelSize(0.157);
   DataMC->GetXaxis()->SetTitleSize(0.162);
@@ -653,7 +616,7 @@ if(!0){
  c1_1->SetFrameFillStyle(0);
  c1_1->SetFrameBorderMode(0);
  c1_1->SetLogy(0);
- DataMC->GetXaxis()->SetRangeUser(0,5);
+ DataMC->GetXaxis()->SetRangeUser(0,10);
  DataMC->Draw("PE1");
  DataMC->SetMarkerStyle(20);
  DataMC->SetMarkerColor(1);
@@ -664,7 +627,7 @@ if(!0){
  c1_1->SetGridy();
 
 
- TF1 *line0 = new TF1("line0","[0]*x",0,5);
+ TF1 *line0 = new TF1("line0","[0]*x",0,10);
  line0->FixParameter(0,0);
 // line0->FixParameter(1,0);
  
@@ -686,7 +649,7 @@ if(1){
  // As Data DY(ee) diboson TTjets WWJets
  TAxis *xaxis = h_mc[0]->GetXaxis();
  Int_t binxmin = xaxis->FindBin(0);
- Int_t binxmax = xaxis->FindBin(5);
+ Int_t binxmax = xaxis->FindBin(10);
 
   float qcdEntries =0.0, dibosonentries =0.0 , wjetentries=0.0;
 //  for(int qcd = 6; qcd < 22 ; qcd++){                                                                                   
@@ -717,26 +680,53 @@ float zh = h_mc[6]->Integral();
 float zh_error = Integral_Error[6];
 
 
-  mout << "histfacFatJet_WHeavy_h_nMuons0"            <<  " a b"<<std::endl; 
-  mout << " DATA "    << h_data->Integral()  <<" 0"<< std::endl; 
-//  mout << " DATA 0"    <<  std::endl; 
-//  mout << " DYJETS "  << h_mc[0]->Integral() << std::endl; 
-  mout << " DIBOSON " << diboson_                  <<" "<<diboson_error << std::endl;
-  mout << " TT "      << h_mc[5]->Integral() + h_mc[26]->Integral()+h_mc[27]->Integral()+h_mc[28]->Integral()+h_mc[29]->Integral()+ h_mc[30]->Integral() <<" "<<tt_error <<  std::endl; 
-  mout << " WJETS "   << h_mc[19]->Integral() +h_mc[20]->Integral()+h_mc[21]->Integral()+h_mc[22]->Integral()+h_mc[23]->Integral()+h_mc[24]->Integral()+h_mc[25]->Integral()<< " "<<wjets_error<<std::endl;
-  mout << " ZH "      << h_mc[6]->Integral() <<" "<<zh_error<< std::endl;
-  mout << " DYJETS "<<h_mc[15]->Integral()+h_mc[16]->Integral()+h_mc[17]->Integral()+h_mc[18]->Integral() <<" "<<dyjets_error <<std::endl;  
-//  mout << " Single Top "<<h_mc[26]->Integral()+h_mc[27]->Integral()+h_mc[28]->Integral()+h_mc[29]->Integral()+ h_mc[30]->Integral() << std::endl;  
-  mout << " M600 "    << h_mc[7]->Integral() <<" "<<Integral_Error[7]<< std::endl;
-  mout << " M800 "    << h_mc[8]->Integral() <<" "<<Integral_Error[8]<< std::endl;
-  mout << " M1000 "    << h_mc[9]->Integral() <<" "<<Integral_Error[9]<< std::endl;
-  mout << " M1200 "    << h_mc[10]->Integral() <<" "<<Integral_Error[10]<< std::endl;
-  mout << " M1400 "   << h_mc[11]->Integral() <<" "<<Integral_Error[11]<< std::endl;
-  mout << " M1700 "   << h_mc[12]->Integral() <<" "<<Integral_Error[12]<< std::endl;
-  mout << " M2000 "   << h_mc[13]->Integral() <<" "<<Integral_Error[13]<< std::endl;
-  mout << " M2500 "   << h_mc[14]->Integral() <<" "<<Integral_Error[14]<< std::endl;
-//  mout << "Total Bkg " << dibosonentries+h_mc[5]->Integral()+wjetentries+h_mc[6]->Integral()+h_mc[15]->Integral()+h_mc[16]->Integral()+h_mc[17]->Integral()+h_mc[18]->Integral()+h_mc[26]->Integral()+h_mc[27]->Integral()+h_mc[28]->Integral()+h_mc[29]->Integral()+ h_mc[30]->Integral() <<std::endl;
-  mout << "========= ======================== =====================" <<std::endl;
+ mout << "histfacFatJet_QCD_h_dPhi_MT_0 (1,1) "            <<  " a b"<<std::endl; 
+ mout << " DATA "    << h_data->GetBinContent(1,1)  <<" 0"<< std::endl; 
+ //  mout << " DATA 0"    <<  std::endl; 
+ //  mout << " DYJETS "  << h_mc[0]->GetBinContent(1,1) << std::endl; 
+ mout << " DIBOSON " << h_mc[2]->GetBinContent(1,1) + h_mc[3]->GetBinContent(1,1) + h_mc[4]->GetBinContent(1,1)                 <<" "<<diboson_error << std::endl;
+ mout << " TT "      << h_mc[5]->GetBinContent(1,1) + h_mc[26]->GetBinContent(1,1)+h_mc[27]->GetBinContent(1,1)+h_mc[28]->GetBinContent(1,1)+h_mc[29]->GetBinContent(1,1)+ h_mc[30]->GetBinContent(1,1) <<" "<<tt_error <<  std::endl; 
+ mout << " WJETS "   << h_mc[19]->GetBinContent(1,1) +h_mc[20]->GetBinContent(1,1)+h_mc[21]->GetBinContent(1,1)+h_mc[22]->GetBinContent(1,1)+h_mc[23]->GetBinContent(1,1)+h_mc[24]->GetBinContent(1,1)+h_mc[25]->GetBinContent(1,1)<< " "<<wjets_error<<std::endl;
+ mout << " ZH "      << h_mc[6]->GetBinContent(1,1) <<" "<<zh_error<< std::endl;
+ mout << " DYJETS "<<h_mc[15]->GetBinContent(1,1)+h_mc[16]->GetBinContent(1,1)+h_mc[17]->GetBinContent(1,1)+h_mc[18]->GetBinContent(1,1) <<" "<<dyjets_error <<std::endl;  
+ mout << "========= ======================== =====================" <<std::endl;
+
+
+ mout << "histfacFatJet_QCD_h_dPhi_MT_0 (1,2) "            <<  " a b"<<std::endl; 
+ mout << " DATA "    << h_data->GetBinContent(1,2)  <<" 0"<< std::endl; 
+ //  mout << " DATA 0"    <<  std::endl; 
+ //  mout << " DYJETS "  << h_mc[0]->GetBinContent(1,2) << std::endl; 
+ mout << " DIBOSON " << h_mc[2]->GetBinContent(1,2) + h_mc[3]->GetBinContent(1,2) + h_mc[4]->GetBinContent(1,2)                 <<" "<<diboson_error << std::endl;
+ mout << " TT "      << h_mc[5]->GetBinContent(1,2) + h_mc[26]->GetBinContent(1,2)+h_mc[27]->GetBinContent(1,2)+h_mc[28]->GetBinContent(1,2)+h_mc[29]->GetBinContent(1,2)+ h_mc[30]->GetBinContent(1,2) <<" "<<tt_error <<  std::endl; 
+ mout << " WJETS "   << h_mc[19]->GetBinContent(1,2) +h_mc[20]->GetBinContent(1,2)+h_mc[21]->GetBinContent(1,2)+h_mc[22]->GetBinContent(1,2)+h_mc[23]->GetBinContent(1,2)+h_mc[24]->GetBinContent(1,2)+h_mc[25]->GetBinContent(1,2)<< " "<<wjets_error<<std::endl;
+ mout << " ZH "      << h_mc[6]->GetBinContent(1,2) <<" "<<zh_error<< std::endl;
+ mout << " DYJETS "<<h_mc[15]->GetBinContent(1,2)+h_mc[16]->GetBinContent(1,2)+h_mc[17]->GetBinContent(1,2)+h_mc[18]->GetBinContent(1,2) <<" "<<dyjets_error <<std::endl;  
+ mout << "========= ======================== =====================" <<std::endl;
+
+
+
+ mout << "histfacFatJet_QCD_h_dPhi_MT_0 (2,1) "            <<  " a b"<<std::endl; 
+ mout << " DATA "    << h_data->GetBinContent(2,1)  <<" 0"<< std::endl; 
+ //  mout << " DATA 0"    <<  std::endl; 
+ //  mout << " DYJETS "  << h_mc[0]->GetBinContent(2,1) << std::endl; 
+ mout << " DIBOSON " << h_mc[2]->GetBinContent(2,1) + h_mc[3]->GetBinContent(2,1) + h_mc[4]->GetBinContent(2,1)                 <<" "<<diboson_error << std::endl;
+ mout << " TT "      << h_mc[5]->GetBinContent(2,1) + h_mc[26]->GetBinContent(2,1)+h_mc[27]->GetBinContent(2,1)+h_mc[28]->GetBinContent(2,1)+h_mc[29]->GetBinContent(2,1)+ h_mc[30]->GetBinContent(2,1) <<" "<<tt_error <<  std::endl; 
+ mout << " WJETS "   << h_mc[19]->GetBinContent(2,1) +h_mc[20]->GetBinContent(2,1)+h_mc[21]->GetBinContent(2,1)+h_mc[22]->GetBinContent(2,1)+h_mc[23]->GetBinContent(2,1)+h_mc[24]->GetBinContent(2,1)+h_mc[25]->GetBinContent(2,1)<< " "<<wjets_error<<std::endl;
+ mout << " ZH "      << h_mc[6]->GetBinContent(2,1) <<" "<<zh_error<< std::endl;
+ mout << " DYJETS "<<h_mc[15]->GetBinContent(2,1)+h_mc[16]->GetBinContent(2,1)+h_mc[17]->GetBinContent(2,1)+h_mc[18]->GetBinContent(2,1) <<" "<<dyjets_error <<std::endl;  
+ mout << "========= ======================== =====================" <<std::endl;
+
+ 
+ mout << "histfacFatJet_QCD_h_dPhi_MT_0 (2,2) "            <<  " a b"<<std::endl; 
+ mout << " DATA "    << h_data->GetBinContent(2,2)  <<" 0"<< std::endl; 
+ //  mout << " DATA 0"    <<  std::endl; 
+ //  mout << " DYJETS "  << h_mc[0]->GetBinContent(2,2) << std::endl; 
+ mout << " DIBOSON " << h_mc[2]->GetBinContent(2,2) + h_mc[3]->GetBinContent(2,2) + h_mc[4]->GetBinContent(2,2)                 <<" "<<diboson_error << std::endl;
+ mout << " TT "      << h_mc[5]->GetBinContent(2,2) + h_mc[26]->GetBinContent(2,2)+h_mc[27]->GetBinContent(2,2)+h_mc[28]->GetBinContent(2,2)+h_mc[29]->GetBinContent(2,2)+ h_mc[30]->GetBinContent(2,2) <<" "<<tt_error <<  std::endl; 
+ mout << " WJETS "   << h_mc[19]->GetBinContent(2,2) +h_mc[20]->GetBinContent(2,2)+h_mc[21]->GetBinContent(2,2)+h_mc[22]->GetBinContent(2,2)+h_mc[23]->GetBinContent(2,2)+h_mc[24]->GetBinContent(2,2)+h_mc[25]->GetBinContent(2,2)<< " "<<wjets_error<<std::endl;
+ mout << " ZH "      << h_mc[6]->GetBinContent(2,2) <<" "<<zh_error<< std::endl;
+ mout << " DYJETS "<<h_mc[15]->GetBinContent(2,2)+h_mc[16]->GetBinContent(2,2)+h_mc[17]->GetBinContent(2,2)+h_mc[18]->GetBinContent(2,2) <<" "<<dyjets_error <<std::endl;  
+ mout << "========= ======================== =====================" <<std::endl;
 //=========================================================================
 
 
@@ -771,17 +761,17 @@ tableout<< " "<<std::endl;
  
  c12->Draw();
 if(!0){
- c12->SaveAs(DirPreName+dirpathname +"/MonoHPdf/histfacFatJet_WHeavy_h_nMuons0.pdf");
- c12->SaveAs(DirPreName+dirpathname +"/MonoHPng/histfacFatJet_WHeavy_h_nMuons0.png");
- c12->SaveAs(DirPreName+dirpathname +"/MonoHROOT/histfacFatJet_WHeavy_h_nMuons0.root");                                                                         
+ c12->SaveAs(DirPreName+dirpathname +"/MonoHPdf/histfacFatJet_QCD_h_dPhi_MT_0.pdf");
+ c12->SaveAs(DirPreName+dirpathname +"/MonoHPng/histfacFatJet_QCD_h_dPhi_MT_0.png");
+ c12->SaveAs(DirPreName+dirpathname +"/MonoHROOT/histfacFatJet_QCD_h_dPhi_MT_0.root");                                                                         
  rout<<"<hr/>"<<std::endl;
- rout<<"<table class=\"\"> <tr><td><img src=\""<<"DYPng/histfacFatJet_WHeavy_h_nMuons0.png\" height=\"400\" width=\"400\"></td>   </tr> </table>"<<std::endl;
+ rout<<"<table class=\"\"> <tr><td><img src=\""<<"DYPng/histfacFatJet_QCD_h_dPhi_MT_0.png\" height=\"400\" width=\"400\"></td>   </tr> </table>"<<std::endl;
 
 }
  
 if(0){
- c12->SaveAs(DirPreName+dirpathname +"/MonoHPdf/histfacFatJet_WHeavy_h_nMuons0_log.pdf");
- c12->SaveAs(DirPreName+dirpathname +"/MonoHPng/histfacFatJet_WHeavy_h_nMuons0_log.png");
- c12->SaveAs(DirPreName+dirpathname +"/MonoHROOT/histfacFatJet_WHeavy_h_nMuons0_log.root");                                                                        
+ c12->SaveAs(DirPreName+dirpathname +"/MonoHPdf/histfacFatJet_QCD_h_dPhi_MT_0_log.pdf");
+ c12->SaveAs(DirPreName+dirpathname +"/MonoHPng/histfacFatJet_QCD_h_dPhi_MT_0_log.png");
+ c12->SaveAs(DirPreName+dirpathname +"/MonoHROOT/histfacFatJet_QCD_h_dPhi_MT_0_log.root");                                                                        
 }
  }

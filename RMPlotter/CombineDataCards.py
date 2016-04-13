@@ -17,11 +17,11 @@ massvec=['600','800','1000','1200','1400','1700','2000','2500']
 for imass in range(len(massvec)):
     
     
-    bb='SR='+dirname+'MonoHFatJetSelection_JetAndLeptonVeto/DataCard_M'+(str(massvec[imass]))+'GeV_MonoHbb_13TeV.txt '
-    znunu='ZbCR='+dirname+'ZLight/DataCard_M'+(str(massvec[imass]))+'GeV_MonoHbb_13TeV.txt '
-    #ttbar='TTCR='+dirname+'TTBar/DataCard_M'+(str(massvec[imass]))+'GeV_MonoHbb_13TeV.txt '
-    wjets='WbCR='+dirname+'WHeavy/DataCard_M'+(str(massvec[imass]))+'GeV_MonoHbb_13TeV.txt '
+    bb='SR='+dirname+'/MonoHFatJetSelection_JetAndLeptonVeto/DataCard_M'+(str(massvec[imass]))+'GeV_MonoHbb_13TeV.txt '
+    znunu='ZbCR='+dirname+'/ZLight/DataCard_M'+(str(massvec[imass]))+'GeV_MonoHbb_13TeV.txt '
+    wjets='WbCR='+dirname+'/WHeavy/DataCard_M'+(str(massvec[imass]))+'GeV_MonoHbb_13TeV.txt '
     rateparm='rateparam.txt'
+    #ttbar='TTCR='+dirname+'TTBar/DataCard_M'+(str(massvec[imass]))+'GeV_MonoHbb_13TeV.txt '
     
     #allcards=bb+znunu+ttbar+wjets
     allcards=bb+znunu+wjets
@@ -33,7 +33,7 @@ for imass in range(len(massvec)):
     
     datacardname=splusbdir+'/DataCard_S_Plus_B_M'+(str(massvec[imass]))+'GeV_MonoHbb_13TeV.txt'
     datacardnamefit=splusbFitdir+'/DataCard_S_Plus_B_M'+(str(massvec[imass]))+'GeV_MonoHbb_13TeV.txt'
-    os.system('combineCards.py '+allcards+' >& '+datacardname)
+    os.system('combineCards.py -S '+allcards+' >& '+datacardname)
     os.system('cat '+datacardname+' '+rateparm+' >& '+  datacardnamefit)
     
 

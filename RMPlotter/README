@@ -1,0 +1,27 @@
+Instructions to run the analyzer
+
+## Run following command to get the plots, text files with numbers, html files for public link. 
+python RMStackFactory_ratio_Raman_WithStackError_FY.py AnalysisTuples_V46
+
+## Once text files are there use following to get the datacards. 
+## This produces datacards for the files listed in the SelectTextFiles.py and save in DataCards_XYZ directory 
+python SelectTextFiles.py AnalysisTuples_V4626032016
+
+## Below command will work IFF you have combine package installed in your area. IF NOT
+## Set environmanet where Higs combination package is installed
+## this is in my case
+cd /afs/hep.wisc.edu/cms/khurana/DMRunII/HiggsCombination/CMSSW_7_1_5/src
+cmsenv
+cd -
+
+## Once you have the datacards for each file use following to combine the cards. 
+python  CombineDataCards.py   DataCards_AnalysisTuples_V4626032016/
+
+
+## Once you are back to the original directory where you produced the datacards
+## run the limit estimation script for all the mass points
+python RunLimitAllPoints.py  DataCards_AnalysisTuples_V4613042016/SPlusBFit
+
+## For the plot use RunLimit.sh and plot_Asymptotic.C
+
+source  RunLimit.sh DataCards_AnalysisTuples_V4613042016/SPlusBFit

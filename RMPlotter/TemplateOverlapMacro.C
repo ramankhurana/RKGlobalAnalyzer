@@ -28,7 +28,8 @@ gStyle->SetFrameLineWidth(3);
 gStyle->SetLineWidth(1);
 
 //Provide luminosity of total data
-float lumi = 2263.5; // It will print on your plots too
+//float lumi = 2263.5; // It will print on your plots too
+float lumi = 3300.;
 
 std::vector<TString> filenameString;
 //Change here Directories of the file
@@ -113,12 +114,25 @@ Xsec[3] = 66.1;
 Xsec[4] = 15.4;
 
 //float Stt = 0.894141 ;
-float Stt = 1.0;//7.0633e-01 ;
+float Stt = 1.01;
 
 Xsec[5] = Stt * 831.76; // ttbar
 
 Xsec[6] = (0.8696) * 0.577 * 0.2 ; //ZH checked from Michele
-float scalexs=1.; 
+
+float scalexs = 1.0; 
+//
+//Xsec[7]  = scalexs ;//600
+//Xsec[8]  = scalexs ;//800
+//Xsec[9]  = scalexs ; //1000
+//Xsec[10] = scalexs ; //1200
+//Xsec[11] = scalexs ; //1400
+//Xsec[12] = scalexs ; //1700
+//Xsec[13] = scalexs ; //2000
+//Xsec[14] = scalexs ; //2500
+
+
+
 Xsec[7]  = scalexs * 0.026;//600
 Xsec[8]  = scalexs * 0.0288;//800
 Xsec[9] = scalexs * 0.02337; //1000
@@ -129,7 +143,7 @@ Xsec[13] = scalexs * 0.00561; //2000
 Xsec[14] = scalexs * 0.00280; //2500
 
 
-float Sznunu = 1.0;//7.0000e-01;
+float Sznunu = 0.77;
 Xsec[15] = Sznunu *  1.626*280.47; // Znunu HT
 Xsec[16] = Sznunu *  1.617*78.36; // Znunu HT
 Xsec[17] = Sznunu *  1.459*10.94; // Znunu HT
@@ -141,7 +155,7 @@ Xsec[18] = Sznunu *  1.391*4.203;  // Znunu HT
 //Xsec[18] = 1.23*4.203;  // Znunu HT
 
 
-float Sw = 1.0;//7.8034e-01 ;
+float Sw = 0.7;//7.8034e-01 ;
 
 Xsec[19] = Sw  *  1.459*1347;  // WJets HT 100-200
 Xsec[20] = Sw  *  1.434*360;   // WJets HT 200-400
@@ -212,8 +226,9 @@ h_data->Rebin(REBIN);
  TLegend *legend;
  
  if(NORATIOPLOT){
- legend = new TLegend(0.73, 0.62, 0.95,0.92,NULL,"brNDC");
- legend->SetTextSize(0.05);
+ //legend = new TLegend(0.73, 0.62, 0.95,0.92,NULL,"brNDC");
+legend = new TLegend(0.56, 0.65, 0.9,0.92,NULL,"brNDC");
+ legend->SetTextSize(0.045);
  }else{
 
 legend = new TLegend(0.62, 0.65, 0.94,0.92,NULL,"brNDC"); 
@@ -258,6 +273,13 @@ TLatex *t2c;
 if(NORATIOPLOT){
  t2a = new TLatex(0.7,0.97,latexname);
  t2a->SetTextSize(0.04);
+
+ t2b = new TLatex(0.190,0.92,latexCMSname);
+ t2b->SetTextSize(0.05);
+
+ t2c = new TLatex(0.22,0.87,latexPreCMSname);
+ t2c->SetTextSize(0.047);
+
  }else{
  t2a = new TLatex(0.8,0.975,latexname);
  t2a->SetTextSize(0.047); 
@@ -270,6 +292,7 @@ if(NORATIOPLOT){
 
 
  }
+
  t2a->SetTextAlign(22);
  t2a->SetNDC(kTRUE);
  t2a->SetTextFont(42);
@@ -481,7 +504,19 @@ c12->SetLogy(0);
   c1_2->Draw();
   c1_2->cd();
 
+
+
 hs->Draw();
+
+if("HISTNAME"=="h_cutFlow0"){
+    hs->GetXaxis()->SetBinLabel(1,"Preselection");
+    hs->GetXaxis()->SetBinLabel(2,"Mass");
+    hs->GetXaxis()->SetBinLabel(3,"CSV2");
+    hs->GetXaxis()->SetBinLabel(4,"CSV1");
+    hs->GetXaxis()->SetBinLabel(5,"b-veto");
+    hs->GetXaxis()->SetBinLabel(6,"l-veto");
+}
+
 
   TH1F *Stackhist1 = (TH1F*)hs->GetStack()->Last(); 
 //  Stackhist1->SetFillColor(kRed);
@@ -505,9 +540,10 @@ hs->Draw();
 
 
     h_data->SetLineColor(1);
+if(!NORATIOPLOT){
   h_data->Draw("same p e1");
-  
-  if(ISLOG)    hs->SetMinimum(0.1);
+  }
+  if(ISLOG)    hs->SetMinimum(1.);
   if(!ISLOG)   hs->SetMinimum(1);
   if(!ISLOG)   hs->SetMaximum(maxi *1.45);
   if(ISLOG)    hs->SetMaximum(maxi *100);
