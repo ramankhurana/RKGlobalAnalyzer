@@ -10,12 +10,25 @@ python SelectTextFiles.py AnalysisTuples_V4626032016
 ## Below command will work IFF you have combine package installed in your area. IF NOT
 ## Set environmanet where Higs combination package is installed
 ## this is in my case
+
+###  prepare shapes
+cd /afs/hep.wisc.edu/cms/khurana/Script/CMSSW_7_4_1/src/DarkMatterBkg
+cmsenv
+python MakeShapes.py
+
+
+
 cd /afs/hep.wisc.edu/cms/khurana/DMRunII/HiggsCombination/CMSSW_7_1_5/src
 cmsenv
 cd -
 
+rkg
+
 ## Once you have the datacards for each file use following to combine the cards. 
 python  CombineDataCards.py   DataCards_AnalysisTuples_V4626032016/
+
+
+## For rootfile follow following: 
 
 
 ## Once you are back to the original directory where you produced the datacards
@@ -25,3 +38,30 @@ python RunLimitAllPoints.py  DataCards_AnalysisTuples_V4613042016/SPlusBFit
 ## For the plot use RunLimit.sh and plot_Asymptotic.C
 
 source  RunLimit.sh DataCards_AnalysisTuples_V4613042016/SPlusBFit
+
+
+
+
+
+
+###################################
+## For MET Bins. 
+###################################
+
+python RMStackFactory_ratio_Raman_WithStackError_FY.py metbin1
+python RMStackFactory_ratio_Raman_WithStackError_FY.py metbin2
+python RMStackFactory_ratio_Raman_WithStackError_FY.py metbin3
+
+
+
+python SelectTextFiles.py Histograms_CMSSW76X_NJets_LT1_V2/AnalysisHistograms_V0METBIN_1/
+python SelectTextFiles.py Histograms_CMSSW76X_NJets_LT1_V2/AnalysisHistograms_V0METBIN_2/
+python SelectTextFiles.py Histograms_CMSSW76X_NJets_LT1_V2/AnalysisHistograms_V0METBIN_3/
+
+python  CombineDataCards.py DataCards_Histograms_CMSSW76X_NJets_LT1_V2/AnalysisHistograms_V0METBIN_1/
+python  CombineDataCards.py DataCards_Histograms_CMSSW76X_NJets_LT1_V2/AnalysisHistograms_V0METBIN_2/
+python  CombineDataCards.py DataCards_Histograms_CMSSW76X_NJets_LT1_V2/AnalysisHistograms_V0METBIN_3/
+
+python CombineDataCardsMETBins.py DataCards_Histograms_CMSSW76X_NJets_LT1_V2
+
+python RunLimitAllPoints.py  DataCards_Histograms_CMSSW76X_NJets_LT1_V2/METBinsCombined

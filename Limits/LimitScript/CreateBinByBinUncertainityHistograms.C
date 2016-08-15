@@ -3,7 +3,7 @@ void CreateBinByBinUncertainityHistograms(TString rootfilename){
   
   TH1F* QCD_bbb = QCD->Clone("QCD_bbb");
   ChangeAllBins(QCD_bbb, "QCD_QCD_bin");
-
+  
   TH1F* WJets_bbb = WJets->Clone("WJets_bbb");
   ChangeAllBins(WJets_bbb, "WJets_WJets_bin");
   

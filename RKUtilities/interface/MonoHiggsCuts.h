@@ -11,6 +11,11 @@ using namespace std;
 class MonoHiggsCuts {
  public:
   MonoHiggsCuts(){
+    
+    float btagcut = 0.460;
+    //float btagcut = 0.605;
+    
+    
     // cutsMap
     // they are named like this so that they remain sorted in the map.
     // saved in alphabatical order in the cuts name map.
@@ -72,7 +77,7 @@ class MonoHiggsCuts {
     cutValueMapFatJet.clear();
     cutValueMapFatJet["leadingjetpt"]=200.;
     cutValueMapFatJet["jeteta"]=2.4;
-    cutValueMapFatJet["leadingcsv"]=0.605;
+    cutValueMapFatJet["leadingcsv"]= btagcut;//0.460;
     //cutValueMapFatJet["leadingcsv"]=0.89;
     //cutValueMapFatJet["leadingcsv"]=0.97;
     cutValueMapFatJet["csvlow"]=0.3;
@@ -104,8 +109,8 @@ class MonoHiggsCuts {
     cutValueMap["jeteta"]=2.5;
     //cutValueMap["leadingcsv"]=0.432;
     //cutValueMap["subleadingcsv"]=0.432;
-    cutValueMap["leadingcsv"]=0.605;
-    cutValueMap["subleadingcsv"]=0.605;
+    cutValueMap["leadingcsv"]=btagcut;//0.460;
+    cutValueMap["subleadingcsv"]=btagcut;//0.460;
     cutValueMap["metpt"]=200.;
     cutValueMap["dphiDiJetMet"]=2.5;
     cutValueMap["MTDiJet"]=400;
@@ -128,7 +133,7 @@ class MonoHiggsCuts {
     cutValueMapTTBar.clear();
     cutValueMapTTBar["leadingjetpt"]=200.;
     cutValueMapTTBar["jeteta"]=2.4;
-    cutValueMapTTBar["leadingcsv"]=0.605;
+    cutValueMapTTBar["leadingcsv"]=btagcut;//0.460;
     //cutValueMapTTBar["leadingcsv"]=0.89;
     cutValueMapTTBar["csvlow"]=0.3;
     cutValueMapTTBar["csvhigh"]=0.6;
@@ -154,7 +159,7 @@ class MonoHiggsCuts {
     cutValueMapTTBar_Merged.clear();
     cutValueMapTTBar_Merged["leadingjetpt"]=200.;
     cutValueMapTTBar_Merged["jeteta"]=2.4;
-    cutValueMapTTBar_Merged["leadingcsv"]=0.605;
+    cutValueMapTTBar_Merged["leadingcsv"]=btagcut;//0.460;
     cutValueMapTTBar_Merged["csvlow"]=0.3;
     cutValueMapTTBar_Merged["csvhigh"]=0.6;
     cutValueMapTTBar_Merged["metpt"]=200.;
@@ -178,8 +183,8 @@ class MonoHiggsCuts {
     // cutValueMapZLight
     cutValueMapZLight.clear();
     cutValueMapZLight["leadingjetpt"]=200.;
-    cutValueMapZLight["jeteta"]=2.5;
-    cutValueMapZLight["leadingcsv"]=0.605;
+    cutValueMapZLight["jeteta"]=2.4;
+    cutValueMapZLight["leadingcsv"]=btagcut;//0.460;
     //cutValueMapZLight["leadingcsv"]=0.89;
     cutValueMapZLight["csvlow"]=0.3;
     cutValueMapZLight["csvhigh"]=0.6;
@@ -204,8 +209,8 @@ class MonoHiggsCuts {
     // cutValueMapZHeavy
     cutValueMapZHeavy.clear();
     cutValueMapZHeavy["leadingjetpt"]=200.;
-    cutValueMapZHeavy["jeteta"]=2.5;
-    cutValueMapZHeavy["leadingcsv"]=0.605;
+    cutValueMapZHeavy["jeteta"]=2.4;
+    cutValueMapZHeavy["leadingcsv"]=btagcut;//0.460;
     //cutValueMapZHeavy["leadingcsv"]=0.89;
     cutValueMapZHeavy["csvlow"]=0.3;
     cutValueMapZHeavy["csvhigh"]=0.6;
@@ -230,8 +235,8 @@ class MonoHiggsCuts {
     // -------- W+Jets -----------
     cutValueMapWLight.clear();
     cutValueMapWLight["leadingjetpt"]=200.;
-    cutValueMapWLight["jeteta"]=2.5;
-    cutValueMapWLight["leadingcsv"]=0.605;
+    cutValueMapWLight["jeteta"]=2.4;
+    cutValueMapWLight["leadingcsv"]=btagcut;//0.460;
     //cutValueMapWLight["leadingcsv"]=0.89;
     cutValueMapWLight["csvlow"]=0.3;
     cutValueMapWLight["csvhigh"]=0.6;
@@ -257,8 +262,8 @@ class MonoHiggsCuts {
     // cutValueMapWHeavy
     cutValueMapWHeavy.clear();
     cutValueMapWHeavy["leadingjetpt"]=200.;
-    cutValueMapWHeavy["jeteta"]=2.5;
-    cutValueMapWHeavy["leadingcsv"]=0.605;
+    cutValueMapWHeavy["jeteta"]=2.4;
+    cutValueMapWHeavy["leadingcsv"]=btagcut;//0.460;
     //cutValueMapWHeavy["leadingcsv"]=0.89;
     cutValueMapWHeavy["csvlow"]=0.3;
     cutValueMapWHeavy["csvhigh"]=0.6;

@@ -1,6 +1,9 @@
 #define RKAnalyzer_cxx
+
 #include "../interface/RKAnalyzer.h"
+
 #include <fstream>
+
 #include <TH2.h>
 #include <TStyle.h>
 #include <TCanvas.h>
@@ -12,6 +15,10 @@
 
 using namespace std;
 void RKAnalyzer::Loop(TString output, TString running_mode){
+  CMSSW74 = false;
+  if(CMSSW74) btagcut = 0.605;
+  if(!CMSSW74) btagcut = 0.460;
+  
   sample_name = running_mode;
   std::cout<<" in loop running_mode "<<running_mode<<std::endl;
   //EventsToSkip evtskip;
@@ -153,24 +160,36 @@ void RKAnalyzer::Loop(TString output, TString running_mode){
      bool met90 = false;
      bool met120 = false;
      
-     if(!isData)   met120 = TriggerStatus("HLT_PFMET120_PFMHT120_IDLoose_v");
+     if(!isData)   met120 = TriggerStatus("HLT_PFMET120_PFMHT120_IDTight_v");
      if(isData)   met120 = TriggerStatus("HLT_PFMET120_PFMHT120_IDTight_v");
      
-     if(!isData)  met90 = TriggerStatus("HLT_PFMET90_PFMHT90_IDLoose_v");
+     if(!isData)  met90 = TriggerStatus("HLT_PFMET90_PFMHT90_IDTight_v");
      if(isData)   met90 = TriggerStatus("HLT_PFMET90_PFMHT90_IDTight_v");
      
      bool met170 = TriggerStatus("HLT_PFMET170_NoiseCleaned_v");
      
-     bool csct   = FilterStatus("Flag_CSCTightHaloFilter");
+     //bool csct   = FilterStatus("Flag_CSCTightHaloFilter");
+     //bool eeBadSC   = FilterStatus("Flag_eeBadScFilter");
+     //bool hcalIsoNoise = FilterStatus("Flag_HBHENoiseIsoFilter");
+     
+     bool hbhe      = FilterStatus("Flag_HBHENoiseFilter");
+     bool hbheIso   = FilterStatus("Flag_HBHENoiseIsoFilter");
+     bool csct      = FilterStatus("Flag_CSCTightHalo2015Filter");
+     bool ecalDC    = FilterStatus("Flag_EcalDeadCellTriggerPrimitiveFilter");
      bool eeBadSC   = FilterStatus("Flag_eeBadScFilter");
-     bool hcalIsoNoise = FilterStatus("Flag_HBHENoiseIsoFilter");
      
+     if(!isData) triggerstatus =  met90 || met170 ;
+     //if(!isData) triggerstatus =  true ;
+     if(isData)  triggerstatus =  met90 || met170 ;
      
-     triggerstatus =  met90 || met120 ;
-     //triggerstatus =  true ;
+     //if(!isData)  filterstatus = true;//eeBadSC && csct  && hlt_hbhet && hcalIsoNoise;
+     //if(isData)   filterstatus = eeBadSC && csct  && hlt_hbhet && hcalIsoNoise;
      
-     if(!isData)  filterstatus = true;//eeBadSC && csct  && hlt_hbhet && hcalIsoNoise;
-     if(isData)   filterstatus = eeBadSC && csct  && hlt_hbhet && hcalIsoNoise;
+     if(!isData) filterstatus = hbhe && hbheIso && csct && ecalDC && eeBadSC;
+     if(isData)  filterstatus = hbhe && hbheIso && csct && ecalDC && eeBadSC ;
+     
+     //filterstatus = true;
+     
      if(false) std::cout<<" ---------- trigger done ---------"<<std::endl;
      if(false) std::cout<<" final filter = "<<filterstatus<<std::endl;
      
@@ -216,13 +235,6 @@ void RKAnalyzer::Loop(TString output, TString running_mode){
 			 <<" pfMetRawPt = "<<pfMetRawPt
 			<<" pfMetRawPhi = "<<pfMetRawPhi
 			<<" pfMetRawSumEt = "<<pfMetRawSumEt
-			<<" pfmvaMetPt_ = "<<pfmvaMetPt_
-			<<" pfmvaMetPhi_ = "<<pfmvaMetPhi_
-			<<" pfmvaMetSumEt_ = "<<pfmvaMetSumEt_
-			<<" pfmvaMetSig_ = "<<pfmvaMetSig_
-			 <<" pfMetRawCov00 " <<pfMetRawCov00
-			<<" pfMetRawCov01 = "<<pfMetRawCov01
-			<<" pfMetRawCov10 = "<<pfMetRawCov10
 			<<std::endl;     // if (Cut(ientry) < 0) continue;
    }
    
@@ -376,12 +388,12 @@ void RKAnalyzer::JetProducer(){
     if(drMu<0.4) continue;
     // jet cleaning ends here. 
 
-    if(TMath::Abs(fourmom->Eta()) < 2.4 && 
+    if(//TMath::Abs(fourmom->Eta()) < 2.4 && 
        fourmom->Pt() > 30. &&
        (*THINjetPassIDTight)[i] )   RKJetCollection.push_back(jets);
     
     
-    if(TMath::Abs(fourmom->Eta()) < 2.4 && 
+    if(//TMath::Abs(fourmom->Eta()) < 2.4 && 
        fourmom->Pt() > 30. &&
        (*THINjetPassIDTight)[i] )   mhtp4 = mhtp4 + (*fourmom);
 
@@ -391,7 +403,8 @@ void RKAnalyzer::JetProducer(){
        fourmom->Pt() > 30. && 
        (*THINjetPassIDTight)[i] && 
        //(*THINPUJetID)[i] > -0.63 
-       jets.B_CISVV2 > 0.605
+       jets.B_CISVV2 > btagcut //0.460
+       //jets.B_CISVV2 > 0.605
        //jets.B_CISVV2 > 0.89
        //triggerstatus
        ) RKJetCollection_selected.push_back(jets);
@@ -405,7 +418,7 @@ void RKAnalyzer::JetProducer(){
 
 
 void RKAnalyzer::FATJetProducer(){
-  if(false)  std::cout<< "FATnJet = "<<FATnJet<<std::endl;
+  if(true)  std::cout<< "FATnJet = "<<FATnJet<<std::endl;
   for(Int_t i=0;i<FATnJet;i++){
     fatjets.Clear();
     TLorentzVector*  fourmom = (TLorentzVector*) FATjetP4->At(i);
@@ -424,25 +437,27 @@ void RKAnalyzer::FATJetProducer(){
     fatjets.B_CSV                          = (*FATjetCSV)[i];
     fatjets.B_SSVHE                        = (*FATjetSSVHE)[i];
     fatjets.B_CISVV2                       = (*FATjetCISVV2)[i];
+    std::cout<<" debug 1 "<<std::endl;
     fatjets.B_TCHP                         = (*FATjetTCHP)[i];
     fatjets.B_TCHE                         = (*FATjetTCHE)[i];
     fatjets.B_JP                           = (*FATjetJP)[i];
     fatjets.B_JBP                          = (*FATjetJBP)[i];
     //fatjets.SDmass                         = (*FATjetSDmass)[i];
     fatjets.SDmass                         = (*FATjetPRmassL2L3Corr)[i];
-    fatjets.TRmass                         = (*FATjetTRmass)[i];
     fatjets.PRmass                         = (*FATjetPRmass)[i];
-    fatjets.Fimass                         = (*FATjetFimass)[i];
     fatjets.tau1                           = (*FATjetTau1)[i];
     fatjets.tau2                           = (*FATjetTau2)[i];
+    std::cout<<" debug 2 "<<std::endl;
+
     fatjets.tau3                           = (*FATjetTau3)[i];
-    fatjets.tau4                           = (*FATjetTau4)[i];
+    //fatjets.tau4                           = (*FATjetTau4)[i];
     fatjets.nsubJets                       = (*FATnSubSDJet)[i];
     
     fatjets.HadronFlavor                   = (*FATsubjetSDHadronFlavor)[i];
     fatjets.SDPx                           = (*FATsubjetSDPx)[i];
     fatjets.SDPy                           = (*FATsubjetSDPy)[i];
     fatjets.SDPz                           = (*FATsubjetSDPz)[i];
+    std::cout<<" debug 3 "<<std::endl;
     
     fatjets.SDEn                           = (*FATsubjetSDE)[i];
     //fatjets.SDEn                           = (*FATsubjetSDCE)[i];
@@ -450,12 +465,29 @@ void RKAnalyzer::FATJetProducer(){
     fatjets.SDCSV                          = (*FATsubjetSDCSV)[i];
     
     fatjets.isLooseJet_     =  (*FATjetPassIDLoose)[i];
-    fatjets.isPUJet_        = (*FATPUJetID)[i] > -0.63  ;
+    //fatjets.isPUJet_        = (*FATPUJetID)[i] > -0.63  ;
     fatjets.nVtx            = nVtx;
+    std::cout<<" debug 4 "<<std::endl;
     
+    // Systematics
+    if(!isData){
+      if((*pdfscaleSysWeights).size()>120) {
+	std::cout<<" debug 5 "<<std::endl;
+	fatjets.muRUp = (*pdfscaleSysWeights)[3];
+	fatjets.muRDown = (*pdfscaleSysWeights)[6];
+	fatjets.muFUp = (*pdfscaleSysWeights)[1];
+	fatjets.muFDown = (*pdfscaleSysWeights)[2];
+	for(int isys=9; isys<=109; isys++)
+	  fatjets.pdfWeights.push_back((*pdfscaleSysWeights)[isys]);
+      }
+    }
+    
+    std::cout<<" debug 6 "<<std::endl;
+
     // fat-jet cleaning before filing the fat-jet vector
     float drEle=999.;
     float drMu=999.;
+    
     for(int iele=0; iele<(int)RKElectronCollection.size();iele++){
       drEle = RKMath::DeltaR(fatjets.p4.Eta(), fatjets.p4.Phi(),RKElectronCollection[iele].p4.Eta(), RKElectronCollection[iele].p4.Phi() );
     }
@@ -466,6 +498,11 @@ void RKAnalyzer::FATJetProducer(){
     }
     if(drMu<0.8) continue;
     
+    std::cout<<" triggerstatus = "<<triggerstatus
+	     <<"filterstatus = "<<filterstatus
+	     <<" nVtx = "<<nVtx
+	     <<" (*FATjetPassIDTight)[i] = "<<(*FATjetPassIDTight)[i]
+	     <<std::endl;
     if(fourmom->Pt()>200.0 && triggerstatus && filterstatus && (*FATjetPassIDTight)[i] && nVtx > 0 ) MH_FATJetCollection.push_back(fatjets);
   }
 }
@@ -1041,11 +1078,12 @@ void RKAnalyzer::MonoHiggsAnalyzer(){
   //--------------------------------------------------------
   std::vector<int> fatjetbitVec ;
   fatjetbitVec.clear();
-  fatjetbitVec = {0, 6, 8, 12, 21};
+  fatjetbitVec = {0, 8, 12, 21};
   if(RKFatJetMETCollectionWithStatus.size()>0) histfacFatJetPreSel.Fill(RKFatJetMETCollectionWithStatus,3,fatjetbitVec, eventlist);
   if(RKFatJetMETCollectionWithStatus.size()>0) nminusobj.Fill(RKFatJetMETCollectionWithStatus,fatjetbitVec);
   if(RKFatJetMETCollectionWithStatus.size()>0) cutflowFatJetobj.CutFlow(RKFatJetMETCollectionWithStatus, fatjetbitVec);
-
+  std::cout<< " status --------------- "<<RKFatJetMETCollectionWithStatus.size()
+	   <<std::endl;
   //--------------------------------------------------------
   // Two Sub Jet CSV
   //--------------------------------------------------------
@@ -1113,7 +1151,9 @@ void RKAnalyzer::MonoHiggsAnalyzer(){
   //--------------------------------------------------------
   //---------- This is now full selection ------------------
   fatjetbitVec.clear();
-  fatjetbitVec = {0, 2, 6, 7, 8, 14, 15,12,21}; // two sub-bjet tag
+  
+  if(CMSSW74)  fatjetbitVec = {0, 2, 6, 7, 8, 14, 15, 12, 21 }; // two sub-bjet tag
+  if(!CMSSW74) fatjetbitVec = {0, 5, 6, 7, 8, 14, 15, 12, 21 }; // two sub-bjet tag
   //fatjetbitVec = {0, 5, 6, 7, 8, 14, 15}; // two sub-btag jets DR
   if(RKFatJetMETCollectionWithStatus.size()>0) histfactSel_JetAndLeptonVeto.Fill(RKFatJetMETCollectionWithStatus,3,fatjetbitVec,eventlist);
   
@@ -1141,12 +1181,14 @@ void RKAnalyzer::MonoHiggsAnalyzer(){
   //--------------------------------------------------------
   //---------- This is with MET UP ------------------
   fatjetbitVec.clear();
-  fatjetbitVec = {0, 2, 6, 7, 19, 14, 15,12,21}; // two sub-bjet tag
+  if(CMSSW74) fatjetbitVec  = {0, 2, 6, 7, 19, 14, 15,12,21}; // two sub-bjet tag
+  if(!CMSSW74) fatjetbitVec = {0, 5, 6, 7, 19, 14, 15,12,21}; // two sub-bjet tag
   if(RKFatJetMETCollectionWithStatus.size()>0) histfactSel_JetAndLeptonVetoMETUp.Fill(RKFatJetMETCollectionWithStatus,3,fatjetbitVec,eventlist);
   
   //---------- This is with MET DOWN ------------------
   fatjetbitVec.clear();
-  fatjetbitVec = {0, 2, 6, 7, 20, 14, 15,12,21}; // two sub-bjet tag
+  if(CMSSW74)  fatjetbitVec = {0, 2, 6, 7, 20, 14, 15,12,21}; // two sub-bjet tag
+  if(!CMSSW74) fatjetbitVec = {0, 5, 6, 7, 20, 14, 15,12,21}; // two sub-bjet tag
   if(RKFatJetMETCollectionWithStatus.size()>0) histfactSel_JetAndLeptonVetoMETDown.Fill(RKFatJetMETCollectionWithStatus,3,fatjetbitVec,eventlist);
     
   
@@ -1159,6 +1201,7 @@ void RKAnalyzer::MonoHiggsAnalyzer(){
   //fatjetbitVec = {0, 16, 6, 8, 15, 11, 13};
   
   fatjetbitVec = {0,  6, 8, 15, 11, 13,12,21}; //
+  
   
   //fatjetbitVec = {0, 6, 8, 15, 11, 13}; // relaxed sub-jet btag for ttbar for now
   if(RKFatJetMETCollectionWithStatus.size()>0) histfacFatJet_TTBar.Fill(RKFatJetMETCollectionWithStatus,3,fatjetbitVec, eventlist);
@@ -1179,7 +1222,10 @@ void RKAnalyzer::MonoHiggsAnalyzer(){
   // Replace the baseline analysis status bits by Z+Light status bit
   fatjetbitVec.clear();
   if(RKFatJetMETCollection.size()>0) RKFatJetMETCollectionWithStatus  = selectionbits.SelectionBitsSaver(RKFatJetMETCollectionWithStatus, cuts.cutValueMapZLight);
-  fatjetbitVec = {0, 2, 6, 8, 15, 14, 13,12,21};
+  if(CMSSW74)  fatjetbitVec =  {0, 2, 6, 8, 15, 14, 13,12,21};
+  if(!CMSSW74)  fatjetbitVec = {0, 5, 6, 8, 15, 14, 13,12,21};
+  //fatjetbitVec = {0, 6, 8, 12, 21};
+
   if(RKFatJetMETCollectionWithStatus.size()>0) histfacFatJet_ZLight.Fill(RKFatJetMETCollectionWithStatus,3,fatjetbitVec, eventlist);
   
   if(RKFatJetMETCollectionWithStatus.size()>0) histfacFatJet_ZLightBTagUp.Fill(RKFatJetMETCollectionWithStatus,3,fatjetbitVec, eventlist);
@@ -1210,7 +1256,8 @@ void RKAnalyzer::MonoHiggsAnalyzer(){
   // Replace the baseline analysis status bits by ttbar status bit
   //if(RKFatJetMETCollection.size()>0) RKFatJetMETCollectionWithStatus  = selectionbits.SelectionBitsSaver(RKFatJetMETCollectionWithStatus, cuts.cutValueMapWHeavy);
   fatjetbitVec.clear();
-  fatjetbitVec = {0, 2, 6, 8, 15, 14, 13, 12, 21}; 
+  if(CMSSW74)  fatjetbitVec = {0, 2, 6, 8, 15, 14, 13, 12, 21}; 
+  if(!CMSSW74) fatjetbitVec = {0, 5, 6, 8, 15, 14, 13, 12, 21}; 
   if(RKFatJetMETCollectionWithStatus.size()>0) histfacFatJet_WHeavy.Fill(RKFatJetMETCollectionWithStatus,3,fatjetbitVec, eventlist);
   
   //--------------------------------------------------------

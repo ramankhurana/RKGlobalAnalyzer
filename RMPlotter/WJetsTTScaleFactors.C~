@@ -1,7 +1,0 @@
-void WJetsTTScaleFactors(){
-
-  Double_t  a1;
-  std::cout<<" Enter Value of a1 = ";
-  std::cin>>a1;
-  std::cout<<" a1 = "<<a1<<std::endl;
-}

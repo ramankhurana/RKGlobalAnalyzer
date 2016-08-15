@@ -14,6 +14,8 @@ class Jet{
   Int_t charge;
   Int_t partonFlavor;
   
+  
+  
   Float_t B_SSV;
   Float_t B_CSV;
   Float_t B_SSVHE;
@@ -53,6 +55,12 @@ class Jet{
   Float_t doubleSV;
   Int_t   nSV;
   std::vector<Float_t> SVMass;
+  
+  Float_t muRUp;
+  Float_t muRDown;
+  Float_t muFUp;
+  Float_t muFDown;
+  std::vector<Float_t> pdfWeights;
   
   Float_t jetHFHadEF;
   Float_t jetHFEMEF;
@@ -99,6 +107,13 @@ class Jet{
     SDEn.clear();
     SDCSV.clear();
     HadronFlavor.clear();
+    
+
+    muRUp=0.;
+    muRDown=0.;
+    muFUp=0.;
+    muFDown=0.;
+    pdfWeights.clear();
     
     doubleSV=0.;
     nSV=0;

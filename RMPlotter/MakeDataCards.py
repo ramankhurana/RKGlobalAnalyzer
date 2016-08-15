@@ -5,11 +5,11 @@ ROOT.gROOT.SetBatch(True)
 from DataSetInfo import *
 
 
-if len(sys.argv) < 3 :
+if len(sys.argv) < 4 :
     print "insufficient options provided see help function "
     exit (1)
 
-if len(sys.argv) == 3 :
+if len(sys.argv) == 4 :
     print ('You are makeing datacards for '+sys.argv[1]+' and datacards will be saved in '+sys.argv[2])
 
 
@@ -17,7 +17,8 @@ if len(sys.argv) == 3 :
 #dirtosave='twosubjets'
 inputtextfilename=sys.argv[1]
 dirtosave=sys.argv[2]
-
+rootfilename=sys.argv[3]
+datacrdPrefix=sys.argv[4]
 os.system('mkdir -p '+dirtosave)
 
 ## prepare template datacard and store in this variable. 
@@ -31,7 +32,7 @@ kmax    *       number of nuisance parameters (sources of systematical uncertain
 
 -------------------------------------------------------------------------------------------------
 
---shapes *     MONOHBB  ROOTFILENAME $PROCESS $PROCESS_$SYSTEMATIC
+shapes *     MONOHBB  ROOTFILENAME $PROCESS $PROCESS_$SYSTEMATIC
 
 -------------------------------------------------------------------------------------------------
 bin                      MONOHBB
@@ -40,7 +41,7 @@ observation              DATARATE
 -------------------------------------------------------------------------------------------------
 
 bin                      MONOHBB   MONOHBB    MONOHBB    MONOHBB    MONOHBB    MONOHBB
-process                  Sig       DYJets      WJets      ZH          TT        DIBOSON 
+process                  SIGNALNAME       DYJets      WJets      ZH          TT        DIBOSON 
 
 -------------------------------------------------------------------------------------------------
 
@@ -51,10 +52,23 @@ rate                SIGNALRATE       DYJETSRATE    WJETSRATE    ZHRATE      TTRA
 -------------------------------------------------------------------------------------------------
 
 ######################   #### #########  Sig   DYJet  WJets  ZH       TT     DIBOSON  
-lumi_13TeV                lnN            1.04    -      -     1.04     -      1.04  
-
+lumi_13TeV                lnN            1.026    -      -     1.026     -      1.026  
 pdf_qqbar                 lnN            1.01    -      -     1.01     -      1.01
 pdf_gg                    lnN             -      -     -      1.50       -        - 
+
+CMS_monoHbb_ewk           shape          -      1.0  1.0   -    -    -
+CMS_monoHbb_scaleF        shape          -      1.0  1.0   -    -    -
+CMS_monoHbb_scaleR        shape          -      1.0  1.0   -    -    -
+
+CMS_monoHbb_scaleF        shape          1.0     -    -    -    -    -
+CMS_monoHbb_scaleR        shape          1.0     -    -    -    -    -
+
+
+CMS_monoHbb_pdf              lnN         -     1.05   1.05   1.05   1.05   1.05
+CMS_monoHbb_pdf_sig          lnN         1.05   -     -       -      -      - 
+CMS_monoHbb_ToppT            lnN         -      -      -       -     1.20   - 
+CMS_monoHbb_metUnclusteredEn lnN         1.05   1.05   1.05   1.05   1.05   1.05
+
 
 QCDscale_VH               lnN            1.04    -      -     1.04     -        - 
 QCDscale_VV               lnN             -      -      -     -        -      1.04
@@ -63,13 +77,21 @@ CMS_monoHbb_ST               lnN             -      -      -      -       1.25  
 CMS_monoHbb_VV               lnN             -      -      -      -       -      1.25
 CMS_monoHbb_eff_b            lnN            1.07    -      -    1.07      -      1.07
 CMS_monoHbb_fake_b_13TeV     lnN            1.03    -      -    1.03      -        - 
-CMS_monoHbb_res_j            lnN            1.05    -      -    1.05      -      1.05
-CMS_monoHbb_scale_j          lnN            1.05    -      -    1.05      -      1.05
+CMS_monoHbb_res_j            lnN            1.05    1.05   1.05   1.05      1.05      1.05
+CMS_monoHbb_scale_j          lnN            1.05    1.05   1.05   1.05      1.05      1.05
+
+CMS_monoHbb_HMassShower      lnN            1.07    1.07    -      -         -         -
+CMS_monoHbb_HMass            lnN            1.10/0.90  0.90/1.10  -    -     -         -
+
+
 
 CMS_monoHbb_WHFunc         lnN             -      -     1.10   -        -        - 
 #CMS_monoHbb_Wjets_SF         lnN             -      -     1.10   -        -        - 
 #CMS_monoHbb_DYjets_SF        lnN             -     1.10    -     -        -        -    
 #CMS_monoHbb_TT_SF            lnN             -      -      -     -       1.10      - 
+
+
+
 
 CMS_monoHbb_monoH_stat       lnN            SIGNALERRRATE    -      -     -        -        -
 CMS_monoHbb_ggZH_stat        lnN             -      -      -    ZHERRRATE      -        - 
@@ -78,7 +100,36 @@ CMS_monoHbb_DYjets_stat      lnN            -      DYJETSERRRATE   -     -      
 CMS_monoHbb_TT_stat          lnN            -      -      -     -       TTERRRATE      -
 CMS_monoHbb_VV_stat          lnN            -      -      -     -        -      DIBOSONERRRATE
 
+
+SIGNALNAME_stat_bin1       shape           1.0    -      -     -       -       -
+SIGNALNAME_stat_bin2       shape           1.0    -      -     -       -       -
+SIGNALNAME_stat_bin3       shape           1.0    -      -     -       -       -
+
+DYJets_stat_bin1           shape           -      1.0    -     -       -       -
+DYJets_stat_bin2           shape           -      1.0    -     -       -       -
+DYJets_stat_bin3           shape           -      1.0    -     -       -       -
+
+WJets_stat_bin1           shape           -       -     1.0    -        -      -
+WJets_stat_bin2           shape           -       -     1.0    -        -      -
+WJets_stat_bin3           shape           -       -     1.0    -        -      -
+
+ZH_stat_bin1             shape           -       -     -      1.0      -      - 
+ZH_stat_bin2             shape           -       -     -      1.0      -      - 
+ZH_stat_bin3             shape           -       -     -      1.0      -      - 
+
+TT_stat_bin1             shape           -       -     -       -       1.0   -     
+TT_stat_bin2             shape           -       -     -       -       1.0   -     
+TT_stat_bin3             shape           -       -     -       -       1.0   -     
+
+DIBOSON_stat_bin1        shape           -       -     -       -       -     1.0
+DIBOSON_stat_bin2        shape           -       -     -       -       -     1.0
+DIBOSON_stat_bin3        shape           -       -     -       -       -     1.0
+
+
 CMS_monoHbb_trigger_MET      lnN          1.03     -      -    1.03      -      1.03
+
+
+######################   #### #########  Sig   DYJet  WJets  ZH       TT     DIBOSON  
 '''
 
 ## template datacard ends here 
@@ -184,7 +235,7 @@ print signalvaluemaperr
 
 def MakeDataCard(masspoint):
     datacard = open('DataCard_MXXXGeV.txt','r')
-    newdatacardname = dirtosave+'/DataCard_'+masspoint+'GeV_MonoHbb_13TeV.txt'
+    newdatacardname = dirtosave+'/'+datacrdPrefix+'_DataCard_'+masspoint+'GeV_MonoHbb_13TeV.txt'
     os.system('rm '+newdatacardname)
     datacard600 = open(newdatacardname,'w')
     
@@ -197,7 +248,11 @@ def MakeDataCard(masspoint):
         ## replace the signal values
         masspointrate = masspoint + "RATE"
         line = line.replace('SIGNALRATE', signalvaluemap[masspointrate])
+        name = 'monoHbb'+str(masspoint)
+        line = line.replace('SIGNALNAME',name)
         line = line.replace('SIGNALERRRATE', signalvaluemaperr[masspointrate])
+        line = line.replace('ROOTFILENAME',rootfilename)
+        line = line.replace('kmax 25','kmax 26')
         datacard600.write(line)
     datacard600.close()
 

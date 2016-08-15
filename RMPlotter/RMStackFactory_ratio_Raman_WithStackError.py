@@ -52,7 +52,7 @@ float lumi = 2263.5; // It will print on your plots too
 std::vector<TString> filenameString;
 //Change here Directories of the file
 
-TString filenamepath("/afs/hep.wisc.edu/cms/khurana/Script/'''+inputdirname+'''/"); 
+TString filenamepath("/afs/hep.wisc.edu/cms/khurana/Script/CMSSW76_V1/'''+inputdirname+'''/"); 
 // DYJets 1
 filenameString.push_back(filenamepath + "Merged_WW_TuneCUETP8M1_13TeV-pythia8-runallAnalysis.root");
 //WJets  1
@@ -211,8 +211,8 @@ for(int i =0; i<(int)filenameString.size()-1; i++){
  h_mc[i]->Rebin(REBIN); 
  h_mc[i]->Sumw2();
 
- h_total      = (TH1F*) fIn->Get("nEvents_weight");
-// h_total      = (TH1F*) fIn->Get("h_total");
+// h_total      = (TH1F*) fIn->Get("nEvents_weight");
+ h_total      = (TH1F*) fIn->Get("h_total");
  
 //std::cout<<" normalization for = "<<i<<"  "<<filenameString[i]<<"   "
 //<<h_mc[i]->Integral()
@@ -839,7 +839,7 @@ for dirname in dirnames:
         #makeplot([dirname,'h_dPhi_MT_0','N_{AK04 Jets}','0','10','1','0','1'])
         makeplot([dirname,'h_nMuons0','N_{add. #mu}','0','5','1','0','1'])
         makeplot([dirname,'h_MET0','MET','200','700','2','0'])
-        #makeplot([dirname,'h_NThinJets0','N_{AK04 Jets}','0','10','1','0','1'])
+        makeplot([dirname,'h_NThinJets0','N_{AK04 Jets}','0','10','1','0','1'])
         #makeplot([dirname,'h_pTjj0','p_{T}^{AK8Jet}','100','1000','4','0'])
         #makeplot([dirname,'h_CSV10', 'CSV_{1}', '0','1', '1','0'])
         #makeplot([dirname,'h_CSV20', 'CSV_{2}', '0','1', '1','0'])

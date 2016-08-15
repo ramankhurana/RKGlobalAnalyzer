@@ -17,7 +17,7 @@
 #include "TPaveText.h"
 #define nXm 8
 
-const float intLumi = 2.15;
+const float intLumi = 2.3;
 const string dirXSect = "./";
 
 void plot_Asymptotic();
@@ -73,11 +73,11 @@ double linear_interp(double s2, double s1, double mass, double m2, double m1)
 
 
 
-void plot_Asymptotic(string outputdir)
+void plot_Asymptotic(string outputdir, string mode)
 {
   
   bool drawth = true;
-  TString outfilename = TString(outputdir.c_str())+".root";
+  TString outfilename = TString(outputdir.c_str())+"/SPlusBFit.root";
   TFile *fout = new TFile(outfilename,"RECREATE");
   bool useNewStyle = true;
   if (useNewStyle)  setFPStyle();
@@ -142,8 +142,16 @@ void plot_Asymptotic(string outputdir)
 	//     }//end while loop
 
   }//file loop
+  
+  string xsect_file_th;
+  if(mode == "cms")  xsect_file_th = dirXSect + "xsec_MonoHTheoryCMS.txt";
+  if(mode == "atlas")  xsect_file_th = dirXSect + "xsec_MonoHTheoryATLAS.txt";
+  if(mode == "one") xsect_file_th = dirXSect + "xsecUnity_MonoHTheory.txt";
+  
 
-  string xsect_file_th = dirXSect + "xsec_MonoHTheory.txt";
+  //string xsect_file_th = dirXSect + "xsec_MonoHTheory.txt";
+  //string xsect_file_th = dirXSect + "xsecOnly_MonoHTheory.txt";
+  //string xsect_file_th = dirXSect + "xsecUnity_MonoHTheory.txt";
 
 
   ifstream xsect_file(xsect_file_th.c_str(), ios::in);
@@ -258,11 +266,16 @@ void plot_Asymptotic(string outputdir)
   TH1F *hr = cMCMC->DrawFrame(fr_left, fr_down, fr_right, fr_up, "");
   TString VV = "ZH";
   
-  std::cout<<" working upto this point "<<std::endl;
+  //std::cout<<" working upto this point "<<std::endl;
   hr->SetXTitle("M_{Z'} [GeV]");
+  hr->GetXaxis()->SetNdivisions(508);
   hr->SetYTitle("95% CLs on #sigma(Z`#rightarrow#chi#bar{#chi}H)#timesBR(H#rightarrowb#bar{b})[pb]"); // #rightarrow 2l2q
+  //hr->SetYTitle("95% CLs on #sigma(Z`#rightarrow#chi#bar{#chi}H)[pb]"); // #rightarrow 2l2q
+
   hr->SetMinimum(0.001);
   hr->SetMaximum(1000);
+  if(mode == "one") hr->SetMinimum(0.1);
+
 
   gr95_cls->SetFillColor(kYellow);
   gr95_cls->SetFillStyle(1001);//solid
@@ -274,8 +287,8 @@ void plot_Asymptotic(string outputdir)
   gr95_cls->GetXaxis()->SetRangeUser(fr_left, fr_right);
 
   gr95_cls->Draw("3");
-  //  gr95_cls->SetMinimum(0.00001);
-  //gr95_cls->SetMaximum(1000.0);
+  //gr95_cls->SetMinimum(0.1);
+  //xgr95_cls->SetMaximum(1000.0);
   
   //grmedian_cls->SetMinimum(0.00001);
   //grmedian_cls->SetMaximum(1000.0);
@@ -343,9 +356,19 @@ void plot_Asymptotic(string outputdir)
 
   //more graphics
   std::cout<<" working upto this point 4"<<std::endl;
-  TLegend *leg = new TLegend(.30, .65, .85, .90);
+  TLegend *leg = new TLegend(.60, .73, .95, .95);
   //   TLegend *leg = new TLegend(.35,.71,.90,.90);
+  leg->SetBorderSize(1);
+  //leg->SetLineColor(0);                                                                                                                     
+  leg->SetLineStyle(1);
+  leg->SetLineWidth(1);
   leg->SetFillColor(0);
+  leg->SetFillStyle(1001);
+
+
+  leg->SetFillColor(0);
+  leg->SetLineColor(0);
+ 
   leg->SetShadowColor(0);
   leg->SetTextFont(42);
   leg->SetTextSize(0.03);
@@ -361,13 +384,18 @@ void plot_Asymptotic(string outputdir)
   std::cout<<" working upto this point 5"<<std::endl;
     TLatex * latex = new TLatex();
     latex->SetNDC();
-    latex->SetTextSize(0.04);
-    latex->SetTextAlign(31);
-    latex->SetTextAlign(11); // align left
-    latex->DrawLatex(0.18, 0.96, "CMS preliminary 2015");
-    latex->DrawLatex(0.60, 0.96, Form("%.1f fb^{-1} at #sqrt{s} = 13 TeV", intLumi));
-  
-
+    latex->SetTextSize(0.032);
+    latex->SetTextAlign(12); // align left
+    latex->SetNDC(kTRUE);                                                                                                                         latex->SetTextFont(62);
+    latex->DrawLatex(0.18, 0.92, "CMS Preliminary");
+    latex->DrawLatex(0.18, 0.885, Form("#sqrt{s} = 13 TeV,L = %.1f fb^{-1}", intLumi));
+        
+    latex->DrawLatex(0.18,0.85, "Z'#rightarrow DM+H(b#bar{b}) (2HDM)");
+    latex->DrawLatex(0.18,0.805, "M_{A0} = 300 GeV, M_{#chi} = 100 GeV");
+    if(mode == "atlas")latex->DrawLatex(0.18,0.765, "g_{z} = 0.8, tan#beta = 1");
+    if(mode == "cms") latex->DrawLatex(0.18,0.755, "g_{Z}<= 0.03#times#frac{g_{W}}{cos#theta_{W}#timessin^{2}#beta}#times #frac{#sqrt{M_{Z'}^{2}-M_{Z}^{2}}}{M_{Z}}");
+    if(mode == "cms") latex->DrawLatex(0.18,0.69, "tan#beta = 1");
+    if(mode == "one") latex->DrawLatex(0.18,0.765, "tan#beta = 1");
   // cMCMC->RedrawAxis("");
   gPad->RedrawAxis("");
   // hr->GetYaxis()->DrawClone();
@@ -378,16 +406,22 @@ void plot_Asymptotic(string outputdir)
   //string outputname="counting";
   
   std::cout<<" working upto this point 6"<<std::endl;
-  std::string postname = "MonoHToDMbb_Asymptotic.png";
+  std::string postname = "MonoHToDMbb_Asymptotic_"+mode+".png";
   std::string name = outputdir+postname;
+  
   
   cMCMC->SaveAs(name.c_str());
   gPad->SetLogy(1);
-  postname = "MonoHToDMbb_Asymptotic_Log.png";
+  postname = "MonoHToDMbb_Asymptotic_Log_"+mode+".png";
   name = outputdir+postname;
   cMCMC->SaveAs(name.c_str());
   std::cout<<" working upto this point 7"<<name <<std::endl;
   
+  //postname = "MonoHToDMbb_Asymptotic.root";
+  //name = outputdir+postname;
+  //TFile* fout = TFile(name,"RECREATE");
+  //fout->cd();
+    
   /*
     sprintf(fnam, "XZHllbb_%s_Asymptotic.root",outputdir.data() );
     cMCMC->SaveAs(fnam);
@@ -406,6 +440,8 @@ void plot_Asymptotic(string outputdir)
   cMCMC->Draw();
 
   fout->cd();
+  grthSM->Write();
+  grobslim_cls->Write();
   grmedian_cls->Write();
   fout->Close();
 

@@ -39,7 +39,7 @@ class HistFactory {
   
   
   
-  /*
+
   // for sys up value 
   BTagCalibrationReader* readerHF_up;
   BTagCalibrationReader* readerLF_up;  
@@ -48,14 +48,15 @@ class HistFactory {
   // for sys down value 
   BTagCalibrationReader* readerHF_down;
   BTagCalibrationReader* readerLF_down;  
-  */
+
   
 void Fill(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > objectCollection, Int_t howManyObjs, std::vector<int> bitVec);
   void Fill(std::vector<ResonanceWithMET<Jet,MET > > objectCollection, Int_t howManyObjs, std::vector<int> bitVec, std::vector<TString> eventlist);
   void DefineHistograms();
   virtual void GetInputs(TFile* f, TString prefix_, std::string mode1 = "central",std::string mode2="central");
   void Write();
-  double weightBtag(double pt, double eta, unsigned int flav) ;
+  double weightBtag(BTagCalibrationReader* readerHF_, BTagCalibrationReader* readerLF_,double pt, double eta, unsigned int flav, bool systematics) ;
+  //double weightBtag(double pt, double eta, unsigned int flav) ;
   TString prefix;
   TFile* file;
   TTree*   skimTree;
@@ -102,6 +103,14 @@ void Fill(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > objectCollection, 
   TH2F*    h_MET_vs_Q1Q2[nobjectmet];
   TH2F*    h_M_vs_Q1Q2[nobjectmet];
   
+  int      idxMu;
+  int      idxEle;
+  int      idxTau;
+  int      idxJet;
+  int      idxbJet;
+  
+
+  
   //--------------------
   // Adding tree varibales for more debugging.
   //--------------------
@@ -118,6 +127,29 @@ void Fill(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > objectCollection, 
   Int_t       NAddEle_;
   Int_t       NAddTau_;
   Int_t       NAddBJet;
+  
+  Float_t     MupT;
+  Float_t     MuEta;
+  Float_t     ElepT;
+  Float_t     EleEta;
+  Float_t     TaupT;
+  Float_t     TauEta;
+  Float_t     JetpT;
+  Float_t     JetEta;
+  Float_t     bJetpT;
+  Float_t     bJetEta;
+  Float_t     LeppT;
+  Float_t     LepEta;
+  
+  Float_t     SubJ1Pt_;
+  Float_t     SubJ2Pt_;
+  
+  Float_t     SubJ1Eta_;
+  Float_t     SubJ2Eta_;
+  
+  Float_t     SubJ1Phi_;
+  Float_t     SubJ2Phi_;
+  
   Float_t     MinCSV_;
   Float_t     MaxCSV_;
   Float_t     DRSJ_;
@@ -130,6 +162,7 @@ void Fill(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > objectCollection, 
   Float_t     JetPt_;
   Float_t     SumET_;
   Float_t     MET_;
+  Float_t     METPhi_;
   Float_t     jetCEmEF_;
   Float_t     jetCHadEF_;
   Float_t     jetPhoEF_;
@@ -137,8 +170,23 @@ void Fill(std::vector<ResonanceMET<Resonance<Jet,Jet>,MET > > objectCollection, 
   Float_t     jetNHadEF_;
   Float_t     jetMuEF_;
   Float_t     jetCMulti_;
+  Float_t     PUweight_;
+  Float_t     EWKweight_;
+  Float_t     MCweight_;
+  Float_t     BTAGSF_;
+  Float_t     BTAGSFUP_;
+  Float_t     BTAGSFDOWN_;
+  Float_t     BTAGLFSFUP_;
+  Float_t     BTAGLFSFDOWN_;
   
-  protected:
+  Float_t MuRUp;
+  Float_t MuRDown;
+  Float_t MuFUp;
+  Float_t MuFDown;
+  std::vector<Float_t> SysPDFWeight;
+  
+
+ protected:
 
   private:
 

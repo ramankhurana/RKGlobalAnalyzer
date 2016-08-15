@@ -11,7 +11,7 @@ inputdir=sys.argv[1]
 
 masspoints=[#'600',
             #'800',
-            '1000',
+            #'1000',
             '1200',
             '1400',
             '1700',
@@ -29,7 +29,9 @@ for imass in range(len(masspoints)):
     print "================="
     print "estimating limit for ",datacardname
     print "================="
-    os.system('combine -M Asymptotic '+datacardname+ ' -m '+str(masspoints[imass]))
+    limitcmd = 'combine -M Asymptotic '+datacardname+ ' -m '+str(masspoints[imass])
+    print limitcmd
+    os.system(limitcmd)
     print "================="
     print "========moving rootfile to =========",sys.argv[1]
     os.system('mv higgsCombineTest.Asymptotic.mH'+str(masspoints[imass])+'.root '+sys.argv[1])
